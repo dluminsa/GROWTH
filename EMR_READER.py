@@ -986,6 +986,7 @@ if file is not None:
         
 if file is not None:
     st.session_state.reader =True
+    
 if st.session_state.reader:
     list1 = [pot,ti,txnew,rtt,true,dead,two,three,four,curr,M2,M3,M6] #TX
 
@@ -1137,6 +1138,7 @@ if st.session_state.reader:
 
 if st.session_state.reader:
     preva = dfx[dfx['FACILITY']==facility] 
+    st.write(preva)
     prev = int(preva.iloc[0,4])
     #UK = pot- prev #- inn - newad
     #dd = dead.shape[0]
