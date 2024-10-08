@@ -1377,8 +1377,8 @@ if st.session_state.reader:
                                                 data=csv_data,
                                                 file_name=f" {facility} TxNEW_TOs.csv",
                                                 mime="text/csv") 
-    st.write('')
-    st.write('')
-    st.write('')
-    if st.session_state.reader:
-        st.info('**CREATED BY LUMINSA DESIRE**')
+st.write('')
+st.write('')
+st.write('')
+if st.session_state.reader:
+    st.info('**CREATED BY LUMINSA DESIRE**')
