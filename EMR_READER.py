@@ -1194,9 +1194,8 @@ if st.session_state.reader:# and st.session_state.df:
                             sheet2 = spreadsheet.worksheet("VL")
                             sheet2.append_row(row2, value_input_option='RAW')
                             
-                            sheet3 = spreadsheet.worksheet("YEAR")
+                            sheet3 = spreadsheet.worksheet("YEARS")
                             sheet4 = spreadsheet.worksheet("THREEO")
-                            ddad
                             sheet3.append_row(row3, value_input_option='RAW')
                             sheet4.append_row(row4, value_input_option='RAW')
                             st.session_state.submited = True
@@ -1293,6 +1292,7 @@ if st.session_state.reader:# and st.session_state.df:
                                                 data=csv_data,
                                                 file_name=f"{facility} VL_1YR.csv",
                                                 mime="text/csv")
+                                    asdfghjjn
                         ###SIX YEAR LINE LISTS
                              
                             st.write(f"<h6><b>SIX MONTHS COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
