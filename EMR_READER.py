@@ -1021,15 +1021,16 @@ if st.session_state.reader:
             if not facility:
                 st.stop()
             else:
-                st.write(facility)
+                # st.write(facility)
                 pass
 if st.session_state.reader: 
-                @st.cache_data
+                st.write(facility)
                 def lost():
                     dat = df2wks.copy()
                     dat = dat[['ART', 'RD']].copy()
                     dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE'})
                     return dat
+                st.write(facility)
                 @st.cache_data
                 def transfer():
                     dat = dft.copy()
