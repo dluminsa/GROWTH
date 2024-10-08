@@ -745,7 +745,7 @@ if st.session_state.reader:
                     three = df3wks.shape[0]
                     st.write(three)
         
-                    df4wks =df24[df24['RWEEK1']<wk4]
+                    df4wks =df24[df24['RWEEK']<wk4]
                     four = df4wks.shape[0]
                     st.write(four)
         
