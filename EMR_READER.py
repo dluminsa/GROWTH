@@ -1136,8 +1136,8 @@ if st.session_state.reader:
                 
 if st.session_state.reader:
     preva = dfx[dfx['FACILITY']==facility] 
-    st.write(preva.shape)
-    prev = int(preva.iloc[0,4])
+    prev = preva['Q4 CUR'].sum()
+    #prev = int(preva.iloc[0,4])
     #UK = pot- prev #- inn - newad
     #dd = dead.shape[0]
     # if UK <0:
