@@ -215,7 +215,7 @@ if st.session_state.reader:
                     B[['Ayear', 'Amonth', 'Aday']] = B['AS'].str.split('/', expand = True)
                     try:            
                         C['AS'] = pd.to_numeric(C['AS'], errors='coerce')
-                        C['AS'] = pd.to_datetime(C['AS'], origin='1899-12-30', unit='D', errors='ignore')
+                        C['AS'] = pd.to_datetime(C['AS'], origin='1899-12-30', unit='D', errors='coercee')
                         C['AS'] =  C['AS'].astype(str)
                         C[['Ayear', 'Amonth', 'Aday']] = C['AS'].str.split('-', expand = True)
                     except:
