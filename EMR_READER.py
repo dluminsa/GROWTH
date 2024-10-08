@@ -1024,19 +1024,18 @@ if st.session_state.reader:
                 # st.write(facility)
                 pass
 if st.session_state.reader: 
-                st.write(facility)
                 def lost():
                     dat = df2wks.copy()
                     dat = dat[['ART', 'RD']].copy()
                     dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE'})
                     return dat
-                st.write(facility)
                 @st.cache_data
                 def transfer():
                     dat = dft.copy()
                     dat = dat[['ART', 'RD', 'TO']]
                     dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE', 'TO':'TRANSFER OUT DATE'})
                     return dat
+                st.write(facility)
                 @st.cache_data
                 def deceased():
                     dat = died.copy()
