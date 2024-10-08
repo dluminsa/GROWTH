@@ -101,12 +101,12 @@ if 'df' not in st.session_state:
     st.session_state.df = None
 if 'reader' not in st.session_state:
     st.session_state.reader =False#
-ext = None
-if file is not None:
+#ext = None
+if file is not None and not st.session_state.reader:
     # Get the file name
     fileN = file.name
     ext = os.path.basename(fileN).split('.')[1]
-df = None
+#df = None
 if file is not None and not st.session_state.reader:
     if ext !='xlsx':
         st.write('Unsupported file format, first save the excel as xlsx and try again')
@@ -115,7 +115,7 @@ if file is not None and not st.session_state.reader:
                 st.session_state.df = pd.read_excel(file)
                 df = st.session_state.df
                 st.write('Excel accepted')
-if file is not None and not st.session_state.reader:
+#if file is not None and not st.session_state.reader:
 
                 columns = ['ART','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']
                 cols = df.columns.to_list()
@@ -125,8 +125,8 @@ if file is not None and not st.session_state.reader:
                         st.markdown(f' **ERROR !!! {column} is not in the file uploaded**')
                         st.markdown('**First rename all the columns as guided above**')
                         st.stop()
-                else:
-                    st.session_state.reader= True
+                
+                st.session_state.reader= True
 if st.session_state.reader:
                       # Convert 'ART' column to string and create 'ART' column with numeric part to remove blanks
                     df = df[['ART','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']].copy()
