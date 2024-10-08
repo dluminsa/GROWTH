@@ -1373,5 +1373,5 @@ if file is not None:
 st.write('')
 st.write('')
 st.write('')
-if st.session_state.reader:
+if file is nt None:
     st.info('**CREATED BY LUMINSA DESIRE**')
