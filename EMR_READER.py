@@ -983,11 +983,13 @@ if file is not None:
                 else:
                     rete1 = round((newactive1/netnew1)*100)
                     rete1 = f"{rete1} %"
+                st.session_state.reader =True
         
-if file is not None:
-    st.session_state.reader =True
-    st.write(pot)
+# if file is not None:
+#     st.session_state.reader =True
+
 if st.session_state.reader:
+    st.write(pot)
     list1 = [pot,ti,txnew,rtt,true,dead,two,three,four,curr,M2,M3,M6] #TX
 
     list2 = [curr,el,wvl,nvl,two,Lel, lnvl,lwvl, newactive,wvla,nvla,newactive6,wvla6,nvla6] #VL
