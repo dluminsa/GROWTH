@@ -995,24 +995,24 @@ if file is not None:
                              newactive3,rete3,newtotal1, orig1,newti1,newdead1,outnew1,newlost1,netnew1, newactive1,rete1] #THRREO
                 st.session_state.reader =True#
                         
-if st.session_state.reader:
-    st.write(list1)
-    @st.cache_data
-    def L1():
-        l1 = list1
-        return l1
-    @st.cache_data
-    def L2():
-        l2 = list2
-        return l2
-    @st.cache_data
-    def L3():
-        l3 = list3
-        return l3
-    @st.cache_data
-    def L4():
-        l4 = list4
-        return l4
+                if st.session_state.reader:
+                    st.write(list1)
+                    @st.cache_data
+                    def L1():
+                        l1 = list1
+                        return l1
+                    @st.cache_data
+                    def L2():
+                        l2 = list2
+                        return l2
+                    @st.cache_data
+                    def L3():
+                        l3 = list3
+                        return l3
+                    @st.cache_data
+                    def L4():
+                        l4 = list4
+                        return l4
     
 if st.session_state.reader:           
             file2 = r'CLUSTERS.csv'
