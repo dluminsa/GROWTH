@@ -995,43 +995,24 @@ if file is not None:
                              newactive3,rete3,newtotal1, orig1,newti1,newdead1,outnew1,newlost1,netnew1, newactive1,rete1] #THRREO
                 st.session_state.reader =True#
                         
-                if st.session_state.reader:
-                    st.write(list1)
-                    @st.cache_data
-                    def L1():
-                        l1 = list1
-                        return l1
-                    @st.cache_data
-                    def L2():
-                        l2 = list2
-                        return l2
-                    @st.cache_data
-                    def L3():
-                        l3 = list3
-                        return l3
-                    @st.cache_data
-                    def L4():
-                        l4 = list4
-                        return l4
-    
-if st.session_state.reader:           
-            file2 = r'CLUSTERS.csv'
-            dfx = pd.read_csv(file2)
-            clusters  = list(dfx['CLUSTER'].unique())
-            cluster = st.radio(label='**Choose a cluster**', options=clusters,index=None, horizontal=True)
-            if not cluster:
-                st.stop()
-            else:
-                districts = dfx[dfx['CLUSTER']==cluster]
-                districts = list(districts['DISTRICT'].unique())
-                district = st.radio(label='**Choose a district**', options=districts,index=None, horizontal=True)
-                if not district:
-                    st.stop()
-                else:
-                    facilities = dfx[dfx['DISTRICT']==district]
-                    facilities = facilities['FACILITY'].unique()
-                    facility = st.selectbox(label='**Choose a facility**', options=facilities,index=None)
-########CACHE THE DOWNLOADS
+                if st.session_state.reader:          
+                        file2 = r'CLUSTERS.csv'
+                        dfx = pd.read_csv(file2)
+                        clusters  = list(dfx['CLUSTER'].unique())
+                        cluster = st.radio(label='**Choose a cluster**', options=clusters,index=None, horizontal=True)
+                        if not cluster:
+                            st.stop()
+                        else:
+                            districts = dfx[dfx['CLUSTER']==cluster]
+                            districts = list(districts['DISTRICT'].unique())
+                            district = st.radio(label='**Choose a district**', options=districts,index=None, horizontal=True)
+                            if not district:
+                                st.stop()
+                            else:
+                                facilities = dfx[dfx['DISTRICT']==district]
+                                facilities = facilities['FACILITY'].unique()
+                                facility = st.selectbox(label='**Choose a facility**', options=facilities,index=None)
+            ########CACHE THE DOWNLOADS
 
 if st.session_state.reader:
     @st.cache_data
@@ -1148,16 +1129,13 @@ if st.session_state.reader:
     #     pass
     part = [cluster,district,facility,week,wk,prev]
     #ADDING THE CLUSTER PART
-    list1 = L1()
+ 
     row1 = part.extend[list1]
 
-    list2 = L2()
     row2 = part.extend[list2]
 
-    list3 = L3()
     row3 = part.extend[list3]
 
-    list4 = L4()
     row4 = part.extend[list4]
     col1,col2,col3 = st.columns([1,2,1])
     with col3:
