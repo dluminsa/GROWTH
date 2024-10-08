@@ -739,15 +739,12 @@ if st.session_state.reader:
                     #LOST IN TWO WEEKS... REAL MISSED APPOINTMENT FOR THIS
                     df2wks =df24[df24['RWEEK']<wk2].copy()
                     two = df2wks.shape[0]
-                    st.write(two)
         
                     df3wks = df24[df24['RWEEK']<wk3]
                     three = df3wks.shape[0]
-                    st.write(three)
         
                     df4wks =df24[df24['RWEEK']<wk4]
                     four = df4wks.shape[0]
-                    st.write(four)
         
                     dfactive = pd.concat([dfactive24, df25]) #COMBINE THOSE ACTIVE IN TWO WEEKS AND THOSE OF 2025
                     curr = dfactive.shape[0]
@@ -1193,12 +1190,12 @@ if st.session_state.reader:# and st.session_state.df:
                         try:
                             sheet1 = spreadsheet.worksheet("TX")
                             sheet1.append_row(row1, value_input_option='RAW')
-                            # sheet2 = spreadsheet.worksheet("VL")
-                            # sheet2.append_row(row2, value_input_option='RAW')
-                            # sheet3 = spreadsheet.worksheet("YEAR")
-                            # sheet4 = spreadsheet.worksheet("THREEO")
-                            # sheet3.append_row(row3, value_input_option='RAW')
-                            # sheet4.append_row(row4, value_input_option='RAW')
+                            sheet2 = spreadsheet.worksheet("VL")
+                            sheet2.append_row(row2, value_input_option='RAW')
+                            sheet3 = spreadsheet.worksheet("YEAR")
+                            sheet4 = spreadsheet.worksheet("THREEO")
+                            sheet3.append_row(row3, value_input_option='RAW')
+                            sheet4.append_row(row4, value_input_option='RAW')
                             st.session_state.submited = True
                         except Exception as e:
                             # Print the error message
@@ -1208,7 +1205,7 @@ if st.session_state.reader:# and st.session_state.df:
                         st.write('FIRST SUBMIT TO SEE LINELISTS AND SUMMARY')   
                 
                 if st.session_state.submited:             
-                        st.write(f"<h6><b>DOWNLOAD LINELISTS FROM HEREM/b></h6>", unsafe_allow_html=True)
+                        st.write(f"<h6><b>DOWNLOAD LINELISTS FROM HERE</b></h6>", unsafe_allow_html=True)
                         cola, colb, colc = st.columns(3)
                         with cola:
                                 if two==0:
@@ -1217,7 +1214,7 @@ if st.session_state.reader:# and st.session_state.df:
                                     dat = lost()
                                     csv_data = dat.to_csv(index=False)
                                     st.download_button(
-                                                label="ALL IIT",
+                                                label="MISSED APPOINTMENTS",
                                                 data=csv_data,
                                                 file_name=f"{facility} MISSED.csv",
                                                 mime="text/csv")
@@ -1234,7 +1231,7 @@ if st.session_state.reader:# and st.session_state.df:
                                                     mime="text/csv")
                         with colc:
                                 if true == 0:
-                                    st.markdown('**NO TOs**')
+                                    st.markdown('**NO TRANSFER OUTs**')
                                 else:
                                     dat = transfer()
                                     csv_data = dat.to_csv(index=False)
@@ -1250,7 +1247,7 @@ if st.session_state.reader:# and st.session_state.df:
                             dat = viral()
                             csv_data = dat.to_csv(index=False)
                             st.download_button(
-                                        label="VL LINELIST",
+                                        label="CURRENT VL LINELIST",
                                         data=csv_data,
                                         file_name=f"{facility} VL.csv",
                                         mime="text/csv")
@@ -1294,7 +1291,7 @@ if st.session_state.reader:# and st.session_state.df:
                                                 file_name=f"{facility} VL_1YR.csv",
                                                 mime="text/csv")
                         ###SIX YEAR LINE LISTS
-                        if st.session_state.submited:             
+                             
                             st.write(f"<h6><b>SIX MONTHS COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
                             cola, colb, colc = st.columns(3)
                             with cola:
@@ -1330,8 +1327,7 @@ if st.session_state.reader:# and st.session_state.df:
                                                 file_name=f"{facility} VL6.csv",
                                                 mime="text/csv")
                                                         
-                        ###THREE MTHS LINE LISTS
-                        if st.session_state.submited:             
+                        ###THREE MTHS LINE LISTS            
                             st.write(f"<h6><b>THREE MONTHS COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
                             cola, colb = st.columns(2)
                             with cola:
@@ -1356,8 +1352,7 @@ if st.session_state.reader:# and st.session_state.df:
                                                 file_name=f" {facility} TOs_3.csv",
                                                 mime="text/csv")                    
                         
-                        ###THREE MTHS LINE LISTS
-                        if st.session_state.submited:             
+                        ###THREE MTHS LINE LISTS           
                             st.write(f"<h6><b>TX NEW LINELISTS </b></h6>", unsafe_allow_html=True)
                             cola, colb = st.columns(2)
                             with cola:
@@ -1384,5 +1379,4 @@ if st.session_state.reader:# and st.session_state.df:
                             st.write('')
                             st.write('')
                             st.write('')
-                            if file is not None:
-                                st.info('**CREATED BY LUMINSA DESIRE**')
+                            st.info('**CREATED BY LUMINSA DESIRE**')
