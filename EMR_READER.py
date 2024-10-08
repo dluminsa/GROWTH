@@ -1145,8 +1145,8 @@ if st.session_state.reader:# and st.session_state.df:
             
                 row4 = part + list4
                 col1,col2,col3 = st.columns([1,2,1])
-                st.write(row3)
-                st.write(row4)
+                st.write(list3)
+                st.write(list4)
                 with col3:
                     submit = st.button('Submit') 
                 
