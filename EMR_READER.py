@@ -1021,7 +1021,8 @@ if st.session_state.reader:
             if not facility:
                 st.stop()
             else:
-    ########CACHE THE DOWNLOADS
+                pass
+if st.session_state.reader: 
                 @st.cache_data
                 def lost():
                     dat = df2wks.copy()
