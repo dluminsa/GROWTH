@@ -1023,7 +1023,8 @@ if st.session_state.reader:
             else:
                 # st.write(facility)
                 pass
-if st.session_state.reader: 
+if st.session_state.reader:
+                @st.cache_data
                 def lost():
                     dat = df2wks.copy()
                     dat = dat[['ART', 'RD']].copy()
@@ -1035,7 +1036,6 @@ if st.session_state.reader:
                     dat = dat[['ART', 'RD', 'TO']]
                     dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE', 'TO':'TRANSFER OUT DATE'})
                     return dat
-                st.write(facility)
                 @st.cache_data
                 def deceased():
                     dat = died.copy()
@@ -1123,262 +1123,262 @@ if st.session_state.reader:
                     dat = dat[['ART', 'RD', 'VD']]
                     dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
                     return dat
-                                    
-                    preva = dfx[dfx['FACILITY']==facility] 
-                    prev = preva['Q4 CUR'].sum()
-                    #prev = int(preva.iloc[0,4])
-                    #UK = pot- prev #- inn - newad
-                    #dd = dead.shape[0]
-                    # if UK <0:
-                    #     st.warning('THIS EXTRACT HAS LESS CLIENTS THAN EVER ENROLLED AT THE FACILITY')
-                    #     st.stop()
-                    # else:
-                    #     pass
-                    part = [cluster,district,facility,week,wk,prev]
-                    #ADDING THE CLUSTER PART
-    
-                    row1 = part.extend[list1]
+                st.write(facility)                    
+                preva = dfx[dfx['FACILITY']==facility] 
+                prev = preva['Q4 CUR'].sum()
+                #prev = int(preva.iloc[0,4])
+                #UK = pot- prev #- inn - newad
+                #dd = dead.shape[0]
+                # if UK <0:
+                #     st.warning('THIS EXTRACT HAS LESS CLIENTS THAN EVER ENROLLED AT THE FACILITY')
+                #     st.stop()
+                # else:
+                #     pass
+                part = [cluster,district,facility,week,wk,prev]
+                #ADDING THE CLUSTER PART
+
+                row1 = part.extend[list1]
+            
+                row2 = part.extend[list2]
+            
+                row3 = part.extend[list3]
+            
+                row4 = part.extend[list4]
+                col1,col2,col3 = st.columns([1,2,1])
+                with col3:
+                    submit = st.button('Submit') 
                 
-                    row2 = part.extend[list2]
+                secrets = st.secrets["connections"]["gsheets"]
                 
-                    row3 = part.extend[list3]
-                
-                    row4 = part.extend[list4]
-                    col1,col2,col3 = st.columns([1,2,1])
-                    with col3:
-                        submit = st.button('Submit') 
-                    
-                    secrets = st.secrets["connections"]["gsheets"]
-                    
-                        # Prepare the credentials dictionary
-                    credentials_info = {
-                            "type": secrets["type"],
-                            "project_id": secrets["project_id"],
-                            "private_key_id": secrets["private_key_id"],
-                            "private_key": secrets["private_key"],
-                            "client_email": secrets["client_email"],
-                            "client_id": secrets["client_id"],
-                            "auth_uri": secrets["auth_uri"],
-                            "token_uri": secrets["token_uri"],
-                            "auth_provider_x509_cert_url": secrets["auth_provider_x509_cert_url"],
-                            "client_x509_cert_url": secrets["client_x509_cert_url"]
-                        }
-                            
-                    try:
-                        # Define the scopes needed for your application
-                        scopes = ["https://www.googleapis.com/auth/spreadsheets",
-                                "https://www.googleapis.com/auth/drive"]
+                    # Prepare the credentials dictionary
+                credentials_info = {
+                        "type": secrets["type"],
+                        "project_id": secrets["project_id"],
+                        "private_key_id": secrets["private_key_id"],
+                        "private_key": secrets["private_key"],
+                        "client_email": secrets["client_email"],
+                        "client_id": secrets["client_id"],
+                        "auth_uri": secrets["auth_uri"],
+                        "token_uri": secrets["token_uri"],
+                        "auth_provider_x509_cert_url": secrets["auth_provider_x509_cert_url"],
+                        "client_x509_cert_url": secrets["client_x509_cert_url"]
+                    }
                         
-                         
-                        credentials = Credentials.from_service_account_info(credentials_info, scopes=scopes)
-                            
-                            # Authorize and access Google Sheets
-                        client = gspread.authorize(credentials)
-                            
-                            # Open the Google Sheet by URL
-                        spreadsheetu = "https://docs.google.com/spreadsheets/d/1twNlv9MNQWWsM73_dA19juHkp_Hua-k-fJA1qNVwQl0"
-                        spreadsheet = client.open_by_url(spreadsheetu)
-                    except Exception as e:
-                            # Log the error message
-                        st.write(f"CHECK: {e}")
-                        st.write(traceback.format_exc())
-                        st.write("COULDN'T CONNECT TO GOOGLE SHEET, TRY AGAIN")
-                        st.stop()
+                try:
+                    # Define the scopes needed for your application
+                    scopes = ["https://www.googleapis.com/auth/spreadsheets",
+                            "https://www.googleapis.com/auth/drive"]
                     
-                    if submit:
-                            try:
-                                sheet1 = spreadsheet.worksheet("TX")
-                                sheet1.append_row(row1, value_input_option='RAW')
-                                sheet2 = spreadsheet.worksheet("VL")
-                                sheet2.append_row(row2, value_input_option='RAW')
-                                sheet3 = spreadsheet.worksheet("YEAR")
-                                sheet4 = spreadsheet.worksheet("THREEO")
-                                sheet3.append_row(row3, value_input_option='RAW')
-                                sheet4.append_row(row4, value_input_option='RAW')
-                                st.session_state.submited = True
-                            except Exception as e:
-                                # Print the error message
-                                st.write(f"ERROR: {e}")
-                                st.stop()  # Stop the Streamlit app here to let the user manually retry     
-                    else:
-                            st.write('FIRST SUBMIT TO SEE LINELISTS AND SUMMARY')   
+                     
+                    credentials = Credentials.from_service_account_info(credentials_info, scopes=scopes)
+                        
+                        # Authorize and access Google Sheets
+                    client = gspread.authorize(credentials)
+                        
+                        # Open the Google Sheet by URL
+                    spreadsheetu = "https://docs.google.com/spreadsheets/d/1twNlv9MNQWWsM73_dA19juHkp_Hua-k-fJA1qNVwQl0"
+                    spreadsheet = client.open_by_url(spreadsheetu)
+                except Exception as e:
+                        # Log the error message
+                    st.write(f"CHECK: {e}")
+                    st.write(traceback.format_exc())
+                    st.write("COULDN'T CONNECT TO GOOGLE SHEET, TRY AGAIN")
+                    st.stop()
+                
+                if submit:
+                        try:
+                            sheet1 = spreadsheet.worksheet("TX")
+                            sheet1.append_row(row1, value_input_option='RAW')
+                            sheet2 = spreadsheet.worksheet("VL")
+                            sheet2.append_row(row2, value_input_option='RAW')
+                            sheet3 = spreadsheet.worksheet("YEAR")
+                            sheet4 = spreadsheet.worksheet("THREEO")
+                            sheet3.append_row(row3, value_input_option='RAW')
+                            sheet4.append_row(row4, value_input_option='RAW')
+                            st.session_state.submited = True
+                        except Exception as e:
+                            # Print the error message
+                            st.write(f"ERROR: {e}")
+                            st.stop()  # Stop the Streamlit app here to let the user manually retry     
+                else:
+                        st.write('FIRST SUBMIT TO SEE LINELISTS AND SUMMARY')   
+                
+                if st.session_state.submited:             
+                        st.write(f"<h6><b>DOWNLOAD LINELISTS FROM HEREM/b></h6>", unsafe_allow_html=True)
+                        cola, colb, colc = st.columns(3)
+                        with cola:
+                                if two==0:
+                                    st.write('**NO MISSED APPOINTMENTS**')
+                                else:
+                                    dat = lost()
+                                    csv_data = dat.to_csv(index=False)
+                                    st.download_button(
+                                                label="ALL IIT",
+                                                data=csv_data,
+                                                file_name=f"{facility} MISSED.csv",
+                                                mime="text/csv")
+                        with colb:
+                                if dead ==0:
+                                    st.write('**NO DEAD CLIENTS**')
+                                else:
+                                    dat = deceased.copy()
+                                    csv_data = dat.to_csv(index=False)
+                                    st.download_button(
+                                                    label=" DEAD",
+                                                    data=csv_data,
+                                                    file_name=f" {facility} DEAD.csv",
+                                                    mime="text/csv")
+                        with colc:
+                                if true == 0:
+                                    st.markdown('**NO TOs**')
+                                else:
+                                    dat = transfer()
+                                    csv_data = dat.to_csv(index=False)
+                                    st.download_button(
+                                                label=" TRANSFER OUTS",
+                                                data=csv_data,
+                                                file_name=f" {facility} TOS.csv",
+                                                mime="text/csv")
+                    ######################################VL SECTION
+                        st.markdown('**VL SECTION**')
+                        cola, colb = st.columns(2)
+                        with cola:
+                            dat = viral()
+                            csv_data = dat.to_csv(index=False)
+                            st.download_button(
+                                        label="VL LINELIST",
+                                        data=csv_data,
+                                        file_name=f"{facility} VL.csv",
+                                        mime="text/csv")
                     
-                    if st.session_state.submited:             
-                            st.write(f"<h6><b>DOWNLOAD LINELISTS FROM HEREM/b></h6>", unsafe_allow_html=True)
+                        
+                    #     #########################################################################################################################################################
+                    ###ONE YEAR LINE LISTS
+                        if st.session_state.submited:             
+                            st.write(f"<h6><b>ONE YEAR COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
                             cola, colb, colc = st.columns(3)
                             with cola:
-                                    if two==0:
-                                        st.write('**NO MISSED APPOINTMENTS**')
+                                    if newlost==0:
+                                        st.write('**NO 1 YR IIT**')
                                     else:
-                                        dat = lost()
+                                        dat = yearlost()
                                         csv_data = dat.to_csv(index=False)
                                         st.download_button(
-                                                    label="ALL IIT",
+                                                    label="ONE YR IIT",
                                                     data=csv_data,
-                                                    file_name=f"{facility} MISSED.csv",
+                                                    file_name=f"{facility} 1YR_IIT.csv",
                                                     mime="text/csv")
                             with colb:
-                                    if dead ==0:
-                                        st.write('**NO DEAD CLIENTS**')
-                                    else:
-                                        dat = deceased.copy()
-                                        csv_data = dat.to_csv(index=False)
-                                        st.download_button(
-                                                        label=" DEAD",
-                                                        data=csv_data,
-                                                        file_name=f" {facility} DEAD.csv",
-                                                        mime="text/csv")
+                                    if outnew==0:
+                                        st.markdown('**NO 1 YR TOs**')
+                                    dat = yearto()
+                                    csv_data = dat.to_csv(index=False)
+                                    st.download_button(
+                                                label=" 1 YR T.OUTS",
+                                                data=csv_data,
+                                                file_name=f" {facility} TO_1YR.csv",
+                                                mime="text/csv")
                             with colc:
-                                    if true == 0:
-                                        st.markdown('**NO TOs**')
+                                if nvla ==0:
+                                    st.stop()
+                                else:
+                                    dat = yearvl()
+                                    csv_data = dat.to_csv(index=False)
+                                    st.download_button(
+                                                label="1 YR VL LINELIST",
+                                                data=csv_data,
+                                                file_name=f"{facility} VL_1YR.csv",
+                                                mime="text/csv")
+                        ###SIX YEAR LINE LISTS
+                        if st.session_state.submited:             
+                            st.write(f"<h6><b>SIX MONTHS COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
+                            cola, colb, colc = st.columns(3)
+                            with cola:
+                                    if newlost6==0:
+                                        st.write('**NO 6 MTHS IIT**')
                                     else:
-                                        dat = transfer()
+                                        dat = yearlost6()
                                         csv_data = dat.to_csv(index=False)
                                         st.download_button(
-                                                    label=" TRANSFER OUTS",
+                                                    label="SIX MTHS IIT",
                                                     data=csv_data,
-                                                    file_name=f" {facility} TOS.csv",
+                                                    file_name=f"{facility} IIT_6.csv",
                                                     mime="text/csv")
-                        ######################################VL SECTION
-                            st.markdown('**VL SECTION**')
+                            with colb:
+                                    if outnew6==0:
+                                        st.markdown('**NO 6 MTHS TOs**')
+                                    dat = yearto6()
+                                    csv_data = dat.to_csv(index=False)
+                                    st.download_button(
+                                                label=" 6 MTHS T.OUTS",
+                                                data=csv_data,
+                                                file_name=f" {facility} TO_1YR.csv",
+                                                mime="text/csv")
+                            with colc:
+                                if nvla6 ==0:
+                                    st.markdown('**NO 6 MTHS VL LIST**')
+                                else:
+                                    dat = yearvl6()
+                                    csv_data = dat.to_csv(index=False)
+                                    st.download_button(
+                                                label="6 MTHS VL",
+                                                data=csv_data,
+                                                file_name=f"{facility} VL6.csv",
+                                                mime="text/csv")
+                                                        
+                        ###THREE MTHS LINE LISTS
+                        if st.session_state.submited:             
+                            st.write(f"<h6><b>THREE MONTHS COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
                             cola, colb = st.columns(2)
                             with cola:
-                                dat = viral()
-                                csv_data = dat.to_csv(index=False)
-                                st.download_button(
-                                            label="VL LINELIST",
-                                            data=csv_data,
-                                            file_name=f"{facility} VL.csv",
-                                            mime="text/csv")
+                                    if newlost3==0:
+                                        st.write('**NO 3 MTHS IIT**')
+                                    else:
+                                        dat = yearlost3()
+                                        csv_data = dat.to_csv(index=False)
+                                        st.download_button(
+                                                    label="3 MTHS IIT",
+                                                    data=csv_data,
+                                                    file_name=f"{facility} IIT_3.csv",
+                                                    mime="text/csv")
+                            with colb:
+                                    if outnew3==0:
+                                        st.markdown('**NO 3 MTHS TOs**')
+                                    dat = yearto3()
+                                    csv_data = dat.to_csv(index=False)
+                                    st.download_button(
+                                                label="3 MTHS T.OUTS",
+                                                data=csv_data,
+                                                file_name=f" {facility} TOs_3.csv",
+                                                mime="text/csv")                    
                         
-                            
-                        #     #########################################################################################################################################################
-                        ###ONE YEAR LINE LISTS
-                            if st.session_state.submited:             
-                                st.write(f"<h6><b>ONE YEAR COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
-                                cola, colb, colc = st.columns(3)
-                                with cola:
-                                        if newlost==0:
-                                            st.write('**NO 1 YR IIT**')
-                                        else:
-                                            dat = yearlost()
-                                            csv_data = dat.to_csv(index=False)
-                                            st.download_button(
-                                                        label="ONE YR IIT",
-                                                        data=csv_data,
-                                                        file_name=f"{facility} 1YR_IIT.csv",
-                                                        mime="text/csv")
-                                with colb:
-                                        if outnew==0:
-                                            st.markdown('**NO 1 YR TOs**')
-                                        dat = yearto()
-                                        csv_data = dat.to_csv(index=False)
-                                        st.download_button(
-                                                    label=" 1 YR T.OUTS",
-                                                    data=csv_data,
-                                                    file_name=f" {facility} TO_1YR.csv",
-                                                    mime="text/csv")
-                                with colc:
-                                    if nvla ==0:
-                                        st.stop()
+                        ###THREE MTHS LINE LISTS
+                        if st.session_state.submited:             
+                            st.write(f"<h6><b>TX NEW LINELISTS </b></h6>", unsafe_allow_html=True)
+                            cola, colb = st.columns(2)
+                            with cola:
+                                    if newlost1==0:
+                                        st.write('**NO TX NEW IIT**')
                                     else:
-                                        dat = yearvl()
+                                        dat = yearlost1()
                                         csv_data = dat.to_csv(index=False)
                                         st.download_button(
-                                                    label="1 YR VL LINELIST",
+                                                    label="TX NEW IIT",
                                                     data=csv_data,
-                                                    file_name=f"{facility} VL_1YR.csv",
+                                                    file_name=f"{facility} IIT_NEW.csv",
                                                     mime="text/csv")
-                            ###SIX YEAR LINE LISTS
-                            if st.session_state.submited:             
-                                st.write(f"<h6><b>SIX MONTHS COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
-                                cola, colb, colc = st.columns(3)
-                                with cola:
-                                        if newlost6==0:
-                                            st.write('**NO 6 MTHS IIT**')
-                                        else:
-                                            dat = yearlost6()
-                                            csv_data = dat.to_csv(index=False)
-                                            st.download_button(
-                                                        label="SIX MTHS IIT",
-                                                        data=csv_data,
-                                                        file_name=f"{facility} IIT_6.csv",
-                                                        mime="text/csv")
-                                with colb:
-                                        if outnew6==0:
-                                            st.markdown('**NO 6 MTHS TOs**')
-                                        dat = yearto6()
-                                        csv_data = dat.to_csv(index=False)
-                                        st.download_button(
-                                                    label=" 6 MTHS T.OUTS",
-                                                    data=csv_data,
-                                                    file_name=f" {facility} TO_1YR.csv",
-                                                    mime="text/csv")
-                                with colc:
-                                    if nvla6 ==0:
-                                        st.markdown('**NO 6 MTHS VL LIST**')
-                                    else:
-                                        dat = yearvl6()
-                                        csv_data = dat.to_csv(index=False)
-                                        st.download_button(
-                                                    label="6 MTHS VL",
-                                                    data=csv_data,
-                                                    file_name=f"{facility} VL6.csv",
-                                                    mime="text/csv")
-                                                            
-                            ###THREE MTHS LINE LISTS
-                            if st.session_state.submited:             
-                                st.write(f"<h6><b>THREE MONTHS COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
-                                cola, colb = st.columns(2)
-                                with cola:
-                                        if newlost3==0:
-                                            st.write('**NO 3 MTHS IIT**')
-                                        else:
-                                            dat = yearlost3()
-                                            csv_data = dat.to_csv(index=False)
-                                            st.download_button(
-                                                        label="3 MTHS IIT",
-                                                        data=csv_data,
-                                                        file_name=f"{facility} IIT_3.csv",
-                                                        mime="text/csv")
-                                with colb:
-                                        if outnew3==0:
-                                            st.markdown('**NO 3 MTHS TOs**')
-                                        dat = yearto3()
-                                        csv_data = dat.to_csv(index=False)
-                                        st.download_button(
-                                                    label="3 MTHS T.OUTS",
-                                                    data=csv_data,
-                                                    file_name=f" {facility} TOs_3.csv",
-                                                    mime="text/csv")                    
-                            
-                            ###THREE MTHS LINE LISTS
-                            if st.session_state.submited:             
-                                st.write(f"<h6><b>TX NEW LINELISTS </b></h6>", unsafe_allow_html=True)
-                                cola, colb = st.columns(2)
-                                with cola:
-                                        if newlost1==0:
-                                            st.write('**NO TX NEW IIT**')
-                                        else:
-                                            dat = yearlost1()
-                                            csv_data = dat.to_csv(index=False)
-                                            st.download_button(
-                                                        label="TX NEW IIT",
-                                                        data=csv_data,
-                                                        file_name=f"{facility} IIT_NEW.csv",
-                                                        mime="text/csv")
-                                with colb:
-                                        if outnew1==0:
-                                            st.markdown('**NO TxNEW TOs**')
-                                        dat = yearto1()
-                                        csv_data = dat.to_csv(index=False)
-                                        st.download_button(
-                                                    label="TXNEW T.OUTS",
-                                                    data=csv_data,
-                                                    file_name=f" {facility} TxNEW_TOs.csv",
-                                                    mime="text/csv") 
-                            st.write('')
-                            st.write('')
-                            st.write('')
-                            if st.session_state.reader:
-                                st.info('**CREATED BY LUMINSA DESIRE**')
+                            with colb:
+                                    if outnew1==0:
+                                        st.markdown('**NO TxNEW TOs**')
+                                    dat = yearto1()
+                                    csv_data = dat.to_csv(index=False)
+                                    st.download_button(
+                                                label="TXNEW T.OUTS",
+                                                data=csv_data,
+                                                file_name=f" {facility} TxNEW_TOs.csv",
+                                                mime="text/csv") 
+    st.write('')
+    st.write('')
+    st.write('')
+    if st.session_state.reader:
+        st.info('**CREATED BY LUMINSA DESIRE**')
