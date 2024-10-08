@@ -999,7 +999,7 @@ if file is not None and not st.session_state.reader:
                                  newactive3,rete3,newtotal1, orig1,newti1,newdead1,outnew1,newlost1,netnew1, newactive1,rete1] #THRRE
                     st.session_state.reader =True
                         
-if st.session_state.reader:                                                    
+if st.session_state.reader and st.session_state.df:                                                    
     file2 = r'CLUSTERS.csv'
     dfx = pd.read_csv(file2)
     clusters  = list(dfx['CLUSTER'].unique())
@@ -1021,7 +1021,7 @@ if st.session_state.reader:
             else:
                 # st.write(facility)
                 pass
-    if st.session_state.reader:
+if st.session_state.reader and st.session_state.df:
                 @st.cache_data
                 def lost():
                     dat = df2wks.copy()
