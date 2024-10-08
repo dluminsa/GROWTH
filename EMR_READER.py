@@ -996,7 +996,7 @@ if file is not None:
                 st.session_state.reader =True#
                         
 if st.session_state.reader:
-st.write(list1)
+    st.write(list1)
     @st.cache_data
     def L1():
         l1 = list1
