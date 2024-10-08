@@ -1373,5 +1373,5 @@ if file is not None:
 st.write('')
 st.write('')
 st.write('')
-if file is nt None:
+if file is not None:
     st.info('**CREATED BY LUMINSA DESIRE**')
