@@ -10,7 +10,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 
 st.set_page_config(
-    page_title = 'MOCK TX CURR',
+    page_title = 'PROGRAM GROWTH',
     page_icon =":bar_chart"
     )
 
