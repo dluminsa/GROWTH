@@ -1186,6 +1186,7 @@ if st.session_state.reader:# and st.session_state.df:
                     st.stop()
                 
                 if submit:
+                        st.write(row1)
                         try:
                             sheet1 = spreadsheet.worksheet("TX")
                             sheet1.append_row(row1, value_input_option='RAW')
