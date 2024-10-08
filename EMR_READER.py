@@ -97,6 +97,8 @@ st.markdown('**AFTER, SAVE THE EXTRACT AS an XLSX BEFORE YOU PROCEED**')
 file = st.file_uploader("Upload your EMR extract here", type=['csv', 'xlsx'])
 if 'submited' not in st.session_state:
     st.session_state.submited =False
+if 'reader' not in st.session_state:
+    st.session_state.reader =False
 ext = None
 if file is not None:
     # Get the file name
@@ -110,8 +112,6 @@ if file is not None:
     else:
         df = pd.read_excel(file)
         st.write('Excel accepted')
-    if 'reader' not in st.session_state:
-        st.session_state.reader =False
         if df is not None:
             columns = ['ART','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']
             cols = df.columns.to_list()
@@ -983,8 +983,9 @@ if file is not None:
                 else:
                     rete1 = round((newactive1/netnew1)*100)
                     rete1 = f"{rete1} %"
-        st.session_state.reader =True
         
+if file is not None:
+    st.session_state.reader =True
 if st.session_state.reader:
     list1 = [pot,ti,txnew,rtt,true,dead,two,three,four,curr,M2,M3,M6] #TX
 
