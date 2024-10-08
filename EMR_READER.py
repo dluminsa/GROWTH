@@ -1370,8 +1370,8 @@ if file is not None:
                                                                     data=csv_data,
                                                                     file_name=f" {facility} TxNEW_TOs.csv",
                                                                     mime="text/csv") 
-st.write('')
-st.write('')
-st.write('')
-if file is not None:
-    st.info('**CREATED BY LUMINSA DESIRE**')
+                                                st.write('')
+                                                st.write('')
+                                                st.write('')
+                                                if file is not None:
+                                                    st.info('**CREATED BY LUMINSA DESIRE**')
