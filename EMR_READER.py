@@ -739,12 +739,15 @@ if st.session_state.reader:
                     #LOST IN TWO WEEKS... REAL MISSED APPOINTMENT FOR THIS
                     df2wks =df24[df24['RWEEK']<wk2].copy()
                     two = df2wks.shape[0]
+                    st.write(two)
         
                     df3wks = df24[df24['RWEEK']<wk3]
                     three = df3wks.shape[0]
+                    st.write(three)
         
                     df4wks =df24[df24['RWEEK1']<wk4]
                     four = df4wks.shape[0]
+                    st.write(four)
         
                     dfactive = pd.concat([dfactive24, df25]) #COMBINE THOSE ACTIVE IN TWO WEEKS AND THOSE OF 2025
                     curr = dfactive.shape[0]
