@@ -1189,12 +1189,12 @@ if st.session_state.reader:# and st.session_state.df:
                         try:
                             sheet1 = spreadsheet.worksheet("TX")
                             sheet1.append_row(row1, value_input_option='RAW')
-                            sheet2 = spreadsheet.worksheet("VL")
-                            sheet2.append_row(row2, value_input_option='RAW')
-                            sheet3 = spreadsheet.worksheet("YEAR")
-                            sheet4 = spreadsheet.worksheet("THREEO")
-                            sheet3.append_row(row3, value_input_option='RAW')
-                            sheet4.append_row(row4, value_input_option='RAW')
+                            # sheet2 = spreadsheet.worksheet("VL")
+                            # sheet2.append_row(row2, value_input_option='RAW')
+                            # sheet3 = spreadsheet.worksheet("YEAR")
+                            # sheet4 = spreadsheet.worksheet("THREEO")
+                            # sheet3.append_row(row3, value_input_option='RAW')
+                            # sheet4.append_row(row4, value_input_option='RAW')
                             st.session_state.submited = True
                         except Exception as e:
                             # Print the error message
