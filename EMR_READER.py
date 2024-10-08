@@ -738,13 +738,13 @@ if st.session_state.reader:
                     
                     #LOST IN TWO WEEKS... REAL MISSED APPOINTMENT FOR THIS
                     df2wks =df24[df24['RWEEK']<wk2].copy()
-                    two = df2wks.shape
+                    two = df2wks.shape[0]
         
                     df3wks = df24[df24['RWEEK']<wk3]
-                    three = df3wks.shape
+                    three = df3wks.shape[0]
         
                     df4wks =df24[df24['RWEEK1']<wk4]
-                    four = df4wks.shape
+                    four = df4wks.shape[0]
         
                     dfactive = pd.concat([dfactive24, df25]) #COMBINE THOSE ACTIVE IN TWO WEEKS AND THOSE OF 2025
                     curr = dfactive.shape[0]
@@ -1186,7 +1186,7 @@ if st.session_state.reader:# and st.session_state.df:
                     st.stop()
                 
                 if submit:
-                        st.write(row1)
+                        #st.write(row1)
                         try:
                             sheet1 = spreadsheet.worksheet("TX")
                             sheet1.append_row(row1, value_input_option='RAW')
