@@ -97,8 +97,6 @@ st.markdown('**AFTER, SAVE THE EXTRACT AS an XLSX BEFORE YOU PROCEED**')
 file = st.file_uploader("Upload your EMR extract here", type=['csv', 'xlsx'])
 if 'submited' not in st.session_state:
     st.session_state.submited =False
-if 'reader' not in st.session_state:
-    st.session_state.reader =False
 ext = None
 if file is not None:
     # Get the file name
@@ -110,6 +108,7 @@ if file is not None:
         st.write('Unsupported file format, first save the excel as xlsx and try again')
         st.stop()
     else:
+    if 'reader' not in st.session_state:
         df = pd.read_excel(file)
         st.write('Excel accepted')
         if df is not None:
@@ -1138,7 +1137,7 @@ if st.session_state.reader:
 
 if st.session_state.reader:
     preva = dfx[dfx['FACILITY']==facility] 
-    st.write(preva)
+    st.write(preva.shape)
     prev = int(preva.iloc[0,4])
     #UK = pot- prev #- inn - newad
     #dd = dead.shape[0]
