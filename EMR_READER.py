@@ -108,6 +108,9 @@ if file is not None:
         st.write('Unsupported file format, first save the excel as xlsx and try again')
         st.stop()
     else:
+        pass
+    if 'reader' not in st.session_state:
+        st.session_state.reader =False#    
         df = pd.read_excel(file)
         st.write('Excel accepted')
         if df is not None:
@@ -991,12 +994,12 @@ if file is not None:
                              newtotal6, orig6,newti6,newdead6,outnew6,newlost6,netnew6, newactive6,rete6] #YEAR
                 list4 = [newtotal3, orig3,newti3,newdead3,outnew3,newlost3,netnew3, 
                              newactive3,rete3,newtotal1, orig1,newti1,newdead1,outnew1,newlost1,netnew1, newactive1,rete1] #THRREO
+                st.session_state.reader = True#
                 
     
-if 'reader' not in st.session_state:
-        st.session_state.reader =False#
-if file is not None:
-    st.session_state.reader =True#
+
+# if file is not None:
+#     st.session_state.reader =True#
                            
 if st.session_state.reader:          
     file2 = r'CLUSTERS.csv'
