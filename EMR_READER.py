@@ -112,11 +112,11 @@ if file is not None and not st.session_state.reader:
         st.write('Unsupported file format, first save the excel as xlsx and try again')
         st.stop()
     else:
-            df = pd.read_excel(file)
-            st.session_state.df = df
-            df = st.session_state.df
-            st.write('Excel accepted')
-            if df is not None:
+                df = pd.read_excel(file)
+                st.session_state.df = df
+                df = st.session_state.df
+                st.write('Excel accepted')
+
                 columns = ['ART','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']
                 cols = df.columns.to_list()
                 if not all(column in cols for column in columns):
@@ -126,6 +126,8 @@ if file is not None and not st.session_state.reader:
                         st.markdown('**First rename all the columns as guided above**')
                         st.stop()
                 else:
+                    st.session_state.reader= True
+if st.session_state.reader:
                       # Convert 'ART' column to string and create 'ART' column with numeric part to remove blanks
                     df = df[['ART','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']].copy()
                     df['ART'] = df['ART'].astype(str)
@@ -997,9 +999,9 @@ if file is not None and not st.session_state.reader:
                                  newtotal6, orig6,newti6,newdead6,outnew6,newlost6,netnew6, newactive6,rete6] #YEAR
                     list4 = [newtotal3, orig3,newti3,newdead3,outnew3,newlost3,netnew3, 
                                  newactive3,rete3,newtotal1, orig1,newti1,newdead1,outnew1,newlost1,netnew1, newactive1,rete1] #THRRE
-                    st.session_state.reader =True
+                    # st.session_state.reader =True
                         
-if st.session_state.reader and st.session_state.df:                                                    
+if st.session_state.reader:                                                    
     file2 = r'CLUSTERS.csv'
     dfx = pd.read_csv(file2)
     clusters  = list(dfx['CLUSTER'].unique())
@@ -1021,7 +1023,7 @@ if st.session_state.reader and st.session_state.df:
             else:
                 # st.write(facility)
                 pass
-if st.session_state.reader and st.session_state.df:
+if st.session_state.reader:# and st.session_state.df:
                 @st.cache_data
                 def lost():
                     dat = df2wks.copy()
