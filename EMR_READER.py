@@ -129,7 +129,7 @@ if file is not None and not st.session_state.reader:
                 st.session_state.reader= True
 if st.session_state.reader:
                       # Convert 'ART' column to string and create 'ART' column with numeric part to remove blanks
-                    df = df[['ART','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']].copy()
+                    df = st.session_state.df[['ART','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']].copy()
                     df['ART'] = df['ART'].astype(str)
                     df['A'] = df['ART'].str.replace('[^0-9]', '', regex=True)
                     df['A'] = pd.to_numeric(df['A'], errors= 'coerce')
