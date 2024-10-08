@@ -108,6 +108,7 @@ if file is not None:
         st.write('Unsupported file format, first save the excel as xlsx and try again')
         st.stop()
     else:
+        pass
     if 'reader' not in st.session_state:
         df = pd.read_excel(file)
         st.write('Excel accepted')
