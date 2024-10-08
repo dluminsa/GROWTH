@@ -995,10 +995,10 @@ if st.session_state.reader:
                     
                     list2 = [curr,el,wvl,nvl,two,Lel, lnvl,lwvl, newactive,wvla,nvla,newactive6,wvla6,nvla6] #VL
                     
-                    list3 = [newtotal, orig,newti,newdead,outnew, newlost,netnew,newactive,rete,
-                                 newtotal6, orig6,newti6,newdead6,outnew6,newlost6,netnew6, newactive6,rete6] #YEAR
-                    list4 = [newtotal3, orig3,newti3,newdead3,outnew3,newlost3,netnew3, 
-                                 newactive3,rete3,newtotal1, orig1,newti1,newdead1,outnew1,newlost1,netnew1, newactive1,rete1] #THRRE
+                    list3 = [newtotal, orig,newti,deadnew,outnew, newlost,netnew,newactive,rete,
+                                 newtotal6, orig6,newti6,deadnew6,outnew6,newlost6,netnew6, newactive6,rete6] #YEAR
+                    list4 = [newtotal3, orig3,newti3,deadnew3,outnew3,newlost3,netnew3, 
+                                 newactive3,rete3,newtotal1, orig1,newti1,deadnew1,outnew1,newlost1,netnew1, newactive1,rete1] #THRRE
                     # st.session_state.reader =True
                         
 if st.session_state.reader:                                                    
@@ -1145,8 +1145,6 @@ if st.session_state.reader:# and st.session_state.df:
             
                 row4 = part + list4
                 col1,col2,col3 = st.columns([1,2,1])
-                st.write(list3)
-                st.write(list4)
                 with col3:
                     submit = st.button('Submit') 
                 
