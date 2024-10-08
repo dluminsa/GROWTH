@@ -1133,13 +1133,13 @@ if st.session_state.reader:
                 part = [cluster,district,facility,week,wk,prev]
                 #ADDING THE CLUSTER PART
 
-                row1 = part.extend[list1]
+                row1 = part + list1
             
-                row2 = part.extend[list2]
+                row2 = part + list2
             
-                row3 = part.extend[list3]
+                row3 = part + list3
             
-                row4 = part.extend[list4]
+                row4 = part + list4
                 col1,col2,col3 = st.columns([1,2,1])
                 with col3:
                     submit = st.button('Submit') 
