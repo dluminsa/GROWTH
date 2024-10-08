@@ -986,7 +986,7 @@ if file is not None:
         
 if file is not None:
     st.session_state.reader =True
-    
+    st.write(pot)
 if st.session_state.reader:
     list1 = [pot,ti,txnew,rtt,true,dead,two,three,four,curr,M2,M3,M6] #TX
 
