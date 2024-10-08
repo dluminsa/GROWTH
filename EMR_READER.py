@@ -1021,6 +1021,7 @@ if st.session_state.reader:
             if not facility:
                 st.stop()
             else:
+                st.write(facility)
                 pass
 if st.session_state.reader: 
                 @st.cache_data
