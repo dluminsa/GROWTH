@@ -993,7 +993,7 @@ if file is not None:
                                  newtotal6, orig6,newti6,newdead6,outnew6,newlost6,netnew6, newactive6,rete6] #YEAR
                     list4 = [newtotal3, orig3,newti3,newdead3,outnew3,newlost3,netnew3, 
                                  newactive3,rete3,newtotal1, orig1,newti1,newdead1,outnew1,newlost1,netnew1, newactive1,rete1] #THRRE
-                    if df is not None:
+                    if list4:
                         st.session_state.reader =True
                         
                         if st.session_state.reader:                                                    
