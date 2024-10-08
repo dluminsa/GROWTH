@@ -94,11 +94,11 @@ html_table = """
 #st.markdown(html_table, unsafe_allow_html=True)
 st.markdown('**AFTER, SAVE THE EXTRACT AS an XLSX BEFORE YOU PROCEED**')
 
-file = st.file_uploader("Upload your EMR extract here", type=['csv', 'xlsx'])
+file = st.file_uploader("Upload your EMR extract here", type=['xlsx'])
 if 'submited' not in st.session_state:
     st.session_state.submited =False
-if 'read' not in st.session_state:
-    st.session_state.read =False#
+if 'df' not in st.session_state:
+    st.session_state.df = None
 if 'reader' not in st.session_state:
     st.session_state.reader =False#
 ext = None
@@ -107,12 +107,14 @@ if file is not None:
     fileN = file.name
     ext = os.path.basename(fileN).split('.')[1]
 df = None
-if file is not None:
+if file is not None and not st.session_state.reader:
     if ext !='xlsx':
         st.write('Unsupported file format, first save the excel as xlsx and try again')
         st.stop()
     else:
             df = pd.read_excel(file)
+            st.session_state.df = df
+            df = st.session_state.df
             st.write('Excel accepted')
             if df is not None:
                 columns = ['ART','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']
