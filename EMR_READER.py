@@ -1088,7 +1088,7 @@ if st.session_state.reader:# and st.session_state.df:
                 def yearto6():
                     dat = newto6.copy()
                     dat = dat[['ART','AS', 'RD', 'VD']]
-                    dat = dat.rename(columns ={'ART':'ART NO.',''AS':'ART START DATE', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
+                    dat = dat.rename(columns ={'ART':'ART NO.','AS':'ART START DATE', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
                     return dat
                 @st.cache_data
                 def yearlost6():
