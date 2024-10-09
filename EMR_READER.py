@@ -1370,8 +1370,9 @@ if st.session_state.reader:# and st.session_state.df:
                                                     file_name=f"{facility} IIT_NEW.csv",
                                                     mime="text/csv")
                             with colb:
-                                    if outnew1==0:
+                                if outnew1==0:
                                         st.markdown('**NO TxNEW TOs**')
+                                else:
                                     dat = yearto1()
                                     csv_data = dat.to_csv(index=False)
                                     st.download_button(key='k',
