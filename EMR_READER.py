@@ -115,7 +115,8 @@ if file is not None and not st.session_state.reader:
     else:
                 st.session_state.df = pd.read_excel(file)
                 df = st.session_state.df
-                st.write('Excel accepted')
+                st.write('Excel accepted, summaries and linelists below will be for this excel')
+                st.write('To change this excel or to upload another excel, first refresh the page')
 #if file is not None and not st.session_state.reader:
 
                 columns = ['ART','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']
