@@ -1221,10 +1221,16 @@ if st.session_state.reader:# and st.session_state.df:
                             st.write(f"ERROR: {e}")
                             st.stop()  # Stop the Streamlit app here to let the user manually retry     
                 else:
-                        st.write('FIRST SUBMIT TO SEE LINELISTS AND SUMMARY')   
+                        st.write('FIRST SUBMIT TO SEE LINELISTS AND SUMMARY') 
+                        st.markdown(f'**YOU HAVE SELECTED {district} AS THE DISTRICT AND {facility} AS THE FACILITY**')
+                        st.write('BE SURE OF THE ABOVE SELECTIONS BEFORE SUBMITTING') 
+                       
+                    
+                    
                 
                 if st.session_state.submited:
                         st.success('SUBMITTED')
+                        st.info('To upload another excel, first refresh this page, or open the link afresh')
                         st.divider()
                         st.write(f"<h6><b>DOWNLOAD LINELISTS FROM HERE</b></h6>", unsafe_allow_html=True)
                         cola, colb, colc = st.columns(3)
