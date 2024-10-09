@@ -835,12 +835,12 @@ if st.session_state.reader:
                     outnew = newto.shape[0]
                     
                     new = new[new['Tyear']==994].copy() #withou TO
-                    netnew = int(newtotal)- int(outnew) - int(deadnew)
+                    netnew = new.shape[0]
         
                     new['A'] = pd.to_numeric(new['A'], errors = 'coerce')
                     dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
                     
-                    activen = new[new['A'].isin(dfactive['ART'])].copy()
+                    activen = new[new['A'].isin(dfactive['A'])].copy()
                     lostn = new[~new['A'].isin(dfactive['A'])].copy()           
         
                     newactive = activen.shape[0]
@@ -886,12 +886,12 @@ if st.session_state.reader:
                     outnew6 = newto6.shape[0]
                     
                     new6 = new6[new6['Tyear']==994].copy() #withou TO
-                    netnew6 = int(newtotal6)- int(outnew6)-int(deadnew6)
+                    netnew6 = new6.shape[0]
         
                     new6['A'] = pd.to_numeric(new6['A'], errors = 'coerce')
                     dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
                     
-                    active6 = new6[new6['A'].isin(dfactive['ART'])].copy()
+                    active6 = new6[new6['A'].isin(dfactive['A'])].copy()
                     lostn6 = new6[~new6['A'].isin(dfactive['A'])].copy()
                 
                     newactive6 = active6.shape[0]
@@ -936,12 +936,12 @@ if st.session_state.reader:
                     outnew3 = newto3.shape[0]
                     
                     new3 = new3[new3['Tyear']==994].copy() #withou TO
-                    netnew3 = int(newtotal3)- int(outnew3) - int(deadnew3)
+                    netnew3 = new3.shape[0]
         
                     new3['A'] = pd.to_numeric(new3['A'], errors = 'coerce')
                     dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
                     
-                    active3 = new3[new3['A'].isin(dfactive['ART'])].copy()
+                    active3 = new3[new3['A'].isin(dfactive['A'])].copy()
                     lostn3 = new3[~new3['A'].isin(dfactive['A'])].copy()
                     
         
@@ -982,12 +982,12 @@ if st.session_state.reader:
                     outnew1 = newto1.shape[0]
                     
                     new1 = new1[new1['Tyear']==994].copy() #withou TO
-                    netnew1 = int(newtotal1)- int(outnew1) - int(deadnew1)
+                    netnew1 = new1.shape[0]
         
                     new1['A'] = pd.to_numeric(new1['A'], errors = 'coerce')
                     dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
                     
-                    active1 = new1[new1['A'].isin(dfactive['ART'])].copy()
+                    active1 = new1[new1['A'].isin(dfactive['A'])].copy()
                     lostn1 = new1[~new1['A'].isin(dfactive['A'])].copy()    
         
                     newactive1 = active1.shape[0]
