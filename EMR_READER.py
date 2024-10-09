@@ -4,6 +4,7 @@ import os
 import gspread
 from pathlib import Path
 import traceback
+import time
 from google.oauth2.service_account import Credentials
 from oauth2client.service_account import ServiceAccountCredentials
 #from streamlit_gsheets import GSheetsConnection
@@ -588,6 +589,15 @@ if st.session_state.reader:
                     df['RWEEK1'] = df['RWEEK']-39
                     #COPY FOR ONE YEAR BEFORE GETTING POT CURR
                     oneyear = df.copy()
+    
+                    #LAST Q'S TXML ALTER
+                    df['Tyear'] = pd.to_numeric(df['Tyear'],errors='coerce')
+                    last = df[df['Tyear']!=994].copy()
+                    last['Dyear'] = pd.to_numeric(last['Dyear'],errors='coerce')
+                    last = last[last['Dyear']!=994].copy()
+                    last[['Ryear', 'Rmonth']] = last[['Ryear', 'Rmonth']].apply(pd.to_numeric, errors='coerce')
+                    last = last[((last['Ryear']==2024) & (last['Rmonth'].isin([7,8.9])))].copy()
+                    lastq = last.shape[0]
                 
                     #POTENTIAL TXCUR ALTER... 
                     df[['Rmonth', 'Rday', 'Ryear']] = df[['Rmonth', 'Rday', 'Ryear']].apply(pd.to_numeric, errors='coerce')
@@ -991,7 +1001,7 @@ if st.session_state.reader:
                         rete1 = f"{rete1} %"
                     # if st.session_state.reader:
                     #     st.write(pot)
-                    list1 = [pot,ti,txnew,rtt,true,dead,two,three,four,curr,M2,M3,M6] #TX
+                    list1 = [lastq,pot,ti,txnew,rtt,true,dead,two,three,four,curr,M2,M3,M6] #TX
                     
                     list2 = [curr,el,wvl,nvl,two,Lel, lnvl,lwvl, newactive,wvla,nvla,newactive6,wvla6,nvla6] #VL
                     
@@ -1025,6 +1035,12 @@ if st.session_state.reader:
                 pass
 if st.session_state.reader:# and st.session_state.df:
                 @st.cache_data
+                def lastqtr():
+                    dat = last.copy()
+                    dat = dat[['ART', 'RD']].copy()
+                    dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE'})
+                    return dat
+                @st.cache_data
                 def lost():
                     dat = df2wks.copy()
                     dat = dat[['ART', 'RD']].copy()
@@ -1052,78 +1068,77 @@ if st.session_state.reader:# and st.session_state.df:
                 @st.cache_data
                 def yearto():
                     dat = newto.copy()
-                    dat = dat[['ART', 'RD', 'VD']]
-                    dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
+                    dat = dat[['ART','AS', 'RD', 'VD']]
+                    dat = dat.rename(columns ={'ART':'ART NO.','AS':'ART START DATE', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
                     return dat
                 @st.cache_data
                 def yearlost():
                     dat = lostn.copy()
-                    dat = dat[['ART', 'RD', 'VD']]
-                    dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
+                    dat = dat[['ART','AS', 'RD', 'VD']]
+                    dat = dat.rename(columns ={'ART':'ART NO.', 'AS':'ART START DATE','RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
                     return dat
                 @st.cache_data
                 def yearvl():
                     dat = NVLa.copy()
-                    dat = dat[['ART', 'RD', 'VD']]
-                    dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
+                    dat = dat[['ART', 'AS','RD', 'VD']]
+                    dat = dat.rename(columns ={'ART':'ART NO.','AS':'ART START DATE', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
                     return dat
                 ####6 MONTHS
                 @st.cache_data
                 def yearto6():
                     dat = newto6.copy()
-                    dat = dat[['ART', 'RD', 'VD']]
-                    dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
+                    dat = dat[['ART','AS', 'RD', 'VD']]
+                    dat = dat.rename(columns ={'ART':'ART NO.',''AS':'ART START DATE', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
                     return dat
                 @st.cache_data
                 def yearlost6():
                     dat = lostn6.copy()
-                    dat = dat[['ART', 'RD', 'VD']]
-                    dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
+                    dat = dat[['ART', 'AS','RD', 'VD']]
+                    dat = dat.rename(columns ={'ART':'ART NO.','AS':'ART START DATE', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
                     return dat
                 @st.cache_data
                 def yearvl6():
                     dat = NVLa6.copy()
-                    dat = dat[['ART', 'RD', 'VD']]
-                    dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
+                    dat = dat[['ART','AS', 'RD', 'VD']]
+                    dat = dat.rename(columns ={'ART':'ART NO.', 'AS':'ART START DATE','RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
                     return dat
                 ####3 MONTHS
                 @st.cache_data
                 def yearto3():
                     dat = newto6.copy()
-                    dat = dat[['ART', 'RD', 'VD']]
-                    dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
+                    dat = dat[['ART','AS', 'RD', 'VD']]
+                    dat = dat.rename(columns ={'ART':'ART NO.','AS':'ART START DATE', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
                     return dat
                 @st.cache_data
                 def yearlost3():
                     dat = lostn3.copy()
-                    dat = dat[['ART', 'RD', 'VD']]
-                    dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
+                    dat = dat[['ART','AS', 'RD', 'VD']]
+                    dat = dat.rename(columns ={'ART':'ART NO.','AS':'ART START DATE', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
                     return dat
                 @st.cache_data
                 def yearto3():
                     dat = newto6.copy()
-                    dat = dat[['ART', 'RD', 'VD']]
-                    dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
+                    dat = dat[['ART', 'AS','RD', 'VD']]
+                    dat = dat.rename(columns ={'ART':'ART NO.','AS':'ART START DATE', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
                     return dat
                 @st.cache_data
                 def yearlost3():
                     dat = lostn3.copy()
-                    dat = dat[['ART', 'RD', 'VD']]
-                    dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
+                    dat = dat[['ART','AS', 'RD', 'VD']]
+                    dat = dat.rename(columns ={'ART':'ART NO.','AS':'ART START DATE', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
                     return dat
                 @st.cache_data
                 def yearto1():
                     dat = newto1.copy()
-                    dat = dat[['ART', 'RD', 'VD']]
-                    dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
+                    dat = dat[['ART','AS', 'RD', 'VD']]
+                    dat = dat.rename(columns ={'ART':'ART NO.','AS':'ART START DATE', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
                     return dat
                 @st.cache_data
                 def yearlost1():
                     dat = lostn1.copy()
-                    dat = dat[['ART', 'RD', 'VD']]
-                    dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
-                    return dat
-                st.write(facility)                    
+                    dat = dat[['ART','AS', 'RD', 'VD']]
+                    dat = dat.rename(columns ={'ART':'ART NO.','AS':'ART START DATE', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
+                    return dat                  
                 preva = dfx[dfx['FACILITY']==facility] 
                 prev = preva['Q4 CUR'].sum()
                 #prev = int(preva.iloc[0,4])
@@ -1198,6 +1213,8 @@ if st.session_state.reader:# and st.session_state.df:
                             sheet4 = spreadsheet.worksheet("THREEO")
                             sheet3.append_row(row3, value_input_option='RAW')
                             sheet4.append_row(row4, value_input_option='RAW')
+                            time.sleep(2)
+                            st.success('SUBMITTED')
                             st.session_state.submited = True
                         except Exception as e:
                             # Print the error message
@@ -1206,7 +1223,8 @@ if st.session_state.reader:# and st.session_state.df:
                 else:
                         st.write('FIRST SUBMIT TO SEE LINELISTS AND SUMMARY')   
                 
-                if st.session_state.submited:             
+                if st.session_state.submited: 
+                        st.divider()
                         st.write(f"<h6><b>DOWNLOAD LINELISTS FROM HERE</b></h6>", unsafe_allow_html=True)
                         cola, colb, colc = st.columns(3)
                         with cola:
@@ -1243,21 +1261,31 @@ if st.session_state.reader:# and st.session_state.df:
                                                 file_name=f" {facility} TOS.csv",
                                                 mime="text/csv")
                     ######################################VL SECTION
-                        st.markdown('**VL SECTION**')
+                        st.markdown("**LAST QUARTER'S TXML AND VIRAL LOAD LINE LIST**")
                         cola, colb = st.columns(2)
                         with cola:
-                            dat = viral()
+                            dat = lastqtr()
                             csv_data = dat.to_csv(index=False)
                             st.download_button(
+                                        label="TXML FOR LAST QTR",
+                                        data=csv_data,
+                                        file_name=f"{facility} LASTQtr.csv",
+                                        mime="text/csv")
+                        with colb:
+                        dat = viral()
+                        csv_data = dat.to_csv(index=False)
+                        st.download_button(
                                         label="CURRENT VL LINELIST",
                                         data=csv_data,
                                         file_name=f"{facility} VL.csv",
                                         mime="text/csv")
                     
+                    
                         
                     #     #########################################################################################################################################################
                     ###ONE YEAR LINE LISTS
-                        if st.session_state.submited:             
+                        if st.session_state.submited: 
+                            st.divider()
                             st.write(f"<h6><b>ONE YEAR COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
                             cola, colb, colc = st.columns(3)
                             with cola:
@@ -1294,7 +1322,7 @@ if st.session_state.reader:# and st.session_state.df:
                                                 mime="text/csv")
                                     asdfghjjn
                         ###SIX YEAR LINE LISTS
-                             
+                            st.divider() 
                             st.write(f"<h6><b>SIX MONTHS COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
                             cola, colb, colc = st.columns(3)
                             with cola:
@@ -1330,7 +1358,8 @@ if st.session_state.reader:# and st.session_state.df:
                                                 file_name=f"{facility} VL6.csv",
                                                 mime="text/csv")
                                                         
-                        ###THREE MTHS LINE LISTS            
+                        ###THREE MTHS LINE LISTS
+                            st.divider()
                             st.write(f"<h6><b>THREE MONTHS COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
                             cola, colb = st.columns(2)
                             with cola:
@@ -1355,7 +1384,8 @@ if st.session_state.reader:# and st.session_state.df:
                                                 file_name=f" {facility} TOs_3.csv",
                                                 mime="text/csv")                    
                         
-                        ###THREE MTHS LINE LISTS           
+                        ###THREE MTHS LINE LISTS   
+                            st.divider()
                             st.write(f"<h6><b>TX NEW LINELISTS </b></h6>", unsafe_allow_html=True)
                             cola, colb = st.columns(2)
                             with cola:
