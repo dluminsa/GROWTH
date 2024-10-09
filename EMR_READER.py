@@ -1272,15 +1272,13 @@ if st.session_state.reader:# and st.session_state.df:
                                         file_name=f"{facility} LASTQtr.csv",
                                         mime="text/csv")
                         with colb:
-                        dat = viral()
-                        csv_data = dat.to_csv(index=False)
-                        st.download_button(
+                            dat = viral()
+                            csv_data = dat.to_csv(index=False)
+                            st.download_button(
                                         label="CURRENT VL LINELIST",
                                         data=csv_data,
                                         file_name=f"{facility} VL.csv",
-                                        mime="text/csv")
-                    
-                    
+                                        mime="text/csv")              
                         
                     #     #########################################################################################################################################################
                     ###ONE YEAR LINE LISTS
