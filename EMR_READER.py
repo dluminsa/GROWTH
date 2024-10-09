@@ -1426,6 +1426,6 @@ if st.session_state.reader:# and st.session_state.df:
                             st.write('')
                             st.write('')
                             st.success('**CREATED BY Dr. LUMINSA DESIRE**')
-                            st.info('**WITH CONTRIBUTION EDISON KATUNGUKA, SIMON SEMAKULA AND CHRIS MUGARA, FOR THE TWG**')
+                            st.info('**WITH CONTRIBUTION FROM EDISON KATUNGUKA, SIMON SEMAKULA AND CHRIS MUGARA, FOR THE TWG**')
                             
 
