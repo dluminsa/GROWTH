@@ -1283,7 +1283,7 @@ if st.session_state.reader:# and st.session_state.df:
                                                 mime="text/csv")
                             with colc:
                                 if nvla ==0:
-                                    st.stop()
+                                    st.write('**NO ONE YEAR VL LIST**')
                                 else:
                                     dat = yearvl()
                                     csv_data = dat.to_csv(index=False)
@@ -1383,4 +1383,4 @@ if st.session_state.reader:# and st.session_state.df:
                             st.write('')
                             st.write('')
                             st.info('**CREATED BY LUMINSA DESIRE**')
-st.write('THEY CAME'
+
