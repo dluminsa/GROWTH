@@ -1383,4 +1383,4 @@ if st.session_state.reader:# and st.session_state.df:
                             st.write('')
                             st.write('')
                             st.info('**CREATED BY LUMINSA DESIRE**')
-st.write('THEY CAME')
+st.write('THEY CAME'
