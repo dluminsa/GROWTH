@@ -596,7 +596,7 @@ if st.session_state.reader:
                     last['Dyear'] = pd.to_numeric(last['Dyear'],errors='coerce')
                     last = last[last['Dyear']!=994].copy()
                     last[['Ryear', 'Rmonth']] = last[['Ryear', 'Rmonth']].apply(pd.to_numeric, errors='coerce')
-                    last = last[((last['Ryear']==2024) & (last['Rmonth'].isin([7,8.9])))].copy()
+                    last = last[((last['Ryear']==2024) & (last['Rmonth'].isin([6,7,8])))].copy()
                     lastq = last.shape[0]
                 
                     #POTENTIAL TXCUR ALTER... 
