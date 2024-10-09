@@ -835,7 +835,7 @@ if st.session_state.reader:
                     outnew = newto.shape[0]
                     
                     new = new[new['Tyear']==994].copy() #withou TO
-                    netnew = int(newtotal)- int(outnew) - int(deadnew6)
+                    netnew = int(newtotal)- int(outnew) - int(deadnew)
         
                     new['A'] = pd.to_numeric(new['A'], errors = 'coerce')
                     dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
