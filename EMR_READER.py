@@ -1266,7 +1266,7 @@ if st.session_state.reader:# and st.session_state.df:
                                     else:
                                         dat = yearlost()
                                         csv_data = dat.to_csv(index=False)
-                                        st.download_button(
+                                        st.download_button(key='a',
                                                     label="ONE YR IIT",
                                                     data=csv_data,
                                                     file_name=f"{facility} 1YR_IIT.csv",
@@ -1276,7 +1276,7 @@ if st.session_state.reader:# and st.session_state.df:
                                         st.markdown('**NO 1 YR TOs**')
                                     dat = yearto()
                                     csv_data = dat.to_csv(index=False)
-                                    st.download_button(
+                                    st.download_button(key='b',
                                                 label=" 1 YR T.OUTS",
                                                 data=csv_data,
                                                 file_name=f" {facility} TO_1YR.csv",
@@ -1287,7 +1287,7 @@ if st.session_state.reader:# and st.session_state.df:
                                 else:
                                     dat = yearvl()
                                     csv_data = dat.to_csv(index=False)
-                                    st.download_button(
+                                    st.download_button(key='c',
                                                 label="1 YR VL LINELIST",
                                                 data=csv_data,
                                                 file_name=f"{facility} VL_1YR.csv",
@@ -1303,7 +1303,7 @@ if st.session_state.reader:# and st.session_state.df:
                                     else:
                                         dat = yearlost6()
                                         csv_data = dat.to_csv(index=False)
-                                        st.download_button(
+                                        st.download_button(key='d',
                                                     label="SIX MTHS IIT",
                                                     data=csv_data,
                                                     file_name=f"{facility} IIT_6.csv",
@@ -1313,7 +1313,7 @@ if st.session_state.reader:# and st.session_state.df:
                                         st.markdown('**NO 6 MTHS TOs**')
                                     dat = yearto6()
                                     csv_data = dat.to_csv(index=False)
-                                    st.download_button(
+                                    st.download_button(key='e',
                                                 label=" 6 MTHS T.OUTS",
                                                 data=csv_data,
                                                 file_name=f" {facility} TO_1YR.csv",
@@ -1324,7 +1324,7 @@ if st.session_state.reader:# and st.session_state.df:
                                 else:
                                     dat = yearvl6()
                                     csv_data = dat.to_csv(index=False)
-                                    st.download_button(
+                                    st.download_button(key='f',
                                                 label="6 MTHS VL",
                                                 data=csv_data,
                                                 file_name=f"{facility} VL6.csv",
@@ -1339,7 +1339,7 @@ if st.session_state.reader:# and st.session_state.df:
                                     else:
                                         dat = yearlost3()
                                         csv_data = dat.to_csv(index=False)
-                                        st.download_button(
+                                        st.download_button(key='g',
                                                     label="3 MTHS IIT",
                                                     data=csv_data,
                                                     file_name=f"{facility} IIT_3.csv",
@@ -1349,7 +1349,7 @@ if st.session_state.reader:# and st.session_state.df:
                                         st.markdown('**NO 3 MTHS TOs**')
                                     dat = yearto3()
                                     csv_data = dat.to_csv(index=False)
-                                    st.download_button(
+                                    st.download_button(key='h',
                                                 label="3 MTHS T.OUTS",
                                                 data=csv_data,
                                                 file_name=f" {facility} TOs_3.csv",
@@ -1364,7 +1364,7 @@ if st.session_state.reader:# and st.session_state.df:
                                     else:
                                         dat = yearlost1()
                                         csv_data = dat.to_csv(index=False)
-                                        st.download_button(
+                                        st.download_button(key='j',
                                                     label="TX NEW IIT",
                                                     data=csv_data,
                                                     file_name=f"{facility} IIT_NEW.csv",
@@ -1374,7 +1374,7 @@ if st.session_state.reader:# and st.session_state.df:
                                         st.markdown('**NO TxNEW TOs**')
                                     dat = yearto1()
                                     csv_data = dat.to_csv(index=False)
-                                    st.download_button(
+                                    st.download_button(key='k',
                                                 label="TXNEW T.OUTS",
                                                 data=csv_data,
                                                 file_name=f" {facility} TxNEW_TOs.csv",
