@@ -1018,19 +1018,19 @@ if st.session_state.reader:
     file2 = r'CLUSTERS.csv'
     dfx = pd.read_csv(file2)
     clusters  = list(dfx['CLUSTER'].unique())
-    cluster = st.radio(label='**Choose a cluster**', options=clusters,index=None, horizontal=True)
+    cluster = st.radio(label='**Choose your cluster**', options=clusters,index=None, horizontal=True)
     if not cluster:
         st.stop()
     else:
         districts = dfx[dfx['CLUSTER']==cluster]
         districts = list(districts['DISTRICT'].unique())
-        district = st.radio(label='**Choose a district**', options=districts,index=None, horizontal=True)
+        district = st.radio(label='**Choose your district**', options=districts,index=None, horizontal=True)
         if not district:
             st.stop()
         else:
             facilities = dfx[dfx['DISTRICT']==district]
             facilities = facilities['FACILITY'].unique()
-            facility = st.selectbox(label='**Choose a facility**', options=facilities,index=None)
+            facility = st.selectbox(label='**Choose your facility**', options=facilities,index=None)
             if not facility:
                 st.stop()
             else:
