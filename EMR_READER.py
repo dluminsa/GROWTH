@@ -860,7 +860,7 @@ if st.session_state.reader:
                         rete = 0
                     else:
                         rete = round((newactive/netnew)*100)
-                        rete = f"{rete} %"
+                        #rete = f"{rete} %"
         
         
                 #6 MONTH COHORT
@@ -910,7 +910,7 @@ if st.session_state.reader:
                         rete6 = 0
                     else:
                         rete6 = round((newactive6/netnew6)*100)
-                        rete6 = f"{rete6} %"
+                        #rete6 = f"{rete6} %"
         
                 #3 MONTH COHORT
         
@@ -956,7 +956,7 @@ if st.session_state.reader:
                         rete3 = 0
                     else:
                         rete3 = round((newactive3/netnew3)*100)
-                        rete3 = f"{rete3} %"
+                        #rete3 = f"{rete3} %"
         
                 #<3 MONTH COHORT
         
@@ -1001,7 +1001,7 @@ if st.session_state.reader:
                         rete1 = 0
                     else:
                         rete1 = round((newactive1/netnew1)*100)
-                        rete1 = f"{rete1} %"
+                        #rete1 = f"{rete1} %"
                     # if st.session_state.reader:
                     #     st.write(pot)
                     list1 = [lastq,pot,ti,txnew,rtt,true,dead,two,three,four,curr,M2,M3,M6] #TX
