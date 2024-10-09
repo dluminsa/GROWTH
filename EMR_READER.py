@@ -835,7 +835,7 @@ if st.session_state.reader:
                     outnew = newto.shape[0]
                     
                     new = new[new['Tyear']==994].copy() #withou TO
-                    netnew = int(newtotal)- int(outnew)
+                    netnew = int(newtotal)- int(outnew) - int(deadnew6)
         
                     new['A'] = pd.to_numeric(new['A'], errors = 'coerce')
                     dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
@@ -886,7 +886,7 @@ if st.session_state.reader:
                     outnew6 = newto6.shape[0]
                     
                     new6 = new6[new6['Tyear']==994].copy() #withou TO
-                    netnew6 = int(newtotal6)- int(outnew6)
+                    netnew6 = int(newtotal6)- int(outnew6)-int(deadnew6)
         
                     new6['A'] = pd.to_numeric(new6['A'], errors = 'coerce')
                     dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
@@ -936,7 +936,7 @@ if st.session_state.reader:
                     outnew3 = newto3.shape[0]
                     
                     new3 = new3[new3['Tyear']==994].copy() #withou TO
-                    netnew3 = int(newtotal3)- int(outnew3)
+                    netnew3 = int(newtotal3)- int(outnew3) - int(deadnew3)
         
                     new3['A'] = pd.to_numeric(new3['A'], errors = 'coerce')
                     dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
@@ -982,7 +982,7 @@ if st.session_state.reader:
                     outnew1 = newto1.shape[0]
                     
                     new1 = new1[new1['Tyear']==994].copy() #withou TO
-                    netnew1 = int(newtotal1)- int(outnew1)
+                    netnew1 = int(newtotal1)- int(outnew1) - int(deadnew1)
         
                     new1['A'] = pd.to_numeric(new1['A'], errors = 'coerce')
                     dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
@@ -1108,7 +1108,7 @@ if st.session_state.reader:# and st.session_state.df:
                 ####3 MONTHS
                 @st.cache_data
                 def yearto3():
-                    dat = newto6.copy()
+                    dat = newto3.copy()
                     dat = dat[['ART','AS', 'RD', 'VD']]
                     dat = dat.rename(columns ={'ART':'ART NO.','AS':'ART START DATE', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
                     return dat
@@ -1120,7 +1120,7 @@ if st.session_state.reader:# and st.session_state.df:
                     return dat
                 @st.cache_data
                 def yearto3():
-                    dat = newto6.copy()
+                    dat = newto3.copy()
                     dat = dat[['ART', 'AS','RD', 'VD']]
                     dat = dat.rename(columns ={'ART':'ART NO.','AS':'ART START DATE', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
                     return dat
