@@ -592,9 +592,9 @@ if st.session_state.reader:
     
                     #LAST Q'S TXML ALTER
                     df['Tyear'] = pd.to_numeric(df['Tyear'],errors='coerce')
-                    last = df[df['Tyear']!=994].copy()
+                    last = df[df['Tyear']==994].copy()
                     last['Dyear'] = pd.to_numeric(last['Dyear'],errors='coerce')
-                    last = last[last['Dyear']!=994].copy()
+                    last = last[last['Dyear']==994].copy()
                     last[['Ryear', 'Rmonth']] = last[['Ryear', 'Rmonth']].apply(pd.to_numeric, errors='coerce')
                     last = last[((last['Ryear']==2024) & (last['Rmonth'].isin([6,7,8])))].copy()
                     lastq = last.shape[0]
