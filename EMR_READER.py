@@ -1230,8 +1230,8 @@ if st.session_state.reader:# and st.session_state.df:
                     
                 
                 if st.session_state.submited:
-                        st.success('SUBMITTED')
-                        st.info('To upload another excel, first refresh this page, or open the link afresh')
+                        st.success('**SUBMITTED, To upload another excel, first refresh this page, or open the link afresh**')
+                        #st.info('To upload another excel, first refresh this page, or open the link afresh')
                         st.divider()
                         st.write(f"<h6><b>DOWNLOAD LINELISTS FROM HERE</b></h6>", unsafe_allow_html=True)
                         cola, colb, colc = st.columns(3)
