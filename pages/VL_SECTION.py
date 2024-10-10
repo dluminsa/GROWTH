@@ -38,7 +38,8 @@ if 'vl' not in st.session_state:
         exist = conn.read(worksheet= 'VL', usecols=list(range(24)),ttl=5)
         df = exist.dropna(how='all')
         st.session_state.vl = df
-     except:
+     except exception as e:
+         st.write(f'{e}')
          st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
          st.stop()
 dfearly = st.session_state.vl.copy()
