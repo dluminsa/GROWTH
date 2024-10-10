@@ -146,7 +146,8 @@ st.divider()
 HAVE = water['HAVE'].sum()
 NOT = water['NOVL'].sum()
 TOTAL = int(HAVE) + int(NOT)
-
+HAVE = int(HAVE)
+NOT = int(NOT)
 labels = ['HAVE VL', 'DUE']
 values = [HAVE, NOT]
 # Specify custom colors
