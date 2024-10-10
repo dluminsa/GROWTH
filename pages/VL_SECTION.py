@@ -7,9 +7,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import traceback
 import time
-from google.oauth2.service_account import Credentials
-from oauth2client.service_account import ServiceAccountCredentials
-#from streamlit_gsheets import GSheetsConnection
+from streamlit_gsheets import GSheetsConnection
 from datetime import datetime
 
 st.set_page_config(
