@@ -311,6 +311,7 @@ else:
     dftx3 = dftx2[dftx2['DISTRICT'].isin(district)]
     
     water2['DISTRICT'] = water2['DISTRICT'].astype(str)
+    water3 = water2[water2['DISTRICT'].isin(district)]
     wateryr3 = wateryr2[wateryr2['DISTRICT'].isin(district)]
     waterly3 = waterly2[waterly2['DISTRICT'].isin(district)]
 
@@ -330,7 +331,7 @@ else:
     dftx4 = dftx3[dftx3['FACILITY'].isin(facility)]
     water4 = water3[water3['FACILITY'].isin(facility)]
     wateryr4 = waterly3[waterly3['FACILITY'].isin(facility)]
-    wateryly4 = waterly3[waterly3['FACILITY'].isin(facility)]
+    waterly4 = waterly3[waterly3['FACILITY'].isin(facility)]
 
 # Base DataFrame to filter
 dfyr = dfyr4.copy()
@@ -338,8 +339,8 @@ dfdearly = dfearly4.copy()
 dfrep = dfrep4.copy()
 dftx = dftx4.copy()
 water = water4.copy()
-wateryr4 = wateryr4.copy()
-waterly4 = waterly4.copy()
+wateryr = wateryr4.copy()
+waterly = waterly4.copy()
 
 # Apply filters based on selected criteria
 if CLUSTER:
