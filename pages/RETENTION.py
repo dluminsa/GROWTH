@@ -220,6 +220,7 @@ for every in fac:
     dff = dff.drop_duplicates(subset=['FACILITY'], keep = 'last')
     dfy.append(dff)
 wateryr = pd.concat(dfy)
+st.write(wateryr.columns)
 
 dfy = []
 for every in fac:
@@ -296,7 +297,7 @@ if not district:
     dftx3 = dftx2.copy()
     water3 = water2.copy()
     wateryr3 = wateryr2.copy()
-    waterly3 = waterly.copy()
+    waterly3 = waterly2.copy()
 else:
     dfyr2['DISTRICT'] = dfyr2['DISTRICT'].astype(str)
     dfyr3 = dfyr2[dfyr2['DISTRICT'].isin(district)]
@@ -341,6 +342,7 @@ dftx = dftx4.copy()
 water = water4.copy()
 wateryr = wateryr4.copy()
 waterly = waterly4.copy()
+st.write(wateryr.columns)
 
 # Apply filters based on selected criteria
 if CLUSTER:
