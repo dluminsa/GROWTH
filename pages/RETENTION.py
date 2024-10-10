@@ -9,7 +9,7 @@ import traceback
 import time
 from google.oauth2.service_account import Credentials
 from oauth2client.service_account import ServiceAccountCredentials
-#from streamlit_gsheets import GSheetsConnection
+from streamlit_gsheets import GSheetsConnection
 from datetime import datetime
 
 st.set_page_config(
@@ -31,87 +31,43 @@ cola.write(f"**DATE TODAY:    {todayd}**")
 colb.write(f"**CURRENT WEEK:    {week}**")
 k = int(wk)
 
-# secrets = st.secrets["connections"]["gsheets"]
 
-#     # Prepare the credentials dictionary
-# credentials_info = {
-#         "type": secrets["type"],
-#         "project_id": secrets["project_id"],
-#         "private_key_id": secrets["private_key_id"],
-#         "private_key": secrets["private_key"],
-#         "client_email": secrets["client_email"],
-#         "client_id": secrets["client_id"],
-#         "auth_uri": secrets["auth_uri"],
-#         "token_uri": secrets["token_uri"],
-#         "auth_provider_x509_cert_url": secrets["auth_provider_x509_cert_url"],
-#         "client_x509_cert_url": secrets["client_x509_cert_url"]
-#     }
+if 'tx' not in st.session_state:     
+     try:
+        #cola,colb= st.columns(2)
+        conn = st.connection('gsheets', type=GSheetsConnection)
+        exist = conn.read(worksheet= 'TX', usecols=list(range(20)),ttl=5)
+        tx = exist.dropna(how='all')
+        st.session_state.tx = delvr
+     except:
+         st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
+         st.stop()
+dftx = st.session_state.tx.copy()
 
-# try:
-#     # Define the scopes needed for your application
-#     scopes = ["https://www.googleapis.com/auth/spreadsheets",
-#             "https://www.googleapis.com/auth/drive"]
-    
-        
-#     credentials = Credentials.from_service_account_info(credentials_info, scopes=scopes)
-        
-#         # Authorize and access Google Sheets
-#     client = gspread.authorize(credentials)
-        
-#         # Open the Google Sheet by URL
-#     spreadsheetu = "https://docs.google.com/spreadsheets/d/1twNlv9MNQWWsM73_dA19juHkp_Hua-k-fJA1qNVwQl0"
-#     spreadsheet = client.open_by_url(spreadsheetu)
-# except Exception as e:
-#         # Log the error message
-#     st.write(f"CHECK: {e}")
-#     st.write(traceback.format_exc())
-#     st.write("COULDN'T CONNECT TO GOOGLE SHEET, TRY AGAIN")
-#     st.stop()
+if 'yr' not in st.session_state:     
+     try:
+        #cola,colb= st.columns(2)
+        conn = st.connection('gsheets', type=GSheetsConnection)
+        exist = conn.read(worksheet= 'YEARS', usecols=list(range(24)),ttl=5)
+        tx = exist.dropna(how='all')
+        st.session_state.yr = tx 
+     except:
+         st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
+         st.stop()
+dfyr = st.session_state.yr.copy()
 
-# st.cache_data
-# def sheeta():
-#     worksheet = spreadsheet.worksheet('TX')
+if 'erl' not in st.session_state:     
+     try:
+        #cola,colb= st.columns(2)
+        conn = st.connection('gsheets', type=GSheetsConnection)
+        exist = conn.read(worksheet= 'THREEO', usecols=list(range(24)),ttl=5)
+        tx = exist.dropna(how='all')
+        st.session_state.erl = tx 
+     except:
+         st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
+         st.stop()
+dfearly = st.session_state.erl.copy()
 
-#     # Get all data from the worksheet
-#     data = worksheet.get_all_values()
-
-#     # Convert the data into a Pandas DataFrame
-#     df = pd.DataFrame(data[1:], columns=data[0])  # First row is assumed to be headers
-
-#     return df
-
-# st.cache_data
-# def sheetb():
-#     worksheet = spreadsheet.worksheet('YEARS')
-
-#     # Get all data from the worksheet
-#     data = worksheet.get_all_values()
-
-#     # Convert the data into a Pandas DataFrame
-#     df = pd.DataFrame(data[1:], columns=data[0])  # First row is assumed to be headers
-
-#     return df
-
-# st.cache_data
-# def sheetc():
-#     worksheet = spreadsheet.worksheet('THREEO')
-
-#     # Get all data from the worksheet
-#     data = worksheet.get_all_values()
-
-#     # Convert the data into a Pandas DataFrame
-#     df = pd.DataFrame(data[1:], columns=data[0])  # First row is assumed to be headers
-
-#     return df
-
-# dftx = sheeta()
-# water = sheeta()
-# dfyr = sheetb()
-# dfearly = sheetc()
-
-dftx = pd.read_csv(r'C:\Users\Desire Lumisa\Desktop\TXALL-main\PROGRAM GROWTH - TX.csv')
-dfyr = pd.read_csv(r'C:\Users\Desire Lumisa\Desktop\TXALL-main\PROGRAM GROWTH - YEARS.csv')
-dfearly = pd.read_csv(r'C:\Users\Desire Lumisa\Desktop\TXALL-main\PROGRAM GROWTH - THREEO.csv')
 
 #REPORTING RATES
 @st.cache_data
