@@ -30,17 +30,17 @@ colb.write(f"**CURRENT WEEK:    {week}**")
 k = int(wk)
 
 if 'vl' not in st.session_state:     
-     #try:
+     try:
         #cola,colb= st.columns(2)
         conn = st.connection('gsheets', type=GSheetsConnection)
         exist = conn.read(worksheet= 'VL', usecols=list(range(24)),ttl=5)
         df = exist.dropna(how='all')
         st.session_state.vl = df
-     # except exception as e:
-     #     st.write(f'{e}')
-     #     st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
-     #     st.stop()
-dfearly = st.session_state.vl.copy()
+     except exception as e:
+         st.write(f'{e}')
+         st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
+         st.stop()
+dftxt = st.session_state.vl.copy()
 
 
 #REPORTING RATES
