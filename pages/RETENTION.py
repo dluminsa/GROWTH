@@ -677,7 +677,7 @@ with cola:
     st.plotly_chart(fig9, use_container_width=True)
 with colb:
     st.plotly_chart(fig6, use_container_width=True)
-with colbc:
+with colc:
     st.plotly_chart(fig3, use_container_width=True)
 with cold:
     st.plotly_chart(fig1, use_container_width=True)
