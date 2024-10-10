@@ -7,8 +7,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 import traceback
 import time
-from google.oauth2.service_account import Credentials
-from oauth2client.service_account import ServiceAccountCredentials
 from streamlit_gsheets import GSheetsConnection
 from datetime import datetime
 
@@ -38,7 +36,7 @@ if 'tx' not in st.session_state:
         conn = st.connection('gsheets', type=GSheetsConnection)
         exist = conn.read(worksheet= 'TX', usecols=list(range(20)),ttl=5)
         tx = exist.dropna(how='all')
-        st.session_state.tx = delvr
+        st.session_state.tx = tx
      except:
          st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
          st.stop()
