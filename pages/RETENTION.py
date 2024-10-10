@@ -546,7 +546,9 @@ figp = go.Figure(data=[go.Pie(
 # Update layout for 3D effect
 figp.update_traces(textposition='inside', textinfo='percent+label')
 
-
+M2 = int(M2)
+M3 = int(M3)
+M6 = int(M6)
 # Display the chart
 st.markdown(f'**{M2} Clients were given < 3 Months, {M3} received between 4 to 5 five months, {M6} received 6+ MTHS**')
 cola,colb = st.columns(2)
@@ -562,6 +564,7 @@ st.divider()
 ##########################################################################
 #######ONE YEAR COHORT
 #filtered_df = filtered_df[filtered_df['WEEK']==k].copy()
+st.write(wateryr.columns)
 total = wateryr['TOTAL'].sum()
 newti = wateryr['TI'].sum()
 newlydx = wateryr['ORIG'].sum()
