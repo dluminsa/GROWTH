@@ -46,7 +46,7 @@ if 'yr' not in st.session_state:
      try:
         #cola,colb= st.columns(2)
         conn = st.connection('gsheets', type=GSheetsConnection)
-        exist = conn.read(worksheet= 'YEARS', usecols=list(range(24)),ttl=5)
+        exist = conn.read(worksheet= 'YEARS', usecols=list(range(33)),ttl=5)
         tx = exist.dropna(how='all')
         st.session_state.yr = tx 
      except:
@@ -665,11 +665,20 @@ pied = pied.rename(columns={'LOSTO':'LOST', 'ACTIVEO':'ACTIVE'})
 melted = pied.melt(var_name='Category', value_name='values')
 fig1 = px.pie(melted, values= 'values', title='TX NEWS', names='Category', hole=0.3,color='Category',  
              color_discrete_map={'LOST': 'red', 'ACTIVE': 'green'} )
+pied = wateryr.copy() 
+pied = pied[['LOSTN', 'ACTIVEN']]
+pied = pied.rename(columns={'LOSTN':'LOST', 'ACTIVEN':'ACTIVE'})
+melted = pied.melt(var_name='Category', value_name='values')
+fig9 = px.pie(melted, values= 'values', title='9 MTHS', names='Category', hole=0.3,color='Category',  
+             color_discrete_map={'LOST': 'red', 'ACTIVE': 'purple'} )
 
-cola, colb, colc = st.columns(3)
+cola, colb, colc,cold = st.columns(4)
 with cola:
-    st.plotly_chart(fig6, use_container_width=True)
+    st.plotly_chart(fig9, use_container_width=True)
 with colb:
+    st.plotly_chart(fig6, use_container_width=True)
+with colbc:
     st.plotly_chart(fig3, use_container_width=True)
-with colc:
+with cold:
     st.plotly_chart(fig1, use_container_width=True)
+####CIRA
