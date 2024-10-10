@@ -109,6 +109,7 @@ else:
     dftx3 = dftx2[dftx2['DISTRICT'].isin(district)]
     
     water2['DISTRICT'] = water2['DISTRICT'].astype(str)
+    water3 = water2[water2['DISTRICT'].isin(district)]
 
 facility = st.sidebar.multiselect('**CHOOSE A FACILITY**', dfrep3['FACILITY'].unique(), key='c')
 if not facility:
@@ -144,6 +145,7 @@ st.divider()
 
 HAVE = water['HAVE'].sum()
 NOT = water['NOVL'].sum()
+TOTAL = int(HAVE) + in(NOT)
 
 labels = ['HAVE VL', 'DUE']
 values = [HAVE, NOT]
@@ -161,7 +163,9 @@ figp = go.Figure(data=[go.Pie(
 
 # Update layout for 3D effect
 figp.update_traces(textposition='inside', textinfo='percent+label')
-
+st.markdown(f'**{TOTAL} ACTIVE CLIENTS, {HAVE} ARE BLED, {NOT} ARE NOT BLED**')
+if facility and not district and not CLUSTER:
+    st.write(f'**SHOWING DATA FOR {facility} facility**')
 st.plotly_chart(figp, use_container_width=True)
 
 #############################################################################################
