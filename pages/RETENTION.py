@@ -220,7 +220,6 @@ for every in fac:
     dff = dff.drop_duplicates(subset=['FACILITY'], keep = 'last')
     dfy.append(dff)
 wateryr = pd.concat(dfy)
-st.write(wateryr.columns)
 
 dfy = []
 for every in fac:
@@ -331,7 +330,7 @@ else:
     dfrep4 = dfrep3[dfrep3['FACILITY'].isin(facility)]
     dftx4 = dftx3[dftx3['FACILITY'].isin(facility)]
     water4 = water3[water3['FACILITY'].isin(facility)]
-    wateryr4 = waterly3[waterly3['FACILITY'].isin(facility)]
+    wateryr4 = wateryr3[wateryr3['FACILITY'].isin(facility)]
     waterly4 = waterly3[waterly3['FACILITY'].isin(facility)]
 
 # Base DataFrame to filter
@@ -342,7 +341,6 @@ dftx = dftx4.copy()
 water = water4.copy()
 wateryr = wateryr4.copy()
 waterly = waterly4.copy()
-st.write(wateryr.columns)
 
 # Apply filters based on selected criteria
 if CLUSTER:
@@ -566,7 +564,7 @@ st.divider()
 ##########################################################################
 #######ONE YEAR COHORT
 #filtered_df = filtered_df[filtered_df['WEEK']==k].copy()
-st.write(wateryr.columns)
+
 total = wateryr['TOTAL'].sum()
 newti = wateryr['TI'].sum()
 newlydx = wateryr['ORIG'].sum()
