@@ -40,7 +40,7 @@ if 'vl' not in st.session_state:
          st.write(f'{e}')
          st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
          st.stop()
-dftxt = st.session_state.vl.copy()
+dftx = st.session_state.vl.copy()
 
 
 #REPORTING RATES
