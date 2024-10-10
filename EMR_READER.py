@@ -1013,6 +1013,38 @@ if st.session_state.reader:
                     list4 = [newtotal3, orig3,newti3,deadnew3,outnew3,newlost3,netnew3, 
                                  newactive3,rete3,newtotal1, orig1,newti1,deadnew1,outnew1,newlost1,netnew1, newactive1,rete1] #THRRE
                     # st.session_state.reader =True
+                    lst = df2wks[['A', 'RD']].copy()
+                    tout = dft[['A', 'TO']].copy()
+                    die = died[['A', 'DD']].copy()
+                    vir = totalvl[['A', 'VD']]
+                    one = lostn[['A','AS','RD']]
+                
+                    lst['MISSED'] = np.nan
+                    lst['MISSED'] = lst['MISSED'].fillna('MISSED APPT')
+                    lst['A'] = pd.to_numeric(lst['A'], errors='coerce')
+                
+                    tout['TRANSFERED'] = np.nan
+                    tout['TRANSFERED'] = tout['TRANSFERED'].fillna('TO')
+                    tout['A'] = pd.to_numeric(tout['A'], errors='coerce')
+                    first = pd.merge(lst,tout, on = 'A', how = 'outer')
+                
+                    die['DEAD?'] = np.nan
+                    die['DEAD?'] = die['DEAD?'].fillna('DIED')
+                    first['A'] = pd.to_numeric(first['A'], errors='coerce')
+                    die['A'] = pd.to_numeric(die['A'], errors='coerce')
+                    second = pd.merge(first,die, on = 'A', how = 'outer')
+                
+                    vir['VL STATUS'] = np.nan
+                    vir['VL STATUS'] = vir['VL STATUS'].fillna('DUE')
+                    vir['A'] = pd.to_numeric(vir['A'], errors='coerce')
+                    second['A'] = pd.to_numeric(second['A'], errors='coerce')
+                    third = pd.merge(second,vir, on = 'A', how = 'outer')
+                
+                    one['ONE YEAR'] = np.nan
+                    one['ONE YEAR'] = one['ONE YEAR'].fillna('ONE YEAR IIT')
+                    one['A'] = pd.to_numeric(one['A'], errors='coerce')
+                    third['A'] = pd.to_numeric(third['A'], errors='coerce')
+                    forth = pd.merge(third,one, on = 'A', how = 'outer')
                         
 if st.session_state.reader:                                                    
     file2 = r'CLUSTERS.csv'
@@ -1417,6 +1449,19 @@ if st.session_state.reader:# and st.session_state.df:
                                                 data=csv_data,
                                                 file_name=f" {facility} TxNEW_TOs.csv",
                                                 mime="text/csv") 
+                            st.divider()
+                            cola,colb = st.columns(2)
+                            with cola:
+                                    if outnew1==0:
+                                        st.markdown('**MASTER LIST WITH ALL LINELISTS COMBINED**')
+                                    dat = forth.copy()
+                                    csv_data = dat.to_csv(index=False)
+                                    st.download_button(
+                                                label="MASTER_LIST",
+                                                data=csv_data,
+                                                file_name=f" {facility} MASTER_LIST.csv",
+                                                mime="text/csv")
+            
                             st.divider()
                             st.success('**WANT TO HELP US IMPROVE?**')
                             st.write('Are you getting different results when you filter the extract manually?, That is ok')
