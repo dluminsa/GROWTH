@@ -861,7 +861,48 @@ if st.session_state.reader:
                     else:
                         rete = round((newactive/netnew)*100)
                         #rete = f"{rete} %"
+                    #9 MONTH COHORT
         
+                    oneyear[['Ayear', 'Amonth']] = oneyear[['Ayear', 'Amonth']].apply(pd.to_numeric, errors = 'coerce')
+                    new9 = oneyear[((oneyear['Ayear']==2024) & (oneyear['Amonth'].isin([1,2,3])))].copy()
+                    newtotal9 = new9.shape[0]
+        
+                    new9[['Tiyear']] = new9[['Tiyear']].apply(pd.to_numeric, errors = 'coerce')
+                    tin9 = new9[new9['Tiyear']!=994].copy()
+                    #one =new.shape[0]
+                    newti9 = tin9.shape[0]
+                    orig6 = int(newtotal9)-int(newti9)
+                    new9['Dyear'] = pd.to_numeric(new9['Dyear'], errors='coerce')
+                    newdead6 = new9[new9['Dyear']!=994].copy()
+        
+                    deadnew6 = newdead6.shape[0]
+                    new6 = new9[new9['Dyear']==994].copy() #AFTER REMOVING THE DEAD
+        
+                    new9['Tyear'] = pd.to_numeric(new6['Tyear'], errors='coerce')
+                    
+                    newto9 = new9[new9['Tyear']!=994].copy()
+                    outnew9 = newto9.shape[0]
+                    
+                    new9 = new9[new9['Tyear']==994].copy() #withou TO
+                    netnew9 = new9.shape[0]
+        
+                    new9['A'] = pd.to_numeric(new9['A'], errors = 'coerce')
+                    dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
+                    
+                    active9 = new9[new9['A'].isin(dfactive['A'])].copy()
+                    lostn9 = new9[~new9['A'].isin(dfactive['A'])].copy()
+                
+                    newactive9 = active9.shape[0]
+                    newlost9 = lostn9.shape[0]
+                    #ret = newtotal - newlost
+                    if netnew9 == 0:
+                        rete9 = 0
+                    elif newactive9 == 0:
+                        rete9 = 0
+                    else:
+                        rete9 = round((newactive9/netnew9)*100)
+                        #rete6 = f"{rete6} %"
+                
         
                 #6 MONTH COHORT
         
@@ -1009,7 +1050,8 @@ if st.session_state.reader:
                     list2 = [curr,el,wvl,nvl,two,Lel, lnvl,lwvl, newactive,wvla,nvla,newactive6,wvla6,nvla6] #VL
                     
                     list3 = [newtotal, orig,newti,deadnew,outnew, newlost,netnew,newactive,rete,
-                                 newtotal6, orig6,newti6,deadnew6,outnew6,newlost6,netnew6, newactive6,rete6] #YEAR
+                                 newtotal6, orig6,newti6,deadnew6,outnew6,newlost6,netnew6, newactive6,rete6,
+                            newtotal9, orig9,newti9,deadnew9,outnew9,newlost9,netnew9, newactive9,rete9] #YEAR
                     list4 = [newtotal3, orig3,newti3,deadnew3,outnew3,newlost3,netnew3, 
                                  newactive3,rete3,newtotal1, orig1,newti1,deadnew1,outnew1,newlost1,netnew1, newactive1,rete1] #THRRE
                     # st.session_state.reader =True
@@ -1256,10 +1298,7 @@ if st.session_state.reader:# and st.session_state.df:
                 else:
                         st.write('FIRST SUBMIT TO SEE LINELISTS AND SUMMARY') 
                         st.markdown(f'**YOU HAVE SELECTED {district} AS THE DISTRICT AND {facility} AS THE FACILITY**')
-                        st.write('BE SURE OF THE ABOVE SELECTIONS BEFORE SUBMITTING') 
-                       
-                    
-                    
+                        st.write('BE SURE OF THE ABOVE SELECTIONS BEFORE SUBMITTING')                     
                 
                 if st.session_state.submited:
                         st.success('**SUBMITTED, To upload another excel, first refresh this page, or open the link afresh**')
