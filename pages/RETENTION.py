@@ -421,12 +421,12 @@ check = 'FALSE'
 if int(dist) > 0:
     water['USE'] = water['DISTRICT']
     use = 'THE DISTRICTS'
-    check = TRUE
+    check = 'TRUE'
 elif int(fact) > 0:
     disct = '.'.join(water['DISTRICT'].unique())
     use = f'FACILITIES IN {disct} DISTRICT'
     water['USE'] = water['FACILITY']
-    check = TRUE
+    check = 'TRUE'
 else:
     check = FALSE
     pass
