@@ -1051,8 +1051,6 @@ if st.session_state.reader:
                         rete3 = round((newactive3/netnew3)*100)
                         #rete3 = f"{rete3} %"
         
-                #<3 MONTH COHORT
-        
                     oneyear[['Ayear', 'Amonth']] = oneyear[['Ayear', 'Amonth']].apply(pd.to_numeric, errors = 'coerce')
                     new1 = oneyear[((oneyear['Ayear']==2024) & (oneyear['Amonth'].isin([10,11,12])))].copy()
                     newtotal1 = new1.shape[0]
