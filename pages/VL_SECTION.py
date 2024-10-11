@@ -237,7 +237,6 @@ with colc:
     st.plotly_chart(fig6, use_container_width=True)
 
 # Display the plot
-st.plotly_chart(figM, use_container_width=True)
 st.write('')
 st.write('')
 st.write('')
