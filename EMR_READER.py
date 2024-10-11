@@ -591,11 +591,14 @@ if st.session_state.reader:
                     df['RWEEK1'] = df['RWEEK']-39
                     #       #PARAMETERS FOR CIRA
                        
-                    # df['R1aya'] = df['R1day'].astype(str).str.split('.').str[0]
-                    # df['R1montha'] = df['R1month'].astype(str).str.split('.').str[0]
-                    # df['R1yeara'] = df['R1year'].astype(str).str.split('.').str[0]
-                    # df['RETURN DATE2'] = df['R1aya'] + '/' + df['R1montha'] + '/' + df['R1yeara']
-                    # df['RETURN DATE2'] = pd.to_datetime(df['RETURN DATE2'], format='%d/%m/%Y', errors='coerce')
+                    df['R1aya'] = df['R1day'].astype(str).str.split('.').str[0]
+                    df['R1montha'] = df['R1month'].astype(str).str.split('.').str[0]
+                    df['R1yeara'] = df['R1year'].astype(str).str.split('.').str[0]
+                    df['RETURN DATE1'] = df['R1aya'] + '/' + df['R1montha'] + '/' + df['R1yeara']
+                    df['RETURN DATE1'] = pd.to_datetime(df['RETURN DATE1'], format='%d/%m/%Y', errors='coerce')
+                    df['RWEEKR'] = df['RETURN DATE1'].dt.strftime('%V') #Use R since 1 was already used
+                    df['RWEEKR'] = pd.to_numeric(df['RWEEKR'], errors='coerce')
+                    #df['RWEEKR1'] = df['RWEEKR']-39 NOT NEEDED THIS Q SINCE WE ARE USING 
                     # df['DUR'] = round((df['RETURN DATE'] - df['RETURN DATE2']).dt.days / 30)
                     # def cira(a):
                     #     if a<1:
@@ -799,7 +802,12 @@ if st.session_state.reader:
         
                     dfactive = pd.concat([dfactive24, df25]) #COMBINE THOSE ACTIVE IN TWO WEEKS AND THOSE OF 2025
                     curr = dfactive.shape[0]
-        
+    
+                   #OF THOSE ACTIVE, HOW MANY WERE ON APPT 2 WEEKS AGO, 
+                   dfactive['RWEEKR'] = pd.to_numeric(dfactive['RWEEKR'], errors='coerce')
+                   appt = dfactive[dfactive['RWEEK']<wk2].copy()
+                   onappt = appt.copy()
+
                     #MMD AMONGST ACTIVE CLIENTS
                     dfactive['ARVD'] = dfactive['ARVD'].fillna(20)
                     dfactive['ARVD'] = pd.to_numeric(dfactive['ARVD'], errors='coerce')
@@ -1096,7 +1104,7 @@ if st.session_state.reader:
                         #rete1 = f"{rete1} %"
                     # if st.session_state.reader:
                     #     st.write(pot)
-                    list1 = [lastq,pot,ti,txnew,rtt,true,dead,two,three,four,curr,M2,M3,M6] #TX
+                    list1 = [lastq,pot,ti,txnew,rtt,true,dead,two,three,four,curr,M2,M3,M6, onappt ] #TX
                     
                     list2 = [curr,el,wvl,nvl,two,Lel, lnvl,lwvl, newactive,wvla,nvla,newactive6,wvla6,nvla6] #VL
                     
