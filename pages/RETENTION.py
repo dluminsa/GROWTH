@@ -470,8 +470,9 @@ elif int(fact) > 1:
     ])
     
     # Update layout
+    distict = '.'.join(water['DISTRICT'].unique())
     figd.update_layout(
-        title=f'**TOTAL MISSED APPOINTMENTS SINCE THE QUARTER BEGAN PER FACILITY IN {district}**',
+        title=f'TOTAL MISSED APPOINTMENTS SINCE THE QUARTER BEGAN PER FACILITY IN {distict} DISTRICT',
         xaxis_title='FACILITIES',
         yaxis_title='TOTAL MISSED APPOINTMENTS',
         xaxis_tickangle=-45  # Optional: angle x-axis labels for better visibility
