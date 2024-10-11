@@ -370,6 +370,9 @@ if facility:
     dftx = dftx[dftx['FACILITY'].isin(facility)]
     wateryr = wateryr[wateryr['FACILITY'].isin(facility)]
     waterly = waterly[waterly['FACILITY'].isin(facility)]
+
+st.write(water.columns)
+
 st.divider()
 cola, colb, colc = st.columns(3)
 colb.success('**QUICK SUMMARY**')
