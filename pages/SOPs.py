@@ -110,7 +110,7 @@ html_table = """
   <li>-	From the confirmed TX-CURR list, go to last encounter date and select clients with a last clinical visit in the reporting quarter.</li>
   <li>-	Go to the column of first encounter date and remove dates for the reporting quarter.</li>
   <li>-	Go to ART start date and remove newly enrolled clients on ART in the reporting quarter.</li>
-  <li><b><i>-Go to Transfer In and remove transfer Ins in the reporting qtr.</i></b></li>
+  <li><b><i><span style="color: yellow;">Go to Transfer In and remove transfer Ins in the reporting qtr.</span></i></b></li>
   <li>-	Go to the obs datetime of the most recent return visit date, remove/eliminate obs datetime that falls in the previous reporting periods.</li>
   <li>-	Go to the second most recent return visit date and remove dates from 2nd or 3rd of the third month of the previous reporting qtr, to the reporting quarter and beyond. </li>
   <li><b><i>Go to the third most recent return visit date and remove dates from 2nd or 3rd of the third month of the previous reporting qtr, to the reporting quarter and beyond.</i></b></li>
