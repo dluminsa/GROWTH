@@ -413,7 +413,9 @@ fig.update_layout(
 
 # Show the plot
 st.plotly_chart(fig)
-
+#####################ONLY SHOWS WHEN THERE ARE MANY FACILITIES OR DISTRTICTS
+dist = water['DISTRICT'].nunique()
+st.write(dist)
 #############################################################################################
 #LINE GRAPHS
 st.divider()
