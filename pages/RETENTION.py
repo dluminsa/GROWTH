@@ -419,7 +419,7 @@ dist = water['DISTRICT'].nunique()
 fact = water['FACILITY'].nunique()
 
 
-if int(dist) > 0:
+if int(dist) > 1:
     x = []
     y = []
     water['TWO'] = pd.to_numeric(water['TWO'], errors='coerce')
@@ -448,13 +448,40 @@ if int(dist) > 0:
         xaxis_tickangle=-45  # Optional: angle x-axis labels for better visibility
     )
     st.plotly_chart(figd)#, use_container_width=True)
-# elif int(fact) > 0:
+elif int(fact) > 1:
+        x = []
+    y = []
+    water['TWO'] = pd.to_numeric(water['TWO'], errors='coerce')
+    districts = water['FACILITY'].unique()
+    water = water.sort_values(by = ['TWO'], ascending = False)
+    for each in districts:
+        x.append(each)
+        dist = water[water['FACILITY']==each]['TWO'].sum()
+        y.append(dist)   
+ 
+    sorted_indices = sorted(range(len(y)), key=lambda i: y[i], reverse=True)
+    x = [x[i] for i in sorted_indices]
+    y = [y[i] for i in sorted_indices]
+    num_bars = len(x)
+    colors = [f'rgba({random.randint(0, 255)}, {random.randint(0, 255)}, {random.randint(0, 255)}, 0.7)' for _ in range(num_bars)]
+    
+    figd = go.Figure(data=[
+        go.Bar(x=x, y=y, marker_color=colors)
+    ])
+    
+    # Update layout
+    figd.update_layout(
+        title='TOTAL MISSED APPOINTMENTS SINCE THE QUARTER BEGAN PER DISTRICT',
+        xaxis_title='District',
+        yaxis_title='TOTAL MISSED APPOINTMENTS',
+        xaxis_tickangle=-45  # Optional: angle x-axis labels for better visibility
+    )
+    st.plotly_chart(figd)#, use_container_width=True)
+    
+else:
+    pass
 
-# else:
-#     st.session_state.check = False
-#     pass
-# if st.session_state.check:
-#     st.write(f'** BAR GRAPH COMPARISON OF MISSED APPOINTEMNTS AMONGST {use}**')
+
 
     
 
