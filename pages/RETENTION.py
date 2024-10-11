@@ -383,10 +383,11 @@ los = water['TWO'].sum()
 to  = water['TO'].sum()
 dd = water['DEAD'].sum()
 Q1 = water['ACTIVE'].sum()
+ug = int(pot) - int(to) - int(dd) - int(Q1)
 
-labels = ["Q4 Curr",   "TI",     "TX NEW",     'RTT' ,  'Unkown',  "Potential",  "MISSED",  "DEAD",     "TO",     "ACTIVE"]
-values = [Q4,           ti,        new,         rt,       uk,        pot,        -los,       -dd,        -to,       Q1]
-measure = ["absolute", "relative","relative", "relative","relative","total",    "relative", "relative","realative","total"]
+labels = ["Q4 Curr",   "TI",     "TX NEW",     'RTT' ,  'Unkown',  "Potential",  "MISSED",  "DEAD",     "TO",   "Unknown",  "ACTIVE"]
+values = [Q4,           ti,        new,         rt,       uk,        pot,        -los,       -dd,        -to,   -ug,    Q1]
+measure = ["absolute", "relative","relative", "relative","relative","total",    "relative", "relative","realative","realative","total"]
 # Create the waterfall chart
 
 fig = go.Figure(go.Waterfall(
