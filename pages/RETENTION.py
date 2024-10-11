@@ -399,6 +399,12 @@ cold.metric(label='', value = f'{perc}')
 wik = week -2 
 st.write(f'**APPOINTMENTS SINCE 3rd SEPT TO WEEK {wik}**')
 
+mosta = water.groupby('DISTRICT')['TWO'].sum()
+mosta
+top_two = mosta.nlargest(2)
+
+st.write(top_two)
+
         
 st.divider()
 #############################################################################################
