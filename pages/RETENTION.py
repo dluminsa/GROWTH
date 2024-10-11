@@ -831,18 +831,33 @@ with cold:
 ####TRACKING TXML
 st.info('**TRENDS IN TXML (FOR CLIENTS THAT WERE REPORTED AS TXML LAST QUARTER)**')
 
-grouped['SURGE'] = grouped['SURGE'].astype(int)
-grouped['SURGE'] = grouped['SURGE'].astype(str)
-figM = px.line(grouped, x='SURGE', y='TXML', color='red', markers=True,
-              title='MISSED APPOINTMENTS', labels={'SURGE':'WEEK', 'TXML': 'No. of clients'})
+grouped['SURGE'] = grouped['SURGE'].astype(int)  # Ensure SURGE is integer
+grouped['SURGE'] = grouped['SURGE'].astype(str)  # Convert SURGE to string
+
+# Create the line chart using Plotly Express
+figM = px.line(grouped, 
+               x='SURGE', 
+               y='TXML', 
+               title='MISSED APPOINTMENTS', 
+               labels={'SURGE': 'WEEK', 'TXML': 'No. of clients'},
+               markers=True)
+
+# Update trace color to red
+figM.update_traces(line=dict(color='red'))
+
+# Update layout for better appearance
 figM.update_layout(
     width=800,  # Set the width of the plot
     height=400,  # Set the height of the plot
     xaxis=dict(showline=True, linewidth=1, linecolor='black'),  # Show x-axis line
     yaxis=dict(showline=True, linewidth=1, linecolor='black')   # Show y-axis line
 )
+
+# Set x-axis to categorical
 figM.update_xaxes(type='category')
-st.plotly_chart(figM)#, use_container_width=True)
+
+# Display the plot
+st.plotly_chart(figM, use_container_width=True)
 
 
 
