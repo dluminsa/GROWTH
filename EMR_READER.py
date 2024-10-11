@@ -925,9 +925,9 @@ if st.session_state.reader:
                     newti9 = tin9.shape[0]
                     orig9 = int(newtotal9)-int(newti9)
                     new9['Dyear'] = pd.to_numeric(new9['Dyear'], errors='coerce')
-                    newdead6 = new9[new9['Dyear']!=994].copy()
+                    newdead9 = new9[new9['Dyear']!=994].copy()
         
-                    deadnew6 = newdead6.shape[0]
+                    deadnew9 = newdead9.shape[0]
                     new9 = new9[new9['Dyear']==994].copy() #AFTER REMOVING THE DEAD
         
                     new9['Tyear'] = pd.to_numeric(new9['Tyear'], errors='coerce')
