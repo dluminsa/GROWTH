@@ -373,7 +373,12 @@ if facility:
 st.divider()
 cola, colb, colc = st.columns(3)
 colb.success('**QUICK SUMMARY**')
-
+cola, colb, colc,cold = st.columns(4)
+cola.info('*ON APPT**')
+colb.info('**ATTENDED**')
+colc.info('**MISSED**')
+cold.info('**% ATT'DCE**)
+        
 st.divider()
 #############################################################################################
 #filtered_df = filtered_df[filtered_df['WEEK']==k].copy()
@@ -495,7 +500,7 @@ else:
 #LINE GRAPHS
 st.divider()
 #TREND OF MISSED APOINTMENTS
-st.write('**TRENDS IN CLIENTS WHO HAVE MISSED APPOINTMENTS FOR MORE THAN 2, 3 AND 4 WEEKS**')
+st.success('**TRENDS IN CLIENTS WHO HAVE MISSED APPOINTMENTS FOR MORE THAN 2, 3 AND 4 WEEKS**')
 
 grouped = dftx.groupby('SURGE').sum(numeric_only=True).reset_index()
 
@@ -556,7 +561,7 @@ highestb = highestb.shape[0]
 coly, colu = st.columns(2)
 with coly:
     if highesta ==0:
-        st.write('**FACILITY SELECTED IS NOT AMONG**')
+        st.warning('**FACILITY SELECTED IS NOT AMONG**')
         pass
     else:
         figa = px.bar(
