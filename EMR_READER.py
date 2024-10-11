@@ -627,7 +627,7 @@ if st.session_state.reader:
     
                     #COPY FOR ONE YEAR BEFORE GETTING POT CURR
                     oneyear = df.copy()
-                    df['GROUP'] = df['AG'].apply(ager)
+                    #df['GROUP'] = df['AG'].apply(ager)
                     #LAST Q'S TXML ALTER
                     df['Tyear'] = pd.to_numeric(df['Tyear'],errors='coerce')
                     last = df[df['Tyear']==994].copy()
