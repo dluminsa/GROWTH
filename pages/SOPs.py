@@ -114,7 +114,7 @@ html_table = """
   <li>-	Go to the obs datetime of the most recent return visit date, remove/eliminate obs datetime that falls in the previous reporting periods.</li>
   <li>-	Go to the second most recent return visit date and remove dates from 2nd or 3rd of the third month of the previous reporting qtr, to the reporting quarter and beyond. </li>
   <li><b><i style="background-color: yellow;">Go to the third most recent return visit date and remove dates from 2nd or 3rd of the third month of the previous reporting qtr, to the reporting quarter and beyond.</i></b></li>
-  <li>><b><u style="background-color: yellow;">-Go to the ART days dispensed obs datetime and remove all clients that didn’t receive ART in the reporting quarter.</u>What remains is the TX-RTT.</b></li>
+  <li>><b><span style="background-color: red;">-Go to the ART days dispensed obs datetime and remove all clients that didn’t receive ART in the reporting quarter.</span>What remains is the TX-RTT.</b></li>
   </ol>
 """
 st.markdown(html_table, unsafe_allow_html=True)
