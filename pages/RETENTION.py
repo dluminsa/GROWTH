@@ -397,7 +397,7 @@ colb.metric(label='', value =f'{onat}')
 colc.metric(label='', value =f'{onmi}')
 cold.metric(label='', value = f'{perc}')
 wik = week -2 
-st.write(f'**SINCE 3rd SEPT** to week {wik}**')
+st.write(f'**APPOINTMENTS SINCE 3rd SEPT TO WEEK {wik}**')
 
         
 st.divider()
