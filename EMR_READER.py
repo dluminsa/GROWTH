@@ -923,7 +923,7 @@ if st.session_state.reader:
                     tin9 = new9[new9['Tiyear']!=994].copy()
                     #one =new.shape[0]
                     newti9 = tin9.shape[0]
-                    orig6 = int(newtotal9)-int(newti9)
+                    orig9 = int(newtotal9)-int(newti9)
                     new9['Dyear'] = pd.to_numeric(new9['Dyear'], errors='coerce')
                     newdead6 = new9[new9['Dyear']!=994].copy()
         
