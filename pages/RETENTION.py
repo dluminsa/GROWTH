@@ -415,7 +415,24 @@ fig.update_layout(
 st.plotly_chart(fig)
 #####################ONLY SHOWS WHEN THERE ARE MANY FACILITIES OR DISTRTICTS
 dist = water['DISTRICT'].nunique()
-st.write(dist)
+fact = water['FACILITY'].nunique()
+
+if int(dist) > 0:
+    water['USE'] = water['DISTRICT']
+    use = 'THE DISTRICTS'
+    check = True
+elif int(fact) > 0:
+    disct = '.'.join(water['DISTRICT'].unique())
+    use = f'FACILITIES IN {disct} DISTRICT'
+    water['USE'] = water['FACILITY']
+    check = True
+else:
+    check = False
+    pass
+if check:
+    st.write(f'** BAR GRAPH COMPARISON OF MISSED APPOINTEMNTS AMONGST {use}**')
+    
+
 #############################################################################################
 #LINE GRAPHS
 st.divider()
