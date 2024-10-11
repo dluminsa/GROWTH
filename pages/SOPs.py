@@ -36,6 +36,12 @@ html_table = """
 <p> 
 Run ever-enrolled list with HIV Clinic no, Gender, Age, Telephone Number, Last Encounter date, First encounter date, Return visit date (check location, check obs datetime, return most recent 3 RVDs), Transferred out to another facility, Transfer In, Current ARV regimen, ART START date, Deceased,<i style="background-color: red;"> ART days dispensed (check obs datetime)
 </i></p>
+"""
+# Display the HTML table using markdown in Streamlit
+st.markdown(html_table, unsafe_allow_html=True)
+st.info('**NOTE THAT ALL THESE STEPS, THE EMR READER WILL DO THEM FOR YOU, THIS IS FOR COMPARISON PURPOSE**')
+# HTML Table
+html_table = """
 <p>Filter HIV Clinic No to remove blanks and maintain PLHIV only. (those with a patient ID)</p>
 """
 # Display the HTML table using markdown in Streamlit
