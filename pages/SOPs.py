@@ -36,9 +36,19 @@ html_table = """
 <p> 
 Run ever-enrolled list with HIV Clinic no, Gender, Age, Telephone Number, Last Encounter date, First encounter date, Return visit date (check location, check obs datetime, return most recent 3 RVDs), Transferred out to another facility, Transfer In, Current ARV regimen, ART START date, Deceased, ART days dispensed (check obs datetime)
 </p>
-<p><b>THIS PROGRAM WILL DO THESE STEPS AUTOMATICALLY, FOLLOW THESE SOPs FOR COMPARISON PURPOSES</b></P>
-<br>
 <p>-Filter HIV Clinic No to remove blanks and maintain PLHIV only. (those with a patient ID)</p>
+"""
+# Display the HTML table using markdown in Streamlit
+st.markdown(html_table, unsafe_allow_html=True)
+# HTML Table
+html_table = """
+<h4>1.APPOINTMENT LIST;</h4>
+<p>Using the resultant list,</p>
+<ul>
+  <li>-	Remove transfer outs (YES in the TO column)</li>
+  <li>-	Remove deceased (True in the deceased column)</li>
+  <li>-	Then go to the most recent return visit date and select appointment dates of interest.</li>
+</ul>
 """
 # Display the HTML table using markdown in Streamlit
 st.markdown(html_table, unsafe_allow_html=True)
