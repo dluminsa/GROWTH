@@ -437,7 +437,7 @@ if int(dist) > 0:
     
     # Update layout
     figd.update_layout(
-        title='Sum of TWO by District',
+        title='TOTAL MISSED APPOINTMENTS SINCE THE QUARTER BEGAN PER DISTRICT',
         xaxis_title='District',
         yaxis_title='Sum of TWO',
         xaxis_tickangle=-45  # Optional: angle x-axis labels for better visibility
