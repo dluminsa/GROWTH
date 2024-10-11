@@ -419,10 +419,10 @@ fact = water['FACILITY'].nunique()
 
 
 if int(dist) > 0:
-    districts = water['DISTRICT'].unique()
     x = []
     y = []
     water['TWO'] = pd.to_numeric(water['TWO'], errors='coerce')
+    districts = water['DISTRICT'].unique()
     water = water.sort_values(by = ['TWO'], ascending = False)
     for each in districts:
         x.append(each)
@@ -430,7 +430,7 @@ if int(dist) > 0:
         y.append(dist)   
     # Create a bar graph using Plotly
     figd = go.Figure(data=[
-        go.Bar(x=x, y=y)
+        go.Bar(x=x, y=y, marker_color='grey')
     ])
     
     # Update layout
