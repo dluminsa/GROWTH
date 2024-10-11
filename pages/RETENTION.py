@@ -402,8 +402,8 @@ st.write(f'**APPOINTMENTS SINCE 3rd SEPT TO WEEK {wik}**')
 mosta = water.groupby('DISTRICT')['TWO'].sum()
 mosta
 topdis = mosta.nlargest(2)
-mostdis = '.'.join(top_two.index)
-st.warning(mostdis)
+# mostdis = '.'.join(top_two.index)
+st.warning(topdis)
 
 
 
