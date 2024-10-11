@@ -388,14 +388,16 @@ colc.info('**MISSED**')
 cold.info("**% ATT'DCE**")
 apot = water[['APPT', 'TWO']].copy()
 apot[['APPT', 'TWO']] = apot[['APPT', 'TWO']].apply(pd.to_numeric,errors='coerce')
-onat = apot['APPT'].sum()
-onmi = apot['TWO'].sum()
+onat = int(apot['APPT'].sum())
+onmi = int(apot['TWO'].sum())
 ont = int(onat + onmi)
 perc =round((onat/ont)*100)
 cola.metric(label='', value =f'{ont}')
 colb.metric(label='', value =f'{onat}')
 colc.metric(label='', value =f'{onmi}')
 cold.metric(label='', value = f'{perc}')
+wik = week -2 
+st.write(f'**SINCE 3rd SEPT** to week {wik}**')
 
         
 st.divider()
