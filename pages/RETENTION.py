@@ -403,7 +403,7 @@ mostd = water.groupby('DISTRICT')['TWO'].sum()
 mostf = water.groupby('FACILITY')['TWO'].sum()
 
 ####TOP3
-topdis3 = mosta.nlargest(3)
+topdis3 = mostd.nlargest(3)
 topdis3 = topdis3.reset_index()
 mostdis3 = '.'.join(topdis3['DISTRICT'].unique())
 
@@ -412,12 +412,12 @@ topfas3 = topfas3.reset_index()
 mostfas3 = '.'.join(topfas3['FACILITY'].unique())
 
 ##TOP 2
-topdis2 = mosta.nlargest(2)
+topdis2 = mostd.nlargest(2)
 topdis2 = topdis2.reset_index()
 mostdis2 = '.'.join(topdis2['DISTRICT'].unique())
 
 #TOP1
-topdis1 = mosta.nlargest(1)
+topdis1 = mostd.nlargest(1)
 topdis1 = topdis1.reset_index()
 mostdis1 = '.'.join(topdis1['DISTRICT'].unique())
 
