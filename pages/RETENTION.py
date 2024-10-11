@@ -429,8 +429,9 @@ elif int(fact) > 0:
 else:
     check = False
     pass
-if check:
+if check = True:
     st.write(f'** BAR GRAPH COMPARISON OF MISSED APPOINTEMNTS AMONGST {use}**')
+st.write('boy')
     
 
 #############################################################################################
