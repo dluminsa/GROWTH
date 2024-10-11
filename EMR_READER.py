@@ -930,7 +930,7 @@ if st.session_state.reader:
                     deadnew6 = newdead6.shape[0]
                     new9 = new9[new9['Dyear']==994].copy() #AFTER REMOVING THE DEAD
         
-                    new9['Tyear'] = pd.to_numeric(new6['Tyear'], errors='coerce')
+                    new9['Tyear'] = pd.to_numeric(new9['Tyear'], errors='coerce')
                     
                     newto9 = new9[new9['Tyear']!=994].copy()
                     outnew9 = newto9.shape[0]
@@ -953,7 +953,7 @@ if st.session_state.reader:
                         rete9 = 0
                     else:
                         rete9 = round((newactive9/netnew9)*100)
-                        #rete6 = f"{rete6} %"
+                
                 
         
                 #6 MONTH COHORT
