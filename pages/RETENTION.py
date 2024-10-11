@@ -393,9 +393,9 @@ onmi = apot['TWO'].sum()
 ont = int(onat + onmi)
 perc =round((onat/ont)*100)
 cola.metric(label='', value =f'{ont}')
-colb.metric(value =f'{onat}')
-colc.metric(value =f'{onmi}')
-cold.metric(value = f'{perc}')
+colb.metric(label='', value =f'{onat}')
+colc.metric(label='', value =f'{onmi}')
+cold.metric(label='', value = f'{perc}')
 
         
 st.divider()
