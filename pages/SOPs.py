@@ -95,7 +95,7 @@ st.markdown(html_table, unsafe_allow_html=True)
 html_table = """
 <h4>5.	TX-ML, (PLHIV active at the start of the reporting period and had no clinical contact since their last expected date).</h4>
 <ul>
-  <li>-	From the ever enrolled from UgEMR, filter out patients who were active at the start of the reporting period <b><i>and those that initiated ART in the reporting quarter</i></b> but have not returned since their last expected date. Take an example, reporting for Jan-Mar 24, TX-ML list will constitute all patients with a return visit date between 3rd December 2023 to 2nd March 2024. For O-D 23, consider 2nd Sept 23 to 3rd  Dec 2023. </li>
+  <li>-	From the ever enrolled from UgEMR, filter out patients who were active at the start of the reporting period <b><i style="background-color: red;">and those that initiated ART in the reporting quarter</i></b> but have not returned since their last expected date. Take an example, reporting for Jan-Mar 24, TX-ML list will constitute all patients with a return visit date between 3rd December 2023 to 2nd March 2024. For O-D 23, consider 2nd Sept 23 to 3rd  Dec 2023. </li>
   <li>-	Leave transfer outs and dead in the ML list.</li>
   </ul>
 """
