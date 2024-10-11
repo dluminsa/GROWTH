@@ -377,7 +377,7 @@ if check == 0:
     st.stop()
 else:
     pass
-
+st.write(water.columns)
 st.divider()
 cola, colb, colc = st.columns(3)
 colb.success('**QUICK SUMMARY**')
