@@ -471,8 +471,8 @@ elif int(fact) > 1:
     
     # Update layout
     figd.update_layout(
-        title='TOTAL MISSED APPOINTMENTS SINCE THE QUARTER BEGAN PER DISTRICT',
-        xaxis_title='District',
+        title=f'**TOTAL MISSED APPOINTMENTS SINCE THE QUARTER BEGAN PER FACILITY IN {district}**',
+        xaxis_title='FACILITIES',
         yaxis_title='TOTAL MISSED APPOINTMENTS',
         xaxis_tickangle=-45  # Optional: angle x-axis labels for better visibility
     )
