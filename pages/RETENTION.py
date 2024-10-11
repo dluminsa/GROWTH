@@ -429,7 +429,10 @@ if int(dist) > 0:
         x.append(each)
         dist = water[water['DISTRICT']==each]['TWO'].sum()
         y.append(dist)   
-    # Create a bar graph using Plotly
+ 
+    sorted_indices = sorted(range(len(y)), key=lambda i: y[i], reverse=True)
+    x = [x[i] for i in sorted_indices]
+    y = [y[i] for i in sorted_indices]
     num_bars = len(x)
     colors = [f'rgba({random.randint(0, 255)}, {random.randint(0, 255)}, {random.randint(0, 255)}, 0.7)' for _ in range(num_bars)]
     
