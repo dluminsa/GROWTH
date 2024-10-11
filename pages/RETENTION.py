@@ -383,7 +383,7 @@ los = water['TWO'].sum()
 to  = water['TO'].sum()
 dd = water['DEAD'].sum()
 Q1 = water['ACTIVE'].sum()
-ug = int(pot) - int(to) - int(dd) - int(Q1)
+ug = int(pot) - int(to) - int(dd) - int(Q1) - int(los)
 
 labels = ["Q4 Curr",   "TI",     "TX NEW",     'RTT' ,  'Unkown',  "Potential",  "MISSED",  "DEAD",     "TO",   "Unknown",  "ACTIVE"]
 values = [Q4,           ti,        new,         rt,       uk,        pot,        -los,       -dd,        -to,   -ug,    Q1]
