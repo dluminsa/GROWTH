@@ -425,8 +425,6 @@ if int(dist) > 0:
     water['TWO'] = pd.to_numeric(water['TWO'], errors='coerce')
     water = water.sort_values(by = ['TWO'], ascending = False)
     for each in districts:
-        water['TWO'] = pd.to_numeric(water['TWO'], errors='coerce')
-        water = water.sort_values(by = ['TWO'], ascending = False)
         x.append(each)
         dist = water[water['DISTRICT']==each]['TWO'].sum()
         y.append(dist)   
@@ -439,7 +437,7 @@ if int(dist) > 0:
     figd.update_layout(
         title='TOTAL MISSED APPOINTMENTS SINCE THE QUARTER BEGAN PER DISTRICT',
         xaxis_title='District',
-        yaxis_title='Sum of TWO',
+        yaxis_title='TOTAL MISSED APPOINTMENTS',
         xaxis_tickangle=-45  # Optional: angle x-axis labels for better visibility
     )
     st.plotly_chart(figd)#, use_container_width=True)
