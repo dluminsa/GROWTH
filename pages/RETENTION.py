@@ -417,19 +417,20 @@ st.plotly_chart(fig)
 dist = water['DISTRICT'].nunique()
 fact = water['FACILITY'].nunique()
 
+check = 'FALSE'
 if int(dist) > 0:
     water['USE'] = water['DISTRICT']
     use = 'THE DISTRICTS'
-    check = True
+    check = TRUE
 elif int(fact) > 0:
     disct = '.'.join(water['DISTRICT'].unique())
     use = f'FACILITIES IN {disct} DISTRICT'
     water['USE'] = water['FACILITY']
-    check = True
+    check = TRUE
 else:
-    check = False
+    check = FALSE
     pass
-if check = True:
+if check == 'TRUE':
     st.write(f'** BAR GRAPH COMPARISON OF MISSED APPOINTEMNTS AMONGST {use}**')
 st.write('boy')
     
