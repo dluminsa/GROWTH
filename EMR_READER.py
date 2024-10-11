@@ -1124,8 +1124,8 @@ if st.session_state.reader:
                     lst = df2wks[['A', 'RD']].copy()
                     tout = dft[['A', 'TO']].copy()
                     die = died[['A', 'DD']].copy()
-                    vir = totalvl[['A', 'VD']]
-                    one = lostn[['A','AS','RD']]
+                    vir = totalvl[['A', 'VD']].copy()
+                    one = lostn[['A','AS','RD']].copy()
                 
                     lst['MISSED'] = np.nan
                     lst['MISSED'] = lst['MISSED'].fillna('MISSED APPT')
@@ -1138,7 +1138,7 @@ if st.session_state.reader:
                     die['DEAD?'] = np.nan
                     die['DEAD?'] = die['DEAD?'].fillna('DIED')
                     second = pd.concat([first,die])#, on = 'A', how = 'outer')
-                
+                    
                     vir['VL STATUS'] = np.nan
                     vir['VL STATUS'] = vir['VL STATUS'].fillna('DUE')
                     vir['A'] = pd.to_numeric(vir['A'], errors='coerce')
