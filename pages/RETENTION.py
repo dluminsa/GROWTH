@@ -372,7 +372,7 @@ if facility:
     waterly = waterly[waterly['FACILITY'].isin(facility)]
 st.divider()
 cola, colb, colc = st.columns(3)
-colb.success('**QUICK SUMMARY**)
+colb.success('**QUICK SUMMARY**')
 
 st.divider()
 #############################################################################################
