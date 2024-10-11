@@ -1535,7 +1535,7 @@ if st.session_state.reader:# and st.session_state.df:
                                                 file_name=f" {facility} TxNEW_TOs.csv",
                                                 mime="text/csv") 
                             st.divider()
-                            forth = forth.rename(columns = {'A': 'ART NO.', 'RD': 'RETURN DATE', 'DD': 'DEATH DATE', 'TO': 'TRANSFER OUT DATE', 'AS': 'ART START DATE'})
+                            forth = forth.rename(columns = {'A': 'ART NO.','VD': 'VL DATE', 'RD': 'RETURN DATE', 'DD': 'DEATH DATE', 'TO': 'TRANSFER OUT DATE', 'AS': 'ART START DATE'})
                             cola,colb = st.columns([4,1])
                             with cola:
                                     if outnew1==0:
