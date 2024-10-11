@@ -377,7 +377,7 @@ cola, colb, colc,cold = st.columns(4)
 cola.info('*ON APPT**')
 colb.info('**ATTENDED**')
 colc.info('**MISSED**')
-cold.info('**% ATT'DCE**)
+cold.info("**% ATT'DCE**")
         
 st.divider()
 #############################################################################################
