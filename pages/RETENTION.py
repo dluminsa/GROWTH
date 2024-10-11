@@ -417,21 +417,39 @@ st.plotly_chart(fig)
 dist = water['DISTRICT'].nunique()
 fact = water['FACILITY'].nunique()
 
-if 'check' not in st.session_state:
-    if int(dist) > 0:
-        water['USE'] = water['DISTRICT']
-        use = 'THE DISTRICTS'
-        st.session_state.check = True
-    elif int(fact) > 0:
-        disct = '.'.join(water['DISTRICT'].unique())
-        use = f'FACILITIES IN {disct} DISTRICT'
-        water['USE'] = water['FACILITY']
-        st.session_state.check = True
-    else:
-        st.session_state.check = False
-        pass
-if st.session_state.check:
-    st.write(f'** BAR GRAPH COMPARISON OF MISSED APPOINTEMNTS AMONGST {use}**')
+
+if int(dist) > 0:
+    districts = water['DISTRICT'].unique()
+    x = []
+    y = []
+    water['TWO'] = pd.to_numeric(water['TWO'], errors='coerce')
+    water = water.sort_values(by = ['TWO'], ascending = False)
+    for each in districts:
+        water['TWO'] = pd.to_numeric(water['TWO'], errors='coerce')
+        water = water.sort_values(by = ['TWO'], ascending = False)
+        x.append(each)
+        dist = water[water['DISTRICT']==each]['TWO'].sum()
+        y.append(dist)   
+    # Create a bar graph using Plotly
+    figd = go.Figure(data=[
+        go.Bar(x=x, y=y)
+    ])
+    
+    # Update layout
+    figd.update_layout(
+        title='Sum of TWO by District',
+        xaxis_title='District',
+        yaxis_title='Sum of TWO',
+        xaxis_tickangle=-45  # Optional: angle x-axis labels for better visibility
+    )
+    st.plotly_chart(figd)#, use_container_width=True)
+# elif int(fact) > 0:
+
+# else:
+#     st.session_state.check = False
+#     pass
+# if st.session_state.check:
+#     st.write(f'** BAR GRAPH COMPARISON OF MISSED APPOINTEMNTS AMONGST {use}**')
 
     
 
