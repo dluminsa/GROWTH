@@ -403,7 +403,7 @@ mosta = water.groupby('DISTRICT')['TWO'].sum()
 mosta
 topdis = mosta.nlargest(2)
 # mostdis = '.'.join(top_two.index)
-st.warning(topdis)
+st.write(topdis)
 
 
 
