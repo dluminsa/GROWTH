@@ -804,9 +804,9 @@ if st.session_state.reader:
                     curr = dfactive.shape[0]
     
                    #OF THOSE ACTIVE, HOW MANY WERE ON APPT 2 WEEKS AGO, 
-                   dfactive['RWEEKR'] = pd.to_numeric(dfactive['RWEEKR'], errors='coerce')
-                   appt = dfactive[dfactive['RWEEK']<wk2].copy()
-                   onappt = appt.copy()
+                    dfactive['RWEEKR'] = pd.to_numeric(dfactive['RWEEKR'], errors='coerce')
+                    appt = dfactive[dfactive['RWEEK']<wk2].copy()
+                    onappt = appt.copy()
 
                     #MMD AMONGST ACTIVE CLIENTS
                     dfactive['ARVD'] = dfactive['ARVD'].fillna(20)
