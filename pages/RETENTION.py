@@ -35,7 +35,7 @@ if 'tx' not in st.session_state:
      try:
         #cola,colb= st.columns(2)
         conn = st.connection('gsheets', type=GSheetsConnection)
-        exist = conn.read(worksheet= 'TX', usecols=list(range(20)),ttl=5)
+        exist = conn.read(worksheet= 'TX', usecols=list(range(22)),ttl=5)
         tx = exist.dropna(how='all')
         st.session_state.tx = tx
      except:
@@ -370,8 +370,13 @@ if facility:
     dftx = dftx[dftx['FACILITY'].isin(facility)]
     wateryr = wateryr[wateryr['FACILITY'].isin(facility)]
     waterly = waterly[waterly['FACILITY'].isin(facility)]
-
-st.write(water.columns)
+    
+check = water.shape[0]
+if check == 0:
+    st.warning('***NO DATA FOR THE SELECTION MADE**')
+    st.stop(()
+else:
+    pass
 
 st.divider()
 cola, colb, colc = st.columns(3)
