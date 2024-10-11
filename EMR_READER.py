@@ -928,7 +928,7 @@ if st.session_state.reader:
                     newdead6 = new9[new9['Dyear']!=994].copy()
         
                     deadnew6 = newdead6.shape[0]
-                    new6 = new9[new9['Dyear']==994].copy() #AFTER REMOVING THE DEAD
+                    new9 = new9[new9['Dyear']==994].copy() #AFTER REMOVING THE DEAD
         
                     new9['Tyear'] = pd.to_numeric(new6['Tyear'], errors='coerce')
                     
@@ -1101,7 +1101,7 @@ if st.session_state.reader:
                     
                     list3 = [newtotal, orig,newti,deadnew,outnew, newlost,netnew,newactive,rete,
                                  newtotal6, orig6,newti6,deadnew6,outnew6,newlost6,netnew6, newactive6,rete6,
-                            newtotal9, orig9,newti9,deadnew9,outnew9,newlost9,netnew9, newactive9,rete9] #YEAR
+                              newtotal9, orig9,newti9,deadnew9,outnew9,newlost9,netnew9, newactive9,rete9] #YEAR
                     list4 = [newtotal3, orig3,newti3,deadnew3,outnew3,newlost3,netnew3, 
                                  newactive3,rete3,newtotal1, orig1,newti1,deadnew1,outnew1,newlost1,netnew1, newactive1,rete1] #THRRE
                     # st.session_state.reader =True
