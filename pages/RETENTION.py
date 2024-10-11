@@ -721,7 +721,7 @@ st.write('EARLY RETENTION')
 pied = wateryr.copy()#[filtered_df['WEEK']==k]
 #pied['LOST NEW'] = pied['ORIGINAL COHORT']- pied['ONE YEAR ACTIVE'] 
 pied = pied[['LOSTS', 'ACTIVES']]
-pied = pied.rename(columns={'LOSTT':'LOST', 'ACTIVET':'ACTIVE'})
+pied = pied.rename(columns={'LOSTS':'LOST', 'ACTIVES':'ACTIVE'})
 melted = pied.melt(var_name='Category', value_name='values')
 fig6 = px.pie(melted, values= 'values', title='6 MTHS', names='Category', hole=0.3,color='Category',  
              color_discrete_map={'LOST': 'red', 'ACTIVE': 'blue'} )
