@@ -370,6 +370,9 @@ if facility:
     dftx = dftx[dftx['FACILITY'].isin(facility)]
     wateryr = wateryr[wateryr['FACILITY'].isin(facility)]
     waterly = waterly[waterly['FACILITY'].isin(facility)]
+st.divider()
+cola, colb, colc = st.columns(3)
+colb.success('**QUICK SUMMARY**)
 
 st.divider()
 #############################################################################################
@@ -625,7 +628,7 @@ M2 = int(M2)
 M3 = int(M3)
 M6 = int(M6)
 # Display the chart
-st.markdown(f'**{M2} Clients were given < 3 Months, {M3} received between 4 to 5 five months, {M6} received 6+ MTHS**')
+st.success(f'**{M2} Clients were given < 3 Months, {M3} received between 4 to 5 five months, {M6} received 6+ MTHS**')
 cola,colb = st.columns(2)
 with cola:
     st.plotly_chart(fig4, use_container_width=True)
