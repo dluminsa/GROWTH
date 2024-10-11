@@ -235,3 +235,10 @@ with colb:
     st.plotly_chart(figY, use_container_width=True)
 with colc:
     st.plotly_chart(fig6, use_container_width=True)
+
+# Display the plot
+st.plotly_chart(figM, use_container_width=True)
+st.write('')
+st.write('')
+st.write('')
+st.success('**CREATED BY Dr. LUMINSA DESIRE**')
