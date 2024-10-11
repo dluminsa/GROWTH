@@ -1118,14 +1118,11 @@ if st.session_state.reader:
                 
                     tout['TRANSFERED'] = np.nan
                     tout['TRANSFERED'] = tout['TRANSFERED'].fillna('TO')
-                    tout['A'] = pd.to_numeric(tout['A'], errors='coerce')
-                    first = pd.merge(lst,tout, on = 'A', how = 'outer')
+                    first = pd.concat([lst,tout])#, on = 'A', how = 'outer')
                 
                     die['DEAD?'] = np.nan
                     die['DEAD?'] = die['DEAD?'].fillna('DIED')
-                    first['A'] = pd.to_numeric(first['A'], errors='coerce')
-                    die['A'] = pd.to_numeric(die['A'], errors='coerce')
-                    second = pd.merge(first,die, on = 'A', how = 'outer')
+                    second = pd.merge([first,die])#, on = 'A', how = 'outer')
                 
                     vir['VL STATUS'] = np.nan
                     vir['VL STATUS'] = vir['VL STATUS'].fillna('DUE')
@@ -1135,9 +1132,7 @@ if st.session_state.reader:
                 
                     one['ONE YEAR'] = np.nan
                     one['ONE YEAR'] = one['ONE YEAR'].fillna('ONE YEAR IIT')
-                    one['A'] = pd.to_numeric(one['A'], errors='coerce')
-                    third['A'] = pd.to_numeric(third['A'], errors='coerce')
-                    forth = pd.merge(third,one, on = 'A', how = 'outer')
+                    forth = pd.merge([third,one])#, on = 'A', how = 'outer')
                         
 if st.session_state.reader:                                                    
     file2 = r'CLUSTERS.csv'
@@ -1540,7 +1535,8 @@ if st.session_state.reader:# and st.session_state.df:
                                                 file_name=f" {facility} TxNEW_TOs.csv",
                                                 mime="text/csv") 
                             st.divider()
-                            cola,colb = st.columns(2)
+                            forth = forth.rename(columns = {'A': 'ART NO.', 'RD': 'RETURN DATE', 'DD': 'DEATH DATE', 'TO': 'TRANSFER OUT DATE', 'AS': 'ART START DATE'})
+                            cola,colb = st.columns([4,1])
                             with cola:
                                     if outnew1==0:
                                         st.markdown('**MASTER LIST WITH ALL LINELISTS COMBINED**')
