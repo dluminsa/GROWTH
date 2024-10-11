@@ -399,12 +399,38 @@ cold.metric(label='', value = f'{perc}')
 wik = week -2 
 st.write(f'**APPOINTMENTS SINCE 3rd SEPT TO WEEK {wik}**')
 
-mosta = water.groupby('DISTRICT')['TWO'].sum()
-mosta
-topdis = mosta.nlargest(2)
-topdis = topdis.reset_index()
-# mostdis = '.'.join(top_two.index)
-st.write(topdis)
+mostd = water.groupby('DISTRICT')['TWO'].sum()
+mostf = water.groupby('FACILITY')['TWO'].sum()
+
+####TOP3
+topdis3 = mosta.nlargest(3)
+topdis3 = topdis3.reset_index()
+mostdis3 = '.'.join(topdis3['DISTRICT'].unique())
+
+topfas3 = mostf.nlargest(3)
+topfas3 = topfas3.reset_index()
+mostfas3 = '.'.join(topfas3['FACILITY'].unique())
+
+##TOP 2
+topdis2 = mosta.nlargest(2)
+topdis2 = topdis2.reset_index()
+mostdis2 = '.'.join(topdis2['DISTRICT'].unique())
+
+#TOP1
+topdis1 = mosta.nlargest(1)
+topdis1 = topdis1.reset_index()
+mostdis1 = '.'.join(topdis1['DISTRICT'].unique())
+
+checkf = water['FACILITY'].nunique()
+checkd = water['DISTRICT'].nunique()
+
+if checkf ==1:
+    pass
+elif checkd >3:
+    st.warning(f'**MOST AFFECTED DISTRICS ARE {mostdis3}, MOST AFFECTED FACILITIES ARE {mostfas3}**')
+
+
+
 
 
 
