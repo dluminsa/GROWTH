@@ -425,8 +425,9 @@ mostdis2 = ','.join(topdis2['DISTRICT'].unique())
 
 checkf = water['FACILITY'].nunique()
 checkd = water['DISTRICT'].nunique()
-
-if checkf <3:
+if facility and not CLUSTER and not district:
+    pass
+elif checkf <3:
     pass
 elif checkd >3:
     st.success(f'**MOST AFFECTED DISTRICS ARE {mostdis3}, MOST AFFECTED FACILITIES ARE {mostfas3}**')
