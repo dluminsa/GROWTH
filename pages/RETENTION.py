@@ -788,7 +788,8 @@ else:
 
 ###############################
 st.divider()
-st.write('EARLY RETENTION')
+st.info('**EARLY RETENTION**')
+st.write('**NOTE: The 9 months cohort will be the focus for 1 year cohort next quarter, the TX NEWs are the clients diagnosed this quarter**') 
 pied = wateryr.copy()#[filtered_df['WEEK']==k]
 #pied['LOST NEW'] = pied['ORIGINAL COHORT']- pied['ONE YEAR ACTIVE'] 
 pied = pied[['LOSTS', 'ACTIVES']]
@@ -827,4 +828,21 @@ with colc:
     st.plotly_chart(fig3, use_container_width=True)
 with cold:
     st.plotly_chart(fig1, use_container_width=True)
-####CIRA
+####TRACKING TXML
+st.info('**TRENDS IN TXML (FOR CLIENTS THAT WERE REPORTED AS TXML LAST QUARTER)**')
+
+grouped['SURGE'] = grouped['SURGE'].astype(int)
+grouped['SURGE'] = grouped['SURGE'].astype(str)
+figM = px.line(grouped, x='SURGE', y='TXML', color='red', markers=True,
+              title='MISSED APPOINTMENTS', labels={'SURGE':'WEEK', 'TXML': 'No. of clients'})
+figM.update_layout(
+    width=800,  # Set the width of the plot
+    height=400,  # Set the height of the plot
+    xaxis=dict(showline=True, linewidth=1, linecolor='black'),  # Show x-axis line
+    yaxis=dict(showline=True, linewidth=1, linecolor='black')   # Show y-axis line
+)
+figM.update_xaxes(type='category')
+st.plotly_chart(figM)#, use_container_width=True)
+
+
+
