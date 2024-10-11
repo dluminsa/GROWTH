@@ -420,6 +420,7 @@ fact = water['FACILITY'].nunique()
 
 
 if int(dist) > 1:
+    st.divider()
     x = []
     y = []
     water['TWO'] = pd.to_numeric(water['TWO'], errors='coerce')
@@ -449,6 +450,7 @@ if int(dist) > 1:
     )
     st.plotly_chart(figd)#, use_container_width=True)
 elif int(fact) > 1:
+    st.divider()
     x = []
     y = []
     water['TWO'] = pd.to_numeric(water['TWO'], errors='coerce')
