@@ -124,3 +124,9 @@ html_table = """
 """
 st.markdown(html_table, unsafe_allow_html=True)
 st.success('**PREPARED BY: Edison BN Katunguuka, Snr M&E Specialist**')
+
+st.write('')
+st.write('')
+st.write('')
+cola,colb = st.columns(2)
+cola.info('**@ Dr. LUMINSA DESIRE**')
