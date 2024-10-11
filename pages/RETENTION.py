@@ -374,7 +374,7 @@ if facility:
 check = water.shape[0]
 if check == 0:
     st.warning('***NO DATA FOR THE SELECTION MADE**')
-    st.stop(()
+    st.stop()
 else:
     pass
 
