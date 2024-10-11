@@ -405,21 +405,23 @@ mostf = water.groupby('FACILITY')['TWO'].sum()
 ####TOP3
 topdis3 = mostd.nlargest(3)
 topdis3 = topdis3.reset_index()
-mostdis3 = '.'.join(topdis3['DISTRICT'].unique())
+mostdis3 = ','.join(topdis3['DISTRICT'].unique())
 
 topfas3 = mostf.nlargest(3)
 topfas3 = topfas3.reset_index()
-mostfas3 = '.'.join(topfas3['FACILITY'].unique())
+mostfas3 = ','.join(topfas3['FACILITY'].unique())
 
 ##TOP 2
 topdis2 = mostd.nlargest(2)
 topdis2 = topdis2.reset_index()
-mostdis2 = '.'.join(topdis2['DISTRICT'].unique())
+mostdis2 = ','.join(topdis2['DISTRICT'].unique())
 
-#TOP1
-topdis1 = mostd.nlargest(1)
-topdis1 = topdis1.reset_index()
-mostdis1 = '.'.join(topdis1['DISTRICT'].unique())
+##TOP 1
+# topfas3 = mostf.nlargest(3)
+# topfas3 = topfas3.reset_index()
+# mostfas3 = ','.join(topfas3['FACILITY'].unique())
+
+
 
 checkf = water['FACILITY'].nunique()
 checkd = water['DISTRICT'].nunique()
@@ -427,7 +429,11 @@ checkd = water['DISTRICT'].nunique()
 if checkf ==1:
     pass
 elif checkd >3:
-    st.warning(f'**MOST AFFECTED DISTRICS ARE {mostdis3}, MOST AFFECTED FACILITIES ARE {mostfas3}**')
+    st.success(f'**MOST AFFECTED DISTRICS ARE {mostdis3}, MOST AFFECTED FACILITIES ARE {mostfas3}**')
+elif checkd ==2:
+    st.success(f'**MOST AFFECTED DISTRICS ARE {mostdis2}, MOST AFFECTED FACILITIES ARE {mostfas3}**')
+elif checkd ==1:
+    st.success(f'**MOST AFFECTED FACILITIES ARE {mostfas3}**')
 
 
 
