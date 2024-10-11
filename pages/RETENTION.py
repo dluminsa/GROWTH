@@ -449,7 +449,7 @@ if int(dist) > 1:
     )
     st.plotly_chart(figd)#, use_container_width=True)
 elif int(fact) > 1:
-        x = []
+    x = []
     y = []
     water['TWO'] = pd.to_numeric(water['TWO'], errors='coerce')
     districts = water['FACILITY'].unique()
