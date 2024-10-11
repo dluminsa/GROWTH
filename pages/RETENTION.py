@@ -832,7 +832,8 @@ with cold:
 st.info('**TRENDS IN TXML (FOR CLIENTS THAT WERE REPORTED AS TXML LAST QUARTER)**')
 
 grouped['SURGE'] = grouped['SURGE'].astype(int)  # Ensure SURGE is integer
-grouped['SURGE'] = grouped['SURGE'].astype(str)  # Convert SURGE to string
+grouped['SURGE'] = grouped['SURGE'].astype(str)# Convert SURGE to string
+st.write(grouped)
 
 # Create the line chart using Plotly Express
 figM = px.line(grouped, 
