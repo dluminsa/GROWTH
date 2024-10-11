@@ -588,9 +588,46 @@ if st.session_state.reader:
                     #SURGE WEEK
                     df['RWEEK'] = pd.to_numeric(df['RWEEK'], errors='coerce')
                     df['RWEEK1'] = df['RWEEK']-39
+                    #       #PARAMETERS FOR CIRA
+                       
+                    # df['R1aya'] = df['R1day'].astype(str).str.split('.').str[0]
+                    # df['R1montha'] = df['R1month'].astype(str).str.split('.').str[0]
+                    # df['R1yeara'] = df['R1year'].astype(str).str.split('.').str[0]
+                    # df['RETURN DATE2'] = df['R1aya'] + '/' + df['R1montha'] + '/' + df['R1yeara']
+                    # df['RETURN DATE2'] = pd.to_datetime(df['RETURN DATE2'], format='%d/%m/%Y', errors='coerce')
+                    # df['DUR'] = round((df['RETURN DATE'] - df['RETURN DATE2']).dt.days / 30)
+                    # def cira(a):
+                    #     if a<1:
+                    #         return 'UK'
+                    #     elif a< 3:
+                    #         return '<3 MTHS'
+                    #     elif a <6:
+                    #         return '3-5 MTHS'
+                    #     elif a >5:
+                    #         return '6 MTHS+'
+                    #     else:
+                    #         return 'UK'
+                    # df['CIRA'] = df['DUR'].apply(cira)
+                    # def ager(a):
+                    #     if a< 1:
+                    #         return '<01'
+                    #     elif a < 10:
+                    #         return '01-09'
+                    #     elif a < 20:
+                    #         return '10-19'
+                    #     elif a < 30:
+                    #         return '20-29'
+                    #     elif a < 40:
+                    #         return '30-39'
+                    #     elif a < 50:
+                    #         return '40-49'
+                    #     elif a >49:
+                    #         return '50+'
+                    # df['AG'] = pd.to_numeric(df['AG'], errors = 'coerce')
+    
                     #COPY FOR ONE YEAR BEFORE GETTING POT CURR
                     oneyear = df.copy()
-    
+                    df['GROUP'] = df['AG'].apply(ager)
                     #LAST Q'S TXML ALTER
                     df['Tyear'] = pd.to_numeric(df['Tyear'],errors='coerce')
                     last = df[df['Tyear']==994].copy()
@@ -809,10 +846,25 @@ if st.session_state.reader:
                     lnvl = LNVL.shape[0]
                     lwvl = LWVL.shape[0]
                     totalvl = pd.concat([LNVL,NVL])
-        
+    
+                    # #CIRA CUT OFF FOR A YEAR
+                    # oneyear[['Ryear', 'Rmonth']] = oneyear[['Ryear', 'Rmonth']].apply(pd.to_numeric, errors = 'coerce')
+                    # dfcira1 = oneyear[oneyear['Ryear']==2023].copy() #for 2023 ALTER
+                    # dfcira2 = oneyear[oneyear['Ryear']==2024].copy() 
+                    # dfcira1 = pd.to_numeric(dfcira1['Rmonth'], errors='coerce')
+                    # dfcira1 = dfcira1[dfcira1['Rmonth']>9].copy()  #Cut off for 1 year 
+    
+                    # dfcira2[['Rday', 'Rmonth']] = dfcira2[['Rday', 'Rmonth']].apply(pd.to_numeric, errors = 'coerce')
+                    # dfcira2 = dfcira2[((dfcira2['Rmonth'] <9) |((dfcira2['Rmonth'] ==9) & (dfcira2['Rday'] <3)))].copy()
+
+                    # dfcira = pd.concat([dfcira1, dfcira2])
+                    # dfcira['Tyear'] = pd.to_numeric(dfcira['Tyear'], errors='coerce')
+                    # dfcira = dfcira[dfcira['Tyear']==994]
+                    # dfcira['Dyear'] = pd.to_numeric(dfcira['Dyear'], errors='coerce')
+                    # dfcira = dfcira[dfcira['Dyear']==994]
+
                     #EARLY RETENTION
                     #ONE YEAR COHORT
-        
                     oneyear[['Ayear', 'Amonth']] = oneyear[['Ayear', 'Amonth']].apply(pd.to_numeric, errors = 'coerce')
                     new = oneyear[((oneyear['Ayear']==2023) & (oneyear['Amonth'].isin([10,11,12])))].copy()
                     newtotal = new.shape[0]
