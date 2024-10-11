@@ -1122,7 +1122,7 @@ if st.session_state.reader:
                 
                     die['DEAD?'] = np.nan
                     die['DEAD?'] = die['DEAD?'].fillna('DIED')
-                    second = pd.merge([first,die])#, on = 'A', how = 'outer')
+                    second = pd.concat([first,die])#, on = 'A', how = 'outer')
                 
                     vir['VL STATUS'] = np.nan
                     vir['VL STATUS'] = vir['VL STATUS'].fillna('DUE')
@@ -1132,7 +1132,7 @@ if st.session_state.reader:
                 
                     one['ONE YEAR'] = np.nan
                     one['ONE YEAR'] = one['ONE YEAR'].fillna('ONE YEAR IIT')
-                    forth = pd.merge([third,one])#, on = 'A', how = 'outer')
+                    forth = pd.concat([third,one])#, on = 'A', how = 'outer')
                         
 if st.session_state.reader:                                                    
     file2 = r'CLUSTERS.csv'
