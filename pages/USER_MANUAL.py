@@ -117,10 +117,9 @@ with cola:
     st.write('**IF THERE IS NO LINELIST OF INTEREST, THE APP WILL INFORM YOU**')
     st.image(r"pics/lists.png", caption="**LINELISTS**")
 
-with colb:
-    st.write('**MASTERR LINELIST**')
-    st.write('**This one has most of the linelists combined, yo save you from downloading multiple linelists if you want**')
-    st.image(r"pics/master.png", caption="**MASTER**")
+st.write('**MASTERR LINELIST**')
+st.write('**This one has most of the linelists combined, yo save you from downloading multiple linelists if you want**')
+st.image(r"pics/master.png", caption="**MASTER**")
 
 st.markdown("<h3><b>ERROR</b></h3>", unsafe_allow_html=True)
 st.markdown('<p>Great emphasis has been made to ensure no errors pop, but in case of one, kindly screen shot and send to me </p>', unsafe_allow_html=True)
