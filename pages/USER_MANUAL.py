@@ -66,7 +66,7 @@ with cola:
     st.image(r"pics/step9.png", caption="**STEP 9**")
 
 st.markdown("<h4><b>HOW TO UPLOAD THE EXCEL INTO THE APP</b></h4>", unsafe_allow_html=True)
-st.markdown('<p>If already in app, go to the section of emr reader, if not already there</p>', unsafe_allow_html=True)
+st.markdown('<p>If already in app, go to the section of "EMR READER"</p>', unsafe_allow_html=True)
 st.link_button('**OR CLICK ON THIS LINK, TO LAUNCH THE APP**', url='https://program-growth.streamlit.app/')
 st.markdown('<p>FOLLOW THE STEPS BELOW TO UPLOAD  THE EXTRACT FOR ANALYSIS XLSX</p>', unsafe_allow_html=True)
 cola, colb,colc = st.columns([3,1,3])
