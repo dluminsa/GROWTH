@@ -1385,7 +1385,7 @@ if st.session_state.reader:# and st.session_state.df:
                                 if dead ==0:
                                     st.write('**NO DEAD CLIENTS**')
                                 else:
-                                    dat = deceased.copy()
+                                    dat = deceased()
                                     csv_data = dat.to_csv(index=False)
                                     st.download_button(
                                                     label=" DEAD",
