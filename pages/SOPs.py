@@ -12,6 +12,8 @@ st.set_page_config(
 cola,colb,colc = st.columns([1,3,1])
 colb.subheader('SOPs FOR PROGRAM GROWTH')
 
+st.image('this.png', caption = '@2024')
+
 today = datetime.now()
 todayd = today.strftime("%Y-%m-%d")# %H:%M")
 wk = today.strftime("%V")
@@ -123,7 +125,9 @@ html_table = """
   </ol>
 """
 st.markdown(html_table, unsafe_allow_html=True)
-st.success('**PREPARED BY: Edison BN Katunguuka, Snr M&E Specialist**')
+st.image('fir.png, caption = 'INCLUSION/EXCLUSION')
+st.image('sec.png, caption = 'INCLUSION/EXCLUSION')
+#st.success('**PREPARED BY: Edison BN Katunguuka, Snr M&E Specialist**')
 
 st.write('')
 st.write('')
