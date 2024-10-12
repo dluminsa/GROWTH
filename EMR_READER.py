@@ -103,7 +103,7 @@ st.image("AFTER.png", caption="AFTER")
 
 # Display the HTML table using markdown in Streamlit
 #st.markdown(html_table, unsafe_allow_html=True)
-st.markdown('**AFTER, SAVE THE EXTRACT AS an XLSX BEFORE YOU PROCEED, Check SOPs page to see how this is done**')
+st.markdown('**AFTER, SAVE THE EXTRACT AS an XLSX BEFORE YOU PROCEED, Check User manual for further guidance**')
 
 file = st.file_uploader("Upload your EMR extract here", type=['xlsx'])
 if 'submited' not in st.session_state:
