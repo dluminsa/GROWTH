@@ -743,7 +743,7 @@ if st.session_state.reader:
                     dfRTTa = dfRTT[dfRTT['R1year']<2024].copy()
                     dfRTTb = dfRTT[dfRTT['R1year']==2024].copy()
                     dfRTTb[['R1month', 'R1day']] = dfRTTb[['R1month', 'R1day']].apply(pd.to_numeric, errors='coerce')
-                    dfRTTb = dfRTTb[((dfRTTb['R1month']>6) | ((dfRTTb['R1month']==6) & (dfRTTb['R1day']<3)))].copy()
+                    dfRTTb = dfRTTb[((dfRTTb['R1month']<6) | ((dfRTTb['R1month']==6) & (dfRTTb['R1day']<3)))].copy()
                     dfRTT = pd.concat([dfRTTa, dfRTTb])
         
                     #BY RD DATE2,  take those that fall in the previous reporting Quarter
@@ -751,7 +751,7 @@ if st.session_state.reader:
                     dfRTTa = dfRTT[dfRTT['R2year']<2024].copy()
                     dfRTTb = dfRTT[dfRTT['R2year']==2024].copy()
                     dfRTTb[['R2month', 'R2day']] = dfRTTb[['R2month', 'R2day']].apply(pd.to_numeric, errors='coerce')
-                    dfRTTb = dfRTTb[((dfRTTb['R2month']>6) | ((dfRTTb['R2month']==6) & (dfRTTb['R2day']<3)))].copy()
+                    dfRTTb = dfRTTb[((dfRTTb['R2month']<6) | ((dfRTTb['R2month']==6) & (dfRTTb['R2day']<3)))].copy()
                     dfRTT = pd.concat([dfRTTa, dfRTTb])
         
                     #BY ARV DISPENSED, to take those that got ART in the Q
