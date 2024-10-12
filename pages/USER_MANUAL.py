@@ -123,7 +123,7 @@ st.image(r"pics/master.png", caption="**MASTER**")
 st.divider()
 
 st.markdown("<h3><b>ERROR</b></h3>", unsafe_allow_html=True)
-st.markdown('<p>Great emphasis has been made to ensure no errors pop, but in case of one, kindly screen shot and send to me </p>', unsafe_allow_html=True)
+st.markdown('<p>Great emphasis has been made to ensure no errors pops up, but in case of any, kindly screen shot and send to me </p>', unsafe_allow_html=True)
 st.markdown('<p>When taking the screenshort, include the line where the error is made as shown below</p>', unsafe_allow_html=True)
 cola, colb,colc = st.columns([3,1,3])
 
