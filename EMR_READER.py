@@ -761,7 +761,7 @@ if st.session_state.reader:
                     dfRTT = dfRTT[dfRTT['Armonth'].isin([10,11,12])].copy()
                     rtt = dfRTT.shape[0]
                     #check
-                    #rt = dfRTT.copy()
+                    rt = dfRTT.copy()
         
         #######LOSSES. START FROM POTENTIAL CURR
                 #TRANSFER OUTS
@@ -1560,7 +1560,7 @@ if st.session_state.reader:# and st.session_state.df:
                                     if outnew1==0:
                                         st.markdown('**MASTER LIST WITH ALL LINELISTS COMBINED**')
                                     dat = forth.copy()
-                                    #dat = rt.copy()
+                                    dat = rt.copy()
                                     csv_data = dat.to_csv(index=False)
                                     st.download_button(
                                                 label="MASTER_LIST",
