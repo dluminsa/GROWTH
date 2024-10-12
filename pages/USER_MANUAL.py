@@ -110,16 +110,17 @@ with colc:
 st.markdown("<h3><b>LINE LISTS</b></h3>", unsafe_allow_html=True)
 st.markdown('<p>When you submit, linelists will popup, click on them to download any that you may be interested in</p>', unsafe_allow_html=True)
 st.markdown('<p>Line lists will be named the facility name and their type eg, Lwemiyaga MISSED, for missed appointments at Lwemiyaga HC III</p>', unsafe_allow_html=True)
-cola, colb,colc = st.columns([3,1,3])
 
-with cola:
-    st.write('**CLICK ON ANY BUTTON TO DOWNLOAD ANY LINE-LIST**')
-    st.write('**IF THERE IS NO LINELIST OF INTEREST, THE APP WILL INFORM YOU**')
-    st.image(r"pics/lists.png", caption="**LINELISTS**")
+st.divider()
+st.write('**CLICK ON ANY BUTTON TO DOWNLOAD ANY LINE-LIST**')
+st.write('**IF THERE IS NO LINELIST OF INTEREST, THE APP WILL INFORM YOU**')
+st.image(r"pics/lists.png", caption="**LINELISTS**")
+st.divider()
 
 st.write('**MASTERR LINELIST**')
 st.write('**This one has most of the linelists combined, yo save you from downloading multiple linelists if you want**')
 st.image(r"pics/master.png", caption="**MASTER**")
+st.divider()
 
 st.markdown("<h3><b>ERROR</b></h3>", unsafe_allow_html=True)
 st.markdown('<p>Great emphasis has been made to ensure no errors pop, but in case of one, kindly screen shot and send to me </p>', unsafe_allow_html=True)
