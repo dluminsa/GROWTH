@@ -125,8 +125,8 @@ html_table = """
   </ol>
 """
 st.markdown(html_table, unsafe_allow_html=True)
-st.image('fir.png, caption = 'INCLUSION/EXCLUSION')
-st.image('sec.png, caption = 'INCLUSION/EXCLUSION')
+st.image('fir.png', caption = 'INCLUSION/EXCLUSION')
+st.image('sec.png', caption = 'INCLUSION/EXCLUSION')
 #st.success('**PREPARED BY: Edison BN Katunguuka, Snr M&E Specialist**')
 
 st.write('')
