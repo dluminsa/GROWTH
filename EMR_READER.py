@@ -1580,13 +1580,13 @@ def extract():
                                 st.success('**CREATED BY Dr. LUMINSA DESIRE**')
                                 st.info('**WITH CONTRIBUTION FROM EDISON KATUNGUKA, SIMON SEMAKULA AND CHRIS MUGARA, FOR THE TWG**')
 pages = {
-    "READER": [
+    "READER:": [
         st.Page(extract, title="EMR EXTRACT READER"),
     ],
-    "VISUALISATION":[
+    "VISUALISATION:":[
         st.Page("RETENTION.py", title="RETENTION"),
         st.Page("VL_SECTION.py", title="VIRAL LOAD")],
-    "RESOURCES": [
+    "RESOURCES:": [
         st.Page("SOPs.py", title="SOPs"),
         st.Page("USER_MANUAL.py", title="USER MANUAL"),
     ],
