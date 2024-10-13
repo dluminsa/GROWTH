@@ -2,10 +2,10 @@ import pandas as pd
 import streamlit as st 
 from datetime import datetime
 
-st.set_page_config(
-    page_title = 'SOPs',
-    page_icon =":bar_chart"
-    )
+# st.set_page_config(
+#     page_title = 'SOPs',
+#     page_icon =":bar_chart"
+#     )
 
 #st.header('CODE UNDER MAINTENANCE, TRY AGAIN TOMORROW')
 #st.stop()
