@@ -11,10 +11,10 @@ from oauth2client.service_account import ServiceAccountCredentials
 #from streamlit_gsheets import GSheetsConnection
 from datetime import datetime
 
-st.set_page_config(
-    page_title = 'EMR EXTRACT READER',
-    page_icon =":bar_chart"
-    )
+# st.set_page_config(
+#     page_title = 'EMR EXTRACT READER',
+#     page_icon =":bar_chart"
+#     )
 
 #st.header('CODE UNDER MAINTENANCE, TRY AGAIN TOMORROW')
 #st.stop()
