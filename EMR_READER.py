@@ -129,8 +129,8 @@ if file is not None and not st.session_state.reader:
                 st.write('To change this excel or to upload another excel, first refresh the page')
 #if file is not None and not st.session_state.reader:
 
-                #columns = ['ART','AG', 'GD','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']
-                columns = ['ART','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']
+                columns = ['ART','AG', 'GD','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']
+                #columns = ['ART','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']
                 cols = df.columns.to_list()
                 if not all(column in cols for column in columns):
                     missing_columns = [column for column in columns if column not in cols]
