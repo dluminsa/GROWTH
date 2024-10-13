@@ -1585,7 +1585,7 @@ pages = {
     ],
     "VISUALISATION":[
         st.Page("RETENTION.py", title="RETENTION"),
-        st.Page("VL_SECTION.py", title="VIRAL LOAD"),
+        st.Page("VL_SECTION.py", title="VIRAL LOAD")],
     "RESOURCES": [
         st.Page("SOPs.py", title="SOPs"),
         st.Page("USER_MANUAL.py", title="USER MANUAL"),
