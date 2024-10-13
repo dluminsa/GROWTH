@@ -10,10 +10,10 @@ import time
 from streamlit_gsheets import GSheetsConnection
 from datetime import datetime
 
-st.set_page_config(
-    page_title = 'VL SECTION',
-    page_icon =":bar_chart"
-    )
+# st.set_page_config(
+#     page_title = 'VL SECTION',
+#     page_icon =":bar_chart"
+#     )
 
 #st.header('CODE UNDER MAINTENANCE, TRY AGAIN TOMORROW')
 #st.stop()
