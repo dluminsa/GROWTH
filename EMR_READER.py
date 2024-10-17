@@ -152,7 +152,7 @@ def extract():
                            'ARVDO ': 'ARVDO', 'TI ': 'TI', 'TO ':'TI', 'DD ': 'DD', 'AG ':'AG', 'GD ':'GD'})
         
                         df = ssss
-        st.session_state.df[['ART',ssssss'AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']].copy()
+                        st.session_state.df[['ART',ssssss'AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']].copy()
                         df['ART'] = df['ART'].astype(str)
                         df['A'] = df['ART'].str.replace('[^0-9]', '', regex=True)
                         df['A'] = pd.to_numeric(df['A'], errors= 'coerce')
