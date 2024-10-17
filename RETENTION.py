@@ -42,6 +42,7 @@ if 'tx' not in st.session_state:
          st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
          st.stop()
 dftx = st.session_state.tx.copy()
+st.write(dftx)
 
 if 'yr' not in st.session_state:     
      try:
