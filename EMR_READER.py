@@ -145,7 +145,7 @@ def extract():
                     st.session_state.reader= True
     if st.session_state.reader:
                           # Convert 'ART' column to string and create 'ART' column with numeric part to remove blanks
-                        st.session_state.df = st.session_state.df.rename(columns= {'ART ':'ART',  'AS  ':'AS', 'RD  ':'RD', 'RDO  ':'RDO', 'RD1  ':'RD1', 'RD2  ':'RD2', 'VD  ':'VD', 'FE  ':'FE', 'LD  ': 'LD', 'ARVD  ': 'ARVD',
+                        st.session_state.df = st.session_state.df.rename(columns= {'ART  ':'ART',  'AS  ':'AS', 'RD  ':'RD', 'RDO  ':'RDO', 'RD1  ':'RD1', 'RD2  ':'RD2', 'VD  ':'VD', 'FE  ':'FE', 'LD  ': 'LD', 'ARVD  ': 'ARVD',
        'ARVDO  ': 'ARVDO', 'TI  ': 'TI', 'TO  ':'TI', 'DD  ': 'DD', 'AG  ':'AG', 'GD  ':'GD'})
                         st.session_state.df = st.session_state.df.rename(columns= {'ART ':'ART',  'AS ':'AS', 'RD ':'RD', 'RDO ':'RDO', 'RD1 ':'RD1', 'RD2 ':'RD2', 'VD ':'VD', 'FE ':'FE', 'LD ': 'LD', 'ARVD ': 'ARVD',
                            'ARVDO ': 'ARVDO', 'TI ': 'TI', 'TO ':'TI', 'DD ': 'DD', 'AG ':'AG', 'GD ':'GD'})
