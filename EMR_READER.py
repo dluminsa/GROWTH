@@ -129,7 +129,7 @@ def extract():
                     st.write('Excel accepted, summaries and linelists below will be for this excel')
                     st.write('To change this excel or to upload another excel, first refresh the page')
     #if file is not None and not st.session_state.reader:
-                    df = df.rename(columns= {'ART  ':'ART',  'AS  ':'AS', 'RD  ':'RD', 'RDO  ':'RDO', 'RD1  ':'RD1', 'RD2  ':'RD2', 'VD  ':'VD', 'FE  ':'FE', 'LD  ': 'LD', 'ARVD  ': 'ARVD',
+                    df = df.rename(columns= {'ART ':'ART',  'AS  ':'AS', 'RD  ':'RD', 'RDO  ':'RDO', 'RD1  ':'RD1', 'RD2  ':'RD2', 'VD  ':'VD', 'FE  ':'FE', 'LD  ': 'LD', 'ARVD  ': 'ARVD',
        'ARVDO  ': 'ARVDO', 'TI  ': 'TI', 'TO  ':'TI', 'DD  ': 'DD', 'AG  ':'AG', 'GD  ':'GD'})
                     df = df.rename(columns= {'ART ':'ART',  'AS ':'AS', 'RD ':'RD', 'RDO ':'RDO', 'RD1 ':'RD1', 'RD2 ':'RD2', 'VD ':'VD', 'FE ':'FE', 'LD ': 'LD', 'ARVD ': 'ARVD',
                            'ARVDO ': 'ARVDO', 'TI ': 'TI', 'TO ':'TI', 'DD ': 'DD', 'AG ':'AG', 'GD ':'GD'})
@@ -147,13 +147,10 @@ def extract():
                     st.session_state.reader= True
     if st.session_state.reader:
                           # Convert 'ART' column to string and create 'ART' column with numeric part to remove blanks
-                        st.write(st.session_state.df.columns)
-                        cols = st.session_state.df.columns.to_list()
-                        c1 = set(cols)
-                        c2 = set(['ART','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO'])
-                        c3 = c2-c1
-                        for i in c3:
-                            st.write(i)
+                        st.session_state.df = st.session_state.df.rename(columns= {'ART ':'ART',  'AS  ':'AS', 'RD  ':'RD', 'RDO  ':'RDO', 'RD1  ':'RD1', 'RD2  ':'RD2', 'VD  ':'VD', 'FE  ':'FE', 'LD  ': 'LD', 'ARVD  ': 'ARVD',
+       'ARVDO  ': 'ARVDO', 'TI  ': 'TI', 'TO  ':'TI', 'DD  ': 'DD', 'AG  ':'AG', 'GD  ':'GD'})
+                        st.session_state.df = st.session_state.df.rename(columns= {'ART ':'ART',  'AS ':'AS', 'RD ':'RD', 'RDO ':'RDO', 'RD1 ':'RD1', 'RD2 ':'RD2', 'VD ':'VD', 'FE ':'FE', 'LD ': 'LD', 'ARVD ': 'ARVD',
+                           'ARVDO ': 'ARVDO', 'TI ': 'TI', 'TO ':'TI', 'DD ': 'DD', 'AG ':'AG', 'GD ':'GD'})
                         df = st.session_state.df[['ART','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']].copy()
                         df['ART'] = df['ART'].astype(str)
                         df['A'] = df['ART'].str.replace('[^0-9]', '', regex=True)
