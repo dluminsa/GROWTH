@@ -147,12 +147,13 @@ def extract():
                     st.session_state.reader= True
     if st.session_state.reader:
                           # Convert 'ART' column to string and create 'ART' column with numeric part to remove blanks
+                        st.write(st.session_state.df.columns)
+                        cols = st.session_state.df.columns.to_list()
                         c1 = set(cols)
                         c2 = set(['ART','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO'])
                         c3 = c2-c1
                         for i in c3:
                             st.write(i)
-                        st.write(st.session_state.df.columns)
                         df = st.session_state.df[['ART','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']].copy()
                         df['ART'] = df['ART'].astype(str)
                         df['A'] = df['ART'].str.replace('[^0-9]', '', regex=True)
