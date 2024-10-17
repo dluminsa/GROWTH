@@ -143,7 +143,7 @@ def extract():
                             st.markdown(f' **ERROR !!! {column} is not in the file uploaded**')
                             st.markdown('**First rename all the columns as guided above**')
                             st.stop()
-                    
+                    sdddddd
                     st.session_state.reader= True
     if st.session_state.reader:
                           # Convert 'ART' column to string and create 'ART' column with numeric part to remove blanks
