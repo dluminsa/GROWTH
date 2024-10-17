@@ -28,6 +28,7 @@ week = int(wk)-39
 cola,colb = st.columns(2)
 cola.write(f"**DATE TODAY:    {todayd}**")
 colb.write(f"**CURRENT WEEK:    {week}**")
+dd = int(week)
 k = int(wk)
 st.warning('***CURRENT DATA IS FOR DEMONSTRATION ONLY, WILL BE REMOVED AFTER ROLLING OUT THE DASHBOARD**')
 
@@ -42,7 +43,7 @@ if 'tx' not in st.session_state:
          st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
          st.stop()
 dftx = st.session_state.tx.copy()
-st.write(dftx)
+#st.write(dftx)
 
 if 'yr' not in st.session_state:     
      try:
@@ -80,7 +81,7 @@ def report():
 dfrep = report()
 dfa = dfrep[['DISTRICT', 'FACILITY']].copy() ## EXPECTED DISTRICTS
 dftx['SURGE'] = pd.to_numeric(dftx['SURGE'], errors='coerce')
-dfb = dftx[dftx['SURGE'] == 2].copy()  #FACILITIES FROM TX SHEET
+dfb = dftx[dftx['SURGE'] == dd].copy()  #FACILITIES FROM TX SHEET
 dfb = dfb[['DISTRICT' , 'FACILITY']]
 dfb = dfb.drop_duplicates(subset='FACILITY', keep='last')
 dfa['FACILITY'] = dfa['FACILITY'].astype(str)
