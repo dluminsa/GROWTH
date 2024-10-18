@@ -42,54 +42,6 @@ def extract():
     #     <th>EMR COLUMN</th>
     #     <th>RENAME TO:</th>
     #   </tr>
-    #  <tr>
-    #     <td><b>1. HIV Clinic No.</b></td>
-    #     <td><b>ART</b></td>
-    #     <td><b>2. ART START DATE</b></td>
-    #      <td><b>AS</b></td>
-    #  </tr>
-    #   <tr>
-    #     <td><b>3. AGE</b></td>
-    #     <td><b>AG</b></td>
-    #     <td><b>4.Gender</b></td>
-    #      <td><b>GD</b></td>
-    #  </tr>
-    #  <tr>
-    #     <td><b>5. TRANSFER OUT DATE</b></td>
-    #     <td><b>TO</b></td>
-    #     <td><b>6. Death Date</b></td>
-    #      <td><b>DD</b></td>
-    #  </tr>
-    #   <tr>
-    #     <td><b>7. LAST ENCOUNTER DATE</b></td>
-    #     <td><b>LD</b></td>
-    #     <td><b>8. FIRST ENCOUNTER DATE</b></td>
-    #      <td><b>FE</b></td>
-    #  </tr>
-    #   <tr>
-    #     <td><b>9. RETURN VISIT DATE</b></td>
-    #     <td><b>RD</b></td>
-    #     <td><b>10. RETURN VISIT DATE1</b></td>
-    #      <td><b>RD1</b></td>
-    #  </tr>
-    #   <tr>
-    #     <td><b>11.RETURN VISIT DATE2</b></td>
-    #     <td><b>RD2</b></td>
-    #     <td><b>12.RETURN VISIT DATE_Obs Date</b></td>
-    #      <td><b>RDO</b></td>
-    #  </tr>
-    #   <tr>
-    #     <td><b>13. TRANSFER IN OBS DATE</b></td>
-    #     <td><b>TI</b></td>
-    #     <td><b>14. HIV VIRAL LOAD DATE </b></td>
-    #      <td><b>VD</b></td>
-    #  </tr>
-    #    <tr>
-    #     <td><b>15. ARV REGIMEN DAYS DISPENSED</b></td>
-    #     <td><b>ARVD</b></td>
-    #     <td><b>16. ARV REGIMEN DAYS DISPENSED_obsDatetime</b></td>
-    #      <td><b>ARVDO</b></td>
-    #  </tr>
     # </table>
     # """
     # # Display the HTML table using markdown in Streamlit
