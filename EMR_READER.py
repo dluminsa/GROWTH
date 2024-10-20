@@ -217,14 +217,14 @@ def extract():
                         a = df[~df['RD'].str.contains('-')].copy()
                         B = a[a['RD'].str.contains('/')].copy()
                         C = a[~a['RD'].str.contains('/')].copy()
+                        D = C[C['RD'].str.contains('')].copy()
+                        FYB = D.copy()
                 
                         A[['Ryear', 'Rmonth', 'Rday']] = A['RD'].str.split('-', expand = True)
                         B[['Ryear', 'Rmonth', 'Rday']] = B['RD'].str.split('/', expand = True)
                         try:
                             C['RD'] = pd.to_numeric(C['RD'], errors='coerce')
-                            FYA = C.copy()
                             C['RD'] = pd.to_datetime(C['RD'], origin='1899-12-30', unit='D', errors='coerce')
-                            FYB = C.copy()
                             C['RD'] =  C['RD'].astype(str)
                             C[['Ryear', 'Rmonth', 'Rday']] = C['RD'].str.split('-', expand = True)
                         except:
@@ -1534,7 +1534,6 @@ def extract():
                                                     mime="text/csv")
                 
                                 st.divider()
-                                st.write(FYA)
                                 st.write(FYB)
                                 st.success('**WANT TO HELP US IMPROVE?**')
                                 st.write('Are you getting different results when you filter the extract manually?, That is ok')
