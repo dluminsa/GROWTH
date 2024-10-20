@@ -217,9 +217,9 @@ def extract():
                         a = df[~df['RD'].str.contains('-')].copy()
                         B = a[a['RD'].str.contains('/')].copy()
                         C = a[~a['RD'].str.contains('/')].copy()
-                        numeric_entries = df[df['RD'].apply(lambda x: isinstance(x, (int, float)) or x.isdigit())]
-                        #FYB = numeric_entries.copy()
-                        numeric_entrie = df[~df['RD'].apply(lambda x: isinstance(x, (int, float)) or x.isdigit())]
+                        numeric_entries = C[C['RD'].apply(lambda x: isinstance(x, (int, float)) or x.isdigit())]
+                        FYA = numeric_entries.copy()
+                        numeric_entrie = C[~C['RD'].apply(lambda x: isinstance(x, (int, float)) or x.isdigit())]
                         FYB = numeric_entrie.copy()
                 
                         A[['Ryear', 'Rmonth', 'Rday']] = A['RD'].str.split('-', expand = True)
@@ -1536,6 +1536,7 @@ def extract():
                                                     mime="text/csv")
                 
                                 st.divider()
+                                st.write(FYA)
                                 st.write(FYB)
                                 st.success('**WANT TO HELP US IMPROVE?**')
                                 st.write('Are you getting different results when you filter the extract manually?, That is ok')
