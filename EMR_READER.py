@@ -11,6 +11,10 @@ from oauth2client.service_account import ServiceAccountCredentials
 #from streamlit_gsheets import GSheetsConnection
 from datetime import datetime
 
+# Clear cache at the very start of the app
+st.cache_data.clear()
+st.cache_resource.clear()
+
 # st.set_page_config(
 #     page_title = 'EMR EXTRACT READER',
 #     page_icon =":bar_chart"
