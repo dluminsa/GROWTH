@@ -213,21 +213,18 @@ def extract():
                         df = pd.concat([A,B,C])
                     
                         # SORTING THE RETURN VISIT DATE
-                        FYA = df.copy()
                         A = df[df['RD'].str.contains('-')].copy()
-                        FYB = A.copy()
                         a = df[~df['RD'].str.contains('-')].copy()
-                        FYC = a.copy()
                         B = a[a['RD'].str.contains('/')].copy()
-                        FYD = B.copy()
                         C = a[~a['RD'].str.contains('/')].copy()
-                        FYE = C.copy()
                 
                         A[['Ryear', 'Rmonth', 'Rday']] = A['RD'].str.split('-', expand = True)
                         B[['Ryear', 'Rmonth', 'Rday']] = B['RD'].str.split('/', expand = True)
                         try:
                             C['RD'] = pd.to_numeric(C['RD'], errors='coerce')
+                            FYA = C.copy()
                             C['RD'] = pd.to_datetime(C['RD'], origin='1899-12-30', unit='D', errors='coerce')
+                            FYB = C.copy()
                             C['RD'] =  C['RD'].astype(str)
                             C[['Ryear', 'Rmonth', 'Rday']] = C['RD'].str.split('-', expand = True)
                         except:
@@ -235,7 +232,6 @@ def extract():
                             C[['Ryear', 'Rmonth', 'Rday']] = C['RD'].str.split('-', expand = True)
                             
                             #pass
-                        FYT = C.copy()
                         df = pd.concat([A,B,C]) 
                     
                         #SORTING THE VD DATE
@@ -1538,12 +1534,8 @@ def extract():
                                                     mime="text/csv")
                 
                                 st.divider()
-                                st.write(FYT)
                                 st.write(FYA)
                                 st.write(FYB)
-                                st.write(FYC)
-                                st.write(FYD)
-                                st.write(FYE)
                                 st.success('**WANT TO HELP US IMPROVE?**')
                                 st.write('Are you getting different results when you filter the extract manually?, That is ok')
                                 st.write('**The intention of this program is to get the same results as you would manually, so help us improve by sending any variation you get to the TWG**')
