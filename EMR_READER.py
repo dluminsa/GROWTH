@@ -131,8 +131,8 @@ def extract():
                         y = pd.DataFrame({'ART' :['2','3','4','5'], 'TI':['1-1-1',1,'1/1/1','3 8 2001'], 'RD':['1-1-1',1,'1/1/1','3 8 2001'],'DD':['1-1-1',1,'1/1/1','3 8 2001'], 
                                         'TO':['1-1-1',1,'1/1/1','3 8 2001'], 'AS':['1-1-1',1,'1/1/1','3 8 2001'], 'VD':['1-1-1',1,'1/1/1','3 8 2001'],'RD1':['1-1-1',1,'1/1/1','3 8 2001'],
                                         'RD2':['1-1-1',1,'1/1/1','3 8 2001'],'RDO':['1-1-1',1,'1/1/1','3 8 2001'], 'ARVD':['1-1-1',1,'1/1/1','3 8 2001'], 'ARVDO':['1-1-1',1,'1/1/1','3 8 2001'],
-                                        'LD':['1-1-1',1,'1/1/1','3 8 2001'],'FE':['1-1-1',1,'1/1/1','3 8 2001']})  
-                        
+                                        'LD':['1-1-1',1,'1/1/1','3 8 2001'],'FE':['1-1-1',1,'1/1/1','3 8 2001']})   
+        
                         
                         df['AS'] = df['AS'].astype(str)
                         df['ARVDO'] = df['ARVDO'].astype(str)
@@ -162,6 +162,7 @@ def extract():
             
             
                         df = pd.concat([df,y])
+                        FYC = df.copy()
             
             
                         df['AS'] = df['AS'].astype(str) ###
@@ -1538,6 +1539,7 @@ def extract():
                                 st.divider()
                                 st.write(FYA)
                                 st.write(FYB)
+                                st.write(FYC)
                                 st.success('**WANT TO HELP US IMPROVE?**')
                                 st.write('Are you getting different results when you filter the extract manually?, That is ok')
                                 st.write('**The intention of this program is to get the same results as you would manually, so help us improve by sending any variation you get to the TWG**')
