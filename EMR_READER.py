@@ -1347,7 +1347,6 @@ def extract():
                                         st.write('**NO MISSED APPOINTMENTS**')
                                     else:
                                         dat = lost()
-                                        st.write(dat)
                                         csv_data = dat.to_csv(index=False)
                                         st.download_button(
                                                     label="MISSED APPOINTMENTS",
@@ -1543,7 +1542,7 @@ def extract():
                                 st.divider()
                                 # st.write(FYA)
                                 # st.write(FYB)
-                                st.write(FYA)
+                                # st.write(FYA)
                                 st.success('**WANT TO HELP US IMPROVE?**')
                                 st.write('Are you getting different results when you filter the extract manually?, That is ok')
                                 st.write('**The intention of this program is to get the same results as you would manually, so help us improve by sending any variation you get to the TWG**')
