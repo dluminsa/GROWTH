@@ -160,10 +160,7 @@ def extract():
                         df['LD'] = df['LD'].str.replace('00:00:00', '', regex=True)
                         df['FE'] = df['FE'].str.replace('00:00:00', '', regex=True)
             
-            
                         df = pd.concat([df,y])
-                        FYC = df.copy()
-            
             
                         df['AS'] = df['AS'].astype(str) ###
                         df['ARVDO'] = df['ARVDO'].astype(str)
@@ -1538,9 +1535,9 @@ def extract():
                                                     mime="text/csv")
                 
                                 st.divider()
-                                st.write(FYA)
-                                st.write(FYB)
-                                st.write(FYC)
+                                # st.write(FYA)
+                                # st.write(FYB)
+                                # st.write(FYC)
                                 st.success('**WANT TO HELP US IMPROVE?**')
                                 st.write('Are you getting different results when you filter the extract manually?, That is ok')
                                 st.write('**The intention of this program is to get the same results as you would manually, so help us improve by sending any variation you get to the TWG**')
