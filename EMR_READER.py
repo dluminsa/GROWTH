@@ -231,7 +231,7 @@ def extract():
                         E['RD'] = pd.to_datetime(E['RD'],format='%d %m %Y', errors='coerce')
                         E['RD'] =  E['RD'].astype(str)
                         E[['Ryear', 'Rmonth', 'Rday']] = E['RD'].str.split('-', expand = True)
-                        #     FYA = E.copy()
+                        FYA = E.copy()
                         # except:
                         #     pass
                         df = pd.concat([A,B,D,E]) 
