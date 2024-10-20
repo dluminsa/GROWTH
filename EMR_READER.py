@@ -1343,6 +1343,7 @@ def extract():
                                         st.write('**NO MISSED APPOINTMENTS**')
                                     else:
                                         dat = lost()
+                                        st.write(dat)
                                         csv_data = dat.to_csv(index=False)
                                         st.download_button(
                                                     label="MISSED APPOINTMENTS",
