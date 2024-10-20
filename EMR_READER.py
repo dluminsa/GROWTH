@@ -217,7 +217,7 @@ def extract():
                         a = df[~df['RD'].str.contains('-')].copy()
                         B = a[a['RD'].str.contains('/')].copy()
                         C = a[~a['RD'].str.contains('/')].copy()
-                        numeric_entries = df[df['RD'].apply(lambda x: isinstance(x, (int, float)) or x.isdigit())
+                        numeric_entries = df[df['RD'].apply(lambda x: isinstance(x, (int, float)) or x.isdigit())]
                         FYB = numeric_entries.copy()
                 
                         A[['Ryear', 'Rmonth', 'Rday']] = A['RD'].str.split('-', expand = True)
