@@ -227,13 +227,13 @@ def extract():
                             D[['Ryear', 'Rmonth', 'Rday']] = D['RD'].str.split('-', expand = True)
                         except:
                             pass
-                        try:            
-                            E['RD'] = pd.to_datetime(C['DD'],format='%d %m %Y', errors='coerce')
-                            E['RD'] =  E['RD'].astype(str)
-                            E[['Ryear', 'Rmonth', 'Rday']] = E['RD'].str.split('-', expand = True)
-                            FYA = E.copy()
-                        except:
-                            pass
+                        #try:            
+                        E['RD'] = pd.to_datetime(C['DD'],format='%d %m %Y', errors='coerce')
+                        E['RD'] =  E['RD'].astype(str)
+                        E[['Ryear', 'Rmonth', 'Rday']] = E['RD'].str.split('-', expand = True)
+                        #     FYA = E.copy()
+                        # except:
+                        #     pass
                         df = pd.concat([A,B,D,E]) 
                     
                         #SORTING THE VD DATE
