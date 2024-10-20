@@ -218,24 +218,25 @@ def extract():
                         a = df[~df['RD'].str.contains('-')].copy()
                         B = a[a['RD'].str.contains('/')].copy()
                         C = a[~a['RD'].str.contains('/')].copy()
-                        numeric_entries = C[C['RD'].apply(lambda x: isinstance(x, (int, float)) or x.isdigit())]
-                        FYA = numeric_entries.copy()
-                        numeric_entrie = C[~C['RD'].apply(lambda x: isinstance(x, (int, float)) or x.isdigit())]
-                        FYB = numeric_entrie.copy()
+                        D = C[C['RD'].apply(lambda x: isinstance(x, (int, float)) or x.isdigit())]
+                        E = C[~C['RD'].apply(lambda x: isinstance(x, (int, float)) or x.isdigit())]
                 
                         A[['Ryear', 'Rmonth', 'Rday']] = A['RD'].str.split('-', expand = True)
                         B[['Ryear', 'Rmonth', 'Rday']] = B['RD'].str.split('/', expand = True)
                         try:
-                            C['RD'] = pd.to_numeric(C['RD'], errors='coerce')
-                            C['RD'] = pd.to_datetime(C['RD'], origin='1899-12-30', unit='D', errors='coerce')
-                            C['RD'] =  C['RD'].astype(str)
-                            C[['Ryear', 'Rmonth', 'Rday']] = C['RD'].str.split('-', expand = True)
+                            D['RD'] = pd.to_numeric(D['RD'], errors='coerce')
+                            D['RD'] = pd.to_datetime(D['RD'], origin='1899-12-30', unit='D', errors='coerce')
+                            D['RD'] =  D['RD'].astype(str)
+                            D[['Ryear', 'Rmonth', 'Rday']] = D['RD'].str.split('-', expand = True)
                         except:
-                            C['RD'] = pd.to_datetime(C['RD'], format='%d %m %Y', errors='coerce')
-                            C[['Ryear', 'Rmonth', 'Rday']] = C['RD'].str.split('-', expand = True)
-                            
-                            #pass
-                        df = pd.concat([A,B,C]) 
+                            pass
+                        try:            
+                            E['RD'] = pd.to_datetime(C['DD'], , errors='coerce')
+                            E['RD'] =  E['RD'].astype(str)
+                            E[['Ryear', 'Rmonth', 'Rday']] = E['RD'].str.split('-', expand = True)
+                        except:
+                            pass
+                        df = pd.concat([A,B,D,E]) 
                     
                         #SORTING THE VD DATE
                         A = df[df['VD'].str.contains('-')].copy()
