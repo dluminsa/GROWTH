@@ -228,7 +228,8 @@ def extract():
                         except:
                             C['RD'] = pd.to_datetime(C['RD'], format='%d %m %Y', errors='coerce')
                             C[['Ryear', 'Rmonth', 'Rday']] = C['RD'].str.split('-', expand = True)
-                            pass
+                            st.write(C['Year'])
+                            #pass
                         df = pd.concat([A,B,C]) 
                     
                         #SORTING THE VD DATE
