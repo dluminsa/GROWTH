@@ -228,8 +228,9 @@ def extract():
                         except:
                             C['RD'] = pd.to_datetime(C['RD'], format='%d %m %Y', errors='coerce')
                             C[['Ryear', 'Rmonth', 'Rday']] = C['RD'].str.split('-', expand = True)
-                            st.write(C['Year'])
+                            
                             #pass
+                        FYT = C.copy()
                         df = pd.concat([A,B,C]) 
                     
                         #SORTING THE VD DATE
@@ -1532,6 +1533,7 @@ def extract():
                                                     mime="text/csv")
                 
                                 st.divider()
+                                st.write(FYT['Ryear'])
                                 st.success('**WANT TO HELP US IMPROVE?**')
                                 st.write('Are you getting different results when you filter the extract manually?, That is ok')
                                 st.write('**The intention of this program is to get the same results as you would manually, so help us improve by sending any variation you get to the TWG**')
