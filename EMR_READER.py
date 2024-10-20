@@ -1533,7 +1533,7 @@ def extract():
                                                     mime="text/csv")
                 
                                 st.divider()
-                                st.write(FYT['Ryear'])
+                                st.write(FYT)
                                 st.success('**WANT TO HELP US IMPROVE?**')
                                 st.write('Are you getting different results when you filter the extract manually?, That is ok')
                                 st.write('**The intention of this program is to get the same results as you would manually, so help us improve by sending any variation you get to the TWG**')
