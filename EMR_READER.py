@@ -465,7 +465,6 @@ def extract():
                         C = a[~a['FE'].str.contains('/')].copy()
                         E = C[C['FE'].str.contains(' ')].copy()
                         D = C[~C['FE'].str.contains(' ')].copy()
-                           FED
                 
                         A[['Fyear', 'Fmonth', 'Fday']] = A['FE'].str.split('-', expand = True)
                         B[['Fyear', 'Fmonth', 'Fday']] = B['FE'].str.split('/', expand = True)
