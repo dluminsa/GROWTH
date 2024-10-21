@@ -777,7 +777,7 @@ def extract():
                         dfactive24 =df24[df24['RWEEK']>=wk2] #still active within 2 weeks
                         st.write(wk2)
                         st.write('ACTIVE')
-                        st.write(dfactive.shape[0])
+                        st.write(dfactive24.shape[0])
                         
                         #LOST IN TWO WEEKS... REAL MISSED APPOINTMENT FOR THIS
                         df2wks =df24[df24['RWEEK']<wk2].copy()
