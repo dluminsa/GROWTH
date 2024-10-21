@@ -394,7 +394,7 @@ def extract():
                             pass
                         df = pd.concat([A,B,C])
                         st.write('BEFORE')
-                        st.write(df['Ryear'])
+                        st.write(df['RD'])
             
                         #BRINGING BACK THE / IN DATES
                         df['AS'] = df['AS'].astype(str)
