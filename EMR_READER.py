@@ -612,8 +612,6 @@ def extract():
         
                         #COPY FOR ONE YEAR BEFORE GETTING POT CURR
                         oneyear = df.copy()
-                        pote = oneyear.shape[0]
-                        st.write(f'{pote} , POTENT')
         
                         #df['GROUP'] = df['AG'].apply(ager)
                         #LAST Q'S TXML ALTER
@@ -626,6 +624,8 @@ def extract():
                         last[['Rmonth', 'Rday']] = last[['Rmonth', 'Rday']].apply(pd.to_numeric, errors='coerce')
                         last = last[((last['Rmonth']>6) | ((last['Rmonth']==6) & (last['Rday']>2)))].copy()
                         lastq = last.shape[0]
+                        potI = df.shape[0]
+                        st.write(f'{potI} , POTENTE')
 
                     
                         #POTENTIAL TXCUR ALTER... 
