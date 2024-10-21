@@ -626,7 +626,7 @@ def extract():
                         lastq = last.shape[0]
 
 
-                    
+                        st.write(df['Ryear'])
                         #POTENTIAL TXCUR ALTER... 
                         df[['Rmonth', 'Rday', 'Ryear']] = df[['Rmonth', 'Rday', 'Ryear']].apply(pd.to_numeric, errors='coerce')
                         df25 = df[df['Ryear']>2024].copy()
@@ -634,8 +634,6 @@ def extract():
                         df24[['Rmonth', 'Rday']] = df24[['Rmonth', 'Rday']].apply(pd.to_numeric, errors='coerce')
                         df24 = df24[((df24['Rmonth']>9) | ((df24['Rmonth']==9) & (df24['Rday']>2)))].copy()
                         df = pd.concat([df25, df24]).copy()
-                        potA = df.shape[0]
-                        st.write(f'{potA} , POTENTA')
             
                         #REMOVE TO of the last reporting month
                         df[ 'Tyear'] = pd.to_numeric(df['Tyear'], errors='coerce')
