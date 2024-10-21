@@ -185,34 +185,50 @@ def extract():
                         a = df[~df['AS'].str.contains('-')].copy()
                         B = a[a['AS'].str.contains('/')].copy()
                         C = a[~a['AS'].str.contains('/')].copy()
+                        E = C[C['AS'].str.contains(' ')].copy()
+                        D = C[~C['AS'].str.contains(' ')].copy()
             
                         A[['Ayear', 'Amonth', 'Aday']] = A['AS'].str.split('-', expand = True)
                         B[['Ayear', 'Amonth', 'Aday']] = B['AS'].str.split('/', expand = True)
-                        try:            
-                            C['AS'] = pd.to_numeric(C['AS'], errors='coerce')
-                            C['AS'] = pd.to_datetime(C['AS'], origin='1899-12-30', unit='D', errors='coercee')
-                            C['AS'] =  C['AS'].astype(str)
-                            C[['Ayear', 'Amonth', 'Aday']] = C['AS'].str.split('-', expand = True)
+                        try:
+                            D['AS'] = pd.to_numeric(D['AS'], errors='coerce')
+                            D['AS'] = pd.to_datetime(D['AS'], origin='1899-12-30', unit='D', errors='coerce')
+                            D['AS'] =  D['AS'].astype(str)
+                            D[['Ayear', 'Amonth', 'Aday']] = D['AS'].str.split('-', expand = True)
                         except:
                             pass
-                        df = pd.concat([A,B,C])
+                        try:  
+                            E['AS'] = pd.to_datetime(E['AS'],format='%d %m %Y', errors='coerce')
+                            E['AS'] =  E['AS'].astype(str)
+                            E[['Ayear', 'Amonth', 'Aday']] = E['AS'].str.split('-', expand = True)
+                        except:
+                            pass
+                        df = pd.concat([A,B,D,E]) 
             
                         # SPLITTING DEATH DATE
                         A = df[df['DD'].str.contains('-')].copy()
                         a = df[~df['DD'].str.contains('-')].copy()
                         B = a[a['DD'].str.contains('/')].copy()
                         C = a[~a['DD'].str.contains('/')].copy()
-            
+                        E = C[C['DD'].str.contains(' ')].copy()
+                        D = C[~C['DD'].str.contains(' ')].copy()
                         A[['Dyear', 'Dmonth', 'Dday']] = A['DD'].str.split('-', expand = True)
                         B[['Dyear', 'Dmonth', 'Dday']] = B['DD'].str.split('/', expand = True)
-                        try:            
-                            C['DD'] = pd.to_numeric(C['DD'], errors='coerce')
-                            C['DD'] = pd.to_datetime(C['DD'], origin='1899-12-30', unit='D', errors='coerce')
-                            C['DD'] =  C['DD'].astype(str)
-                            C[['Dyear', 'Dmonth', 'Dday']] = C['DD'].str.split('-', expand = True)
+
+                        try:
+                            D['DD'] = pd.to_numeric(D['DD'], errors='coerce')
+                            D['DD'] = pd.to_datetime(D['DD'], origin='1899-12-30', unit='D', errors='coerce')
+                            D['DD'] =  D['DD'].astype(str)
+                            D[['Dyear', 'Dmonth', 'Dday']] = D['DD'].str.split('-', expand = True)
                         except:
                             pass
-                        df = pd.concat([A,B,C])
+                        try:  
+                            E['DD'] = pd.to_datetime(E['DD'],format='%d %m %Y', errors='coerce')
+                            E['DD'] =  E['DD'].astype(str)
+                            E[['Dyear', 'Dmonth', 'Dday']] = E['DD'].str.split('-', expand = True)
+                        except:
+                            pass
+                        df = pd.concat([A,B,D,E]) 
                     
                         # SORTING THE RETURN VISIT DATE
                         A = df[df['RD'].str.contains('-')].copy()
@@ -247,154 +263,225 @@ def extract():
                         a = df[~df['VD'].str.contains('-')].copy()
                         B = a[a['VD'].str.contains('/')].copy()
                         C = a[~a['VD'].str.contains('/')].copy()
+                        E = C[C['VD'].str.contains(' ')].copy()
+                        D = C[~C['VD'].str.contains(' ')].copy()
             
                         A[['Vyear', 'Vmonth', 'Vday']] = A['VD'].str.split('-', expand = True)
                         B[['Vyear', 'Vmonth', 'Vday']] = B['VD'].str.split('/', expand = True)
                         try:
-                            C['VD'] = pd.to_numeric(C['VD'], errors='coerce')
-                            C['VD'] = pd.to_datetime(C['VD'], origin='1899-12-30', unit='D', errors='coerce')
-                            C['VD'] =  C['VD'].astype(str)
-                            C[['Vyear', 'Vmonth', 'Vday']] = C['VD'].str.split('-', expand = True)
+                            D['VD'] = pd.to_numeric(D['VD'], errors='coerce')
+                            D['VD'] = pd.to_datetime(D['VD'], origin='1899-12-30', unit='D', errors='coerce')
+                            D['VD'] =  D['VD'].astype(str)
+                            D[['Vyear', 'Vmonth', 'Vday']] = D['VD'].str.split('-', expand = True)
                         except:
                             pass
-                        df = pd.concat([A,B,C])
+                        try:  
+                            E['VD'] = pd.to_datetime(E['VD'],format='%d %m %Y', errors='coerce')
+                            E['VD'] =  E['VD'].astype(str)
+                            E[['Vyear', 'Vmonth', 'Vday']] = E['VD'].str.split('-', expand = True)
+                        except:
+                            pass
+                        df = pd.concat([A,B,D,E])
             
                         #SORTING THE TO DATE
                         A = df[df['TO'].str.contains('-')].copy()
                         a = df[~df['TO'].str.contains('-')].copy()
                         B = a[a['TO'].str.contains('/')].copy()
                         C = a[~a['TO'].str.contains('/')].copy()
+                        E = C[C['TO'].str.contains(' ')].copy()
+                        D = C[~C['TO'].str.contains(' ')].copy()
             
                         A[['Tyear', 'Tmonth', 'Tday']] = A['TO'].str.split('-', expand = True)
                         B[['Tyear', 'Tmonth', 'Tday']] = B['TO'].str.split('/', expand = True)
-                        try:            
-                            C['TO'] = pd.to_numeric(C['TO'], errors='coerce')
-                            C['TO'] = pd.to_datetime(C['TO'], origin='1899-12-30', unit='D', errors='coerce')
-                            C['TO'] =  C['TO'].astype(str)
-                            C[['Tyear', 'Tmonth', 'Tday']] = C['TO'].str.split('-', expand = True)
+                        try:
+                            D['TO'] = pd.to_numeric(D['TO'], errors='coerce')
+                            D['TO'] = pd.to_datetime(D['TO'], origin='1899-12-30', unit='D', errors='coerce')
+                            D['TO'] =  D['TO'].astype(str)
+                            D[['Tyear', 'Tmonth', 'Tday']] = D['TO'].str.split('-', expand = True)
                         except:
                             pass
-                        df = pd.concat([A,B,C])
-                    
+                        try:  
+                            E['TO'] = pd.to_datetime(E['TO'],format='%d %m %Y', errors='coerce')
+                            E['TO'] =  E['TO'].astype(str)
+                            E[['Tyear', 'Tmonth', 'Tday']] = E['TO'].str.split('-', expand = True)
+                        except:
+                            pass
+                        df = pd.concat([A,B,D,E])
             
                     #SORTING THE TI DATE
                         A = df[df['TI'].str.contains('-')].copy()
                         a = df[~df['TI'].str.contains('-')].copy()
                         B = a[a['TI'].str.contains('/')].copy()
                         C = a[~a['TI'].str.contains('/')].copy()
+                        E = C[C['TI'].str.contains(' ')].copy()
+                        D = C[~C['TI'].str.contains(' ')].copy()
             
                         A[['Tiyear', 'Timonth', 'Tiday']] = A['TI'].str.split('-', expand = True)
                         B[['Tiyear', 'Timonth', 'Tiday']] = B['TI'].str.split('/', expand = True)
-                        try:            
-                            C['TI'] = pd.to_numeric(C['TI'], errors='coerce')
-                            C['TI'] = pd.to_datetime(C['TI'], origin='1899-12-30', unit='D', errors='coerce')
-                            C['TI'] =  C['TI'].astype(str)
-                            C[['Tiyear', 'Timonth', 'Tiday']] = C['TI'].str.split('-', expand = True)
+                        try:
+                            D['TI'] = pd.to_numeric(D['TI'], errors='coerce')
+                            D['TI'] = pd.to_datetime(D['TI'], origin='1899-12-30', unit='D', errors='coerce')
+                            D['TI'] =  D['TI'].astype(str)
+                            D[['Tiyear', 'Timonth', 'Tiday']] = D['TI'].str.split('-', expand = True)
                         except:
                             pass
-                        df = pd.concat([A,B,C])
+                        try:  
+                            E['TI'] = pd.to_datetime(E['TI'],format='%d %m %Y', errors='coerce')
+                            E['TI'] =  E['TI'].astype(str)
+                            E[['Tiyear', 'Timonth', 'Tiday']] = E['TI'].str.split('-', expand = True)
+                        except:
+                            pass
+                        df = pd.concat([A,B,D,E])
             
                         # SORTING THE RETURN VISIT DATE1
                         A = df[df['RD1'].str.contains('-')].copy()
                         a = df[~df['RD1'].str.contains('-')].copy()
                         B = a[a['RD1'].str.contains('/')].copy()
                         C = a[~a['RD1'].str.contains('/')].copy()
+                        E = C[C['RD1'].str.contains(' ')].copy()
+                        D = C[~C['RD1'].str.contains(' ')].copy()
                 
                         A[['R1year', 'R1month', 'R1day']] = A['RD1'].str.split('-', expand = True)
                         B[['R1year', 'R1month', 'R1day']] = B['RD1'].str.split('/', expand = True)
                         try:
-                            C['RD1'] = pd.to_numeric(C['RD1'], errors='coerce')
-                            C['RD1'] = pd.to_datetime(C['RD1'], origin='1899-12-30', unit='D', errors='coerce')
-                            C['RD1'] =  C['RD1'].astype(str)
-                            C[['R1year', 'R1month', 'R1day']] = C['RD1'].str.split('-', expand = True)
+                            D['RD1'] = pd.to_numeric(D['RD1'], errors='coerce')
+                            D['RD1'] = pd.to_datetime(D['RD1'], origin='1899-12-30', unit='D', errors='coerce')
+                            D['RD1'] =  D['RD1'].astype(str)
+                            D[['R1year', 'R1month', 'R1day']] = D['RD1'].str.split('-', expand = True)
                         except:
                             pass
-                        df = pd.concat([A,B,C]) 
+                        try:  
+                            E['RD1'] = pd.to_datetime(E['RD1'],format='%d %m %Y', errors='coerce')
+                            E['RD1'] =  E['RD1'].astype(str)
+                            E[['R1year', 'R1month', 'R1day']] = E['RD1'].str.split('-', expand = True)
+                        except:
+                            pass
+                        df = pd.concat([A,B,D,E])
                     
                         # SORTING THE RETURN VISIT DATE2
                         A = df[df['RD2'].str.contains('-')].copy()
                         a = df[~df['RD2'].str.contains('-')].copy()
                         B = a[a['RD2'].str.contains('/')].copy()
                         C = a[~a['RD2'].str.contains('/')].copy()
+                        E = C[C['RD2'].str.contains(' ')].copy()
+                        D = C[~C['RD2'].str.contains(' ')].copy()
                 
                         A[['R2year', 'R2month', 'R2day']] = A['RD2'].str.split('-', expand = True)
                         B[['R2year', 'R2month', 'R2day']] = B['RD2'].str.split('/', expand = True)
                         try:
-                            C['RD2'] = pd.to_numeric(C['RD2'], errors='coerce')
-                            C['RD2'] = pd.to_datetime(C['RD2'], origin='1899-12-30', unit='D', errors='coerce')
-                            C['RD2'] =  C['RD2'].astype(str)
-                            C[['R2year', 'R2month', 'R2day']] = C['RD2'].str.split('-', expand = True)
+                            D['RD2'] = pd.to_numeric(D['RD2'], errors='coerce')
+                            D['RD2'] = pd.to_datetime(D['RD2'], origin='1899-12-30', unit='D', errors='coerce')
+                            D['RD2'] =  D['RD2'].astype(str)
+                            D[['R2year', 'R2month', 'R2day']] = D['RD2'].str.split('-', expand = True)
                         except:
                             pass
-                        df = pd.concat([A,B,C])
+                        try:  
+                            E['RD2'] = pd.to_datetime(E['RD2'],format='%d %m %Y', errors='coerce')
+                            E['RD2'] =  E['RD2'].astype(str)
+                            E[['R2year', 'R2month', 'R2day']] = E['RD2'].str.split('-', expand = True)
+                        except:
+                            pass
+                        df = pd.concat([A,B,D,E])
                     
                         # SORTING THE RETURN VISIT OBS DATE
                         A = df[df['RDO'].str.contains('-')].copy()
                         a = df[~df['RDO'].str.contains('-')].copy()
                         B = a[a['RDO'].str.contains('/')].copy()
                         C = a[~a['RDO'].str.contains('/')].copy()
+                        E = C[C['RDO'].str.contains(' ')].copy()
+                        D = C[~C['RDO'].str.contains(' ')].copy()
                 
                         A[['ROyear', 'ROmonth', 'ROday']] = A['RDO'].str.split('-', expand = True)
                         B[['ROyear', 'ROmonth', 'ROday']] = B['RDO'].str.split('/', expand = True)
                         try:
-                            C['RDO'] = pd.to_numeric(C['RDO'], errors='coerce')
-                            C['RDO'] = pd.to_datetime(C['RDO'], origin='1899-12-30', unit='D', errors='coerce')
-                            C['RDO'] =  C['RDO'].astype(str)
-                            C[['ROyear', 'ROmonth', 'ROday']] = C['RDO'].str.split('-', expand = True)
-                        except: 
+                            D['RDO'] = pd.to_numeric(D['RDO'], errors='coerce')
+                            D['RDO'] = pd.to_datetime(D['RDO'], origin='1899-12-30', unit='D', errors='coerce')
+                            D['RDO'] =  D['RDO'].astype(str)
+                            D[['ROyear', 'ROmonth', 'ROday']] = D['RDO'].str.split('-', expand = True)
+                        except:
                             pass
-                        df = pd.concat([A,B,C])
+                        try:  
+                            E['RDO'] = pd.to_datetime(E['RDO'],format='%d %m %Y', errors='coerce')
+                            E['RDO'] =  E['RDO'].astype(str)
+                            E[['ROyear', 'ROmonth', 'ROday']] = E['RDO'].str.split('-', expand = True)
+                        except:
+                            pass
+                        df = pd.concat([A,B,D,E])
             
                         # SORTING THE LAST ENCOUNTER DATES
                         A = df[df['LD'].str.contains('-')].copy()
                         a = df[~df['LD'].str.contains('-')].copy()
                         B = a[a['LD'].str.contains('/')].copy()
                         C = a[~a['LD'].str.contains('/')].copy()
+                        E = C[C['LD'].str.contains(' ')].copy()
+                        D = C[~C['LD'].str.contains(' ')].copy()
                 
                         A[['Lyear', 'Lmonth', 'Lday']] = A['LD'].str.split('-', expand = True)
                         B[['Lyear', 'Lmonth', 'Lday']] = B['LD'].str.split('/', expand = True)
                         try:
-                            C['LD'] = pd.to_numeric(C['LD'], errors='coerce')
-                            C['LD'] = pd.to_datetime(C['LD'], origin='1899-12-30', unit='D', errors='coerce')
-                            C['LD'] =  C['LD'].astype(str)
-                            C[['Lyear', 'Lmonth', 'Lday']] = C['LD'].str.split('-', expand = True)
+                            D['LD'] = pd.to_numeric(D['LD'], errors='coerce')
+                            D['LD'] = pd.to_datetime(D['LD'], origin='1899-12-30', unit='D', errors='coerce')
+                            D['LD'] =  D['LD'].astype(str)
+                            D[['Lyear', 'Lmonth', 'Lday']] = D['LD'].str.split('-', expand = True)
                         except:
                             pass
-                        df = pd.concat([A,B,C])
+                        try:  
+                            E['LD'] = pd.to_datetime(E['LD'],format='%d %m %Y', errors='coerce')
+                            E['LD'] =  E['LD'].astype(str)
+                            E[['Lyear', 'Lmonth', 'Lday']] = E['LD'].str.split('-', expand = True)
+                        except:
+                            pass
+                        df = pd.concat([A,B,D,E])
                     
                         # SORTING THE ARV DISPENSED DATES
                         A = df[df['ARVDO'].str.contains('-')].copy()
                         a = df[~df['ARVDO'].str.contains('-')].copy()
                         B = a[a['ARVDO'].str.contains('/')].copy()
                         C = a[~a['ARVDO'].str.contains('/')].copy()
+                        E = C[C['ARVDO'].str.contains(' ')].copy()
+                        D = C[~C['ARVDO'].str.contains(' ')].copy()
                 
                         A[['Aryear', 'Armonth', 'Arday']] = A['ARVDO'].str.split('-', expand = True)
                         B[['Aryear', 'Armonth', 'Arday']] = B['ARVDO'].str.split('/', expand = True)
                         try:
-                            C['ARVDO'] = pd.to_numeric(C['ARVDO'], errors='coerce')
-                            C['ARVDO'] = pd.to_datetime(C['ARVDO'], origin='1899-12-30', unit='D', errors='coerce')
-                            C['ARVDO'] =  C['ARVDO'].astype(str)
-                            C[['Aryear', 'Armonth', 'Arday']] = C['ARVDO'].str.split('-', expand = True)
+                            D['ARVDO'] = pd.to_numeric(D['ARVDO'], errors='coerce')
+                            D['ARVDO'] = pd.to_datetime(D['ARVDO'], origin='1899-12-30', unit='D', errors='coerce')
+                            D['ARVDO'] =  D['ARVDO'].astype(str)
+                            D[['Aryear', 'Armonth', 'Arday']] = D['ARVDO'].str.split('-', expand = True)
                         except:
                             pass
-                        df = pd.concat([A,B,C])
+                        try:  
+                            E['ARVDO'] = pd.to_datetime(E['ARVDO'],format='%d %m %Y', errors='coerce')
+                            E['ARVDO'] =  E['ARVDO'].astype(str)
+                            E[['Aryear', 'Armonth', 'Arday']] = E['ARVDO'].str.split('-', expand = True)
+                        except:
+                            pass
+                        df = pd.concat([A,B,D,E])
             
                         # SORTING THE FIRST ENCOUNTER
                         A = df[df['FE'].str.contains('-')].copy()
                         a = df[~df['FE'].str.contains('-')].copy()
                         B = a[a['FE'].str.contains('/')].copy()
                         C = a[~a['FE'].str.contains('/')].copy()
+                        E = C[C['FE'].str.contains(' ')].copy()
+                        D = C[~C['FE'].str.contains(' ')].copy()
                 
                         A[['Fyear', 'Fmonth', 'Fday']] = A['FE'].str.split('-', expand = True)
                         B[['Fyear', 'Fmonth', 'Fday']] = B['FE'].str.split('/', expand = True)
                         try:
-                            C['FE'] = pd.to_numeric(C['FE'], errors='coerce')
-                            C['FE'] = pd.to_datetime(C['FE'], origin='1899-12-30', unit='D', errors='coerce')
-                            C['FE'] =  C['FE'].astype(str)
-                            C[['Fyear', 'Fmonth', 'Fday']] = C['FE'].str.split('-', expand = True)
+                            D['FE'] = pd.to_numeric(D['FE'], errors='coerce')
+                            D['FE'] = pd.to_datetime(D['FE'], origin='1899-12-30', unit='D', errors='coerce')
+                            D['FE'] =  D['FE'].astype(str)
+                            D[['Fyear', 'Fmonth', 'Fday']] = D['FE'].str.split('-', expand = True)
                         except:
                             pass
-                        df = pd.concat([A,B,C])
+                        try:  
+                            E['FE'] = pd.to_datetime(E['FE'],format='%d %m %Y', errors='coerce')
+                            E['FE'] =  E['FE'].astype(str)
+                            E[['Fyear', 'Fmonth', 'Fday']] = E['FE'].str.split('-', expand = True)
+                        except:
+                            pass
+                        df = pd.concat([A,B,D,E])
             
                         #BRINGING BACK THE / IN DATES
                         df['AS'] = df['AS'].astype(str)
