@@ -631,6 +631,8 @@ def extract():
                         df24[['Rmonth', 'Rday']] = df24[['Rmonth', 'Rday']].apply(pd.to_numeric, errors='coerce')
                         df24 = df24[((df24['Rmonth']>9) | ((df24['Rmonth']==9) & (df24['Rday']>2)))].copy()
                         df = pd.concat([df25, df24]).copy()
+                        pote = df.shape[0]
+                        st.write(f'{pote} , POTENTIAL')
             
                         #REMOVE TO of the last reporting month
                         df[ 'Tyear'] = pd.to_numeric(df['Tyear'], errors='coerce')
@@ -649,7 +651,6 @@ def extract():
                         dfdd = dfdd[((dfdd['Dyear']>2024) |((dfdd['Dyear']==2024) & (dfdd['Dmonth']>9)))].copy()
                         df = pd.concat([dfdd,dfnot])
                         pot = df.shape[0]
-                        st.write(f'{pot} , POTENTIAL')
             
                         #TRANSFER OUTS
                         
