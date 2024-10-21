@@ -445,7 +445,10 @@ def extract():
                         dfb = df.shape[0]
             
                         # #SORTING THE RETURN VISIT DATE YEARS
+                        st.write(df['Ryear'])
                         df[['Rday', 'Ryear']] = df[['Rday', 'Ryear']].apply(pd.to_numeric, errors='coerce')
+                        st.write('AFTER')
+                        st.write(df['Ryear'])
                         
                         df['Ryear'] = df['Ryear'].fillna(994)
                         a = df[df['Ryear']>31].copy()
@@ -612,7 +615,6 @@ def extract():
         
                         #COPY FOR ONE YEAR BEFORE GETTING POT CURR
                         oneyear = df.copy()
-                        st.write(oneyear['Tyear'])
         
                         #df['GROUP'] = df['AG'].apply(ager)
                         #LAST Q'S TXML ALTER
