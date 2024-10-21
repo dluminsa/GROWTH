@@ -393,6 +393,8 @@ def extract():
                         except:
                             pass
                         df = pd.concat([A,B,C])
+                        st.write('BEFORE')
+                        st.write(df['Ryear'])
             
                         #BRINGING BACK THE / IN DATES
                         df['AS'] = df['AS'].astype(str)
@@ -445,10 +447,7 @@ def extract():
                         dfb = df.shape[0]
             
                         # #SORTING THE RETURN VISIT DATE YEARS
-                        st.write(df['Ryear'])
                         df[['Rday', 'Ryear']] = df[['Rday', 'Ryear']].apply(pd.to_numeric, errors='coerce')
-                        st.write('AFTER')
-                        st.write(df['Ryear'])
                         
                         df['Ryear'] = df['Ryear'].fillna(994)
                         a = df[df['Ryear']>31].copy()
