@@ -165,7 +165,6 @@ def extract():
                         df['FE'] = df['FE'].str.replace('00:00:00', '', regex=True)
             
                         df = pd.concat([df,y])
-                        st.write(df.shape[0])
             
                         df['AS'] = df['AS'].astype(str) ###
                         df['ARVDO'] = df['ARVDO'].astype(str)
@@ -612,6 +611,7 @@ def extract():
                         # df['AG'] = pd.to_numeric(df['AG'], errors = 'coerce')
         
                         #COPY FOR ONE YEAR BEFORE GETTING POT CURR
+                        st.write(df.shape[0])
                         oneyear = df.copy()
                         #df['GROUP'] = df['AG'].apply(ager)
                         #LAST Q'S TXML ALTER
