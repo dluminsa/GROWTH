@@ -111,7 +111,6 @@ def extract():
                         df['A'] = df['ART'].str.replace('[^0-9]', '', regex=True)
                         df['A'] = pd.to_numeric(df['A'], errors= 'coerce')
                         df = df[df['A']>0].copy()
-                        st.write(df)
                         #df.dropna(subset='ART', inplace=True)
                         
                         df[['AS', 'RD', 'VD','TO','TI']] = df[['AS', 'RD', 'VD','TO','TI']].astype(str)
