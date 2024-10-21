@@ -165,6 +165,7 @@ def extract():
                         df['FE'] = df['FE'].str.replace('00:00:00', '', regex=True)
             
                         df = pd.concat([df,y])
+                        st.write(df.shape[0])
             
                         df['AS'] = df['AS'].astype(str) ###
                         df['ARVDO'] = df['ARVDO'].astype(str)
