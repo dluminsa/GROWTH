@@ -612,7 +612,7 @@ def extract():
         
                         #COPY FOR ONE YEAR BEFORE GETTING POT CURR
                         oneyear = df.copy()
-                        st.write(oneyear['Ryear'])
+                        st.write(oneyear['Tyear'])
         
                         #df['GROUP'] = df['AG'].apply(ager)
                         #LAST Q'S TXML ALTER
