@@ -612,6 +612,9 @@ def extract():
         
                         #COPY FOR ONE YEAR BEFORE GETTING POT CURR
                         oneyear = df.copy()
+                        pote = oneyear.shape[0]
+                        st.write(f'{pote} , POTENT')
+        
                         #df['GROUP'] = df['AG'].apply(ager)
                         #LAST Q'S TXML ALTER
                         df['Tyear'] = pd.to_numeric(df['Tyear'],errors='coerce')
@@ -623,6 +626,7 @@ def extract():
                         last[['Rmonth', 'Rday']] = last[['Rmonth', 'Rday']].apply(pd.to_numeric, errors='coerce')
                         last = last[((last['Rmonth']>6) | ((last['Rmonth']==6) & (last['Rday']>2)))].copy()
                         lastq = last.shape[0]
+
                     
                         #POTENTIAL TXCUR ALTER... 
                         df[['Rmonth', 'Rday', 'Ryear']] = df[['Rmonth', 'Rday', 'Ryear']].apply(pd.to_numeric, errors='coerce')
@@ -631,8 +635,6 @@ def extract():
                         df24[['Rmonth', 'Rday']] = df24[['Rmonth', 'Rday']].apply(pd.to_numeric, errors='coerce')
                         df24 = df24[((df24['Rmonth']>9) | ((df24['Rmonth']==9) & (df24['Rday']>2)))].copy()
                         df = pd.concat([df25, df24]).copy()
-                        pote = df.shape[0]
-                        st.write(f'{pote} , POTENTIAL')
             
                         #REMOVE TO of the last reporting month
                         df[ 'Tyear'] = pd.to_numeric(df['Tyear'], errors='coerce')
