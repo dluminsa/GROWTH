@@ -228,18 +228,20 @@ def extract():
                         st.write('GONE')
                         st.write(E['RD'].dtypes)
                         try:
-                            D['RD'] = D['RD'].astype(int)
-                            #D['RD'] = pd.to_numeric(D['RD'], errors='coerce')
+                            #D['RD'] = D['RD'].astype(int)
+                            D['RD'] = pd.to_numeric(D['RD'], errors='coerce')
                             D['RD'] = pd.to_datetime(D['RD'], origin='1899-12-30', unit='D', errors='coerce')
                             D['RD'] =  D['RD'].astype(str)
                             D[['Ryear', 'Rmonth', 'Rday']] = D['RD'].str.split('-', expand = True)
                         except:
                             pass
-                        #try:            
-                        E['RD'] = pd.to_datetime(E['RD'],format='%d %m %Y', errors='coerce')
+                        #try:  
+                        E['RD'] = pd.to_numeric(E['RD'], errors='coerce')
+                        E['RD'] = pd.to_datetime(E['RD'], origin='1899-12-30', unit='D', errors='coerce')
+                        #E['RD'] = pd.to_datetime(E['RD'],format='%d %m %Y', errors='coerce')
                         E['RD'] =  E['RD'].astype(str)
                         E[['Ryear', 'Rmonth', 'Rday']] = E['RD'].str.split('-', expand = True)
-                        FYA = E.copy()
+                    
                         # except:
                         #     pass
                         df = pd.concat([A,B,D,E]) 
