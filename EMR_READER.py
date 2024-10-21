@@ -222,10 +222,11 @@ def extract():
                         C = a[~a['RD'].str.contains('/')].copy()
                         D = C[C['RD'].str.contains(' ')].copy()
                         E = C[~C['RD'].str.contains(' ')].copy()
-                        st.write('HERE')
-                        st.write(D['RD'])
+                        st.write('SPACES')
+                        st.write(D['RD']) 
+                        st.write('NO')
                         st.write(E['RD'])
-                        st.write('HERE')
+                        
                         
                         #D = C[C['RD'].apply(lambda x: isinstance(x, (int, float)) or x.isdigit())].copy()
                         #E = C[~C['RD'].apply(lambda x: isinstance(x, (int, float)) or x.isdigit())].copy()
@@ -403,8 +404,6 @@ def extract():
                         except:
                             pass
                         df = pd.concat([A,B,C])
-                        st.write('BEFORE')
-                        st.write(df['RD'])
             
                         #BRINGING BACK THE / IN DATES
                         df['AS'] = df['AS'].astype(str)
@@ -753,8 +752,6 @@ def extract():
                         dfto = df[df['Ryear']==994].copy()
                         dfnot = df[df['Ryear']!=994].copy()
                         wk = int(wk)
-                        st.write('week')
-                        st.write(wk)
             
                         #FALSE TO OUTS BASED ON CURRENT WEEK
                         dfto[['Ryear', 'RWEEK']] =  dfto[['Ryear', 'RWEEK']].apply(pd.to_numeric, errors='coerce')
@@ -764,9 +761,7 @@ def extract():
                         true = dft.shape[0]
                         #add the false back to txcur
                         df = pd.concat([dfnot,dfw]) #WILL USE THIS FOR ACTIVE LATER
-                        st.write('NO TOS')
-                        st.write(df.shape[0])
-            
+
                         #THOSE THAT HAVE DIED SO FAR
                         df[ 'Dyear'] = pd.to_numeric(df['Dyear'], errors='coerce')
                         died = df[df['Dyear']!=994].copy() #DIED
@@ -788,9 +783,6 @@ def extract():
                         
                         df24['RWEEK'] = pd.to_numeric(df24['RWEEK'], errors='coerce')
                         dfactive24 =df24[df24['RWEEK']>=wk2] #still active within 2 weeks
-                        st.write(wk2)
-                        st.write('ACTIVE')
-                        st.write(dfactive24.shape[0])
                         
                         #LOST IN TWO WEEKS... REAL MISSED APPOINTMENT FOR THIS
                         df2wks =df24[df24['RWEEK']<wk2].copy()
