@@ -225,6 +225,8 @@ def extract():
                 
                         A[['Ryear', 'Rmonth', 'Rday']] = A['RD'].str.split('-', expand = True)
                         B[['Ryear', 'Rmonth', 'Rday']] = B['RD'].str.split('/', expand = True)
+                        st.write('GONE')
+                        st.write(D['RD'])
                         try:
                             D['RD'] = D['RD'].astype(int)
                             #D['RD'] = pd.to_numeric(D['RD'], errors='coerce')
