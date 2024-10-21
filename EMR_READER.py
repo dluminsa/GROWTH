@@ -611,6 +611,7 @@ def extract():
                         # df['AG'] = pd.to_numeric(df['AG'], errors = 'coerce')
         
                         #COPY FOR ONE YEAR BEFORE GETTING POT CURR
+                        st.write('THIS')
                         st.write(df.shape[0])
                         oneyear = df.copy()
                         #df['GROUP'] = df['AG'].apply(ager)
