@@ -649,6 +649,7 @@ def extract():
                         dfdd = dfdd[((dfdd['Dyear']>2024) |((dfdd['Dyear']==2024) & (dfdd['Dmonth']>9)))].copy()
                         df = pd.concat([dfdd,dfnot])
                         pot = df.shape[0]
+                        st.write(f'{pot} , POTENTIAL')
             
                         #TRANSFER OUTS
                         
