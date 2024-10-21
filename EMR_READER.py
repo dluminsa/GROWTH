@@ -339,7 +339,7 @@ def extract():
                             C['RDO'] = pd.to_datetime(C['RDO'], origin='1899-12-30', unit='D', errors='coerce')
                             C['RDO'] =  C['RDO'].astype(str)
                             C[['ROyear', 'ROmonth', 'ROday']] = C['RDO'].str.split('-', expand = True)
-                        except:
+                        except: 
                             pass
                         df = pd.concat([A,B,C])
             
@@ -611,8 +611,6 @@ def extract():
                         # df['AG'] = pd.to_numeric(df['AG'], errors = 'coerce')
         
                         #COPY FOR ONE YEAR BEFORE GETTING POT CURR
-                        st.write('THIS')
-                        st.write(df.shape[0])
                         oneyear = df.copy()
                         #df['GROUP'] = df['AG'].apply(ager)
                         #LAST Q'S TXML ALTER
@@ -742,6 +740,8 @@ def extract():
                         dfto = df[df['Ryear']==994].copy()
                         dfnot = df[df['Ryear']!=994].copy()
                         wk = int(wk)
+                        st.write('week')
+                        st.write(wk)
             
                         #FALSE TO OUTS BASED ON CURRENT WEEK
                         dfto[['Ryear', 'RWEEK']] =  dfto[['Ryear', 'RWEEK']].apply(pd.to_numeric, errors='coerce')
@@ -751,6 +751,8 @@ def extract():
                         true = dft.shape[0]
                         #add the false back to txcur
                         df = pd.concat([dfnot,dfw]) #WILL USE THIS FOR ACTIVE LATER
+                        st.write('NO TOS')
+                        st.write(df.shape[0])
             
                         #THOSE THAT HAVE DIED SO FAR
                         df[ 'Dyear'] = pd.to_numeric(df['Dyear'], errors='coerce')
@@ -773,10 +775,14 @@ def extract():
                         
                         df24['RWEEK'] = pd.to_numeric(df24['RWEEK'], errors='coerce')
                         dfactive24 =df24[df24['RWEEK']>=wk2] #still active within 2 weeks
+                        st.write(wk2)
+                        st.write('ACTIVE')
+                        st.write(dfactive.shape[0])
                         
                         #LOST IN TWO WEEKS... REAL MISSED APPOINTMENT FOR THIS
                         df2wks =df24[df24['RWEEK']<wk2].copy()
                         two = df2wks.shape[0]
+                    
             
                         df3wks = df24[df24['RWEEK']<wk3]
                         three = df3wks.shape[0]
