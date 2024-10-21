@@ -220,27 +220,31 @@ def extract():
                         a = df[~df['RD'].str.contains('-')].copy()
                         B = a[a['RD'].str.contains('/')].copy()
                         C = a[~a['RD'].str.contains('/')].copy()
-                        D = C[C['RD'].apply(lambda x: isinstance(x, (int, float)) or x.isdigit())].copy()
-                        E = C[~C['RD'].apply(lambda x: isinstance(x, (int, float)) or x.isdigit())].copy()
+                        D = C[C['RD'].str.contains(' ')].copy()
+                        E = C[~C['RD'].str.contains(' ')].copy()
+                        st.write('HERE')
+                        st.write(D['RD'])
+                        st.write(E['RD'])
+                        st.write('HERE')
+                        
+                        #D = C[C['RD'].apply(lambda x: isinstance(x, (int, float)) or x.isdigit())].copy()
+                        #E = C[~C['RD'].apply(lambda x: isinstance(x, (int, float)) or x.isdigit())].copy()
                 
                         A[['Ryear', 'Rmonth', 'Rday']] = A['RD'].str.split('-', expand = True)
                         B[['Ryear', 'Rmonth', 'Rday']] = B['RD'].str.split('/', expand = True)
-                        st.write('GONE')
-                        st.write(E['RD'].dtypes)
                         try:
                             #D['RD'] = D['RD'].astype(int)
-                            D['RD'] = pd.to_numeric(D['RD'], errors='coerce')
-                            D['RD'] = pd.to_datetime(D['RD'], origin='1899-12-30', unit='D', errors='coerce')
-                            D['RD'] =  D['RD'].astype(str)
-                            D[['Ryear', 'Rmonth', 'Rday']] = D['RD'].str.split('-', expand = True)
+                            C['RD'] = pd.to_numeric(C['RD'], errors='coerce')
+                            C['RD'] = pd.to_datetime(C['RD'], origin='1899-12-30', unit='D', errors='coerce')
+                            C['RD'] =  C['RD'].astype(str)
+                            C[['Ryear', 'Rmonth', 'Rday']] = D['RD'].str.split('-', expand = True)
                         except:
                             pass
-                        #try:  
-                        E['RD'] = pd.to_numeric(E['RD'], errors='coerce')
-                        E['RD'] = pd.to_datetime(E['RD'], origin='1899-12-30', unit='D', errors='coerce')
-                        #E['RD'] = pd.to_datetime(E['RD'],format='%d %m %Y', errors='coerce')
-                        E['RD'] =  E['RD'].astype(str)
-                        E[['Ryear', 'Rmonth', 'Rday']] = E['RD'].str.split('-', expand = True)
+                        # #try:  
+            
+                        # #E['RD'] = pd.to_datetime(E['RD'],format='%d %m %Y', errors='coerce')
+                        # E['RD'] =  E['RD'].astype(str)
+                        # E[['Ryear', 'Rmonth', 'Rday']] = E['RD'].str.split('-', expand = True)
                     
                         # except:
                         #     pass
