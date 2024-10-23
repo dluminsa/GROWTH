@@ -1578,7 +1578,7 @@ def extract():
                                         dat = yearvl6()
                                         csv_data = dat.to_csv(index=False)
                                         tot = dat.shape[0]
-                                        st.write(f'**{tot} TOs HAVE NOT BEEN BLED FOR FIRST VL**')
+                                        st.write(f'**{tot} DUE FOR FIRST VL**')
                                         st.download_button(key='f',
                                                     label="6 MTHS VL",
                                                     data=csv_data,
@@ -1603,13 +1603,14 @@ def extract():
                                 with colb:
                                         if outnew3==0:
                                             st.markdown('**NO 3 MTHS TOs**')
-                                        dat = yearto3()
-                                        csv_data = dat.to_csv(index=False)
-                                        st.download_button(key='h',
-                                                    label="3 MTHS T.OUTS",
-                                                    data=csv_data,
-                                                    file_name=f" {facility} TOs_3.csv",
-                                                    mime="text/csv")                    
+                                        else:
+                                            dat = yearto3()
+                                            csv_data = dat.to_csv(index=False)
+                                            st.download_button(key='h',
+                                                        label="3 MTHS T.OUTS",
+                                                        data=csv_data,
+                                                        file_name=f" {facility} TOs_3.csv",
+                                                        mime="text/csv")                    
                             
                             ###THREE MTHS LINE LISTS   
                                 st.divider()
