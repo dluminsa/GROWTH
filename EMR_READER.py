@@ -1439,7 +1439,7 @@ def extract():
                                     else:
                                         dat = lost()
                                         csv_data = dat.to_csv(index=False)
-                                        tot = csv_data.shape[0]
+                                        tot = dat.shape[0]
                                         st.write(f'**{tot} HAVE MISSED**')
                                         st.download_button(
                                                     label="MISSED APPOINTMENTS",
