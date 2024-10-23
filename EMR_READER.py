@@ -4,7 +4,6 @@ import os
 import numpy as np
 import gspread
 from pathlib import Path
-ASS
 import traceback
 import time
 from google.oauth2.service_account import Credentials
