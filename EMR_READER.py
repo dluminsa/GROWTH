@@ -1440,7 +1440,7 @@ def extract():
                                         dat = lost()
                                         csv_data = dat.to_csv(index=False)
                                         tot = dat.shape[0]
-                                        st.write(f'**{tot} HAVE MISSED**')
+                                        st.write(f'**{tot} CLIENTS HAVE MISSED**')
                                         st.download_button(
                                                     label="MISSED APPOINTMENTS",
                                                     data=csv_data,
@@ -1452,6 +1452,8 @@ def extract():
                                     else:
                                         dat = deceased()
                                         csv_data = dat.to_csv(index=False)
+                                        tot = dat.shape[0]
+                                        st.write(f'**{tot} DEAD THIS Qtr**')
                                         st.download_button(
                                                         label=" DEAD",
                                                         data=csv_data,
@@ -1463,6 +1465,8 @@ def extract():
                                     else:
                                         dat = transfer()
                                         csv_data = dat.to_csv(index=False)
+                                        tot = dat.shape[0]
+                                        st.write(f'**{tot} TOs THIS Qtr**')
                                         st.download_button(
                                                     label=" TRANSFER OUTS",
                                                     data=csv_data,
@@ -1475,6 +1479,8 @@ def extract():
                             with cola:
                                 dat = lastqtr()
                                 csv_data = dat.to_csv(index=False)
+                                tot = dat.shape[0]
+                                st.write(f'**{tot} NOT RETURNED FROM Q4**')
                                 st.download_button(
                                             label="TXML FOR LAST QTR",
                                             data=csv_data,
@@ -1483,6 +1489,8 @@ def extract():
                             with colb:
                                 dat = viral()
                                 csv_data = dat.to_csv(index=False)
+                                tot = dat.shape[0]
+                                st.write(f'**{tot} DUE FOR VL**')
                                 st.download_button(
                                             label="CURRENT VL LINELIST",
                                             data=csv_data,
@@ -1501,6 +1509,8 @@ def extract():
                                         else:
                                             dat = yearlost()
                                             csv_data = dat.to_csv(index=False)
+                                            tot = dat.shape[0]
+                                            st.write(f'**{tot} LTFU IN THE 1 YR COHORT**')
                                             st.download_button(key='a',
                                                         label="ONE YR IIT",
                                                         data=csv_data,
@@ -1511,6 +1521,8 @@ def extract():
                                             st.markdown('**NO 1 YR TOs**')
                                         dat = yearto()
                                         csv_data = dat.to_csv(index=False)
+                                        tot = dat.shape[0]
+                                        st.write(f'**{tot} TOs**')
                                         st.download_button(key='b',
                                                     label=" 1 YR T.OUTS",
                                                     data=csv_data,
@@ -1522,6 +1534,8 @@ def extract():
                                     else:
                                         dat = yearvl()
                                         csv_data = dat.to_csv(index=False)
+                                        tot = dat.shape[0]
+                                        st.write(f'**{tot} HAVE NOT BEEN BLED**')
                                         st.download_button(key='c',
                                                     label="1 YR VL LINELIST",
                                                     data=csv_data,
@@ -1538,6 +1552,8 @@ def extract():
                                         else:
                                             dat = yearlost6()
                                             csv_data = dat.to_csv(index=False)
+                                            tot = dat.shape[0]
+                                            st.write(f'**{tot} LTFU**')
                                             st.download_button(key='d',
                                                         label="SIX MTHS IIT",
                                                         data=csv_data,
@@ -1548,6 +1564,8 @@ def extract():
                                             st.markdown('**NO 6 MTHS TOs**')
                                         dat = yearto6()
                                         csv_data = dat.to_csv(index=False)
+                                        tot = dat.shape[0]
+                                        st.write(f'**{tot} TOs**')
                                         st.download_button(key='e',
                                                     label=" 6 MTHS T.OUTS",
                                                     data=csv_data,
@@ -1559,6 +1577,8 @@ def extract():
                                     else:
                                         dat = yearvl6()
                                         csv_data = dat.to_csv(index=False)
+                                        tot = dat.shape[0]
+                                        st.write(f'**{tot} TOs HAVE NOT BEEN BLED FOR FIRST VL**')
                                         st.download_button(key='f',
                                                     label="6 MTHS VL",
                                                     data=csv_data,
