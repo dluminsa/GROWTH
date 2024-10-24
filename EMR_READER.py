@@ -701,7 +701,7 @@ def extract():
         
                         #COPY FOR ONE YEAR BEFORE GETTING POT CURR
                         oneyear = df.copy()
-                        check = df.copy()
+                        checkedy = df.copy()
         
                         #df['GROUP'] = df['AG'].apply(ager)
                         #LAST Q'S TXML ALTER
@@ -1629,11 +1629,11 @@ def extract():
                                                         file_name=f"{facility} IIT_NEW.csv",
                                                         mime="text/csv")
                                 with colb:
-                                    if outnew1==0:
+                                    if outnew1<0:
                                             st.markdown('**NO TxNEW TOs**')
                                     else:
                                         #dat = yearto1()
-                                        dat = check.copy()
+                                        dat = checkedy.copy()
                                         csv_data = dat.to_csv(index=False)
                                         st.download_button(key='k',
                                                     label="TXNEW T.OUTS",
