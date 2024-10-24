@@ -716,8 +716,8 @@ def extract():
 
                         #POTENTIAL TXCUR ALTER... 
                         df[['Rmonth', 'Rday', 'Ryear']] = df[['Rmonth', 'Rday', 'Ryear']].apply(pd.to_numeric, errors='coerce')
-                        df25 = df[((df['Ryear']>2024)&(df['Ryear']==12))].copy()
-                        df24 = df[((df['Ryear'] == 2024)&(df['Ryear']<12))].copy()
+                        df25 = df[df['Ryear']>2024].copy()
+                        df24 = df[df['Ryear'] == 2024].copy()
                         df24[['Rmonth', 'Rday']] = df24[['Rmonth', 'Rday']].apply(pd.to_numeric, errors='coerce')
                         df24 = df24[((df24['Rmonth']>9) | ((df24['Rmonth']==9) & (df24['Rday']>2)))].copy()
                         df = pd.concat([df25, df24]).copy()
@@ -855,9 +855,9 @@ def extract():
                         wk2 = wk-1
                         wk3 = wk-2
                         wk4 = wk-3
-                        df['Ryear'] = pd.to_numeric(df['Ryear'], errors='coerce')
-                        df24 = df[df['Ryear'] ==2024].copy()
-                        df25 = df[df['Ryear']>2024].copy()
+                        df[['Ryear','Rmonth']] = df[['Ryear','Rmonth']].apply(pd.to_numeric(errors='coerce'))
+                        df24 = df[((df['Ryear'] ==2024) & (df['Rmonth']<12))].copy()
+                        df25 = df[((df['Ryear']>2024)| ((df['Ryear'] ==2024) & (df['Rmonth']==12)))].copy()
                         df24['RWEEK'] = pd.to_numeric(df24['RWEEK'], errors='coerce')
                         dfactive24 =df24[df24['RWEEK']>=wk2] #still active within 2 weeks
                         
