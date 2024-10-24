@@ -855,7 +855,7 @@ def extract():
                         wk2 = wk-1
                         wk3 = wk-2
                         wk4 = wk-3
-                        df[['Ryear','Rmonth']] = df[['Ryear','Rmonth']].apply(pd.to_numeric(errors='coerce'))
+                        df[['Ryear','Rmonth']] = df[['Ryear','Rmonth']].apply(pd.to_numeric,errors='coerce'))
                         df24 = df[((df['Ryear'] ==2024) & (df['Rmonth']<12))].copy()
                         df25 = df[((df['Ryear']>2024)| ((df['Ryear'] ==2024) & (df['Rmonth']==12)))].copy()
                         df24['RWEEK'] = pd.to_numeric(df24['RWEEK'], errors='coerce')
