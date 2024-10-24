@@ -861,6 +861,7 @@ def extract():
                         df25 = df[df['Ryear']>2024].copy()
                         st.write(wk2)
                         df24['RWEEK'] = pd.to_numeric(df24['RWEEK'], errors='coerce')
+                        checkedy = df24.copy()
                         dfactive24 =df24[df24['RWEEK']>=wk2] #still active within 2 weeks
                         
                         #LOST IN TWO WEEKS... REAL MISSED APPOINTMENT FOR THIS
