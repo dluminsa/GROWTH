@@ -1249,7 +1249,7 @@ def extract():
                     @st.cache_data
                     def lost():
                         dat = df2wks.copy()
-                        dat = dat[['ART', 'RD']].copy()
+                        dat = dat[['ART', 'RD','RWEEK']].copy()
                         dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE'})
                         return dat
                     @st.cache_data
