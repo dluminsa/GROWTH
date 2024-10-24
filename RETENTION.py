@@ -302,21 +302,21 @@ if not district:
     waterly3 = waterly2.copy()
 else:
     dfyr2['DISTRICT'] = dfyr2['DISTRICT'].astype(str)
-    dfyr3 = dfyr2[dfyr2['DISTRICT'].isin(district)]
+    dfyr3 = dfyr2[dfyr2['DISTRICT'].isin(district)].copy()
 
     dfearly2['DISTRICT'] = dfearly2['DISTRICT'].astype(str)
-    dfearly3 = dfearly2[dfearly2['DISTRICT'].isin(district)]
+    dfearly3 = dfearly2[dfearly2['DISTRICT'].isin(district)].copy()
 
     dfrep2['DISTRICT'] = dfrep2['DISTRICT'].astype(str)
-    dfrep3 = dfrep2[dfrep2['DISTRICT'].isin(district)]
+    dfrep3 = dfrep2[dfrep2['DISTRICT'].isin(district)].copy()
 
     dftx2['DISTRICT'] = dftx2['DISTRICT'].astype(str)
-    dftx3 = dftx2[dftx2['DISTRICT'].isin(district)]
+    dftx3 = dftx2[dftx2['DISTRICT'].isin(district)].copy()
     
     water2['DISTRICT'] = water2['DISTRICT'].astype(str)
-    water3 = water2[water2['DISTRICT'].isin(district)]
-    wateryr3 = wateryr2[wateryr2['DISTRICT'].isin(district)]
-    waterly3 = waterly2[waterly2['DISTRICT'].isin(district)]
+    water3 = water2[water2['DISTRICT'].isin(district)].copy()
+    wateryr3 = wateryr2[wateryr2['DISTRICT'].isin(district)].copy()
+    waterly3 = waterly2[waterly2['DISTRICT'].isin(district)].copy()
 
 facility = st.sidebar.multiselect('**CHOOSE A FACILITY**', dfrep3['FACILITY'].unique(), key='c')
 if not facility:
@@ -328,13 +328,13 @@ if not facility:
     wateryr4 = wateryr3.copy()
     waterly4 = waterly3.copy()
 else:
-    dfyr4 = dfyr3[dfyr3['FACILITY'].isin(facility)]
-    dfearly4 = dfearly3[dfearly3['FACILITY'].isin(facility)]
-    dfrep4 = dfrep3[dfrep3['FACILITY'].isin(facility)]
-    dftx4 = dftx3[dftx3['FACILITY'].isin(facility)]
-    water4 = water3[water3['FACILITY'].isin(facility)]
-    wateryr4 = wateryr3[wateryr3['FACILITY'].isin(facility)]
-    waterly4 = waterly3[waterly3['FACILITY'].isin(facility)]
+    dfyr4 = dfyr3[dfyr3['FACILITY'].isin(facility)].copy()
+    dfearly4 = dfearly3[dfearly3['FACILITY'].isin(facility)].copy()
+    dfrep4 = dfrep3[dfrep3['FACILITY'].isin(facility)].copy()
+    dftx4 = dftx3[dftx3['FACILITY'].isin(facility)].copy()
+    water4 = water3[water3['FACILITY'].isin(facility)].copy()
+    wateryr4 = wateryr3[wateryr3['FACILITY'].isin(facility)].copy()
+    waterly4 = waterly3[waterly3['FACILITY'].isin(facility)].copy()
 
 # Base DataFrame to filter
 dfyr = dfyr4.copy()
@@ -347,31 +347,31 @@ waterly = waterly4.copy()
 
 # Apply filters based on selected criteria
 if CLUSTER:
-    dfyr = dfyr[dfyr['CLUSTER'].isin(CLUSTER)]
-    water = water[water['CLUSTER'].isin(CLUSTER)]
-    dfearly = dfearly[dfearly['CLUSTER'].isin(CLUSTER)]
-    dfrep = dfrep[dfrep['CLUSTER'].isin(CLUSTER)]
-    dftx = dftx[dftx['CLUSTER'].isin(CLUSTER)]
-    wateryr = wateryr[wateryr['CLUSTER'].isin(CLUSTER)]
-    waterly = waterly[waterly['CLUSTER'].isin(CLUSTER)]
+    dfyr = dfyr[dfyr['CLUSTER'].isin(CLUSTER)].copy()
+    water = water[water['CLUSTER'].isin(CLUSTER)].copy()
+    dfearly = dfearly[dfearly['CLUSTER'].isin(CLUSTER)].copy()
+    dfrep = dfrep[dfrep['CLUSTER'].isin(CLUSTER)].copy()
+    dftx = dftx[dftx['CLUSTER'].isin(CLUSTER)].copy()
+    wateryr = wateryr[wateryr['CLUSTER'].isin(CLUSTER)].copy()
+    waterly = waterly[waterly['CLUSTER'].isin(CLUSTER)].copy()
 
 if district:
-    dfyr = dfyr[dfyr['DISTRICT'].isin(district)]
-    water = water[water['DISTRICT'].isin(district)]
-    dfearly = dfearly[dfearly['DISTRICT'].isin(district)]
-    dfrep = dfrep[dfrep['DISTRICT'].isin(district)]
-    dftx = dftx[dftx['DISTRICT'].isin(district)]
-    wateryr = wateryr[wateryr['DISTRICT'].isin(district)]
-    waterly = waterly[waterly['DISTRICT'].isin(district)]
+    dfyr = dfyr[dfyr['DISTRICT'].isin(district)].copy()
+    water = water[water['DISTRICT'].isin(district)].copy()
+    dfearly = dfearly[dfearly['DISTRICT'].isin(district)].copy()
+    dfrep = dfrep[dfrep['DISTRICT'].isin(district)].copy()
+    dftx = dftx[dftx['DISTRICT'].isin(district)].copy()
+    wateryr = wateryr[wateryr['DISTRICT'].isin(district)].copy()
+    waterly = waterly[waterly['DISTRICT'].isin(district)].copy()
 
 if facility:
-    dfyr = dfyr[dfyr['FACILITY'].isin(facility)]
-    water = water[water['FACILITY'].isin(facility)]
-    dfearly = dfearly[dfearly['FACILITY'].isin(facility)]
-    dfrep = dfrep[dfrep['FACILITY'].isin(facility)]
-    dftx = dftx[dftx['FACILITY'].isin(facility)]
-    wateryr = wateryr[wateryr['FACILITY'].isin(facility)]
-    waterly = waterly[waterly['FACILITY'].isin(facility)]
+    dfyr = dfyr[dfyr['FACILITY'].isin(facility)].copy()
+    water = water[water['FACILITY'].isin(facility)].copy()
+    dfearly = dfearly[dfearly['FACILITY'].isin(facility)].copy()
+    dfrep = dfrep[dfrep['FACILITY'].isin(facility)].copy()
+    dftx = dftx[dftx['FACILITY'].isin(facility)].copy()
+    wateryr = wateryr[wateryr['FACILITY'].isin(facility)].copy()
+    waterly = waterly[waterly['FACILITY'].isin(facility)].copy()
     
 check = water.shape[0]
 if check == 0:
