@@ -859,7 +859,7 @@ def extract():
                         df['Ryear'] = pd.to_numeric(df['Ryear'], errors='coerce')
                         df24 = df[df['Ryear'] ==2024].copy()
                         df25 = df[df['Ryear']>2024].copy()
-                        
+                        st.write(wk2)
                         df24['RWEEK'] = pd.to_numeric(df24['RWEEK'], errors='coerce')
                         dfactive24 =df24[df24['RWEEK']>=wk2] #still active within 2 weeks
                         
