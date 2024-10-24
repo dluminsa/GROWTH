@@ -701,7 +701,6 @@ def extract():
         
                         #COPY FOR ONE YEAR BEFORE GETTING POT CURR
                         oneyear = df.copy()
-                        checkedy = df.copy()
         
                         #df['GROUP'] = df['AG'].apply(ager)
                         #LAST Q'S TXML ALTER
@@ -717,8 +716,8 @@ def extract():
 
                         #POTENTIAL TXCUR ALTER... 
                         df[['Rmonth', 'Rday', 'Ryear']] = df[['Rmonth', 'Rday', 'Ryear']].apply(pd.to_numeric, errors='coerce')
-                        df25 = df[df['Ryear']>2024].copy()
-                        df24 = df[df['Ryear'] == 2024].copy()
+                        df25 = df[((df['Ryear']>2024)&(df['Ryear']==12))].copy()
+                        df24 = df[((df['Ryear'] == 2024)&(df['Ryear']<12))].copy()
                         df24[['Rmonth', 'Rday']] = df24[['Rmonth', 'Rday']].apply(pd.to_numeric, errors='coerce')
                         df24 = df24[((df24['Rmonth']>9) | ((df24['Rmonth']==9) & (df24['Rday']>2)))].copy()
                         df = pd.concat([df25, df24]).copy()
@@ -859,9 +858,7 @@ def extract():
                         df['Ryear'] = pd.to_numeric(df['Ryear'], errors='coerce')
                         df24 = df[df['Ryear'] ==2024].copy()
                         df25 = df[df['Ryear']>2024].copy()
-                        st.write(wk2)
                         df24['RWEEK'] = pd.to_numeric(df24['RWEEK'], errors='coerce')
-                        checkedy = df24.copy()
                         dfactive24 =df24[df24['RWEEK']>=wk2] #still active within 2 weeks
                         
                         #LOST IN TWO WEEKS... REAL MISSED APPOINTMENT FOR THIS
@@ -1630,11 +1627,10 @@ def extract():
                                                         file_name=f"{facility} IIT_NEW.csv",
                                                         mime="text/csv")
                                 with colb:
-                                    if outnew1<0:
+                                    if outnew1==0:
                                             st.markdown('**NO TxNEW TOs**')
                                     else:
-                                        #dat = yearto1()
-                                        dat = checkedy.copy()
+                                        dat = yearto1()
                                         csv_data = dat.to_csv(index=False)
                                         st.download_button(key='k',
                                                     label="TXNEW T.OUTS",
