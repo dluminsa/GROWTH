@@ -673,13 +673,15 @@ def extract():
                         df['Lyeara'] = df['Lyear'].astype(str).str.split('.').str[0]
                         df['LAST DATE'] = df['Ldaya'] + '/' + df['Lmontha'] + '/' + df['Lyeara']
                         df['LAST DATE'] = pd.to_datetime(df['LAST DATE'], format='%d/%m/%Y', errors='coerce')
-
-        
-        
+   
                         df['RWEEKR'] = df['RETURN DATE1'].dt.strftime('%V') #Use R since 1 was already used
                         df['RWEEKR'] = pd.to_numeric(df['RWEEKR'], errors='coerce')
                         df['RWEEKR1'] = df['RWEEKR']-39 #NOT NEEDED THIS Q SINCE WE ARE USING 
-                        # df['DUR'] = round((df['RETURN DATE'] - df['RETURN DATE2']).dt.days / 30)
+                        df['DURA'] = round((df['RETURN DATE1'] - df['LAST DATE']).dt.days / 30)
+        
+                        today = datetime.now()
+                        todayr = today.strftime("%d-%m-%Y")
+                        df['DURL'] = round((todayr)-(df['RETURN DATE']).dt.days / 30)  
                         def cira(a):
                             if a<1:
                                 return 'UK'
@@ -691,7 +693,8 @@ def extract():
                                 return '6 MTHS+'
                             else:
                                 return 'UK'
-                        #df['CIRA'] = df['DUR'].apply(cira)
+                        df['CIRAA'] = df['DURA'].apply(cira)
+                        df['CIRAL'] = df['DURL'].apply(cira)
                         def ager(a):
                             if a< 1:
                                 return '<01'
@@ -833,7 +836,7 @@ def extract():
                         dfRTT = dfRTT[dfRTT['Armonth'].isin([10,11,12])].copy()
                         rtt = dfRTT.shape[0]
                         #check
-                        rt = dfRTT.copy()
+                        #rt = dfRTT.copy()
             
             #######LOSSES. START FROM POTENTIAL CURR
                     #TRANSFER OUTS
@@ -1529,15 +1532,16 @@ def extract():
                                 with colb:
                                         if outnew==0:
                                             st.markdown('**NO 1 YR TOs**')
-                                        dat = yearto()
-                                        csv_data = dat.to_csv(index=False)
-                                        tot = dat.shape[0]
-                                        st.write(f'**{tot} TOs**')
-                                        st.download_button(key='b',
-                                                    label=" 1 YR T.OUTS",
-                                                    data=csv_data,
-                                                    file_name=f" {facility} TO_1YR.csv",
-                                                    mime="text/csv")
+                                        else:
+                                            dat = yearto()
+                                            csv_data = dat.to_csv(index=False)
+                                            tot = dat.shape[0]
+                                            st.write(f'**{tot} TOs**')
+                                            st.download_button(key='b',
+                                                        label=" 1 YR T.OUTS",
+                                                        data=csv_data,
+                                                        file_name=f" {facility} TO_1YR.csv",
+                                                        mime="text/csv")
                                 with colc:
                                     if nvla ==0:
                                         st.write('**NO ONE YEAR VL LIST**')
@@ -1572,15 +1576,16 @@ def extract():
                                 with colb:
                                         if outnew6==0:
                                             st.markdown('**NO 6 MTHS TOs**')
+                                        else:
                                         dat = yearto6()
-                                        csv_data = dat.to_csv(index=False)
-                                        tot = dat.shape[0]
-                                        st.write(f'**{tot} TOs**')
-                                        st.download_button(key='e',
-                                                    label=" 6 MTHS T.OUTS",
-                                                    data=csv_data,
-                                                    file_name=f" {facility} TO_1YR.csv",
-                                                    mime="text/csv")
+                                            csv_data = dat.to_csv(index=False)
+                                            tot = dat.shape[0]
+                                            st.write(f'**{tot} TOs**')
+                                            st.download_button(key='e',
+                                                        label=" 6 MTHS T.OUTS",
+                                                        data=csv_data,
+                                                        file_name=f" {facility} TO_1YR.csv",
+                                                        mime="text/csv")
                                 with colc:
                                     if nvla6 ==0:
                                         st.markdown('**NO 6 MTHS VL LIST**')
@@ -1631,7 +1636,7 @@ def extract():
                                             st.write('**NO TX NEW IIT**')
                                         else:
                                             dat = yearlost1()
-                                            dat = rt.copy()
+                                            #dat = rt.copy()
                                             csv_data = dat.to_csv(index=False)
                                             st.download_button(key='j',
                                                         label="TX NEW IIT",
