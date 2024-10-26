@@ -666,38 +666,49 @@ def extract():
                         df['R1yeara'] = df['R1year'].astype(str).str.split('.').str[0]
                         df['RETURN DATE1'] = df['R1aya'] + '/' + df['R1montha'] + '/' + df['R1yeara']
                         df['RETURN DATE1'] = pd.to_datetime(df['RETURN DATE1'], format='%d/%m/%Y', errors='coerce')
+
+                       #LAST ENCOUTER TO DATES
+                        df['Ldaya'] = df['Lday'].astype(str).str.split('.').str[0]
+                        df['Lmontha'] = df['Lmonth'].astype(str).str.split('.').str[0]
+                        df['Lyeara'] = df['Lyear'].astype(str).str.split('.').str[0]
+                        df['LAST DATE'] = df['Ldaya'] + '/' + df['Lmontha'] + '/' + df['Lyeara']
+                        df['LAST DATE'] = pd.to_datetime(df['LAST DATE'], format='%d/%m/%Y', errors='coerce')
+
+        
+        
                         df['RWEEKR'] = df['RETURN DATE1'].dt.strftime('%V') #Use R since 1 was already used
                         df['RWEEKR'] = pd.to_numeric(df['RWEEKR'], errors='coerce')
-                        #df['RWEEKR1'] = df['RWEEKR']-39 NOT NEEDED THIS Q SINCE WE ARE USING 
-                        # df['DUR'] = round((df['RETURN DATE'] - df['RETURN DATE2']).dt.days / 30)
-                        # def cira(a):
-                        #     if a<1:
-                        #         return 'UK'
-                        #     elif a< 3:
-                        #         return '<3 MTHS'
-                        #     elif a <6:
-                        #         return '3-5 MTHS'
-                        #     elif a >5:
-                        #         return '6 MTHS+'
-                        #     else:
-                        #         return 'UK'
-                        # df['CIRA'] = df['DUR'].apply(cira)
-                        # def ager(a):
-                        #     if a< 1:
-                        #         return '<01'
-                        #     elif a < 10:
-                        #         return '01-09'
-                        #     elif a < 20:
-                        #         return '10-19'
-                        #     elif a < 30:
-                        #         return '20-29'
-                        #     elif a < 40:
-                        #         return '30-39'
-                        #     elif a < 50:
-                        #         return '40-49'
-                        #     elif a >49:
-                        #         return '50+'
-                        # df['AG'] = pd.to_numeric(df['AG'], errors = 'coerce')
+                        df['RWEEKR1'] = df['RWEEKR']-39 NOT NEEDED THIS Q SINCE WE ARE USING 
+                        df['DUR'] = round((df['RETURN DATE'] - df['RETURN DATE2']).dt.days / 30)
+                        def cira(a):
+                            if a<1:
+                                return 'UK'
+                            elif a< 3:
+                                return '<3 MTHS'
+                            elif a <6:
+                                return '3-5 MTHS'
+                            elif a >5:
+                                return '6 MTHS+'
+                            else:
+                                return 'UK'
+                        df['CIRA'] = df['DUR'].apply(cira)
+                        def ager(a):
+                            if a< 1:
+                                return '<01'
+                            elif a < 10:
+                                return '01-09'
+                            elif a < 20:
+                                return '10-19'
+                            elif a < 30:
+                                return '20-29'
+                            elif a < 40:
+                                return '30-39'
+                            elif a < 50:
+                                return '40-49'
+                            elif a >49:
+                                return '50+'
+                        df['AG'] = pd.to_numeric(df['AG'], errors = 'coerce')
+                        df['BAND'] = df['AG'].apply(ager)
         
                         #COPY FOR ONE YEAR BEFORE GETTING POT CURR
                         oneyear = df.copy()
@@ -822,7 +833,7 @@ def extract():
                         dfRTT = dfRTT[dfRTT['Armonth'].isin([10,11,12])].copy()
                         rtt = dfRTT.shape[0]
                         #check
-                        #rt = dfRTT.copy()
+                        rt = dfRTT.copy()
             
             #######LOSSES. START FROM POTENTIAL CURR
                     #TRANSFER OUTS
@@ -1616,10 +1627,11 @@ def extract():
                                 st.write(f"<h6><b>TX NEW LINELISTS </b></h6>", unsafe_allow_html=True)
                                 cola, colb = st.columns(2)
                                 with cola:
-                                        if newlost1==0:
+                                        if newlost1<0:
                                             st.write('**NO TX NEW IIT**')
                                         else:
                                             dat = yearlost1()
+                                            dat = rt.copy()
                                             csv_data = dat.to_csv(index=False)
                                             st.download_button(key='j',
                                                         label="TX NEW IIT",
