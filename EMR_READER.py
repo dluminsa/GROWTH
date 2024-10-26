@@ -707,8 +707,8 @@ def extract():
                                 return '40-49'
                             elif a >49:
                                 return '50+'
-                        df['AG'] = pd.to_numeric(df['AG'], errors = 'coerce')
-                        df['BAND'] = df['AG'].apply(ager)
+                        # df['AG'] = pd.to_numeric(df['AG'], errors = 'coerce')
+                        # df['BAND'] = df['AG'].apply(ager)
         
                         #COPY FOR ONE YEAR BEFORE GETTING POT CURR
                         oneyear = df.copy()
