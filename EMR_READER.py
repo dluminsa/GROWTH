@@ -676,9 +676,9 @@ def extract():
 
         
         
-                        # df['RWEEKR'] = df['RETURN DATE1'].dt.strftime('%V') #Use R since 1 was already used
-                        # df['RWEEKR'] = pd.to_numeric(df['RWEEKR'], errors='coerce')
-                        # df['RWEEKR1'] = df['RWEEKR']-39 #NOT NEEDED THIS Q SINCE WE ARE USING 
+                        df['RWEEKR'] = df['RETURN DATE1'].dt.strftime('%V') #Use R since 1 was already used
+                        df['RWEEKR'] = pd.to_numeric(df['RWEEKR'], errors='coerce')
+                        df['RWEEKR1'] = df['RWEEKR']-39 #NOT NEEDED THIS Q SINCE WE ARE USING 
                         # df['DUR'] = round((df['RETURN DATE'] - df['RETURN DATE2']).dt.days / 30)
                         def cira(a):
                             if a<1:
