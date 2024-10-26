@@ -282,7 +282,7 @@ def extract():
                         except:
                             pass
                         df = pd.concat([A,B,D,E])
-            
+                       
                         #SORTING THE TO DATE
                         A = df[df['TO'].str.contains('-')].copy()
                         a = df[~df['TO'].str.contains('-')].copy()
@@ -710,11 +710,12 @@ def extract():
                                 return '40-49'
                             elif a >49:
                                 return '50+'
-                        # df['AG'] = pd.to_numeric(df['AG'], errors = 'coerce')
-                        # df['BAND'] = df['AG'].apply(ager)
+                        df['AG'] = pd.to_numeric(df['AG'], errors = 'coerce')
+                        df['BAND'] = df['AG'].apply(ager)
         
                         #COPY FOR ONE YEAR BEFORE GETTING POT CURR
                         oneyear = df.copy()
+                        pppp= oneyear.copy()
         
                         #df['GROUP'] = df['AG'].apply(ager)
                         #LAST Q'S TXML ALTER
@@ -1658,10 +1659,9 @@ def extract():
                                 forth = forth.rename(columns = {'A': 'ART NO.','VD': 'VL DATE', 'RD': 'RETURN DATE', 'DD': 'DEATH DATE', 'TO': 'TRANSFER OUT DATE', 'AS': 'ART START DATE'})
                                 cola,colb = st.columns([4,1])
                                 with cola:
-                                        if outnew1==0:
-                                            st.markdown('**MASTER LIST WITH ALL LINELISTS COMBINED**')
-                                        dat = forth.copy()
-                                        #dat = rt.copy()
+                                        st.markdown('**MASTER LIST WITH ALL LINELISTS COMBINED**')
+                                        #dat = forth.copy()
+                                        dat = pppp.copy()
                                         csv_data = dat.to_csv(index=False)
                                         st.download_button(
                                                     label="MASTER_LIST",
