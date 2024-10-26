@@ -691,7 +691,7 @@ def extract():
                                 return '6 MTHS+'
                             else:
                                 return 'UK'
-                        \df['CIRA'] = df['DUR'].apply(cira)
+                        #df['CIRA'] = df['DUR'].apply(cira)
                         def ager(a):
                             if a< 1:
                                 return '<01'
