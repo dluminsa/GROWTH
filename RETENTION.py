@@ -943,7 +943,7 @@ figD = go.Figure()
 
 # Add the bottom layer (a) in cobalt blue
 figD.add_trace(go.Bar(
-    name='A',
+    name='<3 MONTHS',
     y=[a],
     x=['Variables'],
     marker_color='rgb(0, 71, 171)'  # Cobalt blue color
@@ -951,7 +951,7 @@ figD.add_trace(go.Bar(
 
 # Add the middle layer (b) in green
 figD.add_trace(go.Bar(
-    name='B',
+    name='3-5 MONTHS',
     y=[b],
     x=['Variables'],
     marker_color='green'
@@ -959,7 +959,7 @@ figD.add_trace(go.Bar(
 
 # Add the top layer (c) in purple
 figD.add_trace(go.Bar(
-    name='C',
+    name='6 + MONTHS',
     y=[c],
     x=['Variables'],
     marker_color='purple'
@@ -968,7 +968,6 @@ figD.add_trace(go.Bar(
 # Update the layout to make it a stacked bar chart
 figD.update_layout(
     barmode='stack',
-    title='Stacked Bar Chart',
     xaxis_title='Category',
     yaxis_title='Values'
 )
