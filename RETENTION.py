@@ -928,7 +928,8 @@ figC = go.Figure(data=[
 ])
 
 # Setting the layout to have no gap between bars
-figC.update_layout(barmode='group', bargap=0, bargroupgap=0)
+figC.update_layout(title = 'Returning clients to ART', barmode='group', bargap=0, bargroupgap=0)
+
 
 ###STACKED BAR CHART
 totalact = lesA + thrA + sixA
@@ -1026,6 +1027,7 @@ figD.add_trace(go.Bar(
 # Update the layout to make it a stacked bar chart
 figD.update_layout(
     barmode='stack',
+    title='Length of interruption before return',
     xaxis_title='Category',
     yaxis_title='Values'
 )
@@ -1068,15 +1070,18 @@ cola.write('**50+**')
 colb.write(f'**{int(a71)}**')
 colc.write(f'**{int(a72)}**')
 cold.write(f'**{int(a73)} %**')
+st.divider()
 
 cola,colb = st.columns(2)
 with cola:
-    st.markdown('**Returning clients to ART**')
+    #st.markdown('**Returning clients to ART**')
     st.plotly_chart(figC, use_container_width=True)
 
 with colb:
-    st.markdown('**Length of interruption before return**')
+    #st.markdown('**Length of interruption before return**')
     st.plotly_chart(figD, use_container_width=True)
+
+st.divider()
 
 st.write('')
 st.write('')
