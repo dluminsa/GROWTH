@@ -923,21 +923,64 @@ totalcira = totallos + totalact
 
 # Creating the grouped bar chart
 figC = go.Figure(data=[
-    go.Bar(name='IIT(TOTAL)', x=['IIT(TOTAL)'], y=[totalcira], marker=dict(color='Cobalt Blue')),
+    go.Bar(name='IIT(TOTAL)', x=['IIT(TOTAL)'], y=[totalcira], marker=dict(color='rgb(0, 71, 171)')),  # Cobalt Blue,
     go.Bar(name='RETURNED', x=['RETURNED'], y=[totalact], marker=dict(color='green'))
 ])
 
 # Setting the layout to have no gap between bars
 figC.update_layout(barmode='group', bargap=0, bargroupgap=0)
 
+###STACKED BAR CHART
+totalact = lesA + thrA + sixA
+
+# Define the values for the variables
+a = lesA
+b = thrA
+c = sixA
+
+# Create the stacked bar chart
+figD = go.Figure()
+
+# Add the bottom layer (a) in cobalt blue
+figD.add_trace(go.Bar(
+    name='A',
+    y=[a],
+    x=['Variables'],
+    marker_color='rgb(0, 71, 171)'  # Cobalt blue color
+))
+
+# Add the middle layer (b) in green
+figD.add_trace(go.Bar(
+    name='B',
+    y=[b],
+    x=['Variables'],
+    marker_color='green'
+))
+
+# Add the top layer (c) in purple
+figD.add_trace(go.Bar(
+    name='C',
+    y=[c],
+    x=['Variables'],
+    marker_color='purple'
+))
+
+# Update the layout to make it a stacked bar chart
+figD.update_layout(
+    barmode='stack',
+    title='Stacked Bar Chart',
+    xaxis_title='Category',
+    yaxis_title='Values'
+)
+
 cola,colb = st.columns(2)
 with cola:
+    st.markdown('**Returning clients to ART**')
     st.plotly_chart(figC, use_container_width=True)
 
 # with colb:
-#     st.markdown('')
-#     st.markdown('')
-#     st.plotly_chart(figp, use_container_width=True)
+    st.markdown('**Length of interruption before return**')
+    st.plotly_chart(figp, use_container_width=True)
 
 
 
