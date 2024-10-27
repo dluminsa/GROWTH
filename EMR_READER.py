@@ -678,7 +678,7 @@ def extract():
                         df['RWEEKR'] = pd.to_numeric(df['RWEEKR'], errors='coerce')
                         df['RWEEKR1'] = df['RWEEKR']-39 #NOT NEEDED THIS Q SINCE WE ARE USING 
         
-                        df['DURA'] = round((df['LAST DATE']-df['RETURN DATE1']).dt.days / 30)
+                        df['DURA'] = round((df['LAST DATE']-df['RETURN DATE1']).dt.days)
         
                         today = datetime.now()
                         todayr = pd.to_datetime(today)
@@ -686,7 +686,7 @@ def extract():
                         df['RETURN DATE'] = pd.to_datetime(df['RETURN DATE'])
 
                         # Calculate the difference in months
-                        df['DURL'] = round((todayr - df['RETURN DATE']).dt.days / 30)
+                        df['DURL'] = round((todayr - df['RETURN DATE']).dt.days)
 
                         def cira(a):
                             if a<1:
