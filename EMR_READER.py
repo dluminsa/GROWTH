@@ -106,7 +106,7 @@ def extract():
                         st.session_state.df = st.session_state.df.rename(columns= {'ART ':'ART',  'AS ':'AS', 'RD ':'RD', 'RDO ':'RDO', 'RD1 ':'RD1', 'RD2 ':'RD2', 'VD ':'VD', 'FE ':'FE', 'LD ': 'LD', 'ARVD ': 'ARVD',
                            'ARVDO ': 'ARVDO', 'TI ': 'TI', 'TO ':'TI', 'DD ': 'DD', 'AG ':'AG', 'GD ':'GD'})
         
-                        df = st.session_state.df[['ART','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']].copy()
+                        df = st.session_state.df[['ART','AS', 'AG','VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']].copy()
                         df['ART'] = df['ART'].astype(str)
                         df['A'] = df['ART'].str.replace('[^0-9]', '', regex=True)
                         df['A'] = pd.to_numeric(df['A'], errors= 'coerce')
@@ -717,7 +717,6 @@ def extract():
                                 return '40-49'
                             elif a >49:
                                 return '50+'
-                        st.write(df.columns)
                         df['AG'] = pd.to_numeric(df['AG'], errors = 'coerce')
                         df['BAND'] = df['AG'].apply(ager)
         
