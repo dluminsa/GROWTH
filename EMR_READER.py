@@ -1578,7 +1578,7 @@ def extract():
                                         if outnew6==0:
                                             st.markdown('**NO 6 MTHS TOs**')
                                         else:
-                                        dat = yearto6()
+                                            dat = yearto6()
                                             csv_data = dat.to_csv(index=False)
                                             tot = dat.shape[0]
                                             st.write(f'**{tot} TOs**')
