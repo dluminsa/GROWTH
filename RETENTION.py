@@ -1030,7 +1030,6 @@ figD.add_trace(go.Bar(
 figD.update_layout(
     barmode='stack',
     title='Length of interruption before return',
-    xaxis_title='Category',
     yaxis_title='Values'
 )
 cola, colb,colc, cold = st.columns([1,1,1,3])
