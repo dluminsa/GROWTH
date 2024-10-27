@@ -1,7 +1,6 @@
 import pandas as pd 
 import streamlit as st 
 import os
-hh
 import numpy as np
 import gspread
 from pathlib import Path
