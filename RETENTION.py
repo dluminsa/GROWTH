@@ -938,6 +938,12 @@ a = lesA
 b = thrA
 c = sixA
 
+#LESS THAN 1 YR
+#RETURNED
+a1 = watercira['A1'].sum()
+a2 = watercira['A1'].sum() + watercira['L1'].sum()
+a3 = round((a1/a3)*100)
+
 # Create the stacked bar chart
 figD = go.Figure()
 
@@ -971,6 +977,18 @@ figD.update_layout(
     xaxis_title='Category',
     yaxis_title='Values'
 )
+cola, colb,colc, cold = st.columns(4)
+cola.write('**AGE**')
+colb.write('**Returned**')
+colc.write('**IIT(Total)**')
+cold.write('**Proportion CIRA Returned**')
+cola.write('**<01**')
+colb.write(f'**{a1}**')
+colc.write(f'**{a2}**')
+cold.write(f'**{a3}**')
+           
+           
+           
 
 cola,colb = st.columns(2)
 with cola:
@@ -980,9 +998,6 @@ with cola:
 with colb:
     st.markdown('**Length of interruption before return**')
     st.plotly_chart(figD, use_container_width=True)
-
-
-
 
 st.write('')
 st.write('')
