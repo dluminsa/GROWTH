@@ -1410,6 +1410,7 @@ def extract():
                     st.write(ciralost)
                     cirab = clost['BAND'].value_counts()
                     st.write(cirab)
+                    pppp = clost.copy()
     
                     row1 = part + list1
                 
