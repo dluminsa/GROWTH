@@ -945,7 +945,7 @@ a2 = watercira['A1'].sum() + watercira['L1'].sum()
 if a2 ==0:
    a3 = 0
 else:
-   a3 = round((a1/a2)*100)
+   a3 = round(int((a1/a2)*100))
 
 # Create the stacked bar chart
 figD = go.Figure()
@@ -986,9 +986,9 @@ colb.write('**Returned**')
 colc.write('**IIT(Total)**')
 cold.write('**Proportion CIRA Returned**')
 cola.write('**<01**')
-colb.write(f'**{a1}**')
-colc.write(f'**{a2}**')
-cold.write(f'**{a3}**')
+colb.write(f'**{int(a1)}**')
+colc.write(f'**{int(a2)}**')
+cold.write(f'**{int(a3)}+" %"**')
            
            
            
