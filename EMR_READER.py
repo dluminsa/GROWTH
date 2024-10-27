@@ -706,9 +706,9 @@ def extract():
                             if a< 1:
                                 return '<01'
                             elif a < 10:
-                                return '01-09'
+                                return '01 -09'
                             elif a < 20:
-                                return '10-19'
+                                return '10 -19'
                             elif a < 30:
                                 return '20-29'
                             elif a < 40:
