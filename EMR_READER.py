@@ -1425,6 +1425,7 @@ def extract():
 
                     st.write(ciraactive)
                     st.write(cactive['CIRAA'].unique())
+                    pppp = cactive.copy()
                     row1 = part + list1
                 
                     row2 = part + list2
