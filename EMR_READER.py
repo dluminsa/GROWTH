@@ -1415,7 +1415,7 @@ def extract():
                         ct['CIRAA'] =  ct['CIRAA'].astype(str)
                         dfk = ct[ct['CIRAA']=='<3 MTHS']
                         a = dfk.shape[0]
-                        ciractive.append(a)
+                        ciraactive.append(a)
                         dfl = ct[ct['CIRAA']=='3-5 MTHS']
                         b = dfl.shape[0]
                         ciraactive.append(b)
