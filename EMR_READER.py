@@ -682,6 +682,7 @@ def extract():
                         today = datetime.now()
                         todayr = pd.to_datetime(today)
                         df['DURL'] = round((todayr)-(df['RETURN DATE']))#.dt.days / 30)  
+                        st.write(df['DURL'])
                         def cira(a):
                             if a<1:
                                 return 'UK'
