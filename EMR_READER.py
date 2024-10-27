@@ -699,7 +699,7 @@ def extract():
                                 return '6 MTHS+'
                             else:
                                 return 'UK'
-                        df[['DURA', 'DURL'] = df[['DURA', 'DURL'].apply(pd.to_numeric, errors='coerce')
+                        df[['DURA', 'DURL']] = df[['DURA', 'DURL']].apply(pd.to_numeric, errors='coerce')
                         df['CIRAA'] = df['DURA'].apply(cira)
                         df['CIRAL'] = df['DURL'].apply(cira)
                         def ager(a):
