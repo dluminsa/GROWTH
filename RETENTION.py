@@ -903,6 +903,11 @@ st.plotly_chart(figM, use_container_width=True)
 st.divider()
 st.write('**CYCLE OF INTERUPTION AND RETURN TO ART (CIRA)**')
 
+html_table = """
+<h2><b><u style="color: green;">CYCLE OF INTERUPTION AND RETURN TO ART (CIRA)</u></b></h2>
+"""
+st.markdown(html_table, unsafe_allow_html=True)
+
 #LOST IN LESS THAN 3 MONTHS
 lesl = watercira['L1'].sum() +  watercira['L10'].sum() + watercira['L20'].sum() + watercira['L30'].sum() + watercira['L40'].sum() +  watercira['L50'].sum() + watercira['LG50'].sum()
 #LOST IN 3 to 5 MTHS
@@ -994,8 +999,6 @@ if a72 ==0:
    a73 = 0
 else:
    a73 = round(int((a71/a72)*100))
-
-
 
 # Create the stacked bar chart
 figD = go.Figure()
