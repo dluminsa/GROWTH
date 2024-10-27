@@ -69,6 +69,18 @@ if 'erl' not in st.session_state:
          st.stop()
 dfearly = st.session_state.erl.copy()
 
+if 'cira' not in st.session_state:     
+     try:
+        #cola,colb= st.columns(2)
+        conn = st.connection('gsheets', type=GSheetsConnection)
+        exist = conn.read(worksheet= 'CIRA', usecols=list(range(48)),ttl=5)
+        tx = exist.dropna(how='all')
+        st.session_state.cira = tx 
+     except:
+         st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
+         st.stop()
+dfcira = st.session_state.cira.copy()
+
 
 #REPORTING RATES
 @st.cache_data
