@@ -978,9 +978,9 @@ with cola:
     st.markdown('**Returning clients to ART**')
     st.plotly_chart(figC, use_container_width=True)
 
-# with colb:
+with colb:
     st.markdown('**Length of interruption before return**')
-    st.plotly_chart(figp, use_container_width=True)
+    st.plotly_chart(figD, use_container_width=True)
 
 
 
