@@ -496,7 +496,6 @@ ti = water['TI'].sum()
 new = water['TXNEW'].sum()
 rt = water['RTT'].sum()  
 pot = int(Q4)+int(ti)+int(new) + int(rt)
-zzzz
 los = water['TWO'].sum()
 to  = water['TO'].sum()
 dd = water['DEAD'].sum()
