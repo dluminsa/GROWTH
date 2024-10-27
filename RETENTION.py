@@ -942,6 +942,7 @@ c = sixA
 #RETURNED
 a1 = watercira['A1'].sum()
 a2 = watercira['A1'].sum() + watercira['L1'].sum()
+st.write(a2)
 a3 = round((a1/a2)*100)
 
 # Create the stacked bar chart
