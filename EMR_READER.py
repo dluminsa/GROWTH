@@ -678,7 +678,7 @@ def extract():
                         df['RWEEKR'] = pd.to_numeric(df['RWEEKR'], errors='coerce')
                         df['RWEEKR1'] = df['RWEEKR']-39 #NOT NEEDED THIS Q SINCE WE ARE USING 
         
-                        df['DURA'] = round((df['RETURN DATE1'] - df['LAST DATE']).dt.days / 30)
+                        df['DURA'] = round((df['LAST DATE']-df['RETURN DATE1']).dt.days / 30)
         
                         today = datetime.now()
                         todayr = pd.to_datetime(today)
