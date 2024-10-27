@@ -1426,6 +1426,7 @@ def extract():
                     st.write(ciraactive)
                     st.write(cactive['CIRAA'].unique())
                     pppp = cactive.copy()
+                    row5 = part + ciralost + ciraactive
                     row1 = part + list1
                 
                     row2 = part + list2
@@ -1485,8 +1486,10 @@ def extract():
                                 
                                 sheet3 = spreadsheet.worksheet("YEARS")
                                 sheet4 = spreadsheet.worksheet("THREEO")
+                                sheet5 = spreadsheet.worksheet("CIRA")
                                 sheet3.append_row(row3, value_input_option='RAW')
                                 sheet4.append_row(row4, value_input_option='RAW')
+                                sheet5.append_row(row5, value_input_option='RAW')
                                 st.session_state.submited = True
                             except Exception as e:
                                 # Print the error message
