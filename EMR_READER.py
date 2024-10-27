@@ -665,7 +665,7 @@ def extract():
                         df['R1montha'] = df['R1month'].astype(str).str.split('.').str[0]
                         df['R1yeara'] = df['R1year'].astype(str).str.split('.').str[0]
                         df['RETURN DATE1'] = df['R1aya'] + '/' + df['R1montha'] + '/' + df['R1yeara']
-                        df['RETURN DATE1'] = pd.to_datetime(df['RETURN DATE1'], format='%d/%m/%Y', errors='coerce')
+                        df['RETURN DATE1'] = pd.to_datetime(df['RETURN DATE1'], format=aa'%d/%m/%Y', errors='coerce')
 
                        #LAST ENCOUTER TO DATES
                         df['Ldaya'] = df['Lday'].astype(str).str.split('.').str[0]
@@ -677,8 +677,8 @@ def extract():
                         df['RWEEKR'] = df['RETURN DATE1'].dt.strftime('%V') #Use R since 1 was already used
                         df['RWEEKR'] = pd.to_numeric(df['RWEEKR'], errors='coerce')
                         df['RWEEKR1'] = df['RWEEKR']-39 #NOT NEEDED THIS Q SINCE WE ARE USING 
+        
                         df['DURA'] = round((df['RETURN DATE1'] - df['LAST DATE']).dt.days / 30)
-                        aa = df[['RETURN DATE1','LAST DATE','DURA']]
         
                         today = datetime.now()
                         todayr = pd.to_datetime(today)
@@ -687,8 +687,7 @@ def extract():
 
                         # Calculate the difference in months
                         df['DURL'] = round((todayr - df['RETURN DATE']).dt.days / 30)
-                       # aa = df[['RETURN DATE','DURA']]
-                        st.write(aa)
+
                         def cira(a):
                             if a<1:
                                 return 'UK'
@@ -700,6 +699,7 @@ def extract():
                                 return '6 MTHS+'
                             else:
                                 return 'UK'
+                        df[['DURA', 'DURL'] = df[['DURA', 'DURL'].apply(pd.to_numeric, errors='coerce')
                         df['CIRAA'] = df['DURA'].apply(cira)
                         df['CIRAL'] = df['DURL'].apply(cira)
                         def ager(a):
