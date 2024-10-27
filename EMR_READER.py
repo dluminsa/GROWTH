@@ -843,7 +843,7 @@ def extract():
                         dfRTT = dfRTT[dfRTT['Armonth'].isin([10,11,12])].copy()
                         rtt = dfRTT.shape[0]
                         #check
-                        pppp = dfRTT.copy()
+                        #pppp = dfRTT.copy()
             
             #######LOSSES. START FROM POTENTIAL CURR
                     #TRANSFER OUTS
@@ -881,6 +881,7 @@ def extract():
                         df25 = df[((df['Ryear']>2024)| ((df['Ryear'] ==2024) & (df['Rmonth']==12)))].copy()
                         df24['RWEEK'] = pd.to_numeric(df24['RWEEK'], errors='coerce')
                         dfactive24 =df24[df24['RWEEK']>=wk2] #still active within 2 weeks
+                        pppp = dfactive.copy()
                         
                         #LOST IN TWO WEEKS... REAL MISSED APPOINTMENT FOR THIS
                         df2wks =df24[df24['RWEEK']<wk2].copy()
