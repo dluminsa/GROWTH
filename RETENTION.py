@@ -501,7 +501,7 @@ to  = water['TO'].sum()
 dd = water['DEAD'].sum()
 Q1 = water['ACTIVE'].sum()
 #uk = int(pot) - int(ti)- int(Q4) - int(new)
-uk = int(pote) - int(to) - int(dd) - int(Q1) - int(los) 
+uk = int(pote) - int(pot) 
 
 labels = ["Q4 Curr",   "TI",     "TX NEW",     'RTT' ,  "Potential",  "MISSED",  "DEAD",     "TO",   "Unknown",  "ACTIVE"]
 values = [Q4,           ti,        new,         rt,       pot,        -los,       -dd,        -to,     uk,          Q1]
