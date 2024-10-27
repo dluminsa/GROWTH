@@ -220,6 +220,7 @@ clusters = dfrep['CLUSTER'].unique()
 weeks = dftx['SURGE'].unique()
 
 fac = dfyr['FACILITY'].unique()
+
 #TO USE WHERE WEEKS ARE NOT NEEDED FOR TX
 dfy = []
 for every in fac:
@@ -235,6 +236,14 @@ for every in fac:
     dff = dff.drop_duplicates(subset=['FACILITY'], keep = 'last')
     dfy.append(dff)
 wateryr = pd.concat(dfy)
+
+#TO USE WHERE WEEKS ARE NOT NEEDED FOR CIRA
+dfy = []
+for every in fac:
+    dff = dfcira[dfcira['FACILITY']== every]
+    dff = dff.drop_duplicates(subset=['FACILITY'], keep = 'last')
+    dfy.append(dff)
+watercira= pd.concat(dfy)
 
 dfy = []
 for every in fac:
@@ -271,6 +280,15 @@ for each in weeks:
     dfs.append(dfa)
 dfearly = pd.concat(dfs)
 
+#REMOVE DUPLICATES FROM CIRA SHEET # HOLD THIS IN SESSION LATER
+dfs=[]   
+for each in weeks:
+    dfcira['SURGE'] = pd.to_numeric(dfcira['SURGE'], errors='coerce')
+    dfa = dfcira[dfcira['SURGE']==each]
+    dfa = dfa.drop_duplicates(subset=['FACILITY'], keep = 'last')
+    dfs.append(dfa)
+dfcira = pd.concat(dfs)
+
 #FILTERS
 st.sidebar.subheader('**Filter from here**')
 CLUSTER = st.sidebar.multiselect('CHOOSE A CLUSTER', clusters, key='a')
@@ -278,16 +296,21 @@ CLUSTER = st.sidebar.multiselect('CHOOSE A CLUSTER', clusters, key='a')
 #create for the state
 if not CLUSTER:
     dfyr2 = dfyr.copy()
+    dfcira2 = dfcira.copy()
     dfearly2 = dfearly.copy()
     dfrep2 = dfrep.copy()
     dftx2 = dftx.copy()
     water2 = water.copy()
     wateryr2 = wateryr.copy()
     waterly2 = waterly.copy()
+    watercira2 = watercira.copy()
 
 else:
     dfyr['CLUSTER'] = dfyr['CLUSTER'].astype(str)
     dfyr2 = dfyr[dfyr['CLUSTER'].isin(CLUSTER)]
+
+    dfcira['CLUSTER'] = dfcira['CLUSTER'].astype(str)
+    dfcira2 = dfcira[dfcira['CLUSTER'].isin(CLUSTER)]
 
     dfearly['CLUSTER'] = dfearly['CLUSTER'].astype(str)
     dfearly2 = dfearly[dfearly['CLUSTER'].isin(CLUSTER)]
@@ -302,19 +325,25 @@ else:
     water2 = water[water['CLUSTER'].isin(CLUSTER)]
     wateryr2 = wateryr[wateryr['CLUSTER'].isin(CLUSTER)]
     waterly2 = waterly[waterly['CLUSTER'].isin(CLUSTER)]
+    watercira2 = watercira[watercira['CLUSTER'].isin(CLUSTER)]
 
 district = st.sidebar.multiselect('**CHOOSE A DISTRICT**', dfrep2['DISTRICT'].unique(), key='b')
 if not district:
     dfyr3 = dfyr2.copy()
+    dfcira3 = dfcira2.copy()
     dfearly3 = dfearly2.copy()
     dfrep3 = dfrep2.copy()
     dftx3 = dftx2.copy()
     water3 = water2.copy()
     wateryr3 = wateryr2.copy()
     waterly3 = waterly2.copy()
+    watercira3 = watercira2.copy()
 else:
     dfyr2['DISTRICT'] = dfyr2['DISTRICT'].astype(str)
     dfyr3 = dfyr2[dfyr2['DISTRICT'].isin(district)].copy()
+
+    dfcira2['DISTRICT'] = dfcira2['DISTRICT'].astype(str)
+    dfcira3 = dfcira2[dfcira2['DISTRICT'].isin(district)].copy()
 
     dfearly2['DISTRICT'] = dfearly2['DISTRICT'].astype(str)
     dfearly3 = dfearly2[dfearly2['DISTRICT'].isin(district)].copy()
@@ -329,33 +358,40 @@ else:
     water3 = water2[water2['DISTRICT'].isin(district)].copy()
     wateryr3 = wateryr2[wateryr2['DISTRICT'].isin(district)].copy()
     waterly3 = waterly2[waterly2['DISTRICT'].isin(district)].copy()
+    watercira3 = watercira2[watercira2['DISTRICT'].isin(district)].copy()
 
 facility = st.sidebar.multiselect('**CHOOSE A FACILITY**', dfrep3['FACILITY'].unique(), key='c')
 if not facility:
     dfyr4 = dfyr3.copy()
+    dfcira4 = dfcira3.copy()
     dfearly4 = dfearly3.copy()
     dfrep4 = dfrep3.copy()
     dftx4 = dftx3.copy()
     water4 = water3.copy()
     wateryr4 = wateryr3.copy()
     waterly4 = waterly3.copy()
+    watercira4 = watercira3.copy()
 else:
     dfyr4 = dfyr3[dfyr3['FACILITY'].isin(facility)].copy()
+    dfcira4 = dfcira3[dfcira3['FACILITY'].isin(facility)].copy()
     dfearly4 = dfearly3[dfearly3['FACILITY'].isin(facility)].copy()
     dfrep4 = dfrep3[dfrep3['FACILITY'].isin(facility)].copy()
     dftx4 = dftx3[dftx3['FACILITY'].isin(facility)].copy()
     water4 = water3[water3['FACILITY'].isin(facility)].copy()
     wateryr4 = wateryr3[wateryr3['FACILITY'].isin(facility)].copy()
     waterly4 = waterly3[waterly3['FACILITY'].isin(facility)].copy()
+    watercira4 = watercira3[watercira3['FACILITY'].isin(facility)].copy()
 
 # Base DataFrame to filter
 dfyr = dfyr4.copy()
+dfcira = dfcira4.copy()
 dfdearly = dfearly4.copy()
 dfrep = dfrep4.copy()
 dftx = dftx4.copy()
 water = water4.copy()
 wateryr = wateryr4.copy()
 waterly = waterly4.copy()
+watercira = wateraci4.copy()
 
 # Apply filters based on selected criteria
 if CLUSTER:
@@ -450,30 +486,27 @@ elif checkd ==2:
 elif checkd ==1:
     st.success(f'**MOST AFFECTED FACILITIES ARE {mostfas3}**')
 
-
-
-
-
-
         
 st.divider()
 #############################################################################################
 #filtered_df = filtered_df[filtered_df['WEEK']==k].copy()
-pot = water['POTENTIAL'].sum()
+pote = water['POTENTIAL'].sum()
 Q4 = water['Q4'].sum()
 ti = water['TI'].sum()
 new = water['TXNEW'].sum()
-uk = int(pot) - int(ti)- int(Q4) - int(new)
+pot = int(Q4)+int(ti)+int(new)
+
 rt = water['RTT'].sum()  
 los = water['TWO'].sum()
 to  = water['TO'].sum()
 dd = water['DEAD'].sum()
 Q1 = water['ACTIVE'].sum()
-ug = int(pot) - int(to) - int(dd) - int(Q1) - int(los)
+#uk = int(pot) - int(ti)- int(Q4) - int(new)
+uk = int(pote) - int(to) - int(dd) - int(Q1) - int(los)
 
-labels = ["Q4 Curr",   "TI",     "TX NEW",     'RTT' ,  'Unkown',  "Potential",  "MISSED",  "DEAD",     "TO",   "Unknown",  "ACTIVE"]
-values = [Q4,           ti,        new,         rt,       uk,        pot,        -los,       -dd,        -to,   -ug,    Q1]
-measure = ["absolute", "relative","relative", "relative","relative","total",    "relative", "relative","realative","realative","total"]
+labels = ["Q4 Curr",   "TI",     "TX NEW",     'RTT' ,  "Potential",  "MISSED",  "DEAD",     "TO",   "Unknown",  "ACTIVE"]
+values = [Q4,           ti,        new,         rt,       pot,        -los,       -dd,        -to,     uk,          Q1]
+measure = ["absolute", "relative","relative", "relative","total",    "relative", "relative","realative","realative","total"]
 # Create the waterfall chart
 
 fig = go.Figure(go.Waterfall(
