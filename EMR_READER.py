@@ -1,6 +1,7 @@
 import pandas as pd 
 import streamlit as st 
 import os
+hh
 import numpy as np
 import gspread
 from pathlib import Path
@@ -678,7 +679,7 @@ def extract():
                         df['RWEEKR'] = pd.to_numeric(df['RWEEKR'], errors='coerce')
                         df['RWEEKR1'] = df['RWEEKR']-39 #NOT NEEDED THIS Q SINCE WE ARE USING 
         
-                        df['DURA'] = round((df['LAST DATE']-df['RETURN DATE1']).dt.days)
+                        df['DURA'] = round((df['LAST DATE']-df['RETURN DATE1']).dt.days/30)
         
                         today = datetime.now()
                         todayr = pd.to_datetime(today)
@@ -686,7 +687,7 @@ def extract():
                         df['RETURN DATE'] = pd.to_datetime(df['RETURN DATE'])
 
                         # Calculate the difference in months
-                        df['DURL'] = round((todayr - df['RETURN DATE']).dt.days)
+                        df['DURL'] = round((todayr - df['RETURN DATE']).dt.days/30)
 
                         def cira(a):
                             if a<1:
@@ -841,7 +842,7 @@ def extract():
                         dfRTT = dfRTT[dfRTT['Aryear']==2024].copy() 
                         dfRTT['Armonth'] = pd.to_numeric(dfRTT['Armonth'], errors='coerce') 
                         dfRTT = dfRTT[dfRTT['Armonth'].isin([10,11,12])].copy()
-                        rtt = dfRTT.shape[0]
+                        #rtt = dfRTT.shape[0]
                         #check
                         #pppp = dfRTT.copy()
             
@@ -895,7 +896,11 @@ def extract():
             
                         dfactive = pd.concat([dfactive24, df25]) #COMBINE THOSE ACTIVE IN TWO WEEKS AND THOSE OF 2025
                         curr = dfactive.shape[0]
-                        pppp = df2wks.copy()
+                        dfRTT['A'] = pd.to_numeric(dfRTT['A'], errors='coerce')
+                        dfactive['A'] = pd.to_numeric(dfactive['A'], errors='coerce')
+                        dfRTT = dfRTT[dfRTT['A'].isin(dfactive['A'])].copy()
+                        rtt = dfRTT.shape[0]
+                        pppp=dfRTT.copy()
         
                        #OF THOSE ACTIVE, HOW MANY WERE ON APPT 2 WEEKS AGO, 
                         dfactive['RWEEKR'] = pd.to_numeric(dfactive['RWEEKR'], errors='coerce')
