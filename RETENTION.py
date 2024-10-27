@@ -599,11 +599,7 @@ elif int(fact) > 1:
     st.plotly_chart(figd)#, use_container_width=True)
     
 else:
-    pass
-
-
-
-    
+    pass    
 
 #############################################################################################
 #LINE GRAPHS
@@ -904,6 +900,41 @@ figM.update_xaxes(type='category')
 
 # Display the plot
 st.plotly_chart(figM, use_container_width=True)
+#GRAPHS FOR CIRA
+#LOST
+losts =  ['L1', 'L13','L16', 'L10', 'L103', 'L06', 'L20', 'L203', 'L206', 'L30', 'L303',
+       'L306', 'L40', 'L403', 'L406', 'L50', 'L503', 'L506', 'LG50', 'LG503','LG506']
+
+#LOST IN LESS THAN 3 MONTHS
+lesl = watercira['L1'].sum() +  watercira['L10'].sum() + watercira['L20'].sum() + watercira['L30'].sum() + watercira['L40'].sum() +  watercira['L50'].sum() + watercira['LG50'].sum()
+#LOST IN 3 to 5 MTHS
+thrl = watercira['L13'].sum() +  watercira['L103'].sum() + watercira['L203'].sum() + watercira['L303'].sum() + watercira['L403'].sum() +  watercira['L503'].sum() + watercira['LG503'].sum()
+#LOST IN 6 MTHS
+sixl = watercira['L16'].sum() +  watercira['L106'].sum() + watercira['L206'].sum() + watercira['L306'].sum() + watercira['L406'].sum() +  watercira['L506'].sum() + watercira['LG506'].sum()
+
+#ACTIVE THAN 3 MONTHS
+lesA = watercira['A1'].sum() +  watercira['A10'].sum() + watercira['A20'].sum() + watercira['A30'].sum() + watercira['A40'].sum() +  watercira['A50'].sum() + watercira['AG50'].sum()
+#ACTIVE IN 3 to 5 MTHS
+thrA = watercira['A13'].sum() +  watercira['A103'].sum() + watercira['A203'].sum() + watercira['A303'].sum() + watercira['A403'].sum() +  watercira['A503'].sum() + watercira['AG503'].sum()
+#ACTIVE IN 6 MTHS
+sixA = watercira['A16'].sum() +  watercira['A106'].sum() + watercira['A206'].sum() + watercira['A306'].sum() + watercira['A406'].sum() +  watercira['A506'].sum() + watercira['AG506'].sum()
+
+totallos = lesl + thrl + sixl
+totalact = lesA + thrA + sixA
+totalcira = totalos + totalact
+
+# Creating the grouped bar chart
+fig4 = go.Figure(data=[
+    go.Bar(name='IIT(TOTAL)', x=['IIT(TOTAL)'], y=[totalcira], marker=dict(color='red')),
+    go.Bar(name='RETURNED', x=['RETURNED'], y=[totalact], marker=dict(color='green'))
+])
+
+# Setting the layout to have no gap between bars
+fig4.update_layout(barmode='group', bargap=0, bargroupgap=0)
+
+
+
+
 st.write('')
 st.write('')
 st.write('')
