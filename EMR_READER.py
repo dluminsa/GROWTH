@@ -717,6 +717,7 @@ def extract():
                                 return '40-49'
                             elif a >49:
                                 return '50+'
+                        st.write(df['AG'])
                         df['AG'] = pd.to_numeric(df['AG'], errors = 'coerce')
                         df['BAND'] = df['AG'].apply(ager)
         
