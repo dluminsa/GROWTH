@@ -681,7 +681,11 @@ def extract():
         
                         today = datetime.now()
                         todayr = pd.to_datetime(today)
-                        df['DURL'] = round((todayr)-(df['RETURN DATE']))#.dt.days / 30)  
+                        #df['DURL'] = round((todayr)-(df['RETURN DATE']))#.dt.days / 30)  
+                        df['RETURN DATE'] = pd.to_datetime(df['RETURN DATE'])
+
+                        # Calculate the difference in months
+                        df['DURL'] = round((todayr - df['RETURN DATE']).dt.days / 30)
                         aa = df[['RETURN DATE','DURL']]
                         st.write(aa)
                         def cira(a):
