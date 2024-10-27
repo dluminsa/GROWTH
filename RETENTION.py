@@ -391,7 +391,7 @@ dftx = dftx4.copy()
 water = water4.copy()
 wateryr = wateryr4.copy()
 waterly = waterly4.copy()
-watercira = wateraci4.copy()
+watercira = wateracira4.copy()
 
 # Apply filters based on selected criteria
 if CLUSTER:
