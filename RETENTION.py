@@ -901,7 +901,7 @@ figM.update_xaxes(type='category')
 # Display the plot
 st.plotly_chart(figM, use_container_width=True)
 st.divider()
-st.write('**Cycle of Interruption and Return to ART (CIRA)**')
+st.write('**CYCLE OF INTERUPTION AND RETURN TO ART (CIRA)**')
 
 #LOST IN LESS THAN 3 MONTHS
 lesl = watercira['L1'].sum() +  watercira['L10'].sum() + watercira['L20'].sum() + watercira['L30'].sum() + watercira['L40'].sum() +  watercira['L50'].sum() + watercira['LG50'].sum()
