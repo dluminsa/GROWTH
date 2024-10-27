@@ -733,6 +733,7 @@ def extract():
                         last = last[((last['Ryear']==2024) & (last['Rmonth'].isin([6,7,8])))].copy()
                         last[['Rmonth', 'Rday']] = last[['Rmonth', 'Rday']].apply(pd.to_numeric, errors='coerce')
                         last = last[((last['Rmonth']>6) | ((last['Rmonth']==6) & (last['Rday']>2)))].copy()
+                        cira1 = last.copy()
                         lastq = last.shape[0]
 
                         #POTENTIAL TXCUR ALTER... 
@@ -884,6 +885,7 @@ def extract():
                         
                         #LOST IN TWO WEEKS... REAL MISSED APPOINTMENT FOR THIS
                         df2wks =df24[df24['RWEEK']<wk2].copy()
+                        cira2 = df2wks.copy()
                         two = df2wks.shape[0]
                     
             
@@ -897,9 +899,14 @@ def extract():
                         curr = dfactive.shape[0]
                         dfRTT['A'] = pd.to_numeric(dfRTT['A'], errors='coerce')
                         dfactive['A'] = pd.to_numeric(dfactive['A'], errors='coerce')
+        
+                        #RTT VS DFACTIVE
                         dfRTT = dfRTT[dfRTT['A'].isin(dfactive['A'])].copy()
                         rtt = dfRTT.shape[0]
-                        pppp=dfRTT.copy()
+                        #pppp=dfRTT.copy()
+                        cactive = dfactive.copy()
+                        clost = pd.concat([cira1,cira2])
+        
         
                        #OF THOSE ACTIVE, HOW MANY WERE ON APPT 2 WEEKS AGO, 
                         dfactive['RWEEKR'] = pd.to_numeric(dfactive['RWEEKR'], errors='coerce')
@@ -1381,6 +1388,28 @@ def extract():
                     #     pass
                     part = [cluster,district,facility,week,wk,prev]
                     #ADDING THE CLUSTER PART
+                   #CIRA ACTIVE
+                    bands =['<01','01 to 09','10 to 19','20-29','30-39', '40-49','50+']
+                
+                    #cactive
+                    #clost
+                    ciralost = []
+                    for band in bands:
+                        clost['BAND'] = clost['BAND'].astype(str)
+                        ct = clost[clost['BAND'] == band].copy()
+                        ct['CIRAL'] =  ct['CIRAL'].astype(str)
+                        dfk = ct[ct['CIRAL']=='<3 MTHS']
+                        a = dfk.shape[0]
+                        ciralost.append(a)
+                        dfl = ct[ct['CIRAL']=='3-5 MTHS']
+                        b = dfl.shape[0]
+                        ciralost.append(b)
+                        dfm = ct[ct['CIRAL']=='6 MTHS+']
+                        c = dfm.shape[0]
+                        ciralost.append(c)
+                    st.write(ciralost)
+                    cirab = cilost['CIRAL'].value_counts()
+                    st.write(cirab)
     
                     row1 = part + list1
                 
