@@ -1422,10 +1422,7 @@ def extract():
                         dfm = ct[ct['CIRAA']=='6 MTHS+']
                         c = dfm.shape[0]
                         ciraactive.append(c)
-
-                    st.write(ciraactive)
-                    st.write(cactive['CIRAA'].unique())
-                    pppp = cactive.copy()
+                    #pppp = cactive.copy()
                     row5 = part + ciralost + ciraactive
                     row1 = part + list1
                 
@@ -1719,8 +1716,8 @@ def extract():
                                 cola,colb = st.columns([4,1])
                                 with cola:
                                         st.markdown('**MASTER LIST WITH ALL LINELISTS COMBINED**')
-                                        #dat = forth.copy()
-                                        dat = pppp.copy()
+                                        dat = forth.copy()
+                                        #dat = pppp.copy()
                                         csv_data = dat.to_csv(index=False) 
                                         st.download_button(
                                                     label="MASTER_LIST",
