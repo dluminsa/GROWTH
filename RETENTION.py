@@ -980,7 +980,7 @@ figD.update_layout(
     xaxis_title='Category',
     yaxis_title='Values'
 )
-cola, colb,colc, cold = st.columns(4)
+cola, colb,colc, cold = st.columns([1,1,1,3])
 cola.write('**AGE**')
 colb.write('**Returned**')
 colc.write('**IIT(Total)**')
