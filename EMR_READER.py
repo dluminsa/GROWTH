@@ -1408,7 +1408,7 @@ def extract():
                         c = dfm.shape[0]
                         ciralost.append(c)
                     st.write(ciralost)
-                    cirab = clost['CIRAL'].value_counts()
+                    cirab = clost['BAND'].value_counts()
                     st.write(cirab)
     
                     row1 = part + list1
