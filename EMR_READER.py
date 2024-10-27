@@ -686,7 +686,7 @@ def extract():
                         df['RETURN DATE'] = pd.to_datetime(df['RETURN DATE'])
 
                         # Calculate the difference in months
-                        df['DURL'] = round((todayr - df['RETURN DATE']).dt.days/30)
+                        df['DURL'] = round((todayr - df['RETURN DATE']).dt.days/30
 
                         def cira(a):
                             if a<1:
