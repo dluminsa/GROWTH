@@ -1407,11 +1407,24 @@ def extract():
                         dfm = ct[ct['CIRAL']=='6 MTHS+']
                         c = dfm.shape[0]
                         ciralost.append(c)
-                    st.write(ciralost)
-                    cirab = clost['BAND'].value_counts()
-                    st.write(cirab)
-                    pppp = clost.copy()
-    
+                        
+                    ciraactive =[]    
+                    for band in bands:
+                        cactive['BAND'] = cactive['BAND'].astype(str)
+                        ct = cactive[cactive['BAND'] == band].copy()
+                        ct['CIRAA'] =  ct['CIRAA'].astype(str)
+                        dfk = ct[ct['CIRAA']=='<3 MTHS']
+                        a = dfk.shape[0]
+                        ciractive.append(a)
+                        dfl = ct[ct['CIRAA']=='3-5 MTHS']
+                        b = dfl.shape[0]
+                        ciraactive.append(b)
+                        dfm = ct[ct['CIRAA']=='6 MTHS+']
+                        c = dfm.shape[0]
+                        ciraactive.append(c)
+
+                    st.write(ciraactive)
+                    st.write(cactive['CIRAA'].unique())
                     row1 = part + list1
                 
                     row2 = part + list2
