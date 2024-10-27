@@ -1661,7 +1661,7 @@ def extract():
                                 with cola:
                                         st.markdown('**MASTER LIST WITH ALL LINELISTS COMBINED**')
                                         #dat = forth.copy()
-                                        dat = pppp.copy()
+                                        dat = ppp.copy()
                                         csv_data = dat.to_csv(index=False) 
                                         st.download_button(
                                                     label="MASTER_LIST",
