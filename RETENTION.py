@@ -939,13 +939,62 @@ b = thrA
 c = sixA
 
 #LESS THAN 1 YR
-#RETURNED
-a1 = watercira['A1'].sum()
-a2 = watercira['A1'].sum() + watercira['L1'].sum()
+a1 = watercira['A1'].sum() + watercira['A13'].sum() + watercira['A16'].sum()
+a2 = a1 + watercira['L1'].sum() + watercira['L13'].sum() + watercira['L16'].sum() 
 if a2 ==0:
    a3 = 0
 else:
    a3 = round(int((a1/a2)*100))
+     
+#LESS THAN 10 YRs
+a21 = watercira['A10'].sum() + watercira['A103'].sum() + watercira['A106'].sum()
+a22 = a21 + watercira['L10'].sum() + watercira['L103'].sum() + watercira['L106'].sum() 
+if a22 ==0:
+   a23 = 0
+else:
+   a23 = round(int((a21/a22)*100))
+
+#LESS THAN 20 YRs
+a31 = watercira['A20'].sum() + watercira['A203'].sum() + watercira['A206'].sum()
+a32 = a31 + watercira['L20'].sum() + watercira['L203'].sum() + watercira['L206'].sum() 
+if a32 ==0:
+   a33 = 0
+else:
+   a33 = round(int((a31/a32)*100))
+
+#LESS THAN 30 YRs
+a41 = watercira['A30'].sum() + watercira['A303'].sum() + watercira['A306'].sum()
+a42 = a41 + watercira['L30'].sum() + watercira['L303'].sum() + watercira['L306'].sum() 
+if a42 ==0:
+   a43 = 0
+else:
+   a43 = round(int((a41/a42)*100))
+
+#LESS THAN 40 YRs
+a51 = watercira['A40'].sum() + watercira['A403'].sum() + watercira['A406'].sum()
+a52 = a51 + watercira['L40'].sum() + watercira['L403'].sum() + watercira['L406'].sum() 
+if a52 ==0:
+   a53 = 0
+else:
+   a53 = round(int((a51/a52)*100))
+     
+#LESS THAN 50 YRs
+a61 = watercira['A50'].sum() + watercira['A503'].sum() + watercira['A506'].sum()
+a62 = a61 + watercira['L50'].sum() + watercira['L503'].sum() + watercira['L506'].sum() 
+if a62 ==0:
+   a63 = 0
+else:
+   a63 = round(int((a61/a62)*100))
+
+#GREATER THAN 50 YRs
+a71 = watercira['AG50'].sum() + watercira['AG503'].sum() + watercira['AG506'].sum()
+a72 = a71 + watercira['LG50'].sum() + watercira['LG503'].sum() + watercira['LG506'].sum() 
+if a72 ==0:
+   a73 = 0
+else:
+   a73 = round(int((a71/a72)*100))
+
+
 
 # Create the stacked bar chart
 figD = go.Figure()
@@ -989,9 +1038,36 @@ cola.write('**<01**')
 colb.write(f'**{int(a1)}**')
 colc.write(f'**{int(a2)}**')
 cold.write(f'**{int(a3)} %**')
-           
-           
-           
+
+cola.write('**1-9**')
+colb.write(f'**{int(a21)}**')
+colc.write(f'**{int(a22)}**')
+cold.write(f'**{int(a23)} %**')
+
+cola.write('**10-19**')
+colb.write(f'**{int(a31)}**')
+colc.write(f'**{int(a32)}**')
+cold.write(f'**{int(a33)} %**')
+
+cola.write('**20-29**')
+colb.write(f'**{int(a41)}**')
+colc.write(f'**{int(a42)}**')
+cold.write(f'**{int(a43)} %**')
+
+cola.write('**30-39**')
+colb.write(f'**{int(a51)}**')
+colc.write(f'**{int(a52)}**')
+cold.write(f'**{int(a53)} %**')
+
+cola.write('**40-49**')
+colb.write(f'**{int(a61)}**')
+colc.write(f'**{int(a62)}**')
+cold.write(f'**{int(a63)} %**')
+
+cola.write('**50+**')
+colb.write(f'**{int(a71)}**')
+colc.write(f'**{int(a72)}**')
+cold.write(f'**{int(a73)} %**')
 
 cola,colb = st.columns(2)
 with cola:
