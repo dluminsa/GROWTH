@@ -722,7 +722,6 @@ def extract():
         
                         #COPY FOR ONE YEAR BEFORE GETTING POT CURR
                         oneyear = df.copy()
-                        pppp= oneyear.copy()
         
                         #df['GROUP'] = df['AG'].apply(ager)
                         #LAST Q'S TXML ALTER
@@ -913,6 +912,7 @@ def extract():
                             else:
                                 return '6 MTHS+'
                         dfactive = dfactive.copy() #avoid fragmentation
+                        pppp= dfactive.copy()
                         dfactive['MULTI'] = dfactive['ARVD'].apply(mmd)
                         dfactive['MULTI'] = dfactive['MULTI'].astype(str)
                         df2mths =  dfactive[dfactive['MULTI']=='<3 MTHS'].copy()
