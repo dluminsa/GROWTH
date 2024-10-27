@@ -881,7 +881,6 @@ def extract():
                         df25 = df[((df['Ryear']>2024)| ((df['Ryear'] ==2024) & (df['Rmonth']==12)))].copy()
                         df24['RWEEK'] = pd.to_numeric(df24['RWEEK'], errors='coerce')
                         dfactive24 =df24[df24['RWEEK']>=wk2] #still active within 2 weeks
-                        pppp = dfactive.copy()
                         
                         #LOST IN TWO WEEKS... REAL MISSED APPOINTMENT FOR THIS
                         df2wks =df24[df24['RWEEK']<wk2].copy()
@@ -896,6 +895,7 @@ def extract():
             
                         dfactive = pd.concat([dfactive24, df25]) #COMBINE THOSE ACTIVE IN TWO WEEKS AND THOSE OF 2025
                         curr = dfactive.shape[0]
+                        pppp = dfactive.copy()
         
                        #OF THOSE ACTIVE, HOW MANY WERE ON APPT 2 WEEKS AGO, 
                         dfactive['RWEEKR'] = pd.to_numeric(dfactive['RWEEKR'], errors='coerce')
