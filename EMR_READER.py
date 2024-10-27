@@ -895,7 +895,6 @@ def extract():
             
                         dfactive = pd.concat([dfactive24, df25]) #COMBINE THOSE ACTIVE IN TWO WEEKS AND THOSE OF 2025
                         curr = dfactive.shape[0]
-        ddd
                         pppp = df2wks.copy()
         
                        #OF THOSE ACTIVE, HOW MANY WERE ON APPT 2 WEEKS AGO, 
