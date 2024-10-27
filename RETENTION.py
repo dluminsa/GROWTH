@@ -901,10 +901,9 @@ figM.update_xaxes(type='category')
 # Display the plot
 st.plotly_chart(figM, use_container_width=True)
 st.divider()
-st.write('**CYCLE OF INTERUPTION AND RETURN TO ART (CIRA)**')
 
 html_table = """
-<h2><b><u style="color: green;">CYCLE OF INTERUPTION AND RETURN TO ART (CIRA)</u></b></h2>
+<h4><b><u style="color: green;">CYCLE OF INTERUPTION AND RETURN TO ART (CIRA)</u></b></h4>
 """
 st.markdown(html_table, unsafe_allow_html=True)
 
