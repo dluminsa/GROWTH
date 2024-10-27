@@ -4,7 +4,6 @@ import os
 import gspread
 from pathlib import Path
 import random
-DFF
 import plotly.express as px
 import plotly.graph_objects as go
 import traceback
@@ -925,13 +924,22 @@ totalact = lesA + thrA + sixA
 totalcira = totalos + totalact
 
 # Creating the grouped bar chart
-fig4 = go.Figure(data=[
+figC = go.Figure(data=[
     go.Bar(name='IIT(TOTAL)', x=['IIT(TOTAL)'], y=[totalcira], marker=dict(color='red')),
     go.Bar(name='RETURNED', x=['RETURNED'], y=[totalact], marker=dict(color='green'))
 ])
 
 # Setting the layout to have no gap between bars
-fig4.update_layout(barmode='group', bargap=0, bargroupgap=0)
+figC.update_layout(barmode='group', bargap=0, bargroupgap=0)
+
+cola,colb = st.columns(2)
+with cola:
+    st.plotly_chart(figC, use_container_width=True)
+
+# with colb:
+#     st.markdown('')
+#     st.markdown('')
+#     st.plotly_chart(figp, use_container_width=True)
 
 
 
