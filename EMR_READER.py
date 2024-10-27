@@ -680,8 +680,7 @@ def extract():
                         df['DURA'] = round((df['RETURN DATE1'] - df['LAST DATE']).dt.days / 30)
         
                         today = datetime.now()
-                        todayr = today.strftime("%d-%m-%Y")
-                        st.write(df['RETURN DATE'])
+                        todayr = pd.to_datetime(today)
                         df['DURL'] = round((todayr)-(df['RETURN DATE']).dt.days / 30)  
                         def cira(a):
                             if a<1:
