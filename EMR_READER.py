@@ -665,7 +665,7 @@ def extract():
                         df['R1montha'] = df['R1month'].astype(str).str.split('.').str[0]
                         df['R1yeara'] = df['R1year'].astype(str).str.split('.').str[0]
                         df['RETURN DATE1'] = df['R1aya'] + '/' + df['R1montha'] + '/' + df['R1yeara']
-                        df['RETURN DATE1'] = pd.to_datetime(df['RETURN DATE1'], format=aa'%d/%m/%Y', errors='coerce')
+                        df['RETURN DATE1'] = pd.to_datetime(df['RETURN DATE1'], format='%d/%m/%Y', errors='coerce')
 
                        #LAST ENCOUTER TO DATES
                         df['Ldaya'] = df['Lday'].astype(str).str.split('.').str[0]
