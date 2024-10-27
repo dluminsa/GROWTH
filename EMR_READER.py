@@ -681,6 +681,7 @@ def extract():
         
                         today = datetime.now()
                         todayr = today.strftime("%d-%m-%Y")
+                        st.write(df['RETURN DATE'])
                         df['DURL'] = round((todayr)-(df['RETURN DATE']).dt.days / 30)  
                         def cira(a):
                             if a<1:
@@ -1633,7 +1634,7 @@ def extract():
                                 st.write(f"<h6><b>TX NEW LINELISTS </b></h6>", unsafe_allow_html=True)
                                 cola, colb = st.columns(2)
                                 with cola:
-                                        if newlost1<0:
+                                        if newlost1==0:
                                             st.write('**NO TX NEW IIT**')
                                         else:
                                             dat = yearlost1()
@@ -1661,7 +1662,7 @@ def extract():
                                 with cola:
                                         st.markdown('**MASTER LIST WITH ALL LINELISTS COMBINED**')
                                         #dat = forth.copy()
-                                        dat = ppp.copy()
+                                        dat = pppp.copy()
                                         csv_data = dat.to_csv(index=False) 
                                         st.download_button(
                                                     label="MASTER_LIST",
