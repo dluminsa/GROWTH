@@ -901,9 +901,6 @@ figM.update_xaxes(type='category')
 # Display the plot
 st.plotly_chart(figM, use_container_width=True)
 #GRAPHS FOR CIRA
-#LOST
-losts =  ['L1', 'L13','L16', 'L10', 'L103', 'L06', 'L20', 'L203', 'L206', 'L30', 'L303',
-       'L306', 'L40', 'L403', 'L406', 'L50', 'L503', 'L506', 'LG50', 'LG503','LG506']
 
 #LOST IN LESS THAN 3 MONTHS
 lesl = watercira['L1'].sum() +  watercira['L10'].sum() + watercira['L20'].sum() + watercira['L30'].sum() + watercira['L40'].sum() +  watercira['L50'].sum() + watercira['LG50'].sum()
@@ -921,7 +918,7 @@ sixA = watercira['A16'].sum() +  watercira['A106'].sum() + watercira['A206'].sum
 
 totallos = lesl + thrl + sixl
 totalact = lesA + thrA + sixA
-totalcira = totalos + totalact
+totalcira = totallos + totalact
 
 # Creating the grouped bar chart
 figC = go.Figure(data=[
