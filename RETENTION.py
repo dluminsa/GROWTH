@@ -988,7 +988,7 @@ cold.write('**Proportion CIRA Returned**')
 cola.write('**<01**')
 colb.write(f'**{int(a1)}**')
 colc.write(f'**{int(a2)}**')
-cold.write(f'**{int(a3)}+" %"**')
+cold.write(f'**{int(a3)} %**')
            
            
            
