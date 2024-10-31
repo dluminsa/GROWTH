@@ -1290,7 +1290,13 @@ def extract():
     if st.session_state.reader:# and st.session_state.df:
                     @st.cache_data
                     def lastqtr():
-                        dat = last.copy()
+                        dat = ciraa.copy()
+                        dat = dat[['ART', 'RD']].copy()
+                        dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE'})
+                        return dat
+                    @st.cache_data
+                    def lastqt3():
+                        dat = cirab.copy()
                         dat = dat[['ART', 'RD']].copy()
                         dat = dat.rename(columns ={'ART':'ART NO.', 'RD':'RETURN DATE'})
                         return dat
@@ -1492,25 +1498,25 @@ def extract():
                     
                     if submit:
                             #st.write(row1)
-                            #try:
-                            sheet1 = spreadsheet.worksheet("TX")
-                            st.write(row1)
-                            sheet1.append_row(row1, value_input_option='RAW')
-                                
-                            sheet2 = spreadsheet.worksheet("VL")
-                            sheet2.append_row(row2, value_input_option='RAW')
-                                
-                            sheet3 = spreadsheet.worksheet("YEARS")
-                            sheet4 = spreadsheet.worksheet("THREEO")
-                            sheet5 = spreadsheet.worksheet("CIRA")
-                            sheet3.append_row(row3, value_input_option='RAW')
-                            sheet4.append_row(row4, value_input_option='RAW')
-                            sheet5.append_row(row5, value_input_option='RAW')
-                            st.session_state.submited = True
-                            # except Exception as e:
-                            #     # Print the error message
-                            #     st.write(f"ERROR: {e}")
-                            #     st.stop()  # Stop the Streamlit app here to let the user manually retry     
+                            try:
+                                sheet1 = spreadsheet.worksheet("TX")
+                                #st.write(row1)
+                                sheet1.append_row(row1, value_input_option='RAW')
+                                    
+                                sheet2 = spreadsheet.worksheet("VL")
+                                sheet2.append_row(row2, value_input_option='RAW')
+                                    
+                                sheet3 = spreadsheet.worksheet("YEARS")
+                                sheet4 = spreadsheet.worksheet("THREEO")
+                                sheet5 = spreadsheet.worksheet("CIRA")
+                                sheet3.append_row(row3, value_input_option='RAW')
+                                sheet4.append_row(row4, value_input_option='RAW')
+                                sheet5.append_row(row5, value_input_option='RAW')
+                                st.session_state.submited = True
+                            except Exception as e:
+                                # Print the error message
+                                st.write(f"ERROR: {e}")
+                                st.stop()  # Stop the Streamlit app here to let the user manually retry     
                     else:
                             st.write('FIRST SUBMIT TO SEE LINELISTS AND SUMMARY') 
                             st.markdown(f'**YOU HAVE SELECTED {district} AS THE DISTRICT AND {facility} AS THE FACILITY**')
@@ -1564,18 +1570,28 @@ def extract():
                         ######################################VL SECTION
                             st.divider()
                             st.markdown("**LAST QUARTER'S TXML AND VIRAL LOAD LINE LIST**")
-                            cola, colb = st.columns(2)
+                            cola, colb,colc = st.columns(3)
                             with cola:
                                 dat = lastqtr()
                                 csv_data = dat.to_csv(index=False)
                                 tot = dat.shape[0]
                                 st.write(f'**{tot} NOT RETURNED FROM Q4**')
                                 st.download_button(
-                                            label="TXML FOR LAST QTR",
+                                            label="TXML FOR Q4",
                                             data=csv_data,
-                                            file_name=f"{facility} LASTQtr.csv",
+                                            file_name=f"{facility} Q4_TXML.csv",
                                             mime="text/csv")
-                            with colb:
+                            with cola:
+                                dat = lastqt3()
+                                csv_data = dat.to_csv(index=False)
+                                tot = dat.shape[0]
+                                st.write(f'**{tot} NOT RETURNED FROM Q3**')
+                                st.download_button(
+                                            label="TXML FOR Q3",
+                                            data=csv_data,
+                                            file_name=f"{facility} Q3_TXML.csv",
+                                            mime="text/csv")
+                            with colc:
                                 dat = viral()
                                 csv_data = dat.to_csv(index=False)
                                 tot = dat.shape[0]
