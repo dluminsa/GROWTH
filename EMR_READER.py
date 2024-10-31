@@ -1395,6 +1395,7 @@ def extract():
                         return dat                  
                     preva = dfx[dfx['FACILITY']==facility] 
                     prev = preva['Q4 CUR'].sum()
+                    prev = int(prev)
                     #prev = int(preva.iloc[0,4])
                     #UK = pot- prev #- inn - newad
                     #dd = dead.shape[0]
