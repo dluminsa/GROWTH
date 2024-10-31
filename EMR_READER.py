@@ -748,7 +748,7 @@ def extract():
                         cirab = last3.copy()
                         lastq3 = last3.shape[0]
 
-                        cira1 = pd.concat([ciraa, cirab])
+                        cira1 = pd.concat(ciraa, cirab)
         
                         #POTENTIAL TXCUR ALTER... 
                         df[['Rmonth', 'Rday', 'Ryear']] = df[['Rmonth', 'Rday', 'Ryear']].apply(pd.to_numeric, errors='coerce')
