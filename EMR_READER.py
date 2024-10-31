@@ -1581,7 +1581,7 @@ def extract():
                                             data=csv_data,
                                             file_name=f"{facility} Q4_TXML.csv",
                                             mime="text/csv")
-                            with cola:
+                            with colb:
                                 dat = lastqt3()
                                 csv_data = dat.to_csv(index=False)
                                 tot = dat.shape[0]
