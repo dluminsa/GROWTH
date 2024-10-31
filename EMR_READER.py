@@ -748,6 +748,9 @@ def extract():
                         cirab = last3.copy()
                         lastq3 = last3.shape[0]
 
+                        st.write(ciraa)
+                        st.write(cirab)
+
                         cira1 = pd.concat(ciraa, cirab)
         
                         #POTENTIAL TXCUR ALTER... 
