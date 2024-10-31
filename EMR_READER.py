@@ -1493,6 +1493,7 @@ def extract():
                             #st.write(row1)
                             #try:
                             sheet1 = spreadsheet.worksheet("TX")
+                            st.write(row1)
                             sheet1.append_row(row1, value_input_option='RAW')
                                 
                             sheet2 = spreadsheet.worksheet("VL")
