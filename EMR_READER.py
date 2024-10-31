@@ -724,18 +724,32 @@ def extract():
                         oneyear = df.copy()
         
                         #df['GROUP'] = df['AG'].apply(ager)
-                        #LAST Q'S TXML ALTER
+                        # Q4'S TXML ALTER
                         df['Tyear'] = pd.to_numeric(df['Tyear'],errors='coerce')
-                        last = df[df['Tyear']==994].copy()
-                        last['Dyear'] = pd.to_numeric(last['Dyear'],errors='coerce')
-                        last = last[last['Dyear']==994].copy()
-                        last[['Ryear', 'Rmonth']] = last[['Ryear', 'Rmonth']].apply(pd.to_numeric, errors='coerce')
-                        last = last[((last['Ryear']==2024) & (last['Rmonth'].isin([6,7,8])))].copy()
-                        last[['Rmonth', 'Rday']] = last[['Rmonth', 'Rday']].apply(pd.to_numeric, errors='coerce')
-                        last = last[((last['Rmonth']>6) | ((last['Rmonth']==6) & (last['Rday']>2)))].copy()
-                        cira1 = last.copy()
-                        lastq = last.shape[0]
+                        last4 = df[df['Tyear']==994].copy()
+                        last4['Dyear'] = pd.to_numeric(last4['Dyear'],errors='coerce')
+                        last4 = last4[last4['Dyear']==994].copy()
+                        last4[['Ryear', 'Rmonth']] = last4[['Ryear', 'Rmonth']].apply(pd.to_numeric, errors='coerce')
+                        last4 = last4[((last4['Ryear']==2024) & (last4['Rmonth'].isin([6,7,8,9])))].copy()
+                        last4[['Rmonth', 'Rday']] = last4[['Rmonth', 'Rday']].apply(pd.to_numeric, errors='coerce')
+                        last4 = last4[((last4['Rmonth']<9) | ((last4['Rmonth']==9) & (last4['Rday']<3)))].copy()
+                        ciraa = last.copy()
+                        lastq4 = last4.shape[0]
 
+                        # Q3'S TXML ALTER
+                        df['Tyear'] = pd.to_numeric(df['Tyear'],errors='coerce')
+                        last3 = df[df['Tyear']==994].copy()
+                        last3['Dyear'] = pd.to_numeric(last3['Dyear'],errors='coerce')
+                        last3 = last3[last3['Dyear']==994].copy()
+                        last3[['Ryear', 'Rmonth']] = last3[['Ryear', 'Rmonth']].apply(pd.to_numeric, errors='coerce')
+                        last3 = last3[((last3['Ryear']==2024) & (last3['Rmonth'].isin([3,4,5])))].copy()
+                        last3[['Rmonth', 'Rday']] = last3[['Rmonth', 'Rday']].apply(pd.to_numeric, errors='coerce')
+                        last3 = last3[((last3['Rmonth']>3) | ((last3['Rmonth']==3) & (last3['Rday']>2)))].copy()
+                        cirab = last3.copy()
+                        lastq3 = last3.shape[0]
+
+                        cira1 = pd.concat([cira, cirab])
+        
                         #POTENTIAL TXCUR ALTER... 
                         df[['Rmonth', 'Rday', 'Ryear']] = df[['Rmonth', 'Rday', 'Ryear']].apply(pd.to_numeric, errors='coerce')
                         df25 = df[df['Ryear']>2024].copy()
@@ -1212,7 +1226,7 @@ def extract():
                         #     st.write(pot)
                         list1 = [lastq,pot,ti,txnew,rtt,true,dead,two,three,four,curr,M2,M3,M6, onappt ] #TX
                         
-                        list2 = [curr,el,wvl,nvl,two,Lel, lnvl,lwvl, newactive,wvla,nvla,newactive6,wvla6,nvla6] #VL
+                        list2 = [curr,el,wvl,nvl,two,Lel, lnvl,lwvl, newactive,wvla,nvla,newactive6,wvla6,nvla6,last3] #VL
                         
                         list3 = [newtotal, orig,newti,deadnew,outnew, newlost,netnew,newactive,rete,
                                      newtotal6, orig6,newti6,deadnew6,outnew6,newlost6,netnew6, newactive6,rete6,
