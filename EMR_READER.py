@@ -733,7 +733,7 @@ def extract():
                         last4 = last4[((last4['Ryear']==2024) & (last4['Rmonth'].isin([6,7,8,9])))].copy()
                         last4[['Rmonth', 'Rday']] = last4[['Rmonth', 'Rday']].apply(pd.to_numeric, errors='coerce')
                         last4 = last4[((last4['Rmonth']<9) | ((last4['Rmonth']==9) & (last4['Rday']<3)))].copy()
-                        ciraa = last.copy()
+                        ciraa = last4.copy()
                         lastq4 = last4.shape[0]
 
                         # Q3'S TXML ALTER
