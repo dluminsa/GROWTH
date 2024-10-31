@@ -1227,7 +1227,7 @@ def extract():
                             #rete1 = f"{rete1} %"
                         # if st.session_state.reader:
                         #     st.write(pot)
-                        list1 = [lastq4,pot,ti,txnew,rtt,true,dead,two,three,four,curr,M2,M3,M6, onappt,last3] #TX
+                        list1 = [lastq4,pot,ti,txnew,rtt,true,dead,two,three,four,curr,M2,M3,M6, onappt,lastq3] #TX
                         
                         list2 = [curr,el,wvl,nvl,two,Lel, lnvl,lwvl, newactive,wvla,nvla,newactive6,wvla6,nvla6] #VL
                         
