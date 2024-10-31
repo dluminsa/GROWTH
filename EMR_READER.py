@@ -1491,24 +1491,24 @@ def extract():
                     
                     if submit:
                             #st.write(row1)
-                            try:
-                                sheet1 = spreadsheet.worksheet("TX")
-                                sheet1.append_row(row1, value_input_option='RAW')
+                            #try:
+                            sheet1 = spreadsheet.worksheet("TX")
+                            sheet1.append_row(row1, value_input_option='RAW')
                                 
-                                sheet2 = spreadsheet.worksheet("VL")
-                                sheet2.append_row(row2, value_input_option='RAW')
+                            sheet2 = spreadsheet.worksheet("VL")
+                            sheet2.append_row(row2, value_input_option='RAW')
                                 
-                                sheet3 = spreadsheet.worksheet("YEARS")
-                                sheet4 = spreadsheet.worksheet("THREEO")
-                                sheet5 = spreadsheet.worksheet("CIRA")
-                                sheet3.append_row(row3, value_input_option='RAW')
-                                sheet4.append_row(row4, value_input_option='RAW')
-                                sheet5.append_row(row5, value_input_option='RAW')
-                                st.session_state.submited = True
-                            except Exception as e:
-                                # Print the error message
-                                st.write(f"ERROR: {e}")
-                                st.stop()  # Stop the Streamlit app here to let the user manually retry     
+                            sheet3 = spreadsheet.worksheet("YEARS")
+                            sheet4 = spreadsheet.worksheet("THREEO")
+                            sheet5 = spreadsheet.worksheet("CIRA")
+                            sheet3.append_row(row3, value_input_option='RAW')
+                            sheet4.append_row(row4, value_input_option='RAW')
+                            sheet5.append_row(row5, value_input_option='RAW')
+                            st.session_state.submited = True
+                            # except Exception as e:
+                            #     # Print the error message
+                            #     st.write(f"ERROR: {e}")
+                            #     st.stop()  # Stop the Streamlit app here to let the user manually retry     
                     else:
                             st.write('FIRST SUBMIT TO SEE LINELISTS AND SUMMARY') 
                             st.markdown(f'**YOU HAVE SELECTED {district} AS THE DISTRICT AND {facility} AS THE FACILITY**')
