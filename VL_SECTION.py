@@ -88,13 +88,13 @@ if not CLUSTER:
 
 else:
     dfrep['CLUSTER'] = dfrep['CLUSTER'].astype(str)
-    dfrep2 = dfrep[dfrep['CLUSTER'].isin(CLUSTER)]
+    dfrep2 = dfrep[dfrep['CLUSTER'].isin(CLUSTER)].copy()
 
     dftx['CLUSTER'] = dftx['CLUSTER'].astype(str)
-    dftx2 = dftx[dftx['CLUSTER'].isin(CLUSTER)]
+    dftx2 = dftx[dftx['CLUSTER'].isin(CLUSTER)].copy()
     
     water['CLUSTER'] = water['CLUSTER'].astype(str)
-    water2 = water[water['CLUSTER'].isin(CLUSTER)]
+    water2 = water[water['CLUSTER'].isin(CLUSTER)].copy()
 
 district = st.sidebar.multiselect('**CHOOSE A DISTRICT**', dfrep2['DISTRICT'].unique(), key='b')
 if not district:
@@ -103,13 +103,13 @@ if not district:
     water3 = water2.copy()
 else:
     dfrep2['DISTRICT'] = dfrep2['DISTRICT'].astype(str)
-    dfrep3 = dfrep2[dfrep2['DISTRICT'].isin(district)]
+    dfrep3 = dfrep2[dfrep2['DISTRICT'].isin(district)].copy()
 
     dftx2['DISTRICT'] = dftx2['DISTRICT'].astype(str)
-    dftx3 = dftx2[dftx2['DISTRICT'].isin(district)]
+    dftx3 = dftx2[dftx2['DISTRICT'].isin(district)].copy()
     
     water2['DISTRICT'] = water2['DISTRICT'].astype(str)
-    water3 = water2[water2['DISTRICT'].isin(district)]
+    water3 = water2[water2['DISTRICT'].isin(district)].copy()
 
 facility = st.sidebar.multiselect('**CHOOSE A FACILITY**', dfrep3['FACILITY'].unique(), key='c')
 if not facility:
@@ -117,9 +117,9 @@ if not facility:
     dftx4 = dftx3.copy()
     water4 = water3.copy()
 else:
-    dfrep4 = dfrep3[dfrep3['FACILITY'].isin(facility)]
-    dftx4 = dftx3[dftx3['FACILITY'].isin(facility)]
-    water4 = water3[water3['FACILITY'].isin(facility)]
+    dfrep4 = dfrep3[dfrep3['FACILITY'].isin(facility)].copy()
+    dftx4 = dftx3[dftx3['FACILITY'].isin(facility)].copy()
+    water4 = water3[water3['FACILITY'].isin(facility)].copy()
 
 
 # Base DataFrame to filter
@@ -129,15 +129,15 @@ water = water4.copy()
 
 # Apply filters based on selected criteria
 if CLUSTER:
-    dfrep = dfrep[dfrep['CLUSTER'].isin(CLUSTER)]
-    dftx = dftx[dftx['CLUSTER'].isin(CLUSTER)]
+    dfrep = dfrep[dfrep['CLUSTER'].isin(CLUSTER)].copy()
+    dftx = dftx[dftx['CLUSTER'].isin(CLUSTER)].copy()
 
 if district:
-    dfrep = dfrep[dfrep['DISTRICT'].isin(district)]
-    dftx = dftx[dftx['DISTRICT'].isin(district)]
+    dfrep = dfrep[dfrep['DISTRICT'].isin(district)].copy()
+    dftx = dftx[dftx['DISTRICT'].isin(district)].copy()
 if facility:
-    dfrep = dfrep[dfrep['FACILITY'].isin(facility)]
-    dftx = dftx[dftx['FACILITY'].isin(facility)]
+    dfrep = dfrep[dfrep['FACILITY'].isin(facility)].copy()
+    dftx = dftx[dftx['FACILITY'].isin(facility)].copy()
 # #HIGHEST TXML 
 
 st.divider()
