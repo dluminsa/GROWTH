@@ -2,6 +2,7 @@ plotly
 openpyxl
 google-auth
 oauth2client
+gspread
 st-gsheets-connection
 git+https://github.com/streamlit/gsheets-connection
 streamlit
