@@ -30,7 +30,7 @@ cola.write(f"**DATE TODAY:    {todayd}**")
 colb.write(f"**CURRENT WEEK:    {week}**")
 dd = int(week)
 k = int(wk)
-st.warning('***CURRENT DATA IS FOR DEMONSTRATION ONLY, WILL BE REMOVED AFTER ROLLING OUT THE DASHBOARD**')
+#st.warning('***CURRENT DATA IS FOR DEMONSTRATION ONLY, WILL BE REMOVED AFTER ROLLING OUT THE DASHBOARD**')
 
 if 'tx' not in st.session_state:     
      try:
