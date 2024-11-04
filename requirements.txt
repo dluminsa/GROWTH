@@ -1,9 +1,9 @@
-plotly
-openpyxl
-google-auth
-oauth2client
-st-gsheets-connection
-git+https://github.com/streamlit/gsheets-connection
+#plotly
+#openpyxl
+#google-auth
+#oauth2client
+#st-gsheets-connection
+#git+https://github.com/streamlit/gsheets-connection
 streamlit
 pandas
 numpy
