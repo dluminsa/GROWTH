@@ -697,7 +697,7 @@ with colu:
 st.divider()
 st.divider()
 highest = water[water['TWO']>99].copy()
-highest = water[water['TWO']<200]
+highest = highest[highest['TWO']<200]
 
 highest = highest.sort_values(by=['TWO'])#, ascending=False)
 highesta = highest.shape[0]
