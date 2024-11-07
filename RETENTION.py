@@ -652,12 +652,57 @@ with coly:
 #############################################################################################
 # #HIGHEST TXML 
 st.divider()
-highest = water[water['TWO']>100]
+highest = water[water['TWO']>299]
 
 highest = highest.sort_values(by=['TWO'])#, ascending=False)
 highesta = highest.shape[0]
 
-highesty = water[water['TWO']<101]
+highesty = water[water['TWO']<300]
+highesty = highesty[highesty['TWO']>199]
+highestb = highesty.sort_values(by=['TWO'], ascending=False)
+highestb = highestb.shape[0]
+# highestb = highest[highest['WEEK']==m]
+
+coly, colu = st.columns(2)
+with coly:
+    if highesta ==0:
+        st.warning('**FACILITY SELECTED IS NOT AMONG**')
+        pass
+    else:
+        figa = px.bar(
+        highest,
+        x='TWO',
+        y='FACILITY',
+        orientation='h',
+        title='FACILITIES WITH >300 MISSED APPTS',
+        labels={'TWO': 'CLIENTS MISSED', 'FACILITY': 'Facility'}
+            )
+        figa.update_traces(marker_color='#be7869')
+        st.plotly_chart(figa, use_container_width=True)
+with colu:
+    if highestb ==0:
+        st.write('**FACILITY SELECTED IS NOT AMONG**')
+        pass
+    else:
+        figa = px.bar(
+        highesty,
+        x='TWO',
+        y='FACILITY',
+        orientation='h',
+        title='FACILITIES WITH 200-300 MISSED APPTS',
+        labels={'TWO': 'CLIENTS MISSED', 'FACILITY': 'Facility'}
+        )
+        figa.update_traces(marker_color='green')
+        st.plotly_chart(figa, use_container_width=True)
+st.divider()
+st.divider()
+highest = water[water['TWO']>99]
+highest = water[water['TWO']<200]
+
+highest = highest.sort_values(by=['TWO'])#, ascending=False)
+highesta = highest.shape[0]
+
+highesty = water[water['TWO']<100]
 highesty = highesty[highesty['TWO']>49]
 highestb = highesty.sort_values(by=['TWO'], ascending=False)
 highestb = highestb.shape[0]
@@ -674,7 +719,7 @@ with coly:
         x='TWO',
         y='FACILITY',
         orientation='h',
-        title='FACILITIES WITH >100 MISSED APPTS',
+        title='FACILITIES WITH 100-200 MISSED APPTS',
         labels={'TWO': 'CLIENTS MISSED', 'FACILITY': 'Facility'}
             )
         figa.update_traces(marker_color='#be7869')
