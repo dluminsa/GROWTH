@@ -696,7 +696,7 @@ with colu:
         st.plotly_chart(figa, use_container_width=True)
 st.divider()
 st.divider()
-highest = water[water['TWO']>99].cope
+highest = water[water['TWO']>99].copy()
 highest = water[water['TWO']<200]
 
 highest = highest.sort_values(by=['TWO'])#, ascending=False)
