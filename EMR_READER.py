@@ -65,7 +65,7 @@ def extract():
     st.markdown('**AFTER, SAVE THE EXTRACT AS an XLSX BEFORE YOU PROCEED, Check User manual for further guidance**')
     
     file = st.file_uploader("Upload your EMR extract here", type=['xlsx'])
-    wb = load_workbooksa(file)
+    wb = load_workbook(file)
     sheets = wb.sheetnames
     if len(sheets)>1:
         st. warining('THIS EXTRACT HAS MULTIPLE SHEETS, I CAN NOT TELL WHICH ONE TO READ')
