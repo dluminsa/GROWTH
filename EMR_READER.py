@@ -71,6 +71,7 @@ def extract():
         st. warning('THIS EXTRACT HAS MULTIPLE SHEETS, I CAN NOT TELL WHICH ONE TO READ')
         time.sleep(3)
         st.info('DELETE ALL THE SHEETS AND REMAIN WITH ONE THAT HAS THE EVER ENROLLED')
+        st.stop()
     else:
         pass
     if 'submited' not in st.session_state:
