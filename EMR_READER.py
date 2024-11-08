@@ -6,7 +6,6 @@ import gspread
 from openpyxl import load_workbook
 from pathlib import Path
 import traceback
-dsfsf
 import time
 from google.oauth2.service_account import Credentials
 from oauth2client.service_account import ServiceAccountCredentials
@@ -66,7 +65,7 @@ def extract():
     st.markdown('**AFTER, SAVE THE EXTRACT AS an XLSX BEFORE YOU PROCEED, Check User manual for further guidance**')
     
     file = st.file_uploader("Upload your EMR extract here", type=['xlsx'])
-    wb = load_workbook(file)
+    wb = load_workbooksa(file)
     sheets = wb.sheetnames
     if len(sheets)>1:
         st. warining('THIS EXTRACT HAS MULTIPLE SHEETS, I CAN NOT TELL WHICH ONE TO READ')
