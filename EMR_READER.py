@@ -68,7 +68,7 @@ def extract():
     wb = load_workbook(file)
     sheets = wb.sheetnames
     if len(sheets)>1:
-        st. warining('THIS EXTRACT HAS MULTIPLE SHEETS, I CAN NOT TELL WHICH ONE TO READ')
+        st. warning('THIS EXTRACT HAS MULTIPLE SHEETS, I CAN NOT TELL WHICH ONE TO READ')
         time.sleep(3)
         st.info('DELETE ALL THE SHEETS AND REMAIN WITH ONE THAT HAS THE EVER ENROLLED')
     else:
