@@ -45,8 +45,8 @@ def extract():
         st.session_state.submited =False
     if 'df' not in st.session_state:
         st.session_state.df = None
-    if 'fac' not in st.session_state:
-        st.session_state.fac = None
+    # if 'fac' not in st.session_state:
+    #     st.session_state.fac = None
     if 'reader' not in st.session_state:
         st.session_state.reader =False#
     #ext = None
@@ -1175,6 +1175,8 @@ def extract():
                         #st.write(newlost)
                         fact = pot-lastq4
                         if fact > 2:
+                            st.write(pot)
+                            st.write(lastq4)
                             st.warning('THE POTENTIAL TX CURR IS LESS THAN THE Q4 CURR, WHICH MEANS AN ERROR WITH THIS EXTRACT')
                             st.info('SHARE THIS WITH YOUR M AND E, TL OR TWG FOR MANUAL FILTERING')
                             err = 'ER'
@@ -1249,7 +1251,7 @@ def extract():
                 if not facility:
                     st.stop()
                 else:
-                    facy = facility
+                    #facy = facility
                     pass
         
     if st.session_state.reader:# and st.session_state.df:
