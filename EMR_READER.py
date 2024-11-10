@@ -39,8 +39,24 @@ def extract():
     #st.markdown(html_table, unsafe_allow_html=True)
     st.markdown('**AFTER, SAVE THE EXTRACT AS an XLSX BEFORE YOU PROCEED, Check User manual for further guidance**')
     
-    file = st.file_uploader("Upload your EMR extract here", type=['xlsx'])    
+    file = st.file_uploader("Upload your EMR extract here", type=['xlsx']) 
 
+    if file is not None:   
+        if 'fd' not in st.session_state:
+            name = os.path.basename(file).split('.')[0]
+            namey = name
+            st.session_state.fd = name
+        if str(namey) != str(st.session_state.fd):
+                #st.info(f'DATA FOR {facy} NOT SUBMITTED')
+                st.session_state.submited = False
+                st.cache_data.clear()
+                st.cache_resource.clear()
+                st.session_state.submited =False
+                st.session_state.df = None
+                st.session_state.reader =False#
+                time.sleep(1)
+                st.rerun()
+            
     if 'submited' not in st.session_state:
         st.session_state.submited =False
     if 'df' not in st.session_state:
@@ -1247,7 +1263,7 @@ def extract():
                            st.session_state.fac = facility
                     pass
                     if str(facy) != str(st.session_state.fac):
-                            st.info(f'DATA FOR {facy} NOT SUBMITTED')
+                            #st.info(f'DATA FOR {facy} NOT SUBMITTED')
                             st.session_state.submited = False
                             st.session_state.fac = facy
                             st.cache_data.clear()
