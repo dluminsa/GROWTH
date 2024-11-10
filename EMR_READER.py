@@ -1256,6 +1256,7 @@ def extract():
                             st.session_state.df = None
                             st.session_state.reader =False#
                             time.sleep(1)
+                            st.rerun()
         
     if st.session_state.reader:# and st.session_state.df:
                     @st.cache_data
