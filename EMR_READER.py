@@ -40,15 +40,16 @@ def extract():
     st.markdown('**AFTER, SAVE THE EXTRACT AS an XLSX BEFORE YOU PROCEED, Check User manual for further guidance**')
     
     file = st.file_uploader("Upload your EMR extract here", type=['xlsx'])
-    wb = load_workbook(file)
-    sheets = wb.sheetnames
-    if len(sheets)>1:
-        st. warning('THIS EXTRACT HAS MULTIPLE SHEETS, I CAN NOT TELL WHICH ONE TO READ')
-        time.sleep(3)
-        st.info('DELETE ALL THE OTHER SHEETS AND REMAIN WITH ONE THAT HAS THE EVER ENROLLED')
-        st.stop()
-    else:
-        pass
+    if file is not None:    
+        wb = load_workbook(file)
+        sheets = wb.sheetnames
+        if len(sheets)>1:
+            st. warning('THIS EXTRACT HAS MULTIPLE SHEETS, I CAN NOT TELL WHICH ONE TO READ')
+            time.sleep(3)
+            st.info('DELETE ALL THE OTHER SHEETS AND REMAIN WITH ONE THAT HAS THE EVER ENROLLED')
+            st.stop()
+        else:
+            pass
     if 'submited' not in st.session_state:
         st.session_state.submited =False
     if 'df' not in st.session_state:
