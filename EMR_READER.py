@@ -3,8 +3,6 @@ import streamlit as st
 import os
 import numpy as np
 import gspread
-dffff
-dddd
 from openpyxl import load_workbook
 from pathlib import Path
 import traceback
