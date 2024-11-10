@@ -45,15 +45,14 @@ def extract():
         if 'fd' not in st.session_state:
             fileN = file.name
             name = os.path.basename(fileN).split('.')[0]
-            namey = name
             st.session_state.fd = name
         else:
             pass
     else:
         pass
     if file is not None: 
-       st.write('ME')
-       st.write(st.session_state.fd)
+       fileN = file.name
+       namey = os.path.basename(fileN).split('.')[0]
        if str(namey) != str(st.session_state.fd):
                 #st.info(f'DATA FOR {facy} NOT SUBMITTED')
                 st.session_state.submited = False
