@@ -1520,7 +1520,9 @@ def extract():
                             st.write('BE SURE OF THE ABOVE SELECTIONS BEFORE SUBMITTING')                     
                     
                     if not st.session_state.submited:
-                        st.stop()      
+                        st.stop()  
+                    if str(facy) != str(st.session_state.fac):
+                        st.stop()
                     if st.session_state.submited:
                             st.success('**SUBMITTED, To upload another excel, first refresh this page, or open the link afresh**')
                             st.divider()
