@@ -1364,6 +1364,7 @@ def extract():
                     fact = pot-prev
                     if fact < 2:
                             st.warning('THE POTENTIAL TX CURR IS LESS THAN THE Q4 CURR, WHICH MEANS AN ERROR WITH THIS EXTRACT')
+                            time.sleep(1)
                             st.info('SHARE THIS WITH YOUR M AND E, TL OR TWG FOR MANUAL FILTERING')
                             err = 'ER'
                             time.sleep(3)
@@ -1474,6 +1475,7 @@ def extract():
                                 st.session_state.submited =False
                                 st.session_state.df = None
                                 st.session_state.reader =False#
+                                time.sleep(1)
                                 st.warning('YOU CHANGED THE FACILITY NAME OR UPLOADED A NEW EXTRACT, WITHOUT REFRESHING THIS PAGE')
                                 time.sleep(1)
                                 st.write('REFRESH PAGE TO RESOLVE THIS')
@@ -1517,26 +1519,10 @@ def extract():
                             st.markdown(f'**YOU HAVE SELECTED {district} AS THE DISTRICT AND {facility} AS THE FACILITY**')
                             st.write('BE SURE OF THE ABOVE SELECTIONS BEFORE SUBMITTING')                     
                     
+                    if not st.session_state.submited:
+                        st.stop()      
                     if st.session_state.submited:
                             st.success('**SUBMITTED, To upload another excel, first refresh this page, or open the link afresh**')
-                            #st.info('To upload another excel, first refresh this page, or open the link afresh')                    
-                            # @st.cache_data
-                            # def lastfac():
-                            #     usedf = facility
-                            #     return usedf
-                            # facyd = lastfac()
-                            # st.write(facy) 
-                            # st.write(facyd)
-                            # if facy != facyd:
-                            #     st.info(f'YOU HAVE SUBMITTED DATA FOR {facyd} DURING THIS SESSION')
-                            #     st.warning('YOU WERE SUPPOSED TO REFRESH THIS PAGE BEFORE CHANGING FACILITY NAME OR UPLOADING A NEW EXTRACT')
-                            #     st.info('THIS PROGRAM WILL RESET SO THAT YOU CAN UPLOAD THIS NEW EXTRACT')
-                            #     time.sleep(3)
-                            #     st.markdown("""
-                            #             <meta http-equiv="refresh" content="0">
-                            #                 """, unsafe_allow_html=True)
-                            # else:
-                            #     pass
                             st.divider()
                             st.write(f"<h6><b>DOWNLOAD LINELISTS FROM HERE</b></h6>", unsafe_allow_html=True)
                             cola, colb, colc = st.columns(3)
