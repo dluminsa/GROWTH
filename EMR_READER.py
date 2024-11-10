@@ -46,6 +46,10 @@ def extract():
             name = os.path.basename(file).split('.')[0]
             namey = name
             st.session_state.fd = name
+        else:
+            pass
+    else:
+        pass
         if str(namey) != str(st.session_state.fd):
                 #st.info(f'DATA FOR {facy} NOT SUBMITTED')
                 st.session_state.submited = False
