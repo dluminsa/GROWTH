@@ -1477,7 +1477,7 @@ def extract():
                                 time.sleep(2)
                                 st.info(f'DATA FOR {facy} NOT SUBMITTED')
                                 st.write('REFRESH PAGE TO RESOLVE THIS')
-                                st. write(IF YO DO NOT REFRESH THIS PAGE WILL RESET AFTER 10 SECONDS IN ORDER FOR YOU TO RE-UPLOAD THIS NEW EXTRACT')
+                                st. write('IF YO DO NOT REFRESH THIS PAGE WILL RESET AFTER 10 SECONDS IN ORDER FOR YOU TO RE-UPLOAD THIS NEW EXTRACT')
                                 st.session_state.fac = None
                                 time.sleep(3)
                                 
