@@ -1466,15 +1466,22 @@ def extract():
                     
                     if submit:
                             if str(facy) != str(st.session_state.fac):
-                                st.warning('YOU CHANGED THE FACILITY NAME OR UPLOADED A NEW EXTRACT, BUT YOU HAD TO REFRESH THE PAGE BEFORE DOING SO')
-                                time.sleep(3)
+                                st.session_state.submited = False
+                                st.cache_data.clear()
+                                st.cache_resource.clear()
+                                st.session_state.submited =False
+                                st.session_state.df = None
+                                st.session_state.reader =False#
+                                st.warning('YOU CHANGED THE FACILITY NAME OR UPLOADED A NEW EXTRACT, WITHOUY REFRESHING THIS PAGE')
+                                time.sleep(2)
                                 st.info(f'DATA FOR {facy} NOT SUBMITTED, THIS PAGE WILL RESET IN ORDER FOR YOU TO RE-UPLOAD THIS NEW EXTRACT')
                                 time.sleep(3)
-                                st.write('RELOADING PAGE')
-                                time.sleep(3)
-                                st.markdown("""
-                                       <meta http-equiv="refresh" content="0">
-                                            """, unsafe_allow_html=True)
+                                st.write('PRESS SUBMIT AGAIN TO RESOLVE THIS')
+                                st.stop()
+                                # time.sleep(3)
+                                # st.markdown("""
+                                #        <meta http-equiv="refresh" content="0">
+                                #             """, unsafe_allow_html=True)
                             try:
                                 sheet1 = spreadsheet.worksheet("TX")
                                 #st.write(row1)
