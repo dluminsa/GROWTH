@@ -1173,16 +1173,6 @@ def extract():
                         newactive1 = active1.shape[0]
                         newlost1 = lostn1.shape[0]
                         #st.write(newlost)
-                        fact = pot-lastq4
-                        if fact > 2:
-                            st.write(pot)
-                            st.write(lastq4)
-                            st.warning('THE POTENTIAL TX CURR IS LESS THAN THE Q4 CURR, WHICH MEANS AN ERROR WITH THIS EXTRACT')
-                            st.info('SHARE THIS WITH YOUR M AND E, TL OR TWG FOR MANUAL FILTERING')
-                            err = 'ER'
-                            time.sleep(3)
-                        else:
-                            err = 'GD'
                         #ret = newtotal - newlost
                         if netnew1 == 0:
                             rete1 = 0
@@ -1368,6 +1358,16 @@ def extract():
                         return dat                  
                     preva = dfx[dfx['FACILITY']==facility] 
                     prev = preva['Q4 CUR'].sum()
+                    fact = pot-preva
+                    if fact < 2:
+                            st.write(pot)
+                            st.write(lastq4)
+                            st.warning('THE POTENTIAL TX CURR IS LESS THAN THE Q4 CURR, WHICH MEANS AN ERROR WITH THIS EXTRACT')
+                            st.info('SHARE THIS WITH YOUR M AND E, TL OR TWG FOR MANUAL FILTERING')
+                            err = 'ER'
+                            time.sleep(3)
+                    else:
+                            err = 'GD'
                     prev = int(prev)
                     #prev = int(preva.iloc[0,4])
                     #UK = pot- prev #- inn - newad
