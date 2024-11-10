@@ -1249,7 +1249,6 @@ def extract():
                     st.stop()
                 else:
                     facy = facility
-                    st.session_state.fac = facility
                     pass
         
     if st.session_state.reader:# and st.session_state.df:
@@ -1490,10 +1489,15 @@ def extract():
                     if st.session_state.submited:
                             st.success('**SUBMITTED, To upload another excel, first refresh this page, or open the link afresh**')
                             #st.info('To upload another excel, first refresh this page, or open the link afresh')
+                            @st.cache_data
+                            def lastfac():
+                                usedf = facility
+                                return usedf
+                            facyd = lastfac()
                             st.write(facy) 
-                            st.write(st.session_state.fac)
-                            if facy != st.session_state.fac:
-                                st.info(f'YOU HAVE SUBMITTED DATA FOR {st.session_state.fac} DURING THIS SESSION')
+                            st.write(facyd)
+                            if facy != facyd:
+                                st.info(f'YOU HAVE SUBMITTED DATA FOR {facyd} DURING THIS SESSION')
                                 st.warning('YOU WERE SUPPOSED TO REFRESH THIS PAGE BEFORE CHANGING FACILITY NAME OR UPLOADING A NEW EXTRACT')
                                 st.info('THIS PROGRAM WILL RESET SO THAT YOU CAN UPLOAD THIS NEW EXTRACT')
                                 time.sleep(3)
