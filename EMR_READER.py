@@ -1468,7 +1468,7 @@ def extract():
                     
                     if submit:
                             if str(facy) != str(st.session_state.fac):
-                                st.stop..
+                                st.stop()
                                 st.info(f'DATA FOR {facy} NOT SUBMITTED')
                                 st.session_state.submited = False
                                 st.cache_data.clear()
