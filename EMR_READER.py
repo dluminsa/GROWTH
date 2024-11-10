@@ -1490,7 +1490,7 @@ def extract():
                             st.success('**SUBMITTED, To upload another excel, first refresh this page, or open the link afresh**')
                             #st.info('To upload another excel, first refresh this page, or open the link afresh')
                             if facy != st.session_state.fac:
-                                st.info('YOU HAVE SUBMITTED DATA FOR {st.session_state.fac} DURING THIS SESSION')
+                                st.info(f'YOU HAVE SUBMITTED DATA FOR {st.session_state.fac} DURING THIS SESSION')
                                 st.warning('YOU WERE SUPPOSED TO REFRESH THIS PAGE BEFORE CHANGING FACILITY NAME OR UPLOADING A NEW EXTRACT')
                                 st.info('THIS PROGRAM WILL RESET SO THAT YOU CAN UPLOAD THIS NEW EXTRACT')
                                 time.sleep(3)
