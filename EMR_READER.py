@@ -46,7 +46,7 @@ def extract():
     if 'df' not in st.session_state:
         st.session_state.df = None
     # if 'fac' not in st.session_state:
-    #     st.session_state.fac = None
+    st.session_state.fac = None
     if 'reader' not in st.session_state:
         st.session_state.reader =False#
     #ext = None
@@ -1242,8 +1242,9 @@ def extract():
                     st.stop()
                 else:
                     facy = facility
-                    if 'fac' not in st.session_state:
-                            st.session_state.fac = facility
+                    st.session_state.fac = facility
+                    #if 'fac' not in st.session_state:
+                     #       st.session_state.fac = facility
                     pass
         
     if st.session_state.reader:# and st.session_state.df:
@@ -1474,10 +1475,12 @@ def extract():
                                 st.session_state.reader =False#
                                 st.warning('YOU CHANGED THE FACILITY NAME OR UPLOADED A NEW EXTRACT, WITHOUT REFRESHING THIS PAGE')
                                 time.sleep(2)
-                                st.info(f'DATA FOR {facy} NOT SUBMITTED, THIS PAGE WILL RESET IN ORDER FOR YOU TO RE-UPLOAD THIS NEW EXTRACT')
+                                st.info(f'DATA FOR {facy} NOT SUBMITTED')
+                                st.write('REFRESH PAGE TO RESOLVE THIS')
+                                st. write(IF YO DO NOT REFRESH THIS PAGE WILL RESET AFTER 10 SECONDS IN ORDER FOR YOU TO RE-UPLOAD THIS NEW EXTRACT')
                                 st.session_state.fac = None
                                 time.sleep(3)
-                                st.write('PRESS SUBMIT AGAIN TO RESOLVE THIS')
+                                
                                 st.stop()
                                 # time.sleep(3)
                                 # st.markdown("""
