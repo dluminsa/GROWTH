@@ -46,7 +46,7 @@ def extract():
     if 'df' not in st.session_state:
         st.session_state.df = None
     # if 'fac' not in st.session_state:
-    st.session_state.fac = None
+   # st.session_state.fac = None
     if 'reader' not in st.session_state:
         st.session_state.reader =False#
     #ext = None
@@ -1242,9 +1242,9 @@ def extract():
                     st.stop()
                 else:
                     facy = facility
-                    st.session_state.fac = facility
-                    #if 'fac' not in st.session_state:
-                     #       st.session_state.fac = facility
+                    #st.session_state.fac = facility
+                    if 'fac' not in st.session_state:
+                           st.session_state.fac = facility
                     pass
         
     if st.session_state.reader:# and st.session_state.df:
@@ -1467,6 +1467,7 @@ def extract():
                     
                     if submit:
                             if str(facy) != str(st.session_state.fac):
+                                st.info(f'DATA FOR {facy} NOT SUBMITTED')
                                 st.session_state.submited = False
                                 st.cache_data.clear()
                                 st.cache_resource.clear()
@@ -1474,18 +1475,24 @@ def extract():
                                 st.session_state.df = None
                                 st.session_state.reader =False#
                                 st.warning('YOU CHANGED THE FACILITY NAME OR UPLOADED A NEW EXTRACT, WITHOUT REFRESHING THIS PAGE')
-                                time.sleep(2)
-                                st.info(f'DATA FOR {facy} NOT SUBMITTED')
+                                time.sleep(1)
                                 st.write('REFRESH PAGE TO RESOLVE THIS')
                                 st. write('IF YO DO NOT REFRESH THIS PAGE WILL RESET AFTER 10 SECONDS IN ORDER FOR YOU TO RE-UPLOAD THIS NEW EXTRACT')
-                                st.session_state.fac = None
-                                time.sleep(3)
+                                time.sleep(2)
+                                progress_bar = st.progress(0)
+
+                                # Total duration in seconds
+                                total_duration = 10
                                 
-                                st.stop()
-                                # time.sleep(3)
-                                # st.markdown("""
-                                #        <meta http-equiv="refresh" content="0">
-                                #             """, unsafe_allow_html=True)
+                                # Run the progress bar over the total duration
+                                st.write("PAGE WILL REFRESH AFTER 10 SECONDS: ")
+                                for i in range(100):
+                                    time.sleep(total_duration / 100)  # Wait for a fraction of the total time
+                                    progress_bar.progress(i + 1)      # Update the progress
+                                time.sleep(1)
+                                st.markdown("""
+                                       <meta http-equiv="refresh" content="0">
+                                            """, unsafe_allow_html=True)
                             try:
                                 sheet1 = spreadsheet.worksheet("TX")
                                 #st.write(row1)
