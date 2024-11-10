@@ -53,7 +53,7 @@ def extract():
         pass
     if file is not None: 
        st.write('ME')
-       st.write(namey)
+       st.write(st.session_state.fd)
        if str(namey) != str(st.session_state.fd):
                 #st.info(f'DATA FOR {facy} NOT SUBMITTED')
                 st.session_state.submited = False
