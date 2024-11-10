@@ -1364,7 +1364,7 @@ def extract():
                             st.info('SHARE THIS WITH YOUR M AND E, TL OR TWG FOR MANUAL FILTERING')
                             err = 'ER'
                             time.sleep(3)
-                    else:
+                    else: err
                             err = 'GD'
                     prev = int(prev)
                     #prev = int(preva.iloc[0,4])
