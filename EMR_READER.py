@@ -50,8 +50,8 @@ def extract():
         else:
             pass
     else:
-        pass
-        if str(namey) != str(st.session_state.fd):
+        st.stop()
+    if str(namey) != str(st.session_state.fd):
                 #st.info(f'DATA FOR {facy} NOT SUBMITTED')
                 st.session_state.submited = False
                 st.cache_data.clear()
