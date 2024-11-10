@@ -3,6 +3,7 @@ import streamlit as st
 import os
 import numpy as np
 import gspread
+sss
 from openpyxl import load_workbook
 from pathlib import Path
 import traceback
@@ -1360,8 +1361,6 @@ def extract():
                     prev = preva['Q4 CUR'].sum()
                     fact = pot-preva
                     if fact < 2:
-                            st.write(pot)
-                            st.write(lastq4)
                             st.warning('THE POTENTIAL TX CURR IS LESS THAN THE Q4 CURR, WHICH MEANS AN ERROR WITH THIS EXTRACT')
                             st.info('SHARE THIS WITH YOUR M AND E, TL OR TWG FOR MANUAL FILTERING')
                             err = 'ER'
