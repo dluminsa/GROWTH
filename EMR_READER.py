@@ -39,17 +39,8 @@ def extract():
     #st.markdown(html_table, unsafe_allow_html=True)
     st.markdown('**AFTER, SAVE THE EXTRACT AS an XLSX BEFORE YOU PROCEED, Check User manual for further guidance**')
     
-    file = st.file_uploader("Upload your EMR extract here", type=['xlsx'])
-    if file is not None:    
-        wb = load_workbook(file)
-        sheets = wb.sheetnames
-        if len(sheets)>1:
-            st. warning('THIS EXTRACT HAS MULTIPLE SHEETS, I CAN NOT TELL WHICH ONE TO READ')
-            time.sleep(3)
-            st.info('DELETE ALL THE OTHER SHEETS AND REMAIN WITH ONE THAT HAS THE EVER ENROLLED')
-            st.stop()
-        else:
-            pass
+    file = st.file_uploader("Upload your EMR extract here", type=['xlsx'])    
+
     if 'submited' not in st.session_state:
         st.session_state.submited =False
     if 'df' not in st.session_state:
@@ -65,6 +56,15 @@ def extract():
         ext = os.path.basename(fileN).split('.')[1]
     #df = None
     if file is not None and not st.session_state.reader:
+        wb = load_workbook(file)
+        sheets = wb.sheetnames
+        if len(sheets)>1:
+            st. warning('THIS EXTRACT HAS MULTIPLE SHEETS, I CAN NOT TELL WHICH ONE TO READ')
+            time.sleep(3)
+            st.info('DELETE ALL THE OTHER SHEETS AND REMAIN WITH ONE THAT HAS THE EVER ENROLLED')
+            st.stop()
+        else:
+            pass
         if ext !='xlsx':
             st.write('Unsupported file format, first save the excel as xlsx and try again')
             st.stop()
