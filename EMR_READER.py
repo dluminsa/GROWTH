@@ -45,7 +45,8 @@ def extract():
         if 'fd' not in st.session_state:
             fileN = file.name
             name = os.path.basename(fileN).split('.')[0]
-            st.write(name)
+            st.write('ME')
+            st.write(namey)
             namey = name
             st.session_state.fd = name
         else:
