@@ -43,7 +43,8 @@ def extract():
 
     if file is not None:   
         if 'fd' not in st.session_state:
-            name = os.path.basename(file).split('.')[0]
+            fileN = file.name
+            name = os.path.basename(fileN).split('.')[0]
             namey = name
             st.session_state.fd = name
         else:
