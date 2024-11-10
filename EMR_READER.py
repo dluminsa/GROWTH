@@ -1174,6 +1174,7 @@ def extract():
                         newlost1 = lostn1.shape[0]
                         #st.write(newlost)
                         fact = pot-lastq4
+                        st.write(fact)
                         if fact < 2:
                             st.warning('THE POTENTIAL TX CURR IS LESS THAN THE Q4 CURR, WHICH MEANS AN ERROR WITH THIS EXTRACT')
                             st.info('SHARE THIS WITH YOUR M AND E, TL OR TWG FOR MANUAL FILTERING')
@@ -1489,6 +1490,7 @@ def extract():
                     if st.session_state.submited:
                             st.success('**SUBMITTED, To upload another excel, first refresh this page, or open the link afresh**')
                             #st.info('To upload another excel, first refresh this page, or open the link afresh')
+                        
                             @st.cache_data
                             def lastfac():
                                 usedf = facility
