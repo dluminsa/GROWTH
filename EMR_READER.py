@@ -1465,12 +1465,12 @@ def extract():
                         st.stop()
                     
                     if submit:
-                              if str(facy) != str(st.session_state.fac):
-                                   st.warning('YOU CHANGED THE FACILITY NAME OR UPLOADED A NEW EXTRACT, BUT YOU HAD TO REFRESH THE PAGE BEFORE DOING SO')
-                                   st.info(f'DATA FOR {facy} NOT SUBMITTED, THIS PAGE WILL RESET IN ORDER FOR YOU TO RE-UPLOAD THIS NEW EXTRACT')
-                                   st.write('RELOADING PAGE')
-                                   time.sleep(2)
-                                   st.markdown("""
+                            if str(facy) != str(st.session_state.fac):
+                                st.warning('YOU CHANGED THE FACILITY NAME OR UPLOADED A NEW EXTRACT, BUT YOU HAD TO REFRESH THE PAGE BEFORE DOING SO')
+                                st.info(f'DATA FOR {facy} NOT SUBMITTED, THIS PAGE WILL RESET IN ORDER FOR YOU TO RE-UPLOAD THIS NEW EXTRACT')
+                                st.write('RELOADING PAGE')
+                                time.sleep(2)
+                                st.markdown("""
                                        <meta http-equiv="refresh" content="0">
                                             """, unsafe_allow_html=True)
                             try:
