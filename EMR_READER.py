@@ -57,6 +57,7 @@ def extract():
                 #st.info(f'DATA FOR {facy} NOT SUBMITTED')
                 st.session_state.submited = False
                 st.cache_data.clear()
+                st.session_state.fd = namey
                 st.cache_resource.clear()
                 st.session_state.submited =False
                 st.session_state.df = None
