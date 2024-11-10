@@ -13,7 +13,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 
 # Clear cache at the very start of the app
-st.cache_data.clear()
+  st.cache_data.clear()
 st.cache_resource.clear()
 #sddd
 
