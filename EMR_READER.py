@@ -1490,25 +1490,24 @@ def extract():
                     
                     if st.session_state.submited:
                             st.success('**SUBMITTED, To upload another excel, first refresh this page, or open the link afresh**')
-                            #st.info('To upload another excel, first refresh this page, or open the link afresh')
-                        
-                            @st.cache_data
-                            def lastfac():
-                                usedf = facility
-                                return usedf
-                            facyd = lastfac()
-                            st.write(facy) 
-                            st.write(facyd)
-                            if facy != facyd:
-                                st.info(f'YOU HAVE SUBMITTED DATA FOR {facyd} DURING THIS SESSION')
-                                st.warning('YOU WERE SUPPOSED TO REFRESH THIS PAGE BEFORE CHANGING FACILITY NAME OR UPLOADING A NEW EXTRACT')
-                                st.info('THIS PROGRAM WILL RESET SO THAT YOU CAN UPLOAD THIS NEW EXTRACT')
-                                time.sleep(3)
-                                st.markdown("""
-                                        <meta http-equiv="refresh" content="0">
-                                            """, unsafe_allow_html=True)
-                            else:
-                                pass
+                            #st.info('To upload another excel, first refresh this page, or open the link afresh')                    
+                            # @st.cache_data
+                            # def lastfac():
+                            #     usedf = facility
+                            #     return usedf
+                            # facyd = lastfac()
+                            # st.write(facy) 
+                            # st.write(facyd)
+                            # if facy != facyd:
+                            #     st.info(f'YOU HAVE SUBMITTED DATA FOR {facyd} DURING THIS SESSION')
+                            #     st.warning('YOU WERE SUPPOSED TO REFRESH THIS PAGE BEFORE CHANGING FACILITY NAME OR UPLOADING A NEW EXTRACT')
+                            #     st.info('THIS PROGRAM WILL RESET SO THAT YOU CAN UPLOAD THIS NEW EXTRACT')
+                            #     time.sleep(3)
+                            #     st.markdown("""
+                            #             <meta http-equiv="refresh" content="0">
+                            #                 """, unsafe_allow_html=True)
+                            # else:
+                            #     pass
                             st.divider()
                             st.write(f"<h6><b>DOWNLOAD LINELISTS FROM HERE</b></h6>", unsafe_allow_html=True)
                             cola, colb, colc = st.columns(3)
