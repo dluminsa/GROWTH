@@ -17,11 +17,6 @@ st.cache_data.clear()
 st.cache_resource.clear()
 #sddd
 
-# st.set_page_config(
-#     page_title = 'EMR EXTRACT READER',
-#     page_icon =":bar_chart"
-#     )
-
 #st.header('CODE UNDER MAINTENANCE, TRY AGAIN TOMORROW')
 #st.stop()
 def extract():
@@ -39,26 +34,6 @@ def extract():
     st.image("BEFORE.png", caption="BEFORE")
     st.image("AFTER.png", caption="AFTER")
     
-    # # HTML Table
-    # html_table = """
-    # <table style="width:100%">
-    #   <tr>
-    #     <th >EMR COLUMN</th>
-    #     <th>RENAME TO:</th> 
-    #     <th>EMR COLUMN</th>
-    #     <th>RENAME TO:</th>
-    #   </tr>
-    # </table>
-    # """
-    # # Display the HTML table using markdown in Streamlit
-    # st.markdown(html_table, unsafe_allow_html=True)
-    # html_table = """
-    # <table style="width:100%">
-    #   <tr>
-    #     <th>AFTER, SAVE THIS EXTRACT AS an XLSX BEFORE YOU PROCEED</th>
-    #   </tr>
-    # </table>
-    # """
     
     # Display the HTML table using markdown in Streamlit
     #st.markdown(html_table, unsafe_allow_html=True)
@@ -78,6 +53,8 @@ def extract():
         st.session_state.submited =False
     if 'df' not in st.session_state:
         st.session_state.df = None
+    if 'fac' not in st.session_state:
+        st.session_state.fac = None
     if 'reader' not in st.session_state:
         st.session_state.reader =False#
     #ext = None
@@ -823,23 +800,7 @@ def extract():
                         dfRTTa['Fmonth'] = pd.to_numeric(dfRTTa['Fmonth'], errors='coerce') 
                         dfRTTa = dfRTTa[~dfRTTa['Fmonth'].isin([10,11,12])].copy() # ALTER
                         dfRTT = pd.concat([dfRTTa, dfRTTb])
-            
-                        # #BY ART START, To remove those that started ART in the Q
-                        # dfRTT['Ayear'] = pd.to_numeric(dfRTT['Ayear'], errors='coerce')
-                        # dfRTTa = dfRTT[dfRTT['Ayear']==2024].copy() #ALTER
-                        # dfRTTb = dfRTT[dfRTT['Ayear']!=2024].copy() #ALTER ##ALREADY REMOVED ABOVE
-                        # #BY ART START
-                        # dfRTTa['Amonth'] = pd.to_numeric(dfRTTa['Amonth'], errors='coerce') 
-                        # dfRTTa = dfRTTa[~dfRTTa['Amonth'].isin([10,11,12])].copy() # ALTER use <
-                        # dfRTT = pd.concat([dfRTTa, dfRTTb])
-                        # #BY TI DATE, To remove those that TI in the Q
-                        # dfRTT['Tiyear'] = pd.to_numeric(dfRTT['Tiyear'], errors='coerce')
-                        # dfRTTa = dfRTT[dfRTT['Tiyear']==2024].copy() #ALTER
-                        # dfRTTb = dfRTT[dfRTT['Tiyear']!=2024].copy() #ALTER
-                        # #BY TI  
-                        # dfRTTa['Timonth'] = pd.to_numeric(dfRTTa['Timonth'], errors='coerce') 
-                        # dfRTTa = dfRTTa[~dfRTTa['Timonth'].isin([7,8,9])].copy() # ALTER use <
-                        # dfRTT = pd.concat([dfRTTa, dfRTTb])
+        
             
                         #BY RD OBS DATE,  remove those that fall in the previous reporting Quarter
                         dfRTT['ROyear'] = pd.to_numeric(dfRTT['ROyear'], errors='coerce')
@@ -989,22 +950,6 @@ def extract():
                         lnvl = LNVL.shape[0]
                         lwvl = LWVL.shape[0]
                         totalvl = pd.concat([LNVL,NVL])
-        
-                        # #CIRA CUT OFF FOR A YEAR
-                        # oneyear[['Ryear', 'Rmonth']] = oneyear[['Ryear', 'Rmonth']].apply(pd.to_numeric, errors = 'coerce')
-                        # dfcira1 = oneyear[oneyear['Ryear']==2023].copy() #for 2023 ALTER
-                        # dfcira2 = oneyear[oneyear['Ryear']==2024].copy() 
-                        # dfcira1 = pd.to_numeric(dfcira1['Rmonth'], errors='coerce')
-                        # dfcira1 = dfcira1[dfcira1['Rmonth']>9].copy()  #Cut off for 1 year 
-        
-                        # dfcira2[['Rday', 'Rmonth']] = dfcira2[['Rday', 'Rmonth']].apply(pd.to_numeric, errors = 'coerce')
-                        # dfcira2 = dfcira2[((dfcira2['Rmonth'] <9) |((dfcira2['Rmonth'] ==9) & (dfcira2['Rday'] <3)))].copy()
-    
-                        # dfcira = pd.concat([dfcira1, dfcira2])
-                        # dfcira['Tyear'] = pd.to_numeric(dfcira['Tyear'], errors='coerce')
-                        # dfcira = dfcira[dfcira['Tyear']==994]
-                        # dfcira['Dyear'] = pd.to_numeric(dfcira['Dyear'], errors='coerce')
-                        # dfcira = dfcira[dfcira['Dyear']==994]
     
                         #EARLY RETENTION
                         #ONE YEAR COHORT
@@ -1227,7 +1172,13 @@ def extract():
                         newactive1 = active1.shape[0]
                         newlost1 = lostn1.shape[0]
                         #st.write(newlost)
-                                
+                        fact = pot-lastq4
+                        if fact < 2:
+                            st.warning('THE POTENTIAL TX CURR IS LESS THAN THE Q4 CURR, WHICH MEANS AN ERROR WITH THIS EXTRACT')
+                            st.info('SHARE THIS WITH YOUR M AND E, TL OR TWG FOR MANUAL FILTERING')
+                            err = 'ER'
+                        else:
+                            err = 'GD'
                         #ret = newtotal - newlost
                         if netnew1 == 0:
                             rete1 = 0
@@ -1238,7 +1189,7 @@ def extract():
                             #rete1 = f"{rete1} %"
                         # if st.session_state.reader:
                         #     st.write(pot)
-                        list1 = [lastq4,pot,ti,txnew,rtt,true,dead,two,three,four,curr,M2,M3,M6, onappt,lastq3] #TX
+                        list1 = [lastq4,pot,ti,txnew,rtt,true,dead,two,three,four,curr,M2,M3,M6, onappt,lastq3, err] #TX
                         
                         list2 = [curr,el,wvl,nvl,two,Lel, lnvl,lwvl, newactive,wvla,nvla,newactive6,wvla6,nvla6] #VL
                         
@@ -1296,8 +1247,10 @@ def extract():
                 if not facility:
                     st.stop()
                 else:
-                    # st.write(facility)
+                    facy = facility
+                    st.session_state.fac = facility
                     pass
+        
     if st.session_state.reader:# and st.session_state.df:
                     @st.cache_data
                     def lastqtr():
@@ -1536,6 +1489,16 @@ def extract():
                     if st.session_state.submited:
                             st.success('**SUBMITTED, To upload another excel, first refresh this page, or open the link afresh**')
                             #st.info('To upload another excel, first refresh this page, or open the link afresh')
+                            if facy != st.session_state.fac:
+                                st.info('YOU HAVE SUBMITTED DATA FOR {st.session_state.fac} DURING THIS SESSION')
+                                st.warning('YOU WERE SUPPOSED TO REFRESH THIS PAGE BEFORE CHANGING FACILITY NAME OR UPLOADING A NEW EXTRACT')
+                                st.info('THIS PROGRAM WILL RESET SO THAT YOU CAN UPLOAD THIS NEW EXTRACT')
+                                time.sleep(3)
+                                st.markdown("""
+                                        <meta http-equiv="refresh" content="0">
+                                            """, unsafe_allow_html=True)
+                            else:
+                                pass
                             st.divider()
                             st.write(f"<h6><b>DOWNLOAD LINELISTS FROM HERE</b></h6>", unsafe_allow_html=True)
                             cola, colb, colc = st.columns(3)
