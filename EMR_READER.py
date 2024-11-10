@@ -1241,7 +1241,9 @@ def extract():
                 if not facility:
                     st.stop()
                 else:
-                    #facy = facility
+                    facy = facility
+                    if 'fac' not in st.session_state:
+                            st.session_state.fac = facility
                     pass
         
     if st.session_state.reader:# and st.session_state.df:
@@ -1463,7 +1465,14 @@ def extract():
                         st.stop()
                     
                     if submit:
-                            #st.write(row1)
+                              if str(facy) != str(st.session_state.fac):
+                                   st.warning('YOU CHANGED THE FACILITY NAME OR UPLOADED A NEW EXTRACT, BUT YOU HAD TO REFRESH THE PAGE BEFORE DOING SO')
+                                   st.info(f'DATA FOR {facy} NOT SUBMITTED, THIS PAGE WILL RESET IN ORDER FOR YOU TO RE-UPLOAD THIS NEW EXTRACT')
+                                   st.write('RELOADING PAGE')
+                                   time.sleep(2)
+                                   st.markdown("""
+                                       <meta http-equiv="refresh" content="0">
+                                            """, unsafe_allow_html=True)
                             try:
                                 sheet1 = spreadsheet.worksheet("TX")
                                 #st.write(row1)
