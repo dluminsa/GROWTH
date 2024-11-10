@@ -1179,6 +1179,7 @@ def extract():
                             st.warning('THE POTENTIAL TX CURR IS LESS THAN THE Q4 CURR, WHICH MEANS AN ERROR WITH THIS EXTRACT')
                             st.info('SHARE THIS WITH YOUR M AND E, TL OR TWG FOR MANUAL FILTERING')
                             err = 'ER'
+                            time.sleep(3)
                         else:
                             err = 'GD'
                         #ret = newtotal - newlost
