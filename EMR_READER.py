@@ -1183,7 +1183,7 @@ def extract():
                             #rete1 = f"{rete1} %"
                         # if st.session_state.reader:
                         #     st.write(pot)
-                        list1 = [lastq4,pot,ti,txnew,rtt,true,dead,two,three,four,curr,M2,M3,M6, onappt,lastq3, err] #TX
+                        list1 = [lastq4,pot,ti,txnew,rtt,true,dead,two,three,four,curr,M2,M3,M6, onappt,lastq3] #TX
                         
                         list2 = [curr,el,wvl,nvl,two,Lel, lnvl,lwvl, newactive,wvla,nvla,newactive6,wvla6,nvla6] #VL
                         
@@ -1364,7 +1364,7 @@ def extract():
                             st.info('SHARE THIS WITH YOUR M AND E, TL OR TWG FOR MANUAL FILTERING')
                             err = 'ER'
                             time.sleep(3)
-                    else: err
+                    else: 
                             err = 'GD'
                     prev = int(prev)
                     #prev = int(preva.iloc[0,4])
@@ -1413,7 +1413,8 @@ def extract():
                         ciraactive.append(c)
                     #pppp = cactive.copy()
                     row5 = part + ciralost + ciraactive
-                    row1 = part + list1
+                    ell = list(err)
+                    row1 = part + list1 + ell
                 
                     row2 = part + list2
                 
