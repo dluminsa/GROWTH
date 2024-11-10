@@ -4,6 +4,7 @@ import os
 import numpy as np
 import gspread
 sdd
+dff
 from openpyxl import load_workbook
 from pathlib import Path
 import traceback
@@ -46,6 +47,7 @@ def extract():
         if 'fd' not in st.session_state:
             fileN = file.name
             name = os.path.basename(fileN).split('.')[0]
+            st.write(name)
             namey = name
             st.session_state.fd = name
         else:
