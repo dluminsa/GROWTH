@@ -1472,9 +1472,10 @@ def extract():
                                 st.session_state.submited =False
                                 st.session_state.df = None
                                 st.session_state.reader =False#
-                                st.warning('YOU CHANGED THE FACILITY NAME OR UPLOADED A NEW EXTRACT, WITHOUY REFRESHING THIS PAGE')
+                                st.warning('YOU CHANGED THE FACILITY NAME OR UPLOADED A NEW EXTRACT, WITHOUT REFRESHING THIS PAGE')
                                 time.sleep(2)
                                 st.info(f'DATA FOR {facy} NOT SUBMITTED, THIS PAGE WILL RESET IN ORDER FOR YOU TO RE-UPLOAD THIS NEW EXTRACT')
+                                st.session_state.fac = None
                                 time.sleep(3)
                                 st.write('PRESS SUBMIT AGAIN TO RESOLVE THIS')
                                 st.stop()
