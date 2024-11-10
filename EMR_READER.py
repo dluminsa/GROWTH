@@ -1358,7 +1358,7 @@ def extract():
                         return dat                  
                     preva = dfx[dfx['FACILITY']==facility] 
                     prev = preva['Q4 CUR'].sum()
-                    fact = pot-preva
+                    fact = pot-prev
                     if fact < 2:
                             st.warning('THE POTENTIAL TX CURR IS LESS THAN THE Q4 CURR, WHICH MEANS AN ERROR WITH THIS EXTRACT')
                             st.info('SHARE THIS WITH YOUR M AND E, TL OR TWG FOR MANUAL FILTERING')
