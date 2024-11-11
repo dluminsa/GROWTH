@@ -218,7 +218,7 @@ else:
         none = none.reset_index()
         none = none.drop(columns='index')
         disty = none['DISTRICT'].unique()
-        dyu = colb.selectbox('FILTER BY DISTRICT')
+        dyu = colb.selectbox('FILTER BY DISTRICT', disty, index=None)
         none['DISTRICT'] = none['DISTRICT'].astype(str)
         if not dyu:
              nonedis = none.copy()
