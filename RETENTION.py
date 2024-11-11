@@ -216,7 +216,7 @@ else:
     with st.expander('ClICK TO SEE PENDING FACILITIES'):
         cola, colb = st.columns(2)
         none = none.reset_index()
-        none = nond.drop(columns='index')
+        none = none.drop(columns='index')
         disty = none['DISTRICT'].unique()
         dyu = colb.selectbox('FILTER BY DISTRICT')
         none['DISTRICT'] = none['DISTRICT'].astype(str)
