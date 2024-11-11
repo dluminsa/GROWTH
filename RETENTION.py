@@ -223,7 +223,7 @@ else:
         if not dyu:
              nonedis = none.copy()
         else:
-             nonedis = none[none['DISTRICT'].isin(dyu)].copy()
+             nonedis = none[none['DISTRICT'] == dyu].copy()
              nonedis = nonedis.reset_index()
              nonedis = nonedis.drop(columns='index')
        
