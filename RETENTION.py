@@ -214,7 +214,20 @@ else:
     st.markdown(f"**{all} FACILITIES HAVEN'T REPORTED THIS WEEK**")
     st.markdown(f'**KALANGALA {kg}, WAKISO {wak}, BUKOMANSIMBI {b}, SEMBABULE {s}, KALUNGU {k}, MKA CITY {c}, MKA DISTRICT {d}, MPIGI {mpi}, BUTAMBALA {but}, GOMBA {gom},LYANTONDE {lya}, LWENGO {lwe}, KYOTERA {r}, RAKAI {r}**')
     with st.expander('ClICK TO SEE PENDING FACILITIES'):
-        st.dataframe(none)
+        cola, colb = st.columns(2)
+        none = none.reset_index()
+        none = nond.drop(columns='index')
+        disty = none['DISTRICT'].unique()
+        dyu = colb.selectbox('FILTER BY DISTRICT')
+        none['DISTRICT'] = none['DISTRICT'].astype(str)
+        if not dyu:
+             nonedis = none.copy()
+        else:
+             nonedis = none[none['DISTRICT'].isin(dyu)].copy()
+             nonedis = nonedis.reset_index()
+             nonedis = nonedis.drop(columns='index')
+       
+        st.dataframe(nonedis)
 #######################FILTERS
 clusters = dfrep['CLUSTER'].unique()
 weeks = dftx['SURGE'].unique()
