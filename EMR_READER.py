@@ -863,8 +863,8 @@ def extract():
             #######LOSSES. START FROM POTENTIAL CURR
                     #TRANSFER OUTS
                         df['Tyear'] = pd.to_numeric(df['Tyear'], errors='coerce')
-                        dfto = df[df['Ryear']==994].copy()
-                        dfnot = df[df['Ryear']!=994].copy()
+                        dfnot = df[df['Ryear']==994].copy()
+                        dfto = df[df['Ryear']!=994].copy()
                         wk = int(wk)
             
                         #FALSE TO OUTS BASED ON CURRENT WEEK
