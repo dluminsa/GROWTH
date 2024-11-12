@@ -212,7 +212,7 @@ if all ==0:
 else:
     st.divider()
     st.markdown(f"**{all} FACILITIES HAVEN'T REPORTED THIS WEEK**")
-    st.markdown(f'**KALANGALA {kg}, WAKISO {wak}, BUKOMANSIMBI {b}, SEMBABULE {s}, KALUNGU {k}, MKA CITY {c}, MKA DISTRICT {d}, MPIGI {mpi}, BUTAMBALA {but}, GOMBA {gom},LYANTONDE {lya}, LWENGO {lwe}, KYOTERA {r}, RAKAI {r}**')
+    st.markdown(f'**KALANGALA {kg}, WAKISO {wak}, BUKOMANSIMBI {b}, SEMBABULE {s}, KALUNGU {k}, MKA CITY {c}, MKA DISTRICT {d}, MPIGI {mpi}, BUTAMBALA {but}, GOMBA {gom},LYANTONDE {lya}, LWENGO {lwe}, KYOTERA {y}, RAKAI {r}**')
     with st.expander('ClICK TO SEE PENDING FACILITIES'):
         cola, colb = st.columns(2)
         none = none.reset_index()
