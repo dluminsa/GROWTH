@@ -636,7 +636,7 @@ melted2['SURGE'] = melted2['SURGE'].astype(int)
 melted2['SURGE'] = melted2['SURGE'].astype(str)
 
 fig2 = px.line(melted, x='SURGE', y='Total', color='INTERVAL', markers=True,
-              title='MISSED APPOINTMENTS', labels={'SURGE':'WEEK', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'})
+              title='MISSED APPOINTMENTS FOR MORE THAN 2, 3 OR 4 WEEKS', labels={'SURGE':'WEEK', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'})
 
 fig3 = px.line(melted2, x='SURGE', y='Total', color='INTERVAL', markers=True, color_discrete_sequence=['black','red', 'yellow'],
               title='RTT VS TO VS DEAD', labels={'SURGE':'WEEK', 'Total': 'No. of clients', 'INTERVALS': 'VARIABLES'})
