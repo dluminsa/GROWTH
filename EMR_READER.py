@@ -863,8 +863,8 @@ def extract():
             #######LOSSES. START FROM POTENTIAL CURR
                     #TRANSFER OUTS
                         df['Tyear'] = pd.to_numeric(df['Tyear'], errors='coerce')
-                        dfnot = df[df['Ryear']==994].copy()
-                        dfto = df[df['Ryear']!=994].copy()
+                        dfnot = df[df['Tyear']==994].copy()
+                        dfto = df[df['Tyear']!=994].copy()
                         wk = int(wk)
             
                         #FALSE TO OUTS BASED ON CURRENT WEEK
@@ -872,7 +872,7 @@ def extract():
                         dfw = dfto[((dfto['Ryear']>2024) | ((dfto['Ryear']==2024) & (dfto['RWEEK']>=wk)))].copy() #FALSE
                         false = dfw.shape[0]
                         dft = dfto[((dfto['Ryear']<2024) | ((dfto['Ryear']==2024) & (dfto['RWEEK']<wk)))].copy()  ##TRUE
-                        st.write(dfnot)
+                        
                         true = dft.shape[0]
                         #add the false back to txcur
                         df = pd.concat([dfnot,dfw]) #WILL USE THIS FOR ACTIVE LATER
