@@ -872,7 +872,7 @@ def extract():
                         dfw = dfto[((dfto['Ryear']>2024) | ((dfto['Ryear']==2024) & (dfto['RWEEK']>=wk)))].copy() #FALSE
                         false = dfw.shape[0]
                         dft = dfto[((dfto['Ryear']<2024) | ((dfto['Ryear']==2024) & (dfto['RWEEK']<wk)))].copy()  ##TRUE
-                        st.write(dfto)
+                        st.write(dft)
                         true = dft.shape[0]
                         #add the false back to txcur
                         df = pd.concat([dfnot,dfw]) #WILL USE THIS FOR ACTIVE LATER
