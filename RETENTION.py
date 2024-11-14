@@ -968,12 +968,12 @@ figM.for_each_trace(
 # figM.update_traces(line=dict(color='purple'), selector=dict(name='Q3'))
 
 # # Update layout for better appearance
-# figM.update_layout(
-#     width=800,  # Set the width of the plot
-#     height=400,  # Set the height of the plot
-#     xaxis=dict(showline=True, linewidth=1, linecolor='black'),  # Show x-axis line
-#     yaxis=dict(showline=True, linewidth=1, linecolor='black')   # Show y-axis line
-# )
+figM.update_layout(
+    width=800,  # Set the width of the plot
+    height=400,  # Set the height of the plot
+    xaxis=dict(showline=True, linewidth=1, linecolor='black'),  # Show x-axis line
+    yaxis=dict(showline=True, linewidth=1, linecolor='black')   # Show y-axis line
+)
 
 # Set x-axis to categorical
 figM.update_xaxes(type='category')
