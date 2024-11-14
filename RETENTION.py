@@ -931,7 +931,7 @@ with cold:
 ####TRACKING TXML
 st.info('**TRENDS IN TXML (FOR CLIENTS THAT WERE REPORTED AS TXML IN Q4 AND Q3 )**')
 grouped = dftx.groupby('SURGE').sum(numeric_only=True).reset_index()
-Y = ['TXML', 'Q3']
+Y = ['Q4 TXML', 'Q3 TXML']
 
 grouped_long = grouped.melt(id_vars='SURGE', value_vars=Y, 
                             var_name='Type', value_name='No. of clients')
@@ -945,27 +945,8 @@ figM = px.line(grouped_long,
                labels={'SURGE': 'WEEK', 'No. of clients': 'No. of clients'},
                markers=True)
 figM.for_each_trace(
-    lambda trace: trace.update(line=dict(color='green')) if trace.name == 'TXML' else trace.update(line=dict(color='purple'))
+    lambda trace: trace.update(line=dict(color='green')) if trace.name == 'Q4 TXML' else trace.update(line=dict(color='purple'))
 )
-
-
-
-# grouped['SURGE'] = grouped['SURGE'].astype(int)  # Ensure SURGE is integer
-# grouped['SURGE'] = grouped['SURGE'].astype(str)# Convert SURGE to string
-# Y = ['TXML', 'Q3']
-
-# # Create the line chart using Plotly Express
-# figM = px.line(grouped, 
-#                x='SURGE',
-#                y= Y,
-#                #color = ['green', 'purple'], 
-#                title='CLIENTS NOT RETURNED FROM Q4 AND Q3', 
-#                labels={'SURGE': 'WEEK', 'TXML': 'No. of clients'},
-#                markers=True)
-
-# # Update trace color to red
-# figM.update_traces(line=dict(color=['green', 'purple']), selector=dict(name='TXML'))
-# figM.update_traces(line=dict(color='purple'), selector=dict(name='Q3'))
 
 # # Update layout for better appearance
 figM.update_layout(
