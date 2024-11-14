@@ -929,15 +929,17 @@ with colc:
 with cold:
     st.plotly_chart(fig1, use_container_width=True)
 ####TRACKING TXML
-st.info('**TRENDS IN TXML (FOR CLIENTS THAT WERE REPORTED AS TXML LAST QUARTER)**')
+st.info('**TRENDS IN TXML (FOR CLIENTS THAT WERE REPORTED AS TXML IN Q4 AND Q3 )**')
 grouped = dftx.groupby('SURGE').sum(numeric_only=True).reset_index()
 grouped['SURGE'] = grouped['SURGE'].astype(int)  # Ensure SURGE is integer
 grouped['SURGE'] = grouped['SURGE'].astype(str)# Convert SURGE to string
+Y = ['TXML', 'Q3']
 
 # Create the line chart using Plotly Express
 figM = px.line(grouped, 
-               x='SURGE', 
-               y='TXML', 
+               x='SURGE',
+               y= Y,
+               #y='TXML', 
                title='TXML FOR Q4', 
                labels={'SURGE': 'WEEK', 'TXML': 'No. of clients'},
                markers=True)
