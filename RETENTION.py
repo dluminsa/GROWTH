@@ -931,31 +931,49 @@ with cold:
 ####TRACKING TXML
 st.info('**TRENDS IN TXML (FOR CLIENTS THAT WERE REPORTED AS TXML IN Q4 AND Q3 )**')
 grouped = dftx.groupby('SURGE').sum(numeric_only=True).reset_index()
-grouped['SURGE'] = grouped['SURGE'].astype(int)  # Ensure SURGE is integer
-grouped['SURGE'] = grouped['SURGE'].astype(str)# Convert SURGE to string
 Y = ['TXML', 'Q3']
 
-# Create the line chart using Plotly Express
-figM = px.line(grouped, 
-               x='SURGE',
-               y= Y,
-               #color = ['green', 'purple'], 
+grouped_long = grouped.melt(id_vars='SURGE', value_vars=Y, 
+                            var_name='Type', value_name='No. of clients')
+
+# Create the line chart
+figM = px.line(grouped_long, 
+               x='SURGE', 
+               y='No. of clients', 
+               color='Type', 
                title='CLIENTS NOT RETURNED FROM Q4 AND Q3', 
-               labels={'SURGE': 'WEEK', 'TXML': 'No. of clients'},
+               labels={'SURGE': 'WEEK', 'No. of clients': 'No. of clients'},
                markers=True)
-
-# Update trace color to red
-#figM.update_traces(line=dict(color='red'))
-figM.update_traces(line=dict(color=['green', 'purple']), selector=dict(name='TXML'))
-figM.update_traces(line=dict(color='purple'), selector=dict(name='Q3'))
-
-# Update layout for better appearance
-figM.update_layout(
-    width=800,  # Set the width of the plot
-    height=400,  # Set the height of the plot
-    xaxis=dict(showline=True, linewidth=1, linecolor='black'),  # Show x-axis line
-    yaxis=dict(showline=True, linewidth=1, linecolor='black')   # Show y-axis line
+figM.for_each_trace(
+    lambda trace: trace.update(line=dict(color='green')) if trace.name == 'TXML' else trace.update(line=dict(color='purple'))
 )
+
+
+
+# grouped['SURGE'] = grouped['SURGE'].astype(int)  # Ensure SURGE is integer
+# grouped['SURGE'] = grouped['SURGE'].astype(str)# Convert SURGE to string
+# Y = ['TXML', 'Q3']
+
+# # Create the line chart using Plotly Express
+# figM = px.line(grouped, 
+#                x='SURGE',
+#                y= Y,
+#                #color = ['green', 'purple'], 
+#                title='CLIENTS NOT RETURNED FROM Q4 AND Q3', 
+#                labels={'SURGE': 'WEEK', 'TXML': 'No. of clients'},
+#                markers=True)
+
+# # Update trace color to red
+# figM.update_traces(line=dict(color=['green', 'purple']), selector=dict(name='TXML'))
+# figM.update_traces(line=dict(color='purple'), selector=dict(name='Q3'))
+
+# # Update layout for better appearance
+# figM.update_layout(
+#     width=800,  # Set the width of the plot
+#     height=400,  # Set the height of the plot
+#     xaxis=dict(showline=True, linewidth=1, linecolor='black'),  # Show x-axis line
+#     yaxis=dict(showline=True, linewidth=1, linecolor='black')   # Show y-axis line
+# )
 
 # Set x-axis to categorical
 figM.update_xaxes(type='category')
