@@ -939,8 +939,8 @@ Y = ['TXML', 'Q3']
 figM = px.line(grouped, 
                x='SURGE',
                y= Y,
-               #y='TXML', 
-               title='TXML FOR Q4', 
+               color = ['green', 'purple'] 
+               title='CLIENTS NOT RETURNED FROM Q4 AND Q3', 
                labels={'SURGE': 'WEEK', 'TXML': 'No. of clients'},
                markers=True)
 
