@@ -939,13 +939,15 @@ Y = ['TXML', 'Q3']
 figM = px.line(grouped, 
                x='SURGE',
                y= Y,
-               color = ['green', 'purple'] 
+               color = ['green', 'purple'], 
                title='CLIENTS NOT RETURNED FROM Q4 AND Q3', 
                labels={'SURGE': 'WEEK', 'TXML': 'No. of clients'},
                markers=True)
 
 # Update trace color to red
 figM.update_traces(line=dict(color='red'))
+# figM.update_traces(line=dict(color=['green']), selector=dict(name='TXML'))
+# figM.update_traces(line=dict(color='purple'), selector=dict(name='Q3'))
 
 # Update layout for better appearance
 figM.update_layout(
