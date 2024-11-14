@@ -945,7 +945,7 @@ figM = px.line(grouped,
                markers=True)
 
 # Update trace color to red
-figM.update_traces(line=dict(color='red'))
+#figM.update_traces(line=dict(color='red'))
 figM.update_traces(line=dict(color=['green', 'purple']), selector=dict(name='TXML'))
 figM.update_traces(line=dict(color='purple'), selector=dict(name='Q3'))
 
