@@ -157,7 +157,7 @@ else:
    gom = f'{g}'
 
 if bt ==0: ####BUTAMBALA
-   but = 'all facilities have not reported'
+   but = 'all facilities have reported'
 else:
    but = f'{bt}'
 
