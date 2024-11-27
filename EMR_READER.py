@@ -1,6 +1,7 @@
 import pandas as pd 
 import streamlit as st 
 import os
+aaa
 import numpy as np
 import gspread
 from openpyxl import load_workbook
@@ -858,7 +859,7 @@ def extract():
                         dfRTT = dfRTT[dfRTT['Armonth'].isin([10,11,12])].copy()
                         #rtt = dfRTT.shape[0]
                         #check
-                        #pppp = dfRTT.copy()
+                        pppp = dfRTT.copy()
             
             #######LOSSES. START FROM POTENTIAL CURR
                     #TRANSFER OUTS
@@ -1580,6 +1581,7 @@ def extract():
                                         st.write('**NO MISSED APPOINTMENTS**')
                                     else:
                                         dat = lost()
+                                        dat = pppp.copy()
                                         csv_data = dat.to_csv(index=False)
                                         tot = dat.shape[0]
                                         st.write(f'**{tot} CLIENTS HAVE MISSED**')
