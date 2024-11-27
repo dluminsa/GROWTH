@@ -1184,6 +1184,7 @@ def extract():
                         new1['Tyear'] = pd.to_numeric(new1['Tyear'], errors='coerce')
                         
                         newto1 = new1[new1['Tyear']!=994].copy()
+                        
                         outnew1 = newto1.shape[0]
                         
                         new1 = new1[new1['Tyear']==994].copy() #withou TO
@@ -1193,7 +1194,16 @@ def extract():
                         dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
                         
                         active1 = new1[new1['A'].isin(dfactive['A'])].copy()
-                        lostn1 = new1[~new1['A'].isin(dfactive['A'])].copy()    
+                        lostn1 = new1[~new1['A'].isin(dfactive['A'])].copy() 
+
+                        #FALSE TO IN 1 YR
+                        newto1['A'] = pd.to_numeric(newto1['A'], errors = 'coerce')
+                        falseto = newto1[newto1['A'].isin(dfactive['A'])].copy()
+                        trueto1 = newto1[~newto1['A'].isin(dfactive['A'])].copy() 
+
+                        newto1 = truetol.copy()
+                        outnew1 = newto1.shape[0]
+                        active1 = pd.concat([active1,falseto])
             
                         newactive1 = active1.shape[0]
                         newlost1 = lostn1.shape[0]
