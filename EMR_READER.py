@@ -1201,7 +1201,7 @@ def extract():
                         falseto = newto1[newto1['A'].isin(dfactive['A'])].copy()
                         trueto1 = newto1[~newto1['A'].isin(dfactive['A'])].copy() 
 
-                        newto1 = truetol.copy()
+                        newto1 = trueto1.copy()
                         outnew1 = newto1.shape[0]
                         active1 = pd.concat([active1,falseto])
             
