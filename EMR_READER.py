@@ -806,7 +806,7 @@ def extract():
                         dfnot[['Ayear', 'Amonth']] = dfnot[['Ayear', 'Amonth']].apply(pd.to_numeric, errors='coerce')
                         dfnew = dfnot[((dfnot['Ayear']==2024) & (dfnot['Amonth']>9))].copy() #TI
                         txnew = dfnew.shape[0]
-                        pppp= dfnew.copy()
+                        #pppp= dfnew.copy()
                         dfold = dfnot[((dfnot['Ayear']!=2024) | ((dfnot['Ayear']==2024) & (dfnot['Amonth']<10)))].copy() #NO TI
                         dfcheck = dfold.copy() #use this to determine unknown gain
                         old = dfold.shape[0]
@@ -1580,7 +1580,7 @@ def extract():
                                         st.write('**NO MISSED APPOINTMENTS**')
                                     else:
                                         dat = lost()
-                                        dat = pppp.copy()
+                                        #dat = pppp.copy()
                                         csv_data = dat.to_csv(index=False)
                                         tot = dat.shape[0]
                                         st.write(f'**{tot} CLIENTS HAVE MISSED**')
