@@ -791,7 +791,7 @@ def extract():
                         dfdd = dfdd[((dfdd['Dyear']>2024) |((dfdd['Dyear']==2024) & (dfdd['Dmonth']>9)))].copy()
                         df = pd.concat([dfdd,dfnot])
                         pot = df.shape[0]
-                        yyy = df.copy()
+                        #yyy = df.copy()
             
                         #TRANSFER OUTS
                         
@@ -1777,7 +1777,7 @@ def extract():
                                             st.write('**NO TX NEW IIT**')
                                         else:
                                             dat = yearlost1()
-                                            dat = yyy.copy()
+                                            #dat = yyy.copy()
                                             csv_data = dat.to_csv(index=False)
                                             st.download_button(key='j',
                                                         label="TX NEW IIT",
