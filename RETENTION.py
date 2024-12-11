@@ -858,12 +858,13 @@ fig = px.pie(melted, values= 'values', title='ONE YEAR RETENTION RATE', names='C
              color_discrete_map={'LOST': 'red', 'ACTIVE': 'blue'} )
     #fig.update_traces(text = 'RETENTION', text_position='Outside')
 grouped = dfyr2.groupby('SURGE').sum(numeric_only=True).reset_index()
-
+st.write(grouped)
 melted = grouped.melt(id_vars=['SURGE'], value_vars=['ACTIVE', 'LOST'],
                             var_name='OUTCOME', value_name='Total')
 melted['SURGE'] = melted['SURGE'].astype(int)
 melted['SURGE'] = melted['SURGE'].astype(str)
 colors = ['DarkRed', 'purple']
+st.write(melted)
 
 fig2 = px.line(melted, x='SURGE', y='Total', color='OUTCOME', markers=True,
               title='MISSED APPOINTMENTS', labels={'SURGE':'WEEK', 'Total': 'No. of clients', 'OUTCOME': 'OUTCOME'})
