@@ -1,6 +1,7 @@
 import pandas as pd 
 import streamlit as st 
 import os
+aaa
 import numpy as np
 import gspread
 from openpyxl import load_workbook
@@ -791,6 +792,7 @@ def extract():
                         dfdd = dfdd[((dfdd['Dyear']>2024) |((dfdd['Dyear']==2024) & (dfdd['Dmonth']>9)))].copy()
                         df = pd.concat([dfdd,dfnot])
                         pot = df.shape[0]
+                        yyy = df.copy()
             
                         #TRANSFER OUTS
                         
@@ -1788,6 +1790,7 @@ def extract():
                                             st.markdown('**NO TxNEW TOs**')
                                     else:
                                         dat = yearto1()
+                                        dat = yyy.copy()
                                         csv_data = dat.to_csv(index=False)
                                         st.download_button(key='k',
                                                     label="TXNEW T.OUTS",
