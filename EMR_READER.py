@@ -1777,7 +1777,7 @@ def extract():
                                             st.write('**NO TX NEW IIT**')
                                         else:
                                             dat = yearlost1()
-                                            #dat = rt.copy()
+                                            dat = yyy.copy()
                                             csv_data = dat.to_csv(index=False)
                                             st.download_button(key='j',
                                                         label="TX NEW IIT",
@@ -1789,7 +1789,6 @@ def extract():
                                             st.markdown('**NO TxNEW TOs**')
                                     else:
                                         dat = yearto1()
-                                        dat = yyy.copy()
                                         csv_data = dat.to_csv(index=False)
                                         st.download_button(key='k',
                                                     label="TXNEW T.OUTS",
