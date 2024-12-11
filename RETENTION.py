@@ -857,7 +857,7 @@ melted = pied.melt(var_name='Category', value_name='values')
 fig = px.pie(melted, values= 'values', title='ONE YEAR RETENTION RATE', names='Category', hole=0.3,color='Category',  
              color_discrete_map={'LOST': 'red', 'ACTIVE': 'blue'} )
     #fig.update_traces(text = 'RETENTION', text_position='Outside')
-grouped = dfyr2.groupby('SURGE').sum(numeric_only=True).reset_index()
+grouped = dfyr.groupby('SURGE').sum(numeric_only=True).reset_index()
 st.write(grouped)
 melted = grouped.melt(id_vars=['SURGE'], value_vars=['ACTIVE', 'LOST'],
                             var_name='OUTCOME', value_name='Total')
