@@ -1,6 +1,7 @@
 import pandas as pd 
 import streamlit as st 
 import os
+dsfsfs
 import numpy as np
 import gspread
 from openpyxl import load_workbook
@@ -912,6 +913,7 @@ def extract():
                         four = df4wks.shape[0]
             
                         dfactive = pd.concat([dfactive24, df25]) #COMBINE THOSE ACTIVE IN TWO WEEKS AND THOSE OF 2025
+                        yyy  = dfactive.copy()
                         curr = dfactive.shape[0]
                         dfRTT['A'] = pd.to_numeric(dfRTT['A'], errors='coerce')
                         dfactive['A'] = pd.to_numeric(dfactive['A'], errors='coerce')
@@ -1581,7 +1583,7 @@ def extract():
                                         st.write('**NO MISSED APPOINTMENTS**')
                                     else:
                                         dat = lost()
-                                        #dat = pppp.copy()
+                                        #dat = yyy.copy()
                                         csv_data = dat.to_csv(index=False)
                                         tot = dat.shape[0]
                                         st.write(f'**{tot} CLIENTS HAVE MISSED**')
@@ -1777,7 +1779,7 @@ def extract():
                                             st.write('**NO TX NEW IIT**')
                                         else:
                                             dat = yearlost1()
-                                            #dat = yyy.copy()
+                                            dat = yyy.copy()
                                             csv_data = dat.to_csv(index=False)
                                             st.download_button(key='j',
                                                         label="TX NEW IIT",
