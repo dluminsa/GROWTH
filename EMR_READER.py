@@ -1,6 +1,6 @@
 import pandas as pd 
 import streamlit as st 
-import os
+ import os
 import numpy as np
 import gspread
 from openpyxl import load_workbook
@@ -19,13 +19,13 @@ st.cache_resource.clear()
 
 st.write('CLOSED, RETURNING NEXT QUARTER')
 st.write('**MERRY XMASS**')
-time.sleep(2)
+time.sleep(4)
 st.balloons()
 st.write('**AND A HAPPY NEW YEAR**')
 a = [1,2,3,4]
 for i in a:
     st.balloons()
-    time.sleep(1)         
+    time.sleep(4)         
 st.stop()
 def extract():
     cola,colb,colc = st.columns([1,3,1])
