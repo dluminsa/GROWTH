@@ -17,7 +17,7 @@ st.cache_data.clear()
 st.cache_resource.clear()
 #sddd
 
-st.write('RETURNING NEXT QUARTER')
+st.write('CLOSED, RETURNING NEXT QUARTER')
 st.stop()
 def extract():
     cola,colb,colc = st.columns([1,3,1])
