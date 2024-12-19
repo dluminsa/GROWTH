@@ -18,7 +18,7 @@ st.cache_resource.clear()
 #sddd
 
 #st.header('CODE UNDER MAINTENANCE, TRY AGAIN TOMORROW')
-#st.stop()
+st.stop()
 def extract():
     cola,colb,colc = st.columns([1,3,1])
     colb.subheader('PROGRAM GROWTH')
