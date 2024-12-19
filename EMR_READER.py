@@ -18,6 +18,14 @@ st.cache_resource.clear()
 #sddd
 
 st.write('CLOSED, RETURNING NEXT QUARTER')
+st.write('**MERRY XMASS**')
+time.sleep(2)
+st.balloons()
+st.write('**AND A HAPPY NEW YEAR**')
+a = [1,2,3,4]
+for i in a:
+    st.balloons()
+    time.sleep(1)         
 st.stop()
 def extract():
     cola,colb,colc = st.columns([1,3,1])
