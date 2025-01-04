@@ -1,4 +1,4 @@
-import pandas as pd 
+ import pandas as pd 
 import streamlit as st 
 import os
 import numpy as np
@@ -1530,11 +1530,13 @@ def extract():
                     nsps['A'] = pd.to_numeric(nsps['A'], errors='coerce')
                     allns = pd.merge(ns, nsps, on ='A', how='left')
                     allns = allns.rename(columns ={'A': 'ART'})
-                    allns = allns[['DISTRICT', 'facility','ART','result_numeric', 'date_collected', 'AG', 'Ryear', 'Rmonth', 'Rday', 'RWEEKR','VD','TO','DD']]
+                    allns['CLUSTER'] = np.nan
+                    allns['CLUSTER'] = allns['CLUSTER'].fillna(cluster)
+                    allns = allns[['CLUSTER','DISTRICT', 'facility','ART','result_numeric', 'date_collected', 'AG', 'Ryear', 'Rmonth', 'Rday', 'RWEEKR','VD','TO','DD']]
                     
                     if submit:
                             conn = st.connection('gsheets', type=GSheetsConnection)
-                            exist = conn.read(worksheet= 'ALLNS', usecols=list(range(14)),ttl=5)
+                            exist = conn.read(worksheet= 'ALLNS', usecols=list(range(15)),ttl=5)
                             existing= exist.dropna(how='all')
                             checkf = existing['facility'].unique()
                             if facility in checkf:
