@@ -1533,7 +1533,7 @@ def extract():
                             exist = conn.read(worksheet= 'ALLNS', usecols=list(range(1)),ttl=5)
                             existing= exist.dropna(how='all')
                             updated = pd.concat([existing, allns], ignore_index =True)
-                            conn.update(worksheet = 'DONE', data = updated) 
+                            conn.update(worksheet = 'ALLNS', data = updated) 
                             try:
                                 sheet1 = spreadsheet.worksheet("TX")
                                 #st.write(row1)
