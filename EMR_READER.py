@@ -1528,7 +1528,7 @@ def extract():
                     ns['ART'] = pd.to_numeric(ns['ART'], errors='coerce')
                     nsps['ART'] = pd.to_numeric(nsps['ART'], errors='coerce')
                     jj = nsps[nsps['ART']==7718]
-                    st.write(jj)
+                    st.write(nsps.shape[0])
                     allns = pd.merge(ns, nsps, on ='ART', how='left')
                     allns = allns[['DISTRICT', 'facility','ART','result_numeric', 'date_collected', 'AG', 'Ryear', 'Rmonth', 'Rday', 'RWEEKR','VD','TO','DD']]
                     
