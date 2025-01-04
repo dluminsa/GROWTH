@@ -1,4 +1,4 @@
-import pandas as pd 
+ import pandas as pd 
 import streamlit as st 
 import os
 import numpy as np
@@ -1534,10 +1534,14 @@ def extract():
                     
                     if submit:
                             conn = st.connection('gsheets', type=GSheetsConnection)
-                            exist = conn.read(worksheet= 'ALLNS', usecols=list(range(1)),ttl=5)
+                            exist = conn.read(worksheet= 'ALLNS', usecols=list(range(14)),ttl=5)
                             existing= exist.dropna(how='all')
-                            updated = pd.concat([existing, allns], ignore_index =True)
-                            conn.update(worksheet = 'ALLNS', data = updated) 
+                            checkf = existing['facility'].unique()
+                            if facility in checkf:
+                                pass
+                            else:
+                                updated = pd.concat([existing, allns], ignore_index =True)
+                                conn.update(worksheet = 'ALLNS', data = updated) 
                             try:
                                 sheet1 = spreadsheet.worksheet("TX")
                                 #st.write(row1)
