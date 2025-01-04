@@ -1529,11 +1529,11 @@ def extract():
                     allns = pd.merge(ns, oneyear, on ='ART', how='left')
                     
                     if submit:
-                              conn = st.connection('gsheets', type=GSheetsConnection)
-                              exist = conn.read(worksheet= 'ALLNS', usecols=list(range(1)),ttl=5)
-                              existing= exist.dropna(how='all')
-                              updated = pd.concat([existing, allns], ignore_index =True)
-                              conn.update(worksheet = 'DONE', data = updated) 
+                            conn = st.connection('gsheets', type=GSheetsConnection)
+                            exist = conn.read(worksheet= 'ALLNS', usecols=list(range(1)),ttl=5)
+                            existing= exist.dropna(how='all')
+                            updated = pd.concat([existing, allns], ignore_index =True)
+                            conn.update(worksheet = 'DONE', data = updated) 
                             try:
                                 sheet1 = spreadsheet.worksheet("TX")
                                 #st.write(row1)
