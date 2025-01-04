@@ -1529,7 +1529,7 @@ def extract():
                     ns['A'] = pd.to_numeric(ns['A'], errors='coerce')
                     nsps['A'] = pd.to_numeric(nsps['A'], errors='coerce')
                     allns = pd.merge(ns, nsps, on ='A', how='left')
-                    allns = allns.rename(columns ={'A': 'ART'})
+                    allns = allns.rename(columns ={'A': 'ARTN'})
                     allns['CLUSTER'] = np.nan
                     allns['CLUSTER'] = allns['CLUSTER'].fillna(cluster)
                     allns = allns[['CLUSTER','DISTRICT', 'facility','ART','result_numeric', 'date_collected', 'AG', 'Ryear', 'Rmonth', 'Rday', 'RWEEKR','VD','TO','DD']]
@@ -1538,10 +1538,6 @@ def extract():
                             conn = st.connection('gsheets', type=GSheetsConnection)
                             exist = conn.read(worksheet= 'ALLNS', usecols=list(range(15)),ttl=5)
                             existing= exist.dropna(how='all')
-                            s1 = set(existing.columns)
-                            s2 = set(allns.columns)
-                            st.write(s1-s2)
-                            st.write(s2-s1)
                             # checkf = existing['facility'].unique()
                             # if facility in checkf:
                             #     pass
