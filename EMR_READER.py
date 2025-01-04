@@ -1538,6 +1538,10 @@ def extract():
                             conn = st.connection('gsheets', type=GSheetsConnection)
                             exist = conn.read(worksheet= 'ALLNS', usecols=list(range(15)),ttl=5)
                             existing= exist.dropna(how='all')
+                            s1 = set(existing.columns)
+                            s2 = set(allns.columns)
+                            st.write(s1-s2)
+                            st.write(s2-s1)
                             # checkf = existing['facility'].unique()
                             # if facility in checkf:
                             #     pass
