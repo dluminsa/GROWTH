@@ -1526,6 +1526,7 @@ def extract():
                     ns = ns[ns['DISTRICT']==district].copy()
                     ns = ns[ns['facility']==facility].copy()
                     ns['ART'] = pd.to_numeric(ns['ART'], errors='coerce')
+                    st.write(nsps)
                     nsps['ART'] = pd.to_numeric(nsps['ART'], errors='coerce')
                     jj = nsps[nsps['ART']==7718]
                     st.write(nsps)
