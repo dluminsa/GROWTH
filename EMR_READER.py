@@ -1527,7 +1527,7 @@ def extract():
                     ns['ART'] = pd.to_numeric(ns['ART'], errors='coerce')
                     oneyear['ART'] = pd.to_numeric(oneyear['ART'], errors='coerce')
                     allns = pd.merge(ns, oneyear, on ='ART', how='left')
-                    allns = allns[['DISTRICT', 'facility','ART','result_numeric', 'date_collected', 'AG', 'GD', 'Ryear', 'Rmonth', 'Rday', 'RWEEKR','VD','TO','DD']]
+                    allns = allns[['DISTRICT', 'facility','ART','result_numeric', 'date_collected', 'AG', 'Ryear', 'Rmonth', 'Rday', 'RWEEKR','VD','TO','DD']]
                     
                     if submit:
                             conn = st.connection('gsheets', type=GSheetsConnection)
