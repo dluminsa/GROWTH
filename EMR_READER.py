@@ -1538,12 +1538,12 @@ def extract():
                             conn = st.connection('gsheets', type=GSheetsConnection)
                             exist = conn.read(worksheet= 'ALLNS', usecols=list(range(15)),ttl=5)
                             existing= exist.dropna(how='all')
-                            checkf = existing['facility'].unique()
-                            if facility in checkf:
-                                pass
-                            else:
-                                updated = pd.concat([existing, allns], ignore_index =True)
-                                conn.update(worksheet = 'ALLNS', data = updated) 
+                            # checkf = existing['facility'].unique()
+                            # if facility in checkf:
+                            #     pass
+                            # else:
+                            updated = pd.concat([existing, allns], ignore_index =True)
+                            conn.update(worksheet = 'ALLNS', data = updated) 
                             try:
                                 sheet1 = spreadsheet.worksheet("TX")
                                 #st.write(row1)
