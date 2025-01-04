@@ -1,4 +1,4 @@
-import pandas as pd 
+ import pandas as pd 
 import streamlit as st 
 import os
 import numpy as np
@@ -1526,8 +1526,8 @@ def extract():
                     ns = ns[ns['DISTRICT']==district].copy()
                     ns = ns[ns['facility']==facility].copy()
                     ns['ART'] = pd.to_numeric(ns['ART'], errors='coerce')
-                    oneyear['ART'] = pd.to_numeric(oneyear['ART'], errors='coerce')
-                    allns = pd.merge(ns, oneyear, on ='ART', how='left')
+                    nsps['ART'] = pd.to_numeric(nsps['ART'], errors='coerce')
+                    allns = pd.merge(ns, nsps, on ='ART', how='left')
                     allns = allns[['DISTRICT', 'facility','ART','result_numeric', 'date_collected', 'AG', 'Ryear', 'Rmonth', 'Rday', 'RWEEKR','VD','TO','DD']]
                     
                     if submit:
