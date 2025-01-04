@@ -1,4 +1,4 @@
-import pandas as pd 
+   import pandas as pd 
 import streamlit as st 
 import os
 import numpy as np
@@ -743,6 +743,7 @@ def extract():
         
                         #COPY FOR ONE YEAR BEFORE GETTING POT CURR
                         oneyear = df.copy()
+                        nsps = df.copy()
         
                         #df['GROUP'] = df['AG'].apply(ager)
                         # Q4'S TXML ALTER
