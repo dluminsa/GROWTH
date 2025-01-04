@@ -9,7 +9,7 @@ import traceback
 import time
 from google.oauth2.service_account import Credentials
 from oauth2client.service_account import ServiceAccountCredentials
-#from streamlit_gsheets import GSheetsConnection
+from streamlit_gsheets import GSheetsConnection
 from datetime import datetime
 
 # Clear cache at the very start of the app
@@ -17,16 +17,16 @@ st.cache_data.clear()
 st.cache_resource.clear()
 #sddd
 
-st.write('CLOSED, RETURNING NEXT QUARTER')
-st.write('**MERRY XMASS**')
-time.sleep(4)
-st.balloons()
-st.write('**AND A HAPPY NEW YEAR**')
-a = [1,2,3,4]
-for i in a:
-    st.balloons()
-    time.sleep(4)         
-st.stop()
+# st.write('CLOSED, RETURNING NEXT QUARTER')
+# st.write('**MERRY XMASS**')
+# time.sleep(4)
+# st.balloons()
+# st.write('**AND A HAPPY NEW YEAR**')
+# a = [1,2,3,4]
+# for i in a:
+#     st.balloons()
+#     time.sleep(4)         
+# st.stop()
 def extract():
     cola,colb,colc = st.columns([1,3,1])
     colb.subheader('PROGRAM GROWTH')
@@ -1521,37 +1521,19 @@ def extract():
                         st.write(traceback.format_exc())
                         st.write("COULDN'T CONNECT TO GOOGLE SHEET, TRY AGAIN")
                         st.stop()
+                    ns = pd.read_csv('ALLNS.csv')
+                    ns = ns[ns['DISTRICT']==district].copy()
+                    ns = ns[ns['facility']==facility].copy()
+                    ns['ART'] = pd.to_numeric(ns['ART'], errors='coerce')
+                    oneyear['ART'] = pd.to_numeric(oneyear['ART'], errors='coerce')
+                    allns = pd.merge(ns, oneyear, on ='ART', how='left')
                     
                     if submit:
-                            # if str(facy) != str(st.session_state.fac):
-                            #     st.info(f'DATA FOR {facy} NOT SUBMITTED')
-                            #     st.session_state.submited = False
-                            #     st.session_state.fac = facy
-                            #     st.cache_data.clear()
-                            #     st.cache_resource.clear()
-                            #     st.session_state.submited =False
-                            #     st.session_state.df = None
-                            #     st.session_state.reader =False#
-                            #     time.sleep(1)
-                            #     st.warning('YOU CHANGED THE FACILITY NAME OR UPLOADED A NEW EXTRACT, WITHOUT REFRESHING THIS PAGE')
-                            #     time.sleep(1)
-                            #     st.write('REFRESH PAGE TO RESOLVE THIS')
-                            #     st. write('IF YO DO NOT REFRESH THIS PAGE WILL RESET AFTER 10 SECONDS IN ORDER FOR YOU TO RE-UPLOAD THIS NEW EXTRACT')
-                            #     time.sleep(2)
-                            #     progress_bar = st.progress(0)
-
-                            #     # Total duration in seconds
-                            #     total_duration = 10
-                                
-                                # Run the progress bar over the total duration
-                                # st.write("PAGE WILL REFRESH AFTER 10 SECONDS: ")
-                                # for i in range(100):
-                                #     time.sleep(total_duration / 100)  # Wait for a fraction of the total time
-                                #     progress_bar.progress(i + 1)      # Update the progress
-                                # time.sleep(1)
-                                # st.markdown("""
-                                #        <meta http-equiv="refresh" content="0">
-                                #             """, unsafe_allow_html=True)
+                              conn = st.connection('gsheets', type=GSheetsConnection)
+                              exist = conn.read(worksheet= 'ALLNS', usecols=list(range(1)),ttl=5)
+                              existing= exist.dropna(how='all')
+                              updated = pd.concat([existing, allns], ignore_index =True)
+                              conn.update(worksheet = 'DONE', data = updated) 
                             try:
                                 sheet1 = spreadsheet.worksheet("TX")
                                 #st.write(row1)
