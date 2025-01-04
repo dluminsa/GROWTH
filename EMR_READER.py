@@ -1,4 +1,4 @@
-import pandas as pd 
+ import pandas as pd 
 import streamlit as st 
 import os
 import numpy as np
@@ -17,7 +17,7 @@ st.cache_data.clear()
 st.cache_resource.clear()
 #sddd
 
-# st.write('CLOSED, RETURNING NEXT QUARTER')
+# st.write('CLOSED, RETURNING NEXT QUER')
 # st.write('**MERRY XMASS**')
 # time.sleep(4)
 # st.balloons()
@@ -1525,12 +1525,11 @@ def extract():
                     ns = pd.read_csv('ALLNS.csv')
                     ns = ns[ns['DISTRICT']==district].copy()
                     ns = ns[ns['facility']==facility].copy()
-                    ns['ART'] = pd.to_numeric(ns['ART'], errors='coerce')
-                    st.write(nsps)
-                    nsps['ART'] = pd.to_numeric(nsps['ART'], errors='coerce')
-                    jj = nsps[nsps['ART']==7718]
-                    st.write(nsps)
-                    allns = pd.merge(ns, nsps, on ='ART', how='left')
+                    ns = ns.rename(columns ={'ART': 'A'})
+                    ns['A'] = pd.to_numeric(ns['A'], errors='coerce')
+                    nsps['A'] = pd.to_numeric(nsps['A'], errors='coerce')
+                    allns = pd.merge(ns, nsps, on ='A', how='left')
+                    allns = allns.rename(columns ={'A': 'ART'})
                     allns = allns[['DISTRICT', 'facility','ART','result_numeric', 'date_collected', 'AG', 'Ryear', 'Rmonth', 'Rday', 'RWEEKR','VD','TO','DD']]
                     
                     if submit:
