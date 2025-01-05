@@ -1532,13 +1532,8 @@ def extract():
                     allns = allns.rename(columns ={'A': 'ARTN'})
                     allns['CLUSTER'] = np.nan
                     allns['CLUSTER'] = allns['CLUSTER'].fillna(cluster)
-                    s1 = set(allns.columns)
-                    #s2 `= ['CLUSTER','DISTRICT', 'facility','ARTN','ART','result_numeric', 'date_collected', 'AG','RD', 'VD', 'TO','DD','RWEEEKR','Ryear', 'Rmonth', 'Rday', 'Vyear', 'Vmonth', 'Vday']
-                    s2 = ['CLUSTER', 'DISTRICT', 'facility', 'ARTN', 'ART', 'result_numeric', 'date_collected', 
-                           'AG', 'RD', 'VD', 'TO', 'DD', 'RWEEEKR', 'Ryear', 'Rmonth', 'Rday', 'Vyear', 'Vmonth', 'Vday']
-                    s3 = set(s2)
-                    st.write(s3-s1)
-                    allns = allns[['CLUSTER','DISTRICT', 'facility','ARTN','ART','result_numeric', 'date_collected', 'AG','RD', 'VD', 'TO','DD','RWEEEKR','Ryear', 'Rmonth', 'Rday', 'Vyear', 'Vmonth', 'Vday']]
+
+                    allns = allns[['CLUSTER','DISTRICT', 'facility','ARTN','ART','result_numeric', 'date_collected', 'AG','RD', 'VD', 'TO','DD','RWEEEK','Ryear', 'Rmonth', 'Rday', 'Vyear', 'Vmonth', 'Vday']]
                     
                     if submit:
                             conn = st.connection('gsheets', type=GSheetsConnection)
