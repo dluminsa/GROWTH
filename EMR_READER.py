@@ -1533,7 +1533,7 @@ def extract():
                     allns['CLUSTER'] = np.nan
                     allns['CLUSTER'] = allns['CLUSTER'].fillna(cluster)
                     st.write(allns.columns)
-                    required_columns = ['CLUSTER', 'DISTRICT', 'facility', 'ARTN', 'ART', 'result_numeric', 'date_collected', 'AG', 'RD', 'VD', 'TO', 'DD', 'RWEEEKR', 'Ryear', 'Rmonth', 'Rday', 'Vyear', 'Vmonth', 'Vday']
+                    required_columns = ['CLUSTER', 'DISTRICT', 'facility', 'ARTN', 'ART', 'result_numeric', 'date_collected', 'AG', 'RD', 'VD', 'TO', 'DD', 'RWEEEK', 'Ryear', 'Rmonth', 'Rday', 'Vyear', 'Vmonth', 'Vday']
                     missing_columns = [col for col in required_columns if col not in allns.columns]
 
                     if missing_columns:
@@ -1541,7 +1541,7 @@ def extract():
                     else:
                         allns = allns[required_columns]
 
-                    allns = allns[['CLUSTER','DISTRICT', 'facility','ARTN','ART','result_numeric', 'date_collected', 'AG','RD', 'VD', 'TO','DD','RWEEEKR','Ryear', 'Rmonth', 'Rday', 'Vyear', 'Vmonth', 'Vday']]
+                    allns = allns[['CLUSTER','DISTRICT', 'facility','ARTN','ART','result_numeric', 'date_collected', 'AG','RD', 'VD', 'TO','DD','RWEEEK','Ryear', 'Rmonth', 'Rday', 'Vyear', 'Vmonth', 'Vday']]
                     
                     if submit:
                             conn = st.connection('gsheets', type=GSheetsConnection)
