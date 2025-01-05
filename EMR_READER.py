@@ -1532,7 +1532,9 @@ def extract():
                     allns = allns.rename(columns ={'A': 'ARTN'})
                     allns['CLUSTER'] = np.nan
                     allns['CLUSTER'] = allns['CLUSTER'].fillna(cluster)
-                    st.write(allns.columns)
+                    s1 = set(allns.columns)
+                    s2 `= set(['CLUSTER','DISTRICT', 'facility','ARTN','ART','result_numeric', 'date_collected', 'AG','RD', 'VD', 'TO','DD','RWEEEKR','Ryear', 'Rmonth', 'Rday', 'Vyear', 'Vmonth', 'Vday'])
+                    st.write(s2-s1)
                     allns = allns[['CLUSTER','DISTRICT', 'facility','ARTN','ART','result_numeric', 'date_collected', 'AG','RD', 'VD', 'TO','DD','RWEEEKR','Ryear', 'Rmonth', 'Rday', 'Vyear', 'Vmonth', 'Vday']]
                     
                     if submit:
