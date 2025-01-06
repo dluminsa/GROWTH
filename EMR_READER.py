@@ -1533,11 +1533,11 @@ def extract():
                     allns['CLUSTER'] = np.nan
                     allns['CLUSTER'] = allns['CLUSTER'].fillna(cluster)
 
-                    allns = allns[['CLUSTER','DISTRICT', 'facility','ARTN','ART','result_numeric', 'date_collected', 'AG','RD', 'VD', 'TO','DD','RWEEK','Ryear', 'Rmonth', 'Rday', 'Vyear', 'Vmonth', 'Vday']]
+                    allns = allns[['CLUSTER','DISTRICT', 'facility','ARTN','ART','result_numeric', 'date_collected', 'AG','RD','LD', 'VD', 'TO','DD','RWEEK','Ryear', 'Rmonth', 'Rday', 'Vyear', 'Vmonth', 'Vday', 'Lyear','Lmonth', 'Lday']]
                     
                     if submit:
                             conn = st.connection('gsheets', type=GSheetsConnection)
-                            exist = conn.read(worksheet= 'ALLNS', usecols=list(range(20)),ttl=5)
+                            exist = conn.read(worksheet= 'ALLNS', usecols=list(range(24)),ttl=5)
                             existing= exist.dropna(how='all')
                             checkf = existing['facility'].unique()
                             if facility in checkf:
