@@ -669,8 +669,6 @@ def extract():
             
                         #CREATE WEEKS 
                         df['Rdaya'] = df['Rday'].astype(str).str.split('.').str[0]
-                        st.write(df['Rday'])
-                        st.stop()
                         df['Rmontha'] = df['Rmonth'].astype(str).str.split('.').str[0]
                         df['Ryeara'] = df['Ryear'].astype(str).str.split('.').str[0]
             
