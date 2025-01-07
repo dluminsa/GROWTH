@@ -1,4 +1,4 @@
-import pandas as pd 
+ ssssssssssimport pandas as pd 
 import streamlit as st 
 import os
 import numpy as np
@@ -669,6 +669,8 @@ def extract():
             
                         #CREATE WEEKS 
                         df['Rdaya'] = df['Rday'].astype(str).str.split('.').str[0]
+                        st.write(df['Rdaya'])
+                        st.stop()
                         df['Rmontha'] = df['Rmonth'].astype(str).str.split('.').str[0]
                         df['Ryeara'] = df['Ryear'].astype(str).str.split('.').str[0]
             
