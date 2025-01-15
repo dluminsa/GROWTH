@@ -813,7 +813,7 @@ def extract():
                         df = pd.concat([dfdd,dfnot])
                         # Filter out empty DataFrames
                         #dfs = [dfi for dfi in [dfdd, dfnot] if not dfi.empty]
-                        df = pd.concat(dfs)
+                        #df = pd.concat(dfs)
                         pot = df.shape[0] #THIS IS THE POTENTIAL TXCURR
                         #yyy = df.copy()
             
