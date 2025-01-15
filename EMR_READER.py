@@ -698,9 +698,9 @@ def extract():
                         df['LAST DATE'] = df['Ldaya'] + '/' + df['Lmontha'] + '/' + df['Lyeara']
                         df['LAST DATE'] = pd.to_datetime(df['LAST DATE'], format='%d/%m/%Y', errors='coerce')
    
-                        df['RWEEKR'] = df['RETURN DATE1'].dt.strftime('%V') #Use R since 1 was already used
-                        df['RWEEKR'] = pd.to_numeric(df['RWEEKR'], errors='coerce')
-                        df['RWEEKR1'] = df['RWEEKR'] +13 #NOT NEEDED THIS Q SINCE WE ARE USING 
+                        # df['RWEEKR'] = df['RETURN DATE1'].dt.strftime('%V') #Use R since 1 was already used
+                        # df['RWEEKR'] = pd.to_numeric(df['RWEEKR'], errors='coerce')
+                        # df['RWEEKR1'] = df['RWEEKR'] +13 #NOT NEEDED THIS Q SINCE WE ARE USING 
         
                         df['DURA'] = round((df['LAST DATE']-df['RETURN DATE1']).dt.days/30)
         
@@ -898,10 +898,10 @@ def extract():
                         wk = int(wk)
             
                         #FALSE TO OUTS BASED ON CURRENT WEEK
-                        dfto[['Ryear', 'RWEEK']] =  dfto[['Ryear', 'RWEEK']].apply(pd.to_numeric, errors='coerce')
-                        dfw = dfto[((dfto['Ryear']>2025) | ((dfto['Ryear']==2025) & (dfto['RWEEK']>=wk)))].copy() #FALSE
+                        dfto[['Ryear', 'RWEEK1']] =  dfto[['Ryear', 'RWEEK1']].apply(pd.to_numeric, errors='coerce')
+                        dfw = dfto[((dfto['Ryear']>2025) | ((dfto['Ryear']==2025) & (dfto['RWEEK1']>=wk)))].copy() #FALSE
                         false = dfw.shape[0]
-                        dft = dfto[((dfto['Ryear']<2025) | ((dfto['Ryear']==2025) & (dfto['RWEEK']<wk)))].copy()  ##TRUE
+                        dft = dfto[((dfto['Ryear']<2025) | ((dfto['Ryear']==2025) & (dfto['RWEEK1']<wk)))].copy()  ##TRUE
                         
                         true = dft.shape[0]
                         #add the false back to txcur
@@ -929,26 +929,26 @@ def extract():
                         df24b = df[df['Ryear'] ==2025].copy()
         
                         df25 = df[((df['Ryear']>2024)| ((df['Ryear'] ==2024) & (df['Rmonth']==12)))].copy()
-                        df24b['RWEEK'] = pd.to_numeric(df24b['RWEEK'], errors='coerce')
+                        df24b['RWEEK1'] = pd.to_numeric(df24b['RWEEK1'], errors='coerce')
         
-                        dfactive24 =df24b[df24b['RWEEK']>=wk2] #still active within 2 weeks, only those of 2025 are considered, to avoid weeks of 2024
+                        dfactive24 =df24b[df24b['RWEEK1']>=wk2] #still active within 2 weeks, only those of 2025 are considered, to avoid weeks of 2024
                         yyy1 = dfactive24.copy()
 
                      
                         #LOST IN TWO WEEKS... REAL MISSED APPOINTMENT FOR THIS (ADD ON THOSE OF 2024)
-                        df2wksa =df24b[df24b['RWEEK']<wk2].copy()
+                        df2wksa =df24b[df24b['RWEEK1']<wk2].copy()
                         df2wks = pd.concat([df2wksa, df24a])  #WON'T BE NEEDED NEXT Qtr
                         yyy2 = df2wks.copy()
                         
                         cira2 = df2wks.copy()
                         two = df2wks.shape[0]
 
-                        df3wksa =df24b[df24b['RWEEK']<wk3].copy()
+                        df3wksa =df24b[df24b['RWEEK1']<wk3].copy()
                         df3wks = pd.concat([df3wksa, df24a])  #WON'T BE NEEDED NEXT Qtr
                         three = df3wks.shape[0]
                         yyy3 = df3wks.copy()
             
-                        df4wksa =df24b[df24b['RWEEK']<wk4].copy()
+                        df4wksa =df24b[df24b['RWEEK1']<wk4].copy()
                         df4wks = pd.concat([df4wksa, df24a])  #WON'T BE NEEDED NEXT Qtr
                         four = df4wks.shape[0]
                         yyy4 = df4wks.copy()
@@ -968,8 +968,8 @@ def extract():
         
         
                        #OF THOSE ACTIVE, HOW MANY WERE ON APPT 2 WEEKS AGO, 
-                        dfactive['RWEEKR'] = pd.to_numeric(dfactive['RWEEKR'], errors='coerce')
-                        appt = dfactive[dfactive['RWEEK']<wk2].copy()
+                        dfactive['RWEEK1'] = pd.to_numeric(dfactive['RWEEK1'], errors='coerce')
+                        appt = dfactive[dfactive['RWEEK1']<wk2].copy()
                         onappt = appt.shape[0]
     
                         #MMD AMONGST ACTIVE CLIENTS
