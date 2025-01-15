@@ -704,10 +704,8 @@ def extract():
         
                         df['DURA'] = round((df['LAST DATE']-df['RETURN DATE1']).dt.days/30)
         
-                        today = dt.date.today()
-                        
+                        today = dt.date.today() 
                         todayr = pd.to_datetime(today)
-                        st.write(f'todays is {todayr}')
                         #df['DURL'] = round((todayr)-(df['RETURN DATE']))#.dt.days / 30)  
                         df['RETURN DATE'] = pd.to_datetime(df['RETURN DATE'])
         
@@ -715,8 +713,7 @@ def extract():
                         df['DURL'] = round((todayr - df['RETURN DATE']).dt.days/30)
                         df['TODAY'] = todayr
                         dfaa = df[['A', 'TODAY','RETURN DATE', 'DURL']].copy()
-                        st.write(dfaa)
-          
+            
                         def cira(a):
                             if a<1:
                                 return 'UK'
