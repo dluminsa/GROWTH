@@ -86,6 +86,8 @@ def extract():
         # Get the file name
         fileN = file.name
         ext = os.path.basename(fileN).split('.')[1]
+    if ext == 'xlsx.xlsx':
+        ext = 'xlsx'
     #df = None
     if file is not None and not st.session_state.reader:
         wb = load_workbook(file)
@@ -679,7 +681,7 @@ def extract():
                         df['RWEEK'] = pd.to_numeric(df['RWEEK'], errors='coerce')
                         #SURGE WEEK
                         df['RWEEK'] = pd.to_numeric(df['RWEEK'], errors='coerce')
-                        df['RWEEK1'] = df['RWEEK']-39
+                        df['RWEEK1'] = df['RWEEK'] + 13
                         #       #PARAMETERS FOR CIRA
                            
                         df['R1aya'] = df['R1day'].astype(str).str.split('.').str[0]
@@ -697,7 +699,7 @@ def extract():
    
                         df['RWEEKR'] = df['RETURN DATE1'].dt.strftime('%V') #Use R since 1 was already used
                         df['RWEEKR'] = pd.to_numeric(df['RWEEKR'], errors='coerce')
-                        df['RWEEKR1'] = df['RWEEKR']-39 #NOT NEEDED THIS Q SINCE WE ARE USING 
+                        df['RWEEKR1'] = df['RWEEKR'] +13 #NOT NEEDED THIS Q SINCE WE ARE USING 
         
                         df['DURA'] = round((df['LAST DATE']-df['RETURN DATE1']).dt.days/30)
         
@@ -746,27 +748,27 @@ def extract():
                         nsps = df.copy()
         
                         #df['GROUP'] = df['AG'].apply(ager)
-                        # Q4'S TXML ALTER
+                        # Q1'S TXML ALTER (LAST Q'S TXML
                         df['Tyear'] = pd.to_numeric(df['Tyear'],errors='coerce')
                         last4 = df[df['Tyear']==994].copy()
                         last4['Dyear'] = pd.to_numeric(last4['Dyear'],errors='coerce')
                         last4 = last4[last4['Dyear']==994].copy()
                         last4[['Ryear', 'Rmonth']] = last4[['Ryear', 'Rmonth']].apply(pd.to_numeric, errors='coerce')
-                        last4 = last4[((last4['Ryear']==2024) & (last4['Rmonth'].isin([6,7,8,9])))].copy()
+                        last4 = last4[((last4['Ryear']==2024) & (last4['Rmonth'].isin([9,10,11,12])))].copy() #CHANGED
                         last4[['Rmonth', 'Rday']] = last4[['Rmonth', 'Rday']].apply(pd.to_numeric, errors='coerce')
-                        last4 = last4[((last4['Rmonth']<9) | ((last4['Rmonth']==9) & (last4['Rday']<3)))].copy()
+                        last4 = last4[((last4['Rmonth']<12) | ((last4['Rmonth']==12) & (last4['Rday']<4)))].copy()
                         ciraa = last4.copy()
                         lastq4 = last4.shape[0]
 
-                        # Q3'S TXML ALTER
+                        # Q4'S TXML ALTER (PREVIOUS 2 Q'S TXML)
                         df['Tyear'] = pd.to_numeric(df['Tyear'],errors='coerce')
                         last3 = df[df['Tyear']==994].copy()
                         last3['Dyear'] = pd.to_numeric(last3['Dyear'],errors='coerce')
                         last3 = last3[last3['Dyear']==994].copy()
                         last3[['Ryear', 'Rmonth']] = last3[['Ryear', 'Rmonth']].apply(pd.to_numeric, errors='coerce')
-                        last3 = last3[((last3['Ryear']==2024) & (last3['Rmonth'].isin([3,4,5])))].copy()
+                        last3 = last3[((last3['Ryear']==2024) & (last3['Rmonth'].isin([6,7,8])))].copy()
                         last3[['Rmonth', 'Rday']] = last3[['Rmonth', 'Rday']].apply(pd.to_numeric, errors='coerce')
-                        last3 = last3[((last3['Rmonth']>3) | ((last3['Rmonth']==3) & (last3['Rday']>2)))].copy()
+                        last3 = last3[((last3['Rmonth']>6) | ((last3['Rmonth']==6) & (last3['Rday']>2)))].copy()
                         cirab = last3.copy()
                         lastq3 = last3.shape[0]
 
@@ -780,7 +782,7 @@ def extract():
                         df25 = df[df['Ryear']>2024].copy()
                         df24 = df[df['Ryear'] == 2024].copy()
                         df24[['Rmonth', 'Rday']] = df24[['Rmonth', 'Rday']].apply(pd.to_numeric, errors='coerce')
-                        df24 = df24[((df24['Rmonth']>9) | ((df24['Rmonth']==9) & (df24['Rday']>2)))].copy()
+                        df24 = df24[((df24['Rmonth']>12) | ((df24['Rmonth']==12) & (df24['Rday']>3)))].copy()
                         df = pd.concat([df25, df24]).copy()
             
                         #REMOVE TO of the last reporting month
@@ -788,53 +790,68 @@ def extract():
                         dfto = df[df['Tyear']!=994].copy()
                         dfnot = df[df['Tyear'] == 994].copy()
                         dfto[['Ryear', 'Rmonth']] = dfto[['Ryear', 'Rmonth']].apply(pd.to_numeric, errors='coerce')
-                        dfto = dfto[((dfto['Ryear']!=2024) |((dfto['Ryear']==2024) & (dfto['Rmonth']!=9)))].copy()
+                        dfto = dfto[((dfto['Ryear']!=2024) |((dfto['Ryear']==2024) & (dfto['Rmonth']!=12)))].copy() #OTHERS WOULD BE FALSE TOs, even those made last Q since they were brought as false if their RRDs were this year
                         df = pd.concat([dfto,dfnot])
-            
-                        #REMOVE TO of the dead reporting month
+                        dfs = [dfi for dfi in [dfto, dfnot] if not dfi.empty]
+                        #df = pd.concat(dfs)
+                                    # Concatenate only non-empty DataFrames
+                        if dfs:  # Check if there's any DataFrame left
+                            df = pd.concat(dfs)
+                        else:
+                            df = pd.DataFrame() 
+
+        
+                        #REMOVE the dead of the reporting month
                         df[ 'Dyear'] = pd.to_numeric(df['Dyear'], errors='coerce')
                         dfdd = df[df['Dyear']!=994].copy()
                         dfnot = df[df['Dyear'] == 994].copy()
                         #THOSE WHO DIED BEFORE FIRST MONTH OF THE Q
                         dfdd[['Dyear', 'Dmonth']] = dfdd[['Dyear', 'Dmonth']].apply(pd.to_numeric, errors='coerce')
-                        dfdd = dfdd[((dfdd['Dyear']>2024) |((dfdd['Dyear']==2024) & (dfdd['Dmonth']>9)))].copy()
+                        dfdd = dfdd[((dfdd['Dyear']>2024) |((dfdd['Dyear']==2024) & (dfdd['Dmonth']>12)))].copy() #DOESN'T MAKE SENSE
                         df = pd.concat([dfdd,dfnot])
-                        pot = df.shape[0]
+                        # Filter out empty DataFrames
+                        dfs = [dfi for dfi in [dfdd, dfnot] if not dfi.empty]
+                        df = pd.concat(dfs)
+                        pot = df.shape[0] #THIS IS THE POTENTIAL TXCURR
                         #yyy = df.copy()
             
                         #TRANSFER OUTS
                         
                         #TRANSFER INS
                         df[['Tiyear', 'Timonth']] = df[['Tiyear', 'Timonth']].apply(pd.to_numeric, errors='coerce')
-                        dfti = df[((df['Tiyear']==2024) & (df['Timonth']>9))].copy() #TI
+                        dfti = df[((df['Tiyear']==2025) & (df['Timonth']>0))].copy() #TI MSUT HAVE BEEN MADE THIS YEAR
                         ti = dfti.shape[0]
             
-                        dfnot = df[((df['Tiyear']!=2024) | ((df['Tiyear']==2024) & (df['Timonth']<10)))].copy() #NO TI
-                        noti = dfnot.shape[0]
+                        # dfnot = df[((df['Tiyear']!=2024) | ((df['Tiyear']==2024) & (df['Timonth']<10)))].copy() #NO TI
+                        # noti = dfnot.shape[0]  I DO NEED THESE ANYWHERE
             
                         #TX NEW THIS Q
                         dfnot[['Ayear', 'Amonth']] = dfnot[['Ayear', 'Amonth']].apply(pd.to_numeric, errors='coerce')
-                        dfnew = dfnot[((dfnot['Ayear']==2024) & (dfnot['Amonth']>9))].copy() #TI
+                        dfnew = dfnot[((dfnot['Ayear']==2025) & (dfnot['Amonth']>0))].copy() #TX NEWS MUST HAVE HAPPENED THIS YEAR ALSO
                         txnew = dfnew.shape[0]
                         #pppp= dfnew.copy()
-                        dfold = dfnot[((dfnot['Ayear']!=2024) | ((dfnot['Ayear']==2024) & (dfnot['Amonth']<10)))].copy() #NO TI
-                        dfcheck = dfold.copy() #use this to determine unknown gain
+                        dfold = dfnot[((dfnot['Ayear']!=2025) | ((dfnot['Ayear']==2025) & (dfnot['Amonth']<0)))].copy() #NO TI
+                        dfcheck = dfold.copy() #use this to determine unknown gain (SITEGEDDE)
                         old = dfold.shape[0]
+        
                         ##RTT
                         #RTT BY LAST ENCOUNTER to include only months in the reporting Q
                         dfold['Lyear'] = pd.to_numeric(dfold['Lyear'], errors='coerce') 
-                        dfRTT = dfold[dfold['Lyear']==2024].copy() #ALTER
+                        dfRTT = dfold[dfold['Lyear']==2025].copy() #ALTER
                         dfRTT['Lmonth'] = pd.to_numeric(dfRTT['Lmonth'], errors='coerce') 
-                        dfRTT = dfRTT[dfRTT['Lmonth'].isin([10,11,12])].copy() #ALTER
+                        dfRTT = dfRTT[dfRTT['Lmonth'].isin([1,2,3])].copy() #ALTER
             
                         #BY FIRST ENCOUNTER, To remove those first encountered in the Q
                         dfRTT['Fyear'] = pd.to_numeric(dfRTT['Fyear'], errors='coerce') 
-                        dfRTTa = dfRTT[dfRTT['Fyear']==2024].copy() #ALTER
-                        dfRTTb = dfRTT[dfRTT['Fyear']!=2024].copy() #ALTER
+                        dfRTTa = dfRTT[dfRTT['Fyear']==2025].copy() #ALTER
+                        dfRTTb = dfRTT[dfRTT['Fyear']!=2025].copy() #ALTER
                         #BY FIRST ENCOUNTER
                         dfRTTa['Fmonth'] = pd.to_numeric(dfRTTa['Fmonth'], errors='coerce') 
-                        dfRTTa = dfRTTa[~dfRTTa['Fmonth'].isin([10,11,12])].copy() # ALTER
-                        dfRTT = pd.concat([dfRTTa, dfRTTb])
+                        dfRTTa = dfRTTa[~dfRTTa['Fmonth'].isin([1,2,3])].copy() # ALTER
+
+                        dfs = [dfi for dfi in [dfRTTa, dfRTTb]
+                        dfRTT = pd.concat()   
+          
         
             
                         #BY RD OBS DATE,  remove those that fall in the previous reporting Quarter
