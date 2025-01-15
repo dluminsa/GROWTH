@@ -925,7 +925,7 @@ def extract():
         
                         df[['Ryear','Rmonth']] = df[['Ryear','Rmonth']].apply(pd.to_numeric,errors='coerce')
                         #df24 = df[((df['Ryear'] ==2024) & (df['Rmonth']<12))].copy()
-                        df24a = df[df['Ryear'] ==2024]].copy() #ALL 2024 ARE LOST SO ADD THEM TO ANY WEEK
+                        df24a = df[df['Ryear'] ==2024].copy() #ALL 2024 ARE LOST SO ADD THEM TO ANY WEEK
                         df24b = df[df['Ryear'] ==2025]]
         
                         df25 = df[((df['Ryear']>2024)| ((df['Ryear'] ==2024) & (df['Rmonth']==12)))].copy()
