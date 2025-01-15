@@ -705,10 +705,11 @@ def extract():
                         df['DURA'] = round((df['LAST DATE']-df['RETURN DATE1']).dt.days/30)
         
                         today = datetime.now()
+                        st.write('today is {today}')
                         todayr = pd.to_datetime(today)
                         #df['DURL'] = round((todayr)-(df['RETURN DATE']))#.dt.days / 30)  
                         df['RETURN DATE'] = pd.to_datetime(df['RETURN DATE'])
-
+        
                         # Calculate the difference in months
                         df['DURL'] = round((todayr - df['RETURN DATE']).dt.days/30)
 
@@ -1821,12 +1822,10 @@ def extract():
                                                         file_name=f"{facility} IIT_NEW.csv",
                                                         mime="text/csv")
                                 with colb:
-                                    # if outnew1==0:
-                                    #         st.markdown('**NO TxNEW TOs**')
-                                    # else:
-                                    #     dat = yearto1()
-                                        dat = yyy.copy()
-                                        st.write('THIS')
+                                    if outnew1==0:
+                                            st.markdown('**NO TxNEW TOs**')
+                                    else:
+                                        dat = yearto1()
                                         csv_data = dat.to_csv(index=False)
                                         st.download_button(key='k',
                                                     label="TXNEW T.OUTS",
