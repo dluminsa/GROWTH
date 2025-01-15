@@ -743,6 +743,7 @@ def extract():
                                 return '50+'
                         df['AG'] = pd.to_numeric(df['AG'], errors = 'coerce')
                         df['BAND'] = df['AG'].apply(ager)
+                        yyy = df.copy()
         
                         #COPY FOR ONE YEAR BEFORE GETTING POT CURR
                         oneyear = df.copy()
@@ -1218,51 +1219,52 @@ def extract():
                         else:
                             rete3 = round((newactive3/netnew3)*100)
                             #rete3 = f"{rete3} %"
-            
-                        # oneyear[['Ayear', 'Amonth']] = oneyear[['Ayear', 'Amonth']].apply(pd.to_numeric, errors = 'coerce')
-                        # new1 = oneyear[((oneyear['Ayear']==2024) & (oneyear['Amonth'].isin([10,11,12])))].copy()
-                        # newtotal1 = new1.shape[0]
-            
-                        # new1[['Tiyear']] = new1[['Tiyear']].apply(pd.to_numeric, errors = 'coerce')
-                        # tin1 = new1[new1['Tiyear']!=994].copy()
-                        # #one =new.shape[0]
-                        # newti1 = tin1.shape[0]
-                        # orig1 = int(newtotal1)-int(newti1)
-                        
-                        # new1['Dyear'] = pd.to_numeric(new1['Dyear'], errors='coerce')
-                        # newdead1 = new1[new1['Dyear']!=994].copy()
-            
-                        # deadnew1 = newdead1.shape[0]
-                        # new1 = new1[new1['Dyear']==994].copy() #AFTER REMOVING THE DEAD
-            
-                        # new1['Tyear'] = pd.to_numeric(new1['Tyear'], errors='coerce')
-                        
-                        # newto1 = new1[new1['Tyear']!=994].copy()
-                        
-                        # outnew1 = newto1.shape[0]
-                        
-                        # new1 = new1[new1['Tyear']==994].copy() #withou TO
-                        # netnew1 = new1.shape[0]
-            
-                        # new1['A'] = pd.to_numeric(new1['A'], errors = 'coerce')
-                        # dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
-                        
-                        # active1 = new1[new1['A'].isin(dfactive['A'])].copy()
-                        # lostn1 = new1[~new1['A'].isin(dfactive['A'])].copy() 
 
-                        # #FALSE TO IN 1 YR
-                        # newto1['A'] = pd.to_numeric(newto1['A'], errors = 'coerce')
-                        # falseto = newto1[newto1['A'].isin(dfactive['A'])].copy()
-                        # trueto1 = newto1[~newto1['A'].isin(dfactive['A'])].copy() 
-
-                        # newto1 = trueto1.copy()
-                        # outnew1 = newto1.shape[0]
-                        # active1 = pd.concat([active1,falseto])
+                        #TX NEWS
+                        oneyear[['Ayear', 'Amonth']] = oneyear[['Ayear', 'Amonth']].apply(pd.to_numeric, errors = 'coerce')
+                        new1 = oneyear[((oneyear['Ayear']==2025) & (oneyear['Amonth'].isin([1,2,3])))].copy()
+                        newtotal1 = new1.shape[0]
             
-                        # newactive1 = active1.shape[0]
-                        # newlost1 = lostn1.shape[0]
-                        #st.write(newlost)
-                        #ret = newtotal - newlost
+                        new1[['Tiyear']] = new1[['Tiyear']].apply(pd.to_numeric, errors = 'coerce')
+                        tin1 = new1[new1['Tiyear']!=994].copy()
+                        #one =new.shape[0]
+                        newti1 = tin1.shape[0]
+                        orig1 = int(newtotal1)-int(newti1)
+                        
+                        new1['Dyear'] = pd.to_numeric(new1['Dyear'], errors='coerce')
+                        newdead1 = new1[new1['Dyear']!=994].copy()
+            
+                        deadnew1 = newdead1.shape[0]
+                        new1 = new1[new1['Dyear']==994].copy() #AFTER REMOVING THE DEAD
+            
+                        new1['Tyear'] = pd.to_numeric(new1['Tyear'], errors='coerce')
+                        
+                        newto1 = new1[new1['Tyear']!=994].copy()
+                        
+                        outnew1 = newto1.shape[0]
+                        
+                        new1 = new1[new1['Tyear']==994].copy() #withou TO
+                        netnew1 = new1.shape[0]
+            
+                        new1['A'] = pd.to_numeric(new1['A'], errors = 'coerce')
+                        dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
+                        
+                        active1 = new1[new1['A'].isin(dfactive['A'])].copy()
+                        lostn1 = new1[~new1['A'].isin(dfactive['A'])].copy() 
+
+                        #FALSE TO IN TX NEWS YR
+                        newto1['A'] = pd.to_numeric(newto1['A'], errors = 'coerce')
+                        falseto = newto1[newto1['A'].isin(dfactive['A'])].copy()
+                        trueto1 = newto1[~newto1['A'].isin(dfactive['A'])].copy() 
+
+                        newto1 = trueto1.copy()
+                        outnew1 = newto1.shape[0]
+                        active1 = pd.concat([active1,falseto])
+            
+                        newactive1 = active1.shape[0]
+                        newlost1 = lostn1.shape[0]
+                        st.write(newlost)
+                        ret = newtotal - newlost
                         if netnew1 == 0:
                             rete1 = 0
                         elif newactive1 == 0:
@@ -1819,11 +1821,12 @@ def extract():
                                                         file_name=f"{facility} IIT_NEW.csv",
                                                         mime="text/csv")
                                 with colb:
-                                    if outnew1==0:
-                                            st.markdown('**NO TxNEW TOs**')
-                                    else:
-                                        dat = yearto1()
-                                        
+                                    # if outnew1==0:
+                                    #         st.markdown('**NO TxNEW TOs**')
+                                    # else:
+                                    #     dat = yearto1()
+                                        dat = yyy.copy()
+                                        st.write('THIS')
                                         csv_data = dat.to_csv(index=False)
                                         st.download_button(key='k',
                                                     label="TXNEW T.OUTS",
