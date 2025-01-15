@@ -705,7 +705,7 @@ def extract():
                         df['DURA'] = round((df['LAST DATE']-df['RETURN DATE1']).dt.days/30)
         
                         today = datetime.now()
-                        st.write('today is {today}')
+                        st.write(f'today is {today}')
                         todayr = pd.to_datetime(today)
                         #df['DURL'] = round((todayr)-(df['RETURN DATE']))#.dt.days / 30)  
                         df['RETURN DATE'] = pd.to_datetime(df['RETURN DATE'])
@@ -1264,7 +1264,7 @@ def extract():
             
                         newactive1 = active1.shape[0]
                         newlost1 = lostn1.shape[0]
-                        st.write(newlost)
+                        #st.write(newlost)
                         ret = newtotal - newlost
                         if netnew1 == 0:
                             rete1 = 0
