@@ -1734,7 +1734,7 @@ def extract():
                                             dat = yyy1.copy()
                                             csv_data = dat.to_csv(index=False)
                                             tot = dat.shape[0]
-                                            st.write(f'**{tot} LTFU**')
+                                            st.write(f'**{tot} LTFUS**')
                                             st.download_button(key='d',
                                                         label="SIX MTHS IIT",
                                                         data=csv_data,
