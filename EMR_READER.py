@@ -10,7 +10,8 @@ import time
 from google.oauth2.service_account import Credentials
 from oauth2client.service_account import ServiceAccountCredentials
 from streamlit_gsheets import GSheetsConnection
-from datetime import datetime
+from datetime import datetime 
+import datetime as dt
 
 # Clear cache at the very start of the app
 st.cache_data.clear()
@@ -704,7 +705,7 @@ def extract():
         
                         df['DURA'] = round((df['LAST DATE']-df['RETURN DATE1']).dt.days/30)
         
-                        today = datetime.now()
+                        today = dt.date.today()
                         st.write(f'today is {today}')
                         todayr = pd.to_datetime(today)
                         #df['DURL'] = round((todayr)-(df['RETURN DATE']))#.dt.days / 30)  
