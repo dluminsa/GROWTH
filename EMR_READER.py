@@ -34,8 +34,8 @@ def extract():
     
     today = datetime.now()
     todayd = today.strftime("%Y-%m-%d")# %H:%M")
-    wk = today.strftime("%V")
-    week = int(wk)-39
+    week = today.strftime("%V")
+    wk = int(week) + 13
     cola,colb = st.columns(2)
     cola.write(f"**DATE TODAY:    {todayd}**")
     colb.write(f"**CURRENT WEEK:    {week}**")
@@ -924,22 +924,34 @@ def extract():
                         wk4 = wk-3
         
                         df[['Ryear','Rmonth']] = df[['Ryear','Rmonth']].apply(pd.to_numeric,errors='coerce')
-                        df24 = df[((df['Ryear'] ==2024) & (df['Rmonth']<12))].copy()
+                        #df24 = df[((df['Ryear'] ==2024) & (df['Rmonth']<12))].copy()
+                        df24a = df[df['Ryear'] ==2024]].copy() #ALL 2024 ARE LOST SO ADD THEM TO ANY WEEK
+                        df24b = df[df['Ryear'] ==2025]]
+        
                         df25 = df[((df['Ryear']>2024)| ((df['Ryear'] ==2024) & (df['Rmonth']==12)))].copy()
-                        df24['RWEEK'] = pd.to_numeric(df24['RWEEK'], errors='coerce')
-                        dfactive24 =df24[df24['RWEEK']>=wk2] #still active within 2 weeks
+                        df24b['RWEEK'] = pd.to_numeric(df24b['RWEEK'], errors='coerce')
+        
+                        dfactive24 =df24b[df24b['RWEEK']>=wk2] #still active within 2 weeks, only those of 2025 are considered, to avoid weeks of 2024
+                        yyy1 = dfactive24.copy()
+
+                     
+                        #LOST IN TWO WEEKS... REAL MISSED APPOINTMENT FOR THIS (ADD ON THOSE OF 2024)
+                        df2wksa =df24b[df24b['RWEEK']<wk2].copy()
+                        df2wks = pd.concat([df2wksa, df24a])  #WON'T BE NEEDED NEXT Qtr
+                        yyy2 = df2wks.copy()
                         
-                        #LOST IN TWO WEEKS... REAL MISSED APPOINTMENT FOR THIS
-                        df2wks =df24[df24['RWEEK']<wk2].copy()
                         cira2 = df2wks.copy()
                         two = df2wks.shape[0]
-                    
-            
-                        df3wks = df24[df24['RWEEK']<wk3]
+
+                        df3wksa =df24b[df24b['RWEEK']<wk3].copy()
+                        df3wks = pd.concat([df3wksa, df24a])  #WON'T BE NEEDED NEXT Qtr
                         three = df3wks.shape[0]
+                        yyy3 = df3wks.copy()
             
-                        df4wks =df24[df24['RWEEK']<wk4]
+                        df4wksa =df24b[df24b['RWEEK']<wk4].copy()
+                        df4wks = pd.concat([df4wksa, df24a])  #WON'T BE NEEDED NEXT Qtr
                         four = df4wks.shape[0]
+                        yyy4 = df4wks.copy()
             
                         dfactive = pd.concat([dfactive24, df25]) #COMBINE THOSE ACTIVE IN TWO WEEKS AND THOSE OF 2025
                         yyy  = dfactive.copy()
@@ -1715,10 +1727,11 @@ def extract():
                                 st.write(f"<h6><b>SIX MONTHS COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
                                 cola, colb, colc = st.columns(3)
                                 with cola:
-                                        if newlost6==0:
-                                            st.write('**NO 6 MTHS IIT**')
-                                        else:
-                                            dat = yearlost6()
+                                        # if newlost6==0:
+                                        #     st.write('**NO 6 MTHS IIT**')
+                                        # else:
+                                        #     dat = yearlost6()
+                                            dat = yyy1.copy()
                                             csv_data = dat.to_csv(index=False)
                                             tot = dat.shape[0]
                                             st.write(f'**{tot} LTFU**')
@@ -1728,10 +1741,11 @@ def extract():
                                                         file_name=f"{facility} IIT_6.csv",
                                                         mime="text/csv")
                                 with colb:
-                                        if outnew6==0:
-                                            st.markdown('**NO 6 MTHS TOs**')
-                                        else:
-                                            dat = yearto6()
+                                        # if outnew6==0:
+                                        #     st.markdown('**NO 6 MTHS TOs**')
+                                        # else:
+                                        #     dat = yearto6()
+                                            dat = yyy2.copy()
                                             csv_data = dat.to_csv(index=False)
                                             tot = dat.shape[0]
                                             st.write(f'**{tot} TOs**')
@@ -1741,10 +1755,11 @@ def extract():
                                                         file_name=f" {facility} TO_1YR.csv",
                                                         mime="text/csv")
                                 with colc:
-                                    if nvla6 ==0:
-                                        st.markdown('**NO 6 MTHS VL LIST**')
-                                    else:
-                                        dat = yearvl6()
+                                    # if nvla6 ==0:
+                                    #     st.markdown('**NO 6 MTHS VL LIST**')
+                                    # else:
+                                    #     dat = yearvl6()
+                                        dat = yyy3.copy()
                                         csv_data = dat.to_csv(index=False)
                                         tot = dat.shape[0]
                                         st.write(f'**{tot} DUE FOR FIRST VL**')
@@ -1759,10 +1774,11 @@ def extract():
                                 st.write(f"<h6><b>THREE MONTHS COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
                                 cola, colb = st.columns(2)
                                 with cola:
-                                        if newlost3==0:
-                                            st.write('**NO 3 MTHS IIT**')
-                                        else:
-                                            dat = yearlost3()
+                                        # if newlost3==0:
+                                        #     st.write('**NO 3 MTHS IIT**')
+                                        # else:
+                                        #     dat = yearlost3()
+                                            dat = yyy4.copy()
                                             csv_data = dat.to_csv(index=False)
                                             st.download_button(key='g',
                                                         label="3 MTHS IIT",
