@@ -1449,6 +1449,7 @@ def extract():
                     else: 
                             err = 'GD'
                     prev = int(prev)
+                    part = [cluster,district,facility,week,wk,prev] #FIXED PART
                     bands =['<01','01 to 09','10 to 19','20-29','30-39', '40-49','50+']
                 
                     #cactive
