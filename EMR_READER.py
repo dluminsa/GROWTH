@@ -705,7 +705,7 @@ def extract():
                         df['DURA'] = round((df['LAST DATE']-df['RETURN DATE1']).dt.days/30)
         
                         today = datetime.now()
-                         st.write('today is {today}')
+                        st.write('today is {today}')
                         todayr = pd.to_datetime(today)
                         #df['DURL'] = round((todayr)-(df['RETURN DATE']))#.dt.days / 30)  
                         df['RETURN DATE'] = pd.to_datetime(df['RETURN DATE'])
