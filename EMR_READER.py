@@ -577,8 +577,7 @@ def extract():
                         b = df[df['Tyear']<32].copy()
                         b = b.rename(columns={'Tyear': 'Tday2', 'Tday': 'Tyear'})
                         b = b.rename(columns={'Tday2': 'Tday'})
-                        df = pd.concat([a,b])
-            
+                        df = pd.concat([a,b])         
                         
                         #SORTING THE ART START YEARS
                         df[['Ayear', 'Amonth', 'Aday']] =df[['Ayear', 'Amonth', 'Aday']].apply(pd.to_numeric, errors = 'coerce')
@@ -713,7 +712,10 @@ def extract():
         
                         # Calculate the difference in months
                         df['DURL'] = round((todayr - df['RETURN DATE']).dt.days/30)
-
+                        df['TODAY'] = todayr
+                        dfaa = df[['A', 'TODAY','RETURN DATE', 'DURL']].copy()
+                        st.write(dfaa)
+          
                         def cira(a):
                             if a<1:
                                 return 'UK'
