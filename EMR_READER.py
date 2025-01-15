@@ -15,7 +15,7 @@ from datetime import datetime
 # Clear cache at the very start of the app
 st.cache_data.clear()
 st.cache_resource.clear()
-ext = ''
+
 #sddd
 
 # st.write('CLOSED, RETURNING NEXT QUER')
@@ -87,10 +87,8 @@ def extract():
         # Get the file name
         fileN = file.name
         ext = os.path.basename(fileN).split('.')[1]
-        
-    if ext: 
-       if ext == 'xlsx.xlsx':
-              ext = 'xlsx'
+        if ext == 'xlsx.xlsx':
+               ext = 'xlsx'
     #df = None
     if file is not None and not st.session_state.reader:
         wb = load_workbook(file)
