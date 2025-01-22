@@ -12,6 +12,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 from streamlit_gsheets import GSheetsConnection
 from datetime import datetime 
 import datetime as dt
+st.stop()
 
 # Clear cache at the very start of the app
 st.cache_data.clear()
@@ -1664,8 +1665,7 @@ def extract():
                     lineb['A'] = pd.to_numeric(lineb['A'], errors ='coerce')
                     pmtct['A'] = pd.to_numeric(pmtct['A'], errors ='coerce')
                     linec = pd.merge(lineb, pmtct, on = 'A', how = 'outer')
-                    st.write(line.columns)
-                    st.write('THIS')
+                    
                     #MERGING THE ABOVE LIST WITH THE ORIGINAL LIS
                     linec['A'] = pd.to_numeric(linec['A'], errors ='coerce')
                     line['A'] = pd.to_numeric(line['A'], errors ='coerce')
@@ -1673,10 +1673,7 @@ def extract():
                     line['CLUSTER'] = cluster
                     line['DISTRICT'] = district
                     line['FACILITY']= facility
-                    st.write(line.columns)
                     line = line[['CLUSTER', 'DISTRICT', 'FACILITY', 'A','AG','GD', 'AS', 'RD', 'VD', 'Ryear', 'Rmonth', 'Rday', 'RWEEK','VL STATUS', 'TWOm', 'TPT', 'TPT STATUS', 'CX', 'CX STATUS', 'PT' , 'PVL']].COPY()
-                    
-                    st.stop()
                     
                     if submit:
                             conn = st.connection('gsheets', type=GSheetsConnection)
