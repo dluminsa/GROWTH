@@ -125,12 +125,12 @@ def extract():
                     st.session_state.reader= True
     if st.session_state.reader:
                           # Convert 'ART' column to string and create 'ART' column with numeric part to remove blanks
-                        st.session_state.df = st.session_state.df.rename(columns= {'ART  ':'ART',  'AS  ':'AS', 'RD  ':'RD', 'RDO  ':'RDO', 'RD1  ':'RD1', 'RD2  ':'RD2', 'VD  ':'VD', 'FE  ':'FE', 'LD  ': 'LD', 'ARVD  ': 'ARVD',
-       'ARVDO  ': 'ARVDO', 'TI  ': 'TI', 'TO  ':'TI', 'DD  ': 'DD', 'AG  ':'AG', 'GD  ':'GD'})
-                        st.session_state.df = st.session_state.df.rename(columns= {'ART ':'ART',  'AS ':'AS', 'RD ':'RD', 'RDO ':'RDO', 'RD1 ':'RD1', 'RD2 ':'RD2', 'VD ':'VD', 'FE ':'FE', 'LD ': 'LD', 'ARVD ': 'ARVD',
-                           'ARVDO ': 'ARVDO', 'TI ': 'TI', 'TO ':'TI', 'DD ': 'DD', 'AG ':'AG', 'GD ':'GD'})
+                        st.session_state.df = st.session_state.df.rename(columns= {'ART  ':'ART', 'TPT  ':'TPT', 'AS  ':'AS', 'RD  ':'RD', 'RDO  ':'RDO', 'RD1  ':'RD1', 'RD2  ':'RD2', 'VD  ':'VD', 'FE  ':'FE', 'LD  ': 'LD', 'ARVD  ': 'ARVD',
+       'ARVDO  ': 'ARVDO', 'TI  ': 'TI', 'TO  ':'TI', 'DD  ': 'DD', 'AG  ':'AG', 'GD  ':'GD',  'CX  ': 'CX', 'PT  ': 'PT'})
+                        st.session_state.df = st.session_state.df.rename(columns= {'ART ':'ART',  'AS ':'AS', 'TPT ':'TPT','RD ':'RD', 'RDO ':'RDO', 'RD1 ':'RD1', 'RD2 ':'RD2', 'VD ':'VD', 'FE ':'FE', 'LD ': 'LD', 'ARVD ': 'ARVD',
+                           'ARVDO ': 'ARVDO', 'TI ': 'TI', 'TO ':'TI', 'DD ': 'DD', 'AG ':'AG', 'GD ':'GD', 'PT ': 'PT', 'TPT ':'TPT', 'CX ': 'CX'})
         
-                        df = st.session_state.df[['ART','AS', 'AG','VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']].copy()
+                        df = st.session_state.df[['ART','AS', 'AG','VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO', 'TPT', 'CX','PT']].copy()
                         df['ART'] = df['ART'].astype(str)
                         df['A'] = df['ART'].str.replace('[^0-9]', '', regex=True)
                         df['A'] = pd.to_numeric(df['A'], errors= 'coerce')
