@@ -39,7 +39,7 @@ def extract():
     wk = int(week) + 13
     cola,colb = st.columns(2)
     cola.write(f"**DATE TODAY:    {todayd}**")
-    colb.write(f"**CURRENT WEEK:    {week}**")
+    colb.write(f"**CURRENT WEEK:    {wk}**")
     st.image('rename.png', caption='instructions')
     st.image("BEFORE.png", caption="BEFORE")
     st.image("AFTER.png", caption="AFTER")
