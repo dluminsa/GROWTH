@@ -130,7 +130,7 @@ def extract():
                         st.session_state.df = st.session_state.df.rename(columns= {'ART ':'ART',  'AS ':'AS', 'TPT ':'TPT','RD ':'RD', 'RDO ':'RDO', 'RD1 ':'RD1', 'RD2 ':'RD2', 'VD ':'VD', 'FE ':'FE', 'LD ': 'LD', 'ARVD ': 'ARVD',
                            'ARVDO ': 'ARVDO', 'TI ': 'TI', 'TO ':'TI', 'DD ': 'DD', 'AG ':'AG', 'GD ':'GD', 'PT ': 'PT', 'TPT ':'TPT', 'CX ': 'CX'})
         
-                        df = st.session_state.df[['ART','AS', 'AG','VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO', 'TPT', 'CX','PT']].copy()
+                        df = st.session_state.df[['ART','AS', 'AG','VD', 'RD','GD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO', 'TPT', 'CX','PT']].copy()
                         df['ART'] = df['ART'].astype(str)
                         df['A'] = df['ART'].str.replace('[^0-9]', '', regex=True)
                         df['A'] = pd.to_numeric(df['A'], errors= 'coerce')
