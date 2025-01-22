@@ -114,8 +114,7 @@ def extract():
        'ARVDO  ': 'ARVDO', 'TI  ': 'TI', 'TO  ':'TI', 'DD  ': 'DD', 'AG  ':'AG', 'GD  ':'GD'})
                     df = df.rename(columns= {'ART ':'ART',  'AS ':'AS', 'RD ':'RD', 'RDO ':'RDO', 'RD1 ':'RD1', 'RD2 ':'RD2', 'VD ':'VD', 'FE ':'FE', 'LD ': 'LD', 'ARVD ': 'ARVD',
                            'ARVDO ': 'ARVDO', 'TI ': 'TI', 'TO ':'TI', 'DD ': 'DD', 'AG ':'AG', 'GD ':'GD'})
-                    columns = ['ART','AG', 'GD','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']
-                    #columns = ['ART','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO']
+                    columns = ['ART','AG', 'GD','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO','TPT','CX', 'PT']
                     cols = df.columns.to_list()
                     if not all(column in cols for column in columns):
                         missing_columns = [column for column in columns if column not in cols]
@@ -750,6 +749,7 @@ def extract():
                         #COPY FOR ONE YEAR BEFORE GETTING POT CURR
                         oneyear = df.copy()
                         nsps = df.copy()
+                        line = df.copy()
                         #yyy = df.copy()
         
                         #df['GROUP'] = df['AG'].apply(ager)
@@ -1569,8 +1569,111 @@ def extract():
                     allns = allns.rename(columns ={'A': 'ARTN'})
                     allns['CLUSTER'] = np.nan
                     allns['CLUSTER'] = allns['CLUSTER'].fillna(cluster)
-
                     allns = allns[['CLUSTER','DISTRICT', 'facility','ARTN','ART','result_numeric', 'date_collected', 'AG','RD','LD', 'VD', 'TO','DD','RWEEK','Ryear', 'Rmonth', 'Rday', 'Vyear', 'Vmonth', 'Vday', 'Lyear','Lmonth', 'Lday']]
+
+                    #LINE LISTS         
+                    line[['Ryear', 'Rmonth', 'Rday']] = line[['Ryear', 'Rmonth', 'Rday']].apply(pd.to_numeric, errors='coerce')
+                    line = line[((line['Ryear'] == 2025) & (line['Rmonth'].isin([1,2,3])))].copy()
+                    tpt = line.copy()
+                    cx = line.copy()
+                    vl = line.copy()
+                    pmtct = line.copy()
+                    tpta  = tpt[tpt['TPT'].notna()].copy()
+                    tptb  = tpt[tpt['TPT'].isnull()].copy()
+                    tpta['TPT'] = tpta['TPT'].astype(str)
+                    tpta = tpta[tpta['TPT']=='Never'].copy()
+                    tpt = pd.concat([tpta, tptb])
+                    month = dt.date.today().strftime('%m')
+                    mon = int(month)
+                    tpt[['Ayear', 'Amonth']] = tpt[['Ayear', 'Amonth']].apply(pd.to_numeric, errors='coerce')
+                    tpta = tpt[((tpt['Ayear'] ==2024) & (tpt['Amonth'].isin([10,11,12])))].copy()
+                    tptb = tpt[((tpt['Ayear'] <2024)| ((tpt['Ayear'] ==2024) & (tpt['Amonth']<10)))].copy() #NEXT Q ALL 2024 WILL BE ELIGIBLE
+                    tpta[['Ayear', 'Rmonth']] = tpta[['Ayear', 'Rmonth']].apply(pd.to_numeric, errors='coerce')
+                    tpta['CHECK'] = tpt['Amonth']- tpt['Rmonth'].copy()
+                    tpta['CHECK'] = pd.to_numeric(tpta['CHECK'], errors = 'coerce')
+                    tpta = tpta[tpta['CHECK']<10].copy()
+                    tpt = pd.concat([tpta, tptb])
+                    #likely Vs unlikely
+                    tpt[['Ayear', 'Amonth']] = tpt[['Ayear', 'Amonth']].apply(pd.to_numeric, errors='coerce')
+                    tpta = tpt[((tpt['Ayear']<2024) | ((tpt['Ayear']==2024) & (tpt['Amonth'] <4)))].copy()
+                    tptb = tpt[((tpt['Ayear']==2024) & (tpt['Amonth'] >3))].copy()
+                    tpta['TPT STATUS'] = 'UNLIKELY'
+                    tptb['TPT STATUS'] = 'LIKELY'
+                    tpt = pd.concat([tpta, tptb])
+                    tpt = tpt[['A', 'TPT', 'TPT STATUS']] # GET RD,AS,RDAY,RMONTH, AFTER MERGING
+
+                     #CERVICAL CANCER
+                    cx['GD'] = cx['GD'].astype(str)
+                    cx['GD'] = cx['GD'].str.replace('Female', 'F', regex=False)
+                    cx['GD'] = cx['GD'].str.replace('FEMALE', 'F', regex=False)
+                    cx = cx[cx['GD']=='F'].copy()
+                    cx['AG'] = pd.to_numeric(cx['AG'], errors='coerce')
+                    cx = cx[((cx['AG'] > 24) & (cx['AG'] < 50))].copy()
+                    cxa = cx[cx['CX'].isnull()].copy()
+                    cxb = cx[cx['CX'].notna()].copy()
+                    cxb['CX'] = cxb['CX'].astype(str)
+                    cxb = cxb[cxb['CX']== 'NOT ELIGIBLE'].copy()
+                    cx = pd.concat([cxa,cxb])
+                    cx = cx[['A', 'CX']].copy()
+                    cx['CX STATUS'] = 'SCREEN'
+        
+                    ###VL LINELIST
+                    vl[['Ayear', 'Amonth']] = vl[['Ayear', 'Amonth']].apply(pd.to_numeric, errors='coerce')
+                    vl = vl[((vl['Ayear']<2024) | ((vl['Ayear']==2024) & (vl['Amonth'] <10)))].copy() 
+                    vl[['Ayear', 'Amonth']] = vl[['Ayear', 'Amonth']].apply(pd.to_numeric, errors='coerce')
+                    vla = vl[((vl['Ayear']<2024) | ((vl['Ayear']==2024) & (vl['Amonth'] <7)))].copy() 
+                    vlb[['Amonth', 'Rmonth']] = vl[['Amonth', 'Rmonth']].apply(pd.to_numeric, errors='coerce')
+                    vlb['CHECK'] = vlb['Amonth'] - vlb['Rmonth'] 
+                    vlb['CHECK'] = pd.to_numeric(vlb['CHECK'], errors = 'coerce')
+                    vlb = vlb[vlb['CHECK']<7].copy()
+                    vl = pd.concat([vla, vlb])
+                    vl[['Vyear', 'Vmonth']] = vl[['Vyear', 'Vmonth']].apply(pd.to_numeric, errors='coerce')
+                    vla = vl[((vl['Vyear'] < 2024) | ((vl['Vyear']==2024) & (vl['Vmonth'] <4)))].copy()
+                    vla['VL STATUS'] = 'DUE'
+                    vlx = vl[((vl['Vyear'] == 2024) & (vl['Vmonth'].isin([4,5])))].copy()
+                    vl[['Vmonth', 'Rmonth']] = vl[['Vmonth', 'Rmonth']].apply(pd.to_numeric, errors='coerce')
+                    vlb = vlx[(vlx['Vmonth']==4) &  (vlx['Rmonth'].isin([1,2]))].copy()
+                    vlc = vlx[ ((vlx['Vmonth']==5) &  (vlx['Rmonth']==3))].copy()
+                    vlc['TWOm'] = 'DUE'
+                    vlb['TWOm'] = 'DUE'
+                    vl = pd.concat([vla, vlb, vlc])
+                    vl = vl[['A', 'VL STATUS', 'TWOm']].copy()
+
+                    #MERGING TPT AND VL LISTS
+                    vl['A'] = pd.to_numeric(vl['A'], errors ='coerce')
+                    tpt['A'] = pd.to_numeric(tpt['A'], errors ='coerce')
+                    linea = pd.merge(vl, tpt , on = 'A', how='outer')
+
+                     #MERGING THE NEW LIST ABOVE AND THE CX LIST
+                    linea['A'] = pd.to_numeric(linea['A'], errors ='coerce')
+                    cx['A'] = pd.to_numeric(cx['A'], errors ='coerce')
+                    lineb = pd.merge(linea, cx, on = 'A', how='outer')
+
+                    #PMTCT VL LIST
+                    pmtct['PRG'] = pmtct['PT'].astype(str)
+                    pmtct['PRG'] = pmtct['PRG'].str.replace('Yes', 'YES')
+                    pmtct['PRG'] = pmtct['PRG'].str.replace('Breast feeding', 'YES')
+                    pmtct = pmtct[pmtct['PRG']=='YES'].copy()
+                    pmtct[['Vyear', 'Vmonth']] = pmtct[['Vyear', 'Vmonth']].apply(pd.to_numeric, errors='coerce')
+                    pmtct = pmtct[pmtct['Vyear']<2025].copy()
+                    pmtct = pmtct[['A', 'PT']].copy()
+                    pmtct['PVL'] = 'DUE'
+
+                    #MERGING THE LIST ABOVE AND THE PMTCT LIST
+                    lineb['A'] = pd.to_numeric(lineb['A'], errors ='coerce')
+                    pmtct['A'] = pd.to_numeric(pmtct['A'], errors ='coerce')
+                    linec = pd.merge(lineb, pmtct, on = 'A', how = 'outer')
+
+                    #MERGING THE ABOVE LIST WITH THE ORIGINAL LIS
+                    linec['A'] = pd.to_numeric(linec['A'], errors ='coerce')
+                    line['A'] = pd.to_numeric(line['A'], errors ='coerce')
+                    line = pd.merge(linec, line, on = 'A', how = 'left')
+                    line = line[['CLUSTER', 'DISTRICT', 'FACILITY', 'A','AG','GD', 'AS', 'RD', 'VD', 'Ryear', 'Rmonth', 'Rday', 'RWEEK','VL STATUS', 'TWOm', 'TPT', 'TPT STATUS', 'CX', 'CX STATUS', 'PT' , 'PVL']].COPY()
+                    line['CLUSTER'] = cluster
+                    line['DISTRICT'] = district
+                    line['FACILITY']= facility
+
+
                     
                     if submit:
                             conn = st.connection('gsheets', type=GSheetsConnection)
