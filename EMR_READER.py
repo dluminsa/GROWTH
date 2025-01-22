@@ -1665,6 +1665,7 @@ def extract():
                     pmtct['A'] = pd.to_numeric(pmtct['A'], errors ='coerce')
                     linec = pd.merge(lineb, pmtct, on = 'A', how = 'outer')
                     st.write(line.columns)
+                    st.write('THIS')
                     #MERGING THE ABOVE LIST WITH THE ORIGINAL LIS
                     linec['A'] = pd.to_numeric(linec['A'], errors ='coerce')
                     line['A'] = pd.to_numeric(line['A'], errors ='coerce')
@@ -1672,8 +1673,9 @@ def extract():
                     line['CLUSTER'] = cluster
                     line['DISTRICT'] = district
                     line['FACILITY']= facility
-                    line = line[['CLUSTER', 'DISTRICT', 'FACILITY', 'A','AG','GD', 'AS', 'RD', 'VD', 'Ryear', 'Rmonth', 'Rday', 'RWEEK','VL STATUS', 'TWOm', 'TPT', 'TPT STATUS', 'CX', 'CX STATUS', 'PT' , 'PVL']].COPY()
                     st.write(line.columns())
+                    line = line[['CLUSTER', 'DISTRICT', 'FACILITY', 'A','AG','GD', 'AS', 'RD', 'VD', 'Ryear', 'Rmonth', 'Rday', 'RWEEK','VL STATUS', 'TWOm', 'TPT', 'TPT STATUS', 'CX', 'CX STATUS', 'PT' , 'PVL']].COPY()
+                    
                     st.stop()
                     
                     if submit:
