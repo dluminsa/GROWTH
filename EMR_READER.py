@@ -1664,7 +1664,7 @@ def extract():
                     lineb['A'] = pd.to_numeric(lineb['A'], errors ='coerce')
                     pmtct['A'] = pd.to_numeric(pmtct['A'], errors ='coerce')
                     linec = pd.merge(lineb, pmtct, on = 'A', how = 'outer')
-
+                    st.write(line.columns)
                     #MERGING THE ABOVE LIST WITH THE ORIGINAL LIS
                     linec['A'] = pd.to_numeric(linec['A'], errors ='coerce')
                     line['A'] = pd.to_numeric(line['A'], errors ='coerce')
