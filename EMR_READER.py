@@ -1672,7 +1672,8 @@ def extract():
                     line['DISTRICT'] = district
                     line['FACILITY']= facility
                     line = line[['CLUSTER', 'DISTRICT', 'FACILITY', 'A','AG','GD', 'AS', 'RD', 'VD', 'Ryear', 'Rmonth', 'Rday', 'RWEEK','VL STATUS', 'TWOm', 'TPT', 'TPT STATUS', 'CX', 'CX STATUS', 'PT' , 'PVL']].COPY()
-
+                    line.columns()
+                    st.stop()
                     
                     if submit:
                             conn = st.connection('gsheets', type=GSheetsConnection)
@@ -1699,10 +1700,9 @@ def extract():
                                 #wkapp = wk+2
                                 
                                 line['RWEEK'] = pd.to_numeric(line['RWEEK'], errors = 'coerce')
-                                line = line[((line['RWEEK'] == wk) | (line['RWEEK']==wkapp))]].copy()
+                                line = line[((line['RWEEK'] == wk) | (line['RWEEK']==wkapp))].copy()
                                 dfline = pd.concat([dfex, line'])
                                 conn.update(worksheet = 'LINELISTS', data = dfline)
-            
                                 
                                 sheet1 = spreadsheet.worksheet("TX")
                                 #st.write(row1)
