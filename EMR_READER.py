@@ -111,9 +111,9 @@ def extract():
                     st.write('To change this excel or to upload another excel, first refresh the page')
     #if file is not None and not st.session_state.reader:
                     df = df.rename(columns= {'ART  ':'ART',  'AS  ':'AS', 'RD  ':'RD', 'RDO  ':'RDO', 'RD1  ':'RD1', 'RD2  ':'RD2', 'VD  ':'VD', 'FE  ':'FE', 'LD  ': 'LD', 'ARVD  ': 'ARVD',
-       'ARVDO  ': 'ARVDO', 'TI  ': 'TI', 'TO  ':'TI', 'DD  ': 'DD', 'AG  ':'AG', 'GD  ':'GD'})
+       'ARVDO  ': 'ARVDO', 'TI  ': 'TI', 'TO  ':'TI', 'DD  ': 'DD', 'AG  ':'AG', 'GD  ':'GD', 'PT  ': 'PT', 'TPT  ':'TPT', 'CX  ': 'CX'})
                     df = df.rename(columns= {'ART ':'ART',  'AS ':'AS', 'RD ':'RD', 'RDO ':'RDO', 'RD1 ':'RD1', 'RD2 ':'RD2', 'VD ':'VD', 'FE ':'FE', 'LD ': 'LD', 'ARVD ': 'ARVD',
-                           'ARVDO ': 'ARVDO', 'TI ': 'TI', 'TO ':'TI', 'DD ': 'DD', 'AG ':'AG', 'GD ':'GD'})
+                           'ARVDO ': 'ARVDO', 'TI ': 'TI', 'TO ':'TI', 'DD ': 'DD', 'AG ':'AG', 'GD ':'GD', 'PT ': 'PT', 'TPT ':'TPT', 'CX ': 'CX'})
                     columns = ['ART','AG', 'GD','AS', 'VD', 'RD','TO', 'TI', 'DD', 'FE','LD', 'RD1', 'RD2', 'RDO', 'ARVD', 'ARVDO','TPT','CX', 'PT']
                     cols = df.columns.to_list()
                     if not all(column in cols for column in columns):
@@ -1668,11 +1668,10 @@ def extract():
                     linec['A'] = pd.to_numeric(linec['A'], errors ='coerce')
                     line['A'] = pd.to_numeric(line['A'], errors ='coerce')
                     line = pd.merge(linec, line, on = 'A', how = 'left')
-                    line = line[['CLUSTER', 'DISTRICT', 'FACILITY', 'A','AG','GD', 'AS', 'RD', 'VD', 'Ryear', 'Rmonth', 'Rday', 'RWEEK','VL STATUS', 'TWOm', 'TPT', 'TPT STATUS', 'CX', 'CX STATUS', 'PT' , 'PVL']].COPY()
                     line['CLUSTER'] = cluster
                     line['DISTRICT'] = district
                     line['FACILITY']= facility
-
+                    line = line[['CLUSTER', 'DISTRICT', 'FACILITY', 'A','AG','GD', 'AS', 'RD', 'VD', 'Ryear', 'Rmonth', 'Rday', 'RWEEK','VL STATUS', 'TWOm', 'TPT', 'TPT STATUS', 'CX', 'CX STATUS', 'PT' , 'PVL']].COPY()
 
                     
                     if submit:
@@ -1686,6 +1685,25 @@ def extract():
                                 updated = pd.concat([existing, allns], ignore_index =True)
                                 conn.update(worksheet = 'ALLNS', data = updated) 
                             try:
+                                conn = st.connection('gsheets', type=GSheetsConnection)
+                                exist = conn.read(worksheet= 'LINELISTS', usecols=list(range(22)),ttl=5)
+                                dfex = exist.dropna(how='all')
+                                #dfex['RWEEK'] = pd.to_numeric(dfex['RWEEK'], errors= 'coerce')
+                                # wkapp = wk+1
+                                # check = dfex[dfex['RWEEK'] == wkapp].copy()
+                                # faccheck = check['FACILITY'].unique()
+                                # if facility in faccheck:
+                                #     st.stop()
+                                # else:
+                                #dfex = dfex[dfex['RWEEK']>wk].copy()
+                                #wkapp = wk+2
+                                
+                                line['RWEEK'] = pd.to_numeric(line['RWEEK'], errors = 'coerce')
+                                line = line[((line['RWEEK'] == wk) | (line['RWEEK']==wkapp))]].copy()
+                                dfline = pd.concat([dfex, line'])
+                                conn.update(worksheet = 'LINELISTS', data = dfline)
+            
+                                
                                 sheet1 = spreadsheet.worksheet("TX")
                                 #st.write(row1)
                                 sheet1.append_row(row1, value_input_option='RAW')
