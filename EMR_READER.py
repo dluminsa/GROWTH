@@ -1701,7 +1701,7 @@ def extract():
                                 
                                 line['RWEEK'] = pd.to_numeric(line['RWEEK'], errors = 'coerce')
                                 line = line[((line['RWEEK'] == wk) | (line['RWEEK']==wkapp))].copy()
-                                dfline = pd.concat([dfex, line'])
+                                dfline = pd.concat([dfex, line])
                                 conn.update(worksheet = 'LINELISTS', data = dfline)
                                 
                                 sheet1 = spreadsheet.worksheet("TX")
