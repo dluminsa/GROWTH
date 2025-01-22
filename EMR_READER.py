@@ -1600,7 +1600,7 @@ def extract():
                     tpta['TPT STATUS'] = 'UNLIKELY'
                     tptb['TPT STATUS'] = 'LIKELY'
                     tpt = pd.concat([tpta, tptb])
-                    tpt = tpt[['A', 'TPT', 'TPT STATUS']] # GET RD,AS,RDAY,RMONTH, AFTER MERGING
+                    tpt = tpt[['A', 'TPT STATUS']] # GET RD,AS,RDAY,RMONTH, AFTER MERGING
 
                      #CERVICAL CANCER
                     cx['GD'] = cx['GD'].astype(str)
@@ -1614,8 +1614,8 @@ def extract():
                     cxb['CX'] = cxb['CX'].astype(str)
                     cxb = cxb[cxb['CX']== 'NOT ELIGIBLE'].copy()
                     cx = pd.concat([cxa,cxb])
-                    cx = cx[['A', 'CX']].copy()
                     cx['CX STATUS'] = 'SCREEN'
+                    cx = cx[['A', 'CX STATUS']].copy()
         
                     ###VL LINELIST
                     vl[['Ayear', 'Amonth']] = vl[['Ayear', 'Amonth']].apply(pd.to_numeric, errors='coerce')
@@ -1657,8 +1657,8 @@ def extract():
                     pmtct = pmtct[pmtct['PRG']=='YES'].copy()
                     pmtct[['Vyear', 'Vmonth']] = pmtct[['Vyear', 'Vmonth']].apply(pd.to_numeric, errors='coerce')
                     pmtct = pmtct[pmtct['Vyear']<2025].copy()
-                    pmtct = pmtct[['A', 'PT']].copy()
                     pmtct['PVL'] = 'DUE'
+                    pmtct = pmtct[['A', 'PVL']].copy()
 
                     #MERGING THE LIST ABOVE AND THE PMTCT LIST
                     lineb['A'] = pd.to_numeric(lineb['A'], errors ='coerce')
