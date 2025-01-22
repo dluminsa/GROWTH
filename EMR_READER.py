@@ -1672,7 +1672,7 @@ def extract():
                     line['DISTRICT'] = district
                     line['FACILITY']= facility
                     line = line[['CLUSTER', 'DISTRICT', 'FACILITY', 'A','AG','GD', 'AS', 'RD', 'VD', 'Ryear', 'Rmonth', 'Rday', 'RWEEK','VL STATUS', 'TWOm', 'TPT', 'TPT STATUS', 'CX', 'CX STATUS', 'PT' , 'PVL']].COPY()
-                    line.columns()
+                    st.write(line.columns())
                     st.stop()
                     
                     if submit:
