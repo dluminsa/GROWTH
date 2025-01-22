@@ -1622,7 +1622,8 @@ def extract():
                     vl = vl[((vl['Ayear']<2024) | ((vl['Ayear']==2024) & (vl['Amonth'] <10)))].copy() 
                     vl[['Ayear', 'Amonth']] = vl[['Ayear', 'Amonth']].apply(pd.to_numeric, errors='coerce')
                     vla = vl[((vl['Ayear']<2024) | ((vl['Ayear']==2024) & (vl['Amonth'] <7)))].copy() 
-                    vlb[['Amonth', 'Rmonth']] = vl[['Amonth', 'Rmonth']].apply(pd.to_numeric, errors='coerce')
+                    vlb = vl[((vl['Ayear']==2024) & (vl['Amonth'].isin([7,8,9])))].copy() 
+                    vlb[['Amonth', 'Rmonth']] = vlb[['Amonth', 'Rmonth']].apply(pd.to_numeric, errors='coerce')
                     vlb['CHECK'] = vlb['Amonth'] - vlb['Rmonth'] 
                     vlb['CHECK'] = pd.to_numeric(vlb['CHECK'], errors = 'coerce')
                     vlb = vlb[vlb['CHECK']<7].copy()
