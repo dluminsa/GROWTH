@@ -1684,8 +1684,6 @@ def extract():
                     mot = int(me) 
                     #missed = missed[((missed['Lyear']==2025) & (missed['Lmonth']<=mot))].copy()
                     missed = missed[((missed['Lyear']==2024) & (missed['Lmonth']==11))].copy()
-                    st.write(missed)
-                    st.write('THIS')
 
                     #VL MISSED
 
@@ -1709,8 +1707,7 @@ def extract():
                     tptamis = tptamis[tptamis['CHECK']<10].copy()
                     tptmis = pd.concat([tptamis, tptbmis])
                     notpt = tptmis.shape[0]
-                    st.write(missed)
-                    st.write('THIST')
+      
                      #CERVICAL CANCER
                     cxmis['GD'] = cxmis['GD'].astype(str)
                     cxmis['GD'] = cxmis['GD'].str.replace('Female', 'F', regex=False)
@@ -1726,8 +1723,6 @@ def extract():
                     cxmis['CX STATUS'] = 'SCREEN'
                     cxmis = cxmis[['A', 'CX STATUS']].copy()
                     notscreened = cxmis.shape[0]
-                    st.write(missed)
-                    st.write('THISV')
         
                     ###VL LINELIST
                     vlmis[['Ayear', 'Amonth']] = vlmis[['Ayear', 'Amonth']].apply(pd.to_numeric, errors='coerce')
@@ -1752,8 +1747,6 @@ def extract():
                     vlmis = pd.concat([vlamis, vlbmis, vlcmis])
                     vlmis = vlmis[['A', 'VL STATUS', 'TWOm']].copy()
                     notbled = vlmis.shape[0]
-                    st.write(missed)
-                    st.write('THISV')
 
                     #MERGING TPT AND VL LISTS
                     vlmis['A'] = pd.to_numeric(vlmis['A'], errors ='coerce')
@@ -1764,9 +1757,8 @@ def extract():
                     lineamis['A'] = pd.to_numeric(lineamis['A'], errors ='coerce')
                     cxmis['A'] = pd.to_numeric(cxmis['A'], errors ='coerce')
                     linebmis = pd.merge(lineamis, cxmis, on = 'A', how='outer')
-
-                    missed = missed[['A', 'LD']].copy
-                    st.write(missed)
+ 
+                    missed = missed[['A', 'LD']].copy() 
                     missed['A'] = pd.to_numeric(missed['A'], errors ='coerce')
                     linebmis['A'] = pd.to_numeric(linebmis['A'], errors ='coerce')
                     missed = pd.merge(linebmis, missed, on = 'A', how = 'left')
