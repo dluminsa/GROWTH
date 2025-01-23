@@ -752,6 +752,7 @@ def extract():
                         nsps = df.copy()
                         line = df.copy()
                         missed = df.copy()
+                       
                         missy = df.copy()
                         #yyy = df.copy()
         
@@ -1683,6 +1684,8 @@ def extract():
                     mot = int(me) 
                     #missed = missed[((missed['Lyear']==2025) & (missed['Lmonth']<=mot))].copy()
                     missed = missed[((missed['Lyear']==2024) & (missed['Lmonth']==12))].copy()
+                    st.write(missed)
+                    st.write('THIS')
 
                     #VL MISSED
 
