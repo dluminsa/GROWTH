@@ -1775,6 +1775,7 @@ def extract():
                     missed['A'] = pd.to_numeric(missed['A'], errors ='coerce')
                     linebmis['A'] = pd.to_numeric(linebmis['A'], errors ='coerce')
                     missed = pd.merge(linebmis, missed, on = 'A', how = 'left')
+                    st.write(missed)
                     
                     @st.cache_data
                     def missedlists():
