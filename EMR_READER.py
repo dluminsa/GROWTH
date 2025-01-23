@@ -1674,7 +1674,7 @@ def extract():
                     line['CLUSTER'] = cluster
                     line['DISTRICT'] = district
                     line['FACILITY']= facility
-                    line = line[['CLUSTER', 'DISTRICT', 'FACILITY', 'A','AG','GD', 'AS', 'RD', 'VD', 'Ryear', 'Rmonth', 'Rday', 'RWEEK','VL STATUS', 'TWOm', 'TPT', 'TPT STATUS', 'CX', 'CX STATUS', 'PT' , 'PVL']].COPY()
+                    line = line[['CLUSTER', 'DISTRICT', 'FACILITY', 'A','AG','GD', 'AS', 'RD', 'VD', 'Ryear', 'Rmonth', 'Rday', 'RWEEK','VL STATUS', 'TWOm', 'TPT', 'TPT STATUS', 'CX', 'CX STATUS', 'PT' , 'PVL']].copy()
 
                     missed[['Lyear', 'Lmonth']] = missed[['Lyear', 'Lmonth']].apply(pd.to_numeric, errors='coerce')
                     ma = dt.date.today()
