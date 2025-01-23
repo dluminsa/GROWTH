@@ -751,6 +751,7 @@ def extract():
                         oneyear = df.copy()
                         nsps = df.copy()
                         line = df.copy()
+                        missed = df.copy()
                         #yyy = df.copy()
         
                         #df['GROUP'] = df['AG'].apply(ager)
@@ -1674,7 +1675,23 @@ def extract():
                     line['DISTRICT'] = district
                     line['FACILITY']= facility
                     line = line[['CLUSTER', 'DISTRICT', 'FACILITY', 'A','AG','GD', 'AS', 'RD', 'VD', 'Ryear', 'Rmonth', 'Rday', 'RWEEK','VL STATUS', 'TWOm', 'TPT', 'TPT STATUS', 'CX', 'CX STATUS', 'PT' , 'PVL']].COPY()
-                    
+
+missed[['Lyear', 'Lmonth']] = missed[['Lyear', 'Lmonth']].apply(pd.to_numeric, errors='coerce')
+ma = dt.date.today()
+me  = ma.strftime('%m')
+mot = int(me) -0 #Make it 1 next month
+missed = missed[((missed['Lyear']==2025) & (missed['Lmonth']==mot)]].copy()
+missed[['Ayear', 'Amomth']] = missed[['Ayear', 'Amomth']].apply(pd.to_numeric, errors='coerce')
+notbled =
+copy...
+#SUMMARY LINELISTS
+cx['Rmonth'] = pd.to_numeric(cx['Rmonth'], errors = 'coerce')
+jancx = cx[cx['Rmonth']==1].shape[0]
+janvl # copy
+jantpt
+janpt
+
+        
                     if submit:
                             conn = st.connection('gsheets', type=GSheetsConnection)
                             exist = conn.read(worksheet= 'ALLNS', usecols=list(range(24)),ttl=5)
