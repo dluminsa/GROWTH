@@ -1784,7 +1784,7 @@ def extract():
 
                     #SUMMARY LINELIST
 
-                    linelists = [cluster, district, facility, jancx, janvl,jantpt, febcx, febvl, febtpt, marcx, marvl, martpt, notbled, notpt, notscreened]
+                    linelists = [cluster, district, facility, jancx, janvl,jantpt, febcx, febvl, febtpt, marcx, marvl, martpt, notbled, notpt, notscreened, wk]
         
                     if submit:
                             conn = st.connection('gsheets', type=GSheetsConnection)
@@ -1801,7 +1801,7 @@ def extract():
                                 exist = conn.read(worksheet= 'LINELISTS', usecols=list(range(22)),ttl=5)
                                 dfex = exist.dropna(how='all')
                                 #dfex['RWEEK'] = pd.to_numeric(dfex['RWEEK'], errors= 'coerce')
-                                # wkapp = wk+1
+                                wkapp = wk +1
                                 # check = dfex[dfex['RWEEK'] == wkapp].copy()
                                 # faccheck = check['FACILITY'].unique()
                                 # if facility in faccheck:
@@ -1811,7 +1811,7 @@ def extract():
                                 #wkapp = wk+2
                                 
                                 line['RWEEK'] = pd.to_numeric(line['RWEEK'], errors = 'coerce')
-                                line = line[((line['RWEEK'] == wk) | (line['RWEEK']==wkapp))].copy()
+                                line = line[((line['RWEEK'] == wk) | (line['RWEEK'] ==wkapp))].copy()
                                 dfline = pd.concat([dfex, line])
                                 conn.update(worksheet = 'LINELISTS', data = dfline)
                                 
