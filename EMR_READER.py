@@ -12,7 +12,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 from streamlit_gsheets import GSheetsConnection
 from datetime import datetime 
 import datetime as dt
-st.stop()
+#st.stop()
 
 # Clear cache at the very start of the app
 st.cache_data.clear()
@@ -1676,20 +1676,114 @@ def extract():
                     line['FACILITY']= facility
                     line = line[['CLUSTER', 'DISTRICT', 'FACILITY', 'A','AG','GD', 'AS', 'RD', 'VD', 'Ryear', 'Rmonth', 'Rday', 'RWEEK','VL STATUS', 'TWOm', 'TPT', 'TPT STATUS', 'CX', 'CX STATUS', 'PT' , 'PVL']].COPY()
 
-missed[['Lyear', 'Lmonth']] = missed[['Lyear', 'Lmonth']].apply(pd.to_numeric, errors='coerce')
-ma = dt.date.today()
-me  = ma.strftime('%m')
-mot = int(me) -0 #Make it 1 next month
-missed = missed[((missed['Lyear']==2025) & (missed['Lmonth']==mot)]].copy()
-missed[['Ayear', 'Amomth']] = missed[['Ayear', 'Amomth']].apply(pd.to_numeric, errors='coerce')
-notbled =
-copy...
-#SUMMARY LINELISTS
-cx['Rmonth'] = pd.to_numeric(cx['Rmonth'], errors = 'coerce')
-jancx = cx[cx['Rmonth']==1].shape[0]
-janvl # copy
-jantpt
-janpt
+                    missed[['Lyear', 'Lmonth']] = missed[['Lyear', 'Lmonth']].apply(pd.to_numeric, errors='coerce')
+                    ma = dt.date.today()
+                    me  = ma.strftime('%m')
+                    mot = int(me) 
+                    missed = missed[((missed['Lyear']==2025) & (missed['Lmonth']<=mot)]].copy()
+
+                    #VL MISSED
+
+                    tptmis = missed.copy()
+                    cxmis = missed.copy()
+                    vlmis = missed.copy()
+                 
+                    tptamis  = tptmis[tptmis['TPT'].notna()].copy()
+                    tptbmis  = tptmis[tptmis['TPT'].isnull()].copy()
+                    tptamis['TPT'] = tptamis['TPT'].astype(str)
+                    tptamis = tptamis[tptamis['TPT']=='Never'].copy()
+                    tptmis = pd.concat([tptamis, tptbmis])
+                    month = dt.date.today().strftime('%m')
+                    mon = int(month)
+                    tptmis[['Ayear', 'Amonth']] = tptmis[['Ayear', 'Amonth']].apply(pd.to_numeric, errors='coerce')
+                    tptamis = tptmis[((tptmis['Ayear'] ==2024) & (tptmis['Amonth'].isin([10,11,12])))].copy()
+                    tptbmis = tptmis[((tptmis['Ayear'] <2024)| ((tptmis['Ayear'] ==2024) & (tptmis['Amonth']<10)))].copy() #NEXT Q ALL 2024 WILL BE ELIGIBLE
+                    tptamis[['Ayear', 'Lmonth']] = tptamis[['Ayear', 'Lmonth']].apply(pd.to_numeric, errors='coerce')
+                    tptamis['CHECK'] = tptmis['Amonth']- tpt['Lmonth'].copy()
+                    tptamis['CHECK'] = pd.to_numeric(tptamis['CHECK'], errors = 'coerce')
+                    tptamis = tptamis[tptamis['CHECK']<10].copy()
+                    tptmis = pd.concat([tptamis, tptbmis])
+                    notpt = tptmis.shape[0]
+
+                     #CERVICAL CANCER
+                    cxmis['GD'] = cxmis['GD'].astype(str)
+                    cxmis['GD'] = cxmis['GD'].str.replace('Female', 'F', regex=False)
+                    cxmis['GD'] = cxmis['GD'].str.replace('FEMALE', 'F', regex=False)
+                    cxmis = cxmis[cxmis['GD']=='F'].copy()
+                    cxmis['AG'] = pd.to_numeric(cxmis['AG'], errors='coerce')
+                    cxmis = cxmis[((cxmis['AG'] > 24) & (cxmis['AG'] < 50))].copy()
+                    cxamis = cxmis[cxmis['CX'].isnull()].copy()
+                    cxbmis = cxmis[cxmis['CX'].notna()].copy()
+                    cxbmis['CX'] = cxbmis['CX'].astype(str)
+                    cxbmis = cxbmis[cxbmis['CX']== 'NOT ELIGIBLE'].copy()
+                    cxmis = pd.concat([cxamis,cxbmis])
+                    cxmis['CX STATUS'] = 'SCREEN'
+                    cxmis = cxmis[['A', 'CX STATUS']].copy()
+                    notscreened = csmis.shape[0]
+        
+                    ###VL LINELIST
+                    vlmis[['Ayear', 'Amonth']] = vlmis[['Ayear', 'Amonth']].apply(pd.to_numeric, errors='coerce')
+                    vlmis = vlmis[((vlmis['Ayear']<2024) | ((vlmis['Ayear']==2024) & (vlmis['Amonth'] <10)))].copy() 
+                    vlmis[['Ayear', 'Amonth']] = vlmis[['Ayear', 'Amonth']].apply(pd.to_numeric, errors='coerce')
+                    vlamis = vlmis[((vlmis['Ayear']<2024) | ((vlmis['Ayear']==2024) & (vlmis['Amonth'] <7)))].copy() 
+                    vlbmis = vlmis[((vlmis['Ayear']==2024) & (vlmis['Amonth'].isin([7,8,9])))].copy() 
+                    vlbmis[['Amonth', 'Rmonth']] = vlbmis[['Amonth', 'Lmonth']].apply(pd.to_numeric, errors='coerce')
+                    vlbmis['CHECK'] = vlbmis['Amonth'] - vlbmis['Lmonth'] 
+                    vlbmis['CHECK'] = pd.to_numeric(vlbmis['CHECK'], errors = 'coerce')
+                    vlbmis = vlbmis[vlbmis['CHECK']<7].copy()
+                    vlmis = pd.concat([vlamis, vlbmis])
+                    vlmis[['Vyear', 'Vmonth']] = vlmis[['Vyear', 'Vmonth']].apply(pd.to_numeric, errors='coerce')
+                    vlamis = vlmis[((vlmis['Vyear'] < 2024) | ((vlmis['Vyear']==2024) & (vlmis['Vmonth'] <4)))].copy()
+                    vlamis['VL STATUS'] = 'DUE'
+                    vlxmis = vlmis[((vlmis['Vyear'] == 2024) & (vlmis['Vmonth'].isin([4,5])))].copy()
+                    vlmis[['Vmonth', 'Lmonth']] = vlmis[['Vmonth', 'Lmonth']].apply(pd.to_numeric, errors='coerce')
+                    vlbmis = vlxmis[(vlxmis['Vmonth']==4) &  (vlxmis['Rmonth'].isin([1,2]))].copy()
+                    vlcmis = vlxmis[ ((vlxmis['Vmonth']==5) &  (vlxmis['Rmonth']==3))].copy()
+                    vlcmis['TWOm'] = 'DUE'
+                    vlbmis['TWOm'] = 'DUE'
+                    vlmis = pd.concat([vlamis, vlbmis, vlcmis])
+                    vlmis = vlmis[['A', 'VL STATUS', 'TWOm']].copy()
+                    notbled = vlmis.shape[0]
+
+                    #MERGING TPT AND VL LISTS
+                    vlmis['A'] = pd.to_numeric(vlmis['A'], errors ='coerce')
+                    tptmis['A'] = pd.to_numeric(tptmis['A'], errors ='coerce')
+                    lineamis = pd.merge(vlmis, tptmis , on = 'A', how='outer')
+
+                     #MERGING THE NEW LIST ABOVE AND THE CX LIST
+                    lineamis['A'] = pd.to_numeric(lineamis['A'], errors ='coerce')
+                    cxmis['A'] = pd.to_numeric(cxmis['A'], errors ='coerce')
+                    linebmis = pd.merge(lineamis, cxmis, on = 'A', how='outer')
+
+                    missed = missed[['A', 'LD']].copy
+                    missed['A'] = pd.to_numeric(missed['A'], errors ='coerce')
+                    linebmis['A'] = pd.to_numeric(linebmis['A'], errors ='coerce')
+                    missed = pd.merge(linebmis, missed, on = 'A', how = 'left')
+                    
+                    @st.cache_data
+                    def missedlists():
+                        dat = missed.copy()
+                        missed = missed.rename(columns={'LD': 'LAST ENCOUNTER'})
+                        return dat
+
+                    #SUMMARY LINELISTS
+                    #JAN
+                    cx['Rmonth'] = pd.to_numeric(cx['Rmonth'], errors = 'coerce')
+                    jancx = cx[cx['Rmonth']==1].shape[0]
+                    janvl = cx[cx['Rmonth']==1].shape[0]
+                    jantpt = cx[cx['Rmonth']==1].shape[0]
+
+                    #FEB
+                    febcx = cx[cx['Rmonth']==2].shape[0]
+                    febvl = cx[cx['Rmonth']==2].shape[0]
+                    febtpt = cx[cx['Rmonth']==2].shape[0]
+
+                     #MAR
+                    marcx = cx[cx['Rmonth']==3].shape[0]
+                    marvl = cx[cx['Rmonth']==3].shape[0]
+                    martpt = cx[cx['Rmonth']==3].shape[0]
+
+                    linelists = [cluster, district, facility, jancx, janvl,jantpt, febcx, febvl, febtpt, marcx, marvl, martpt, notbled, notpt, notscreened]
 
         
                     if submit:
@@ -1731,9 +1825,12 @@ janpt
                                 sheet3 = spreadsheet.worksheet("YEARS")
                                 sheet4 = spreadsheet.worksheet("THREEO")
                                 sheet5 = spreadsheet.worksheet("CIRA")
+                                sheet6 = spreadsheet.worksheet("SUMM")
+                                
                                 sheet3.append_row(row3, value_input_option='RAW')
                                 sheet4.append_row(row4, value_input_option='RAW')
                                 sheet5.append_row(row5, value_input_option='RAW')
+                                sheet6.append_row(linelists, value_input_option='RAW')
                                 st.session_state.submited = True
                             except Exception as e:
                                 # Print the error message
@@ -1981,6 +2078,17 @@ janpt
                                         csv_data = dat.to_csv(index=False) 
                                         st.download_button(
                                                     label="MASTER_LIST",
+                                                    data=csv_data,
+                                                    file_name=f" {facility} MASTER_LIST.csv",
+                                                    mime="text/csv")
+                                    
+                                cola,colb = st.columns([4,1])
+                                with cola:
+                                        st.markdown('**CLINETS THAT MISSED SERVICES**')
+                                        dat = missedlists()
+                                        csv_data = dat.to_csv(index=False) 
+                                        st.download_button(
+                                                    label="MISSED OPPORTUNITIES",
                                                     data=csv_data,
                                                     file_name=f" {facility} MASTER_LIST.csv",
                                                     mime="text/csv")
