@@ -1604,6 +1604,10 @@ def extract():
                     tpta['TPT STATUS'] = 'UNLIKELY'
                     tptb['TPT STATUS'] = 'LIKELY'
                     tpt = pd.concat([tpta, tptb])
+                    tpt['Rmonth'] = pd.to_numeric(tpt['Rmonth'], errors = 'coerce')
+                    jantpt = tpt[tpt['Rmonth']==1].shape[0]
+                    febtpt = tpt[tpt['Rmonth']==2].shape[0]
+                    martpt = tpt[tpt['Rmonth']==3].shape[0]
                     tpt = tpt[['A', 'TPT STATUS']] # GET RD,AS,RDAY,RMONTH, AFTER MERGING
 
                      #CERVICAL CANCER
@@ -1618,6 +1622,10 @@ def extract():
                     cxb['CX'] = cxb['CX'].astype(str)
                     cxb = cxb[cxb['CX']== 'NOT ELIGIBLE'].copy()
                     cx = pd.concat([cxa,cxb])
+                    cx['Rmonth'] = pd.to_numeric(cx['Rmonth'], errors = 'coerce')
+                    jancx = cx[cx['Rmonth']==1].shape[0]
+                    febcx = cx[cx['Rmonth']==2].shape[0]
+                    marcx = cx[cx['Rmonth']==3].shape[0]
                     cx['CX STATUS'] = 'SCREEN'
                     cx = cx[['A', 'CX STATUS']].copy()
         
@@ -1642,7 +1650,12 @@ def extract():
                     vlc['TWOm'] = 'DUE'
                     vlb['TWOm'] = 'DUE'
                     vl = pd.concat([vla, vlb, vlc])
+                    vl['Rmonth'] = pd.to_numeric(vl['Rmonth'], errors = 'coerce')
+                    janvl = vl[vl['Rmonth']==1].shape[0] 
+                    febvl = vl[vl['Rmonth']==2].shape[0]
+                    marvl = vl[vl['Rmonth']==3].shape[0
                     vl = vl[['A', 'VL STATUS', 'TWOm']].copy()
+     
 
                     #MERGING TPT AND VL LISTS
                     vl['A'] = pd.to_numeric(vl['A'], errors ='coerce')
@@ -1769,25 +1782,9 @@ def extract():
                         missed = missed.rename(columns={'LD': 'LAST ENCOUNTER'})
                         return dat
 
-                    #SUMMARY LINELISTS
-                    #JAN
-                    cx['Rmonth'] = pd.to_numeric(cx['Rmonth'], errors = 'coerce')
-                    jancx = cx[cx['Rmonth']==1].shape[0]
-                    janvl = cx[cx['Rmonth']==1].shape[0]
-                    jantpt = cx[cx['Rmonth']==1].shape[0]
-
-                    #FEB
-                    febcx = cx[cx['Rmonth']==2].shape[0]
-                    febvl = cx[cx['Rmonth']==2].shape[0]
-                    febtpt = cx[cx['Rmonth']==2].shape[0]
-
-                     #MAR
-                    marcx = cx[cx['Rmonth']==3].shape[0]
-                    marvl = cx[cx['Rmonth']==3].shape[0]
-                    martpt = cx[cx['Rmonth']==3].shape[0]
+                    #SUMMARY LINELIST
 
                     linelists = [cluster, district, facility, jancx, janvl,jantpt, febcx, febvl, febtpt, marcx, marvl, martpt, notbled, notpt, notscreened]
-
         
                     if submit:
                             conn = st.connection('gsheets', type=GSheetsConnection)
