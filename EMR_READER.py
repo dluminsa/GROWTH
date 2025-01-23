@@ -1719,7 +1719,7 @@ def extract():
                     cxmis = pd.concat([cxamis,cxbmis])
                     cxmis['CX STATUS'] = 'SCREEN'
                     cxmis = cxmis[['A', 'CX STATUS']].copy()
-                    notscreened = csmis.shape[0]
+                    notscreened = cxmis.shape[0]
         
                     ###VL LINELIST
                     vlmis[['Ayear', 'Amonth']] = vlmis[['Ayear', 'Amonth']].apply(pd.to_numeric, errors='coerce')
