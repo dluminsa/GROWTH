@@ -1653,7 +1653,7 @@ def extract():
                     vl['Rmonth'] = pd.to_numeric(vl['Rmonth'], errors = 'coerce')
                     janvl = vl[vl['Rmonth']==1].shape[0] 
                     febvl = vl[vl['Rmonth']==2].shape[0]
-                    marvl = vl[vl['Rmonth']==3].shape[0
+                    marvl = vl[vl['Rmonth']==3].shape[0]
                     vl = vl[['A', 'VL STATUS', 'TWOm']].copy()
      
 
