@@ -2,7 +2,7 @@
 import streamlit as st 
 import os
 import numpy as np
-import gspread
+i mport gspread
 from openpyxl import load_workbook
 from pathlib import Path
 import traceback
