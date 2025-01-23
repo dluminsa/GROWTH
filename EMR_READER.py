@@ -1808,10 +1808,10 @@ def extract():
                                 #     st.stop()
                                 # else:
                                 #dfex = dfex[dfex['RWEEK']>wk].copy()
-                                #wkapp = wk+2
+                                #wkapp = wk+6
                                 
                                 line['RWEEK'] = pd.to_numeric(line['RWEEK'], errors = 'coerce')
-                                line = line[((line['RWEEK'] == wk) | (line['RWEEK'] ==wkapp))].copy()
+                                line = line[((line['RWEEK'] == wk) | (line['RWEEK'] <wkapp))].copy()
                                 dfline = pd.concat([dfex, line])
                                 conn.update(worksheet = 'LINELISTS', data = dfline)
                                 
