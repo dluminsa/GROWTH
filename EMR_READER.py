@@ -1,4 +1,4 @@
-import pandas as pd 
+  import pandas as pd 
 import streamlit as st 
 import os
 import numpy as np
@@ -6,7 +6,7 @@ import gspread
 from openpyxl import load_workbook
 from pathlib import Path
 import traceback
-import time
+import timeasd as sd
 from google.oauth2.service_account import Credentials
 from oauth2client.service_account import ServiceAccountCredentials
 from streamlit_gsheets import GSheetsConnection
