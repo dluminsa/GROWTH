@@ -1699,7 +1699,7 @@ def extract():
                     tptamis = tptmis[((tptmis['Ayear'] ==2024) & (tptmis['Amonth'].isin([10,11,12])))].copy()
                     tptbmis = tptmis[((tptmis['Ayear'] <2024)| ((tptmis['Ayear'] ==2024) & (tptmis['Amonth']<10)))].copy() #NEXT Q ALL 2024 WILL BE ELIGIBLE
                     tptamis[['Ayear', 'Lmonth']] = tptamis[['Ayear', 'Lmonth']].apply(pd.to_numeric, errors='coerce')
-                    tptamis['CHECK'] = tptmis['Amonth']- tpt['Lmonth'].copy()
+                    tptamis['CHECK'] = tptmis['Amonth']- tptmis['Lmonth'].copy()
                     tptamis['CHECK'] = pd.to_numeric(tptamis['CHECK'], errors = 'coerce')
                     tptamis = tptamis[tptamis['CHECK']<10].copy()
                     tptmis = pd.concat([tptamis, tptbmis])
