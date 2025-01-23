@@ -1683,7 +1683,7 @@ def extract():
                     me  = ma.strftime('%m')
                     mot = int(me) 
                     #missed = missed[((missed['Lyear']==2025) & (missed['Lmonth']<=mot))].copy()
-                    missed = missed[((missed['Lyear']==2024) & (missed['Lmonth']==12))].copy()
+                    missed = missed[((missed['Lyear']==2024) & (missed['Lmonth']==11))].copy()
                     st.write(missed)
                     st.write('THIS')
 
