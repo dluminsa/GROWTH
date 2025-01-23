@@ -1680,7 +1680,7 @@ def extract():
                     ma = dt.date.today()
                     me  = ma.strftime('%m')
                     mot = int(me) 
-                    missed = missed[((missed['Lyear']==2025) & (missed['Lmonth']<=mot)]].copy()
+                    missed = missed[((missed['Lyear']==2025) & (missed['Lmonth']<=mot))].copy()
 
                     #VL MISSED
 
