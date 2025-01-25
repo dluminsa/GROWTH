@@ -1780,7 +1780,7 @@ def extract():
                     def missedlists():
                         dat = mmm.copy()
                         dat = dat.rename(columns={'LD': 'LAST ENCOUNTER', 'GD':'GENDER','AG':'AGE', 'RD':'RETURN DATE', 'A':'ART No.'})
-                        dat = dat[['ART No.','AGE', 'GENDER', 'RETURN DATE', 'LAST ENCOUNTER', 'VL STATUS', 'TWOm', 'TPT', 'TPT STATUS', 'CX STATUS']].copy()
+                        dat = dat[['ART No.','AGE', 'RETURN DATE','GENDER',  'LAST ENCOUNTER', 'VL STATUS', 'TWOm', 'TPT', 'TPT STATUS', 'CX STATUS']].copy()
                         return dat
 
                     #SUMMARY LINELIST
