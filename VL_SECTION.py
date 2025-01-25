@@ -293,12 +293,10 @@ st.divider()
 ##CX SECTION
 st.markdown('<p><b><u><i style="color:purple">CERVICAL CANCER LINELISTS</i></u></b></p>' , unsafe_allow_html = True)
 st.markdown('<p><b><u><i style="color:red">TPT LINELISTS (LIKELY)</i></u></b></p>' , unsafe_allow_html = True)
-tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK', 'USE']].copy()
-tpt= tpt[tpt['TPT STATUS'].notna()].copy()
-tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
-tpt = tpt[tpt['TPT STATUS'] == 'LIKELY'].copy()
-tptsum = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANTPT', 'FEBTPT','MARTPT', 'WEEK']].copy()
-tptsum = tptsum[tptsum['WEEK']==wiki].copy()
+cx = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'RD', 'Rmonth', 'Rday', 'CX','CX STATUS', 'RWEEK', 'USE']].copy()
+cx= cx[cx['cx STATUS'].notna()].copy()
+cxsum = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANCX', 'FEBCX','MARCX', 'WEEK']].copy()
+cxsum = cxsum[cxsum['WEEK']==wiki].copy()
 
 cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
 cola.write(f'**{word}**')
@@ -307,6 +305,33 @@ colc.write('**THIS WEEK**')
 cold.write('**JAN**')
 cole.write('**FEB**')
 colf.write('**MAR**')
+for fac in facilities:
+     cx = cx[cx['USE'] == fac]
+     cx[['Rmonth', 'Rday', 'RWEEK']] = cx[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+     tod = cx[((cx['Rmonth'] == mon) & (cx['Rday'] == today))].copy()
+     tods = tod.shape[0]
+     wik = cx[(cx['RWEEK'] == wiki)].copy()
+     wikis = wik.shape[0]
+     cxsumx = dfsumx[dfsumx['USE']==fac].copy()
+     try:
+       jansumx = cxsumx['JANCX'].sumx()
+     except:
+          jansumx = 0
+     try:
+          febsumx = cxsumx['FEBCX'].sumx()
+     except:
+          febsumx = 0
+     try:
+          marsumx = cxsumx['MARCX'].sumx()
+     except:
+          marsumx = 0
+          
+     cola.write(f'**{fac}**')
+     colb.write(f'**{tods:,.0f}**')
+     colc.write(f'**{wikis:,.0f}**')
+     cold.write(f'**{int(jansumx)}**')
+     cole.write(f'**{febsumx:,.0f}**')
+     colf.write(f'**{marsumx:,.0f}**')
 
 st.divider()
 #VL COVERAGE
