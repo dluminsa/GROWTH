@@ -291,7 +291,7 @@ for fac in facilities:
      colc.write(f'**{wikis:,.0f}**')
 st.divider()
 ##CX SECTION
-st.markdown('<p><b><i>CERVICAL CANCER LINELISTS</p></b></i>' , unsafe_allow_html = True)
+st.markdown('<p><b><u><i style="color:purpe">CERVICAL CANCER LINELISTS</i></u></b></p>' , unsafe_allow_html = True)
 st.write('**TPT LINELISTS (LIKELY)**')
 tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK', 'USE']].copy()
 tpt= tpt[tpt['TPT STATUS'].notna()].copy()
