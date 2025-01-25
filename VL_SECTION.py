@@ -241,12 +241,15 @@ for fac in facilities:
      wik = tpt[(tpt['RWEEK'] == wiki)].copy()
      wikis = wik.shape[0]
      tpsum = dfsum[dfsum['FACILITY']==fac].copy()
+     jansum = tptsum['JANTPT'].sum()
+     st.write(jansum)
+     st.stop()
      try:
        jansum = tptsum['JANTPT'].sum()
      except:
           jansum = 0
      try:
-          febsum = tptsum['FETPT'].sum()
+          febsum = tptsum['FEBTPT'].sum()
      except:
           febsum = 0
      try:
