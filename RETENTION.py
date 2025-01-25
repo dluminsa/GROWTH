@@ -1,5 +1,4 @@
- import pandas as pd 
- dh j  jj
+import pandas as pd 
 import streamlit as st 
 import os
 import gspread
