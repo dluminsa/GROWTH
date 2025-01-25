@@ -9,6 +9,7 @@ import traceback
 import time
 from streamlit_gsheets import GSheetsConnection
 from datetime import datetime
+import datetime as dt
 
 # st.set_page_config(
 #     page_title = 'VL SECTION',
@@ -195,15 +196,15 @@ if facility:
     dfline = dfline[dfline['FACILITY'].isin(facility)].copy()
 
 dati = dt.datetime.date.today()
-wiki = dat.strftime('%v')
-today = dat.strftime('%d')
-mon = dat.strftime('%m')
+wiki = dati.strftime('%v')
+today = dati.strftime('%d')
+mon = dati.strftime('%m')
 
 #keep one entry for summaries
-dfsum['FACILITY'] = dfsum['FACILITY'].astype.(str)
+dfsum['FACILITY'] = dfsum['FACILITY'].astype(str)
 dfsum['WEEK'] = pd.to_numeric(dfsum['WEEK'], errors = 'coerce')
-dfsum = dsum.sort_values(by = ['WEEK'])
-dsfum = dsum.drop_duplicates(subset = 'FACILITY', keep='last')
+dfsum = dfsum.sort_values(by = ['WEEK'])
+dsfum = dfsum.drop_duplicates(subset = 'FACILITY', keep='last')
 
 
 st.divider()
@@ -212,7 +213,7 @@ tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rda
 tpt= tpt[tpt['TPT STATUS'].notna()].copy()
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
 tptsum = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANTPT', 'FEBTPT','MARTPT', 'WEEK']].copy()
-tptsum = tptsum[tptsum['WEEK']==wiki
+tptsum = tptsum[tptsum['WEEK']==wiki].copy()
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
 
 loop = df['DISTRICT'].unique()
@@ -222,7 +223,6 @@ if len(loop) ==1:
 else:
      tpt['USE'] = tpt['DISTRICT']
      word = 'DISTRICT'
-today, this, jan. feb, mar, faci
 cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
 cola.write(f'**{word}**')
 colb.write('**TODAY**')
