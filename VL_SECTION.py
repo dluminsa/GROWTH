@@ -290,6 +290,25 @@ for fac in facilities:
      colb.write(f'**{tods:,.0f}**')
      colc.write(f'**{wikis:,.0f}**')
 st.divider()
+##CX SECTION
+st.markdown('<p><b><i>CERVICAL CANCER LINELISTS</p></b></i>' , unsafe_allow_html = True)
+st.write('**TPT LINELISTS (LIKELY)**')
+tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK', 'USE']].copy()
+tpt= tpt[tpt['TPT STATUS'].notna()].copy()
+tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
+tpt = tpt[tpt['TPT STATUS'] == 'LIKELY'].copy()
+tptsum = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANTPT', 'FEBTPT','MARTPT', 'WEEK']].copy()
+tptsum = tptsum[tptsum['WEEK']==wiki].copy()
+
+cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
+cola.write(f'**{word}**')
+colb.write('**TODAY**')
+colc.write('**THIS WEEK**')
+cold.write('**JAN**')
+cole.write('**FEB**')
+colf.write('**MAR**')
+
+st.divider()
 #VL COVERAGE
 
 HAVE = water['HAVE'].sum()
