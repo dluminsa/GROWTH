@@ -217,16 +217,14 @@ dfsum['FACILITY'] = dfsum['FACILITY'].astype(str)
 dfsum = dfsum.drop_duplicates(subset = ['FACILITY'], keep='last')
 
 ##TPT SECTION
+st.write('**TPT LINELISTS (LIKELY)**')
 tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK', 'USE']].copy()
 tpt= tpt[tpt['TPT STATUS'].notna()].copy()
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
-st.write(tpt['TPT STATUS'])
-tpt['TPT STATUS'] = tpt[tpt['TPT STATUS'] == 'LIKELY'].copy()
+tpt = tpt[tpt['TPT STATUS'] == 'LIKELY'].copy()
 tptsum = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANTPT', 'FEBTPT','MARTPT', 'WEEK']].copy()
 tptsum = tptsum[tptsum['WEEK']==wiki].copy()
-tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
 
-st.write('**TPT LINELISTS (LIKELY)**')
 cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
 cola.write(f'**{word}**')
 colb.write('**TODAY**')
@@ -267,12 +265,13 @@ for fac in facilities:
      
 st.divider()
 ##TPT SECTION
+st.write('**TPT LINELISTS (UNLIKELY)**')
 tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK', 'USE']].copy()
 tpt= tpt[tpt['TPT STATUS'].notna()].copy()
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
 tpt['TPT STATUS'] = tpt[tpt['TPT STATUS'] == 'UNLIKELY'].copy()
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
-st.write('**TPT LINELISTS (UNLIKELY)**')
+
 cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
 cola.write(f'**{word}**')
 colb.write('**TODAY**')
