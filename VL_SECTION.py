@@ -200,6 +200,16 @@ wiki = dati.strftime('%v')
 today = dati.strftime('%d')
 mon = dati.strftime('%m')
 
+loop = df['DISTRICT'].unique()
+if len(loop) ==1:
+     dfline['USE'] = dfline['FACILITY']
+     dfline['USE'] = dfsum['FACILITY']
+     word = 'FACILITY'
+else:
+     dfline['USE'] = dfline['DISTRICT']
+     dfsum['USE'] = dfsum['DISTRICT']
+     word = 'DISTRICT'
+
 #keep one entry for summaries
 dfsum['FACILITY'] = dfsum['FACILITY'].astype(str)
 dfsum['WEEK'] = pd.to_numeric(dfsum['WEEK'], errors = 'coerce')
@@ -215,13 +225,7 @@ tptsum = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANTPT', 'FEBTPT','MARTPT', '
 tptsum = tptsum[tptsum['WEEK']==wiki].copy()
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
 
-loop = df['DISTRICT'].unique()
-if len(loop) ==1:
-     tpt['USE'] = tpt['FACILITY']
-     word = 'FACILITY'
-else:
-     tpt['USE'] = tpt['DISTRICT']
-     word = 'DISTRICT'
+
 cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
 cola.write(f'**{word}**')
 colb.write('**TODAY**')
@@ -241,7 +245,7 @@ for fac in facilities:
      tods = tod.shape[0]
      wik = tpt[(tpt['RWEEK'] == wiki)].copy()
      wikis = wik.shape[0]
-     tptsum = dfsum[dfsum['FACILITY']==fac].copy()
+     tptsum = dfsum[dfsum['USE']==fac].copy()
      st.write(tptsum)
      try:
        jansum = tptsum['JANTPT'].sum()
