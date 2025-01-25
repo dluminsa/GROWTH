@@ -240,7 +240,6 @@ for fac in facilities:
      tods = tod.shape[0]
      wik = tpt[(tpt['RWEEK'] == wiki)].copy()
      wikis = wik.shape[0]
-     st.write(f'this is {wikis}')
      tpsum = dfsum[dfsum['FACILITY']==fac].copy()
      try:
        jansum = tptsum['JANTPT'].sum()
@@ -257,10 +256,10 @@ for fac in facilities:
           
      cola.write(f'**{fac}**')
      colb.write(f'**{tods}**')
-     colc.write('**{wikis}**')
-     cold.write('**{jansum}**')
-     cole.write('**febsum**')
-     colf.wite('**marsum**')
+     colc.write(f'**{wikis}**')
+     cold.write(f'**{jansum}**')
+     cole.write(f'**febsum**')
+     colf.wite(f'**{marsum}**')
      
 st.write(tpt.shape[0])
 st.divider()
