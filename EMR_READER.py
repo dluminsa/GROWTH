@@ -1780,7 +1780,7 @@ def extract():
                     @st.cache_data
                     def missedlists():
                         dat = mmm.copy()
-                        missed = missed.rename(columns={'LD': 'LAST ENCOUNTER'})
+                        dat = dat.rename(columns={'LD': 'LAST ENCOUNTER'})
                         return dat
 
                     #SUMMARY LINELIST
