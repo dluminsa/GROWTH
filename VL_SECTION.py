@@ -23,7 +23,7 @@ colb.subheader('VIRAL LOAD COVERAGE')
 today = datetime.now()
 todayd = today.strftime("%Y-%m-%d")# %H:%M")
 wk = today.strftime("%V")
-week = int(wk)-39
+week = int(wk) + 13
 cola,colb = st.columns(2)
 cola.write(f"**DATE TODAY:    {todayd}**")
 colb.write(f"**CURRENT WEEK:    {week}**")
@@ -38,9 +38,35 @@ if 'vl' not in st.session_state:
         st.session_state.vl = df
      except exception as e:
          st.write(f'{e}')
-         st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
+         st.write("POOR NETWORK, COULDN'T CONNECT TO DATABASE")
          st.stop()
 dftx = st.session_state.vl.copy()
+
+if 'line' not in st.session_state:     
+     try:
+        #cola,colb= st.columns(2)
+        conn = st.connection('gsheets', type=GSheetsConnection)
+        exist = conn.read(worksheet= 'LINELISTS', usecols=list(range(21)),ttl=5)
+        df = exist.dropna(how='all')
+        st.session_state.line = df
+     except exception as e:
+         st.write(f'{e}')
+         st.write("POOR NETWORK, COULDN'T CONNECT TO DATABASE")
+         st.stop()
+dfline = st.session_state.line.copy()
+
+if 'summ' not in st.session_state:     
+     try:
+        #cola,colb= st.columns(2)
+        conn = st.connection('gsheets', type=GSheetsConnection)
+        exist = conn.read(worksheet= 'SUMM', usecols=list(range(16)),ttl=5)
+        df = exist.dropna(how='all')
+        st.session_state.sum = df
+     except exception as e:
+         st.write(f'{e}')
+         st.write("POOR NETWORK, COULDN'T CONNECT TO DATABASE")
+         st.stop()
+dfsum = st.session_state.sum.copy()
 
 
 #REPORTING RATES
@@ -85,6 +111,8 @@ if not CLUSTER:
     dfrep2 = dfrep.copy()
     dftx2 = dftx.copy()
     water2 = water.copy()
+    dfline2 = dfline.copy()
+    dfsum2 = dfsum.copy()
 
 else:
     dfrep['CLUSTER'] = dfrep['CLUSTER'].astype(str)
@@ -95,10 +123,18 @@ else:
     
     water['CLUSTER'] = water['CLUSTER'].astype(str)
     water2 = water[water['CLUSTER'].isin(CLUSTER)].copy()
+     
+    dfline['CLUSTER'] = dfline['CLUSTER'].astype(str)
+    dfline2 = dfline[dfline['CLUSTER'].isin(CLUSTER)].copy()
+
+    dfsum['CLUSTER'] = dfsum['CLUSTER'].astype(str)
+    dfsum2 = dfsum[dfsum['CLUSTER'].isin(CLUSTER)].copy()
 
 district = st.sidebar.multiselect('**CHOOSE A DISTRICT**', dfrep2['DISTRICT'].unique(), key='b')
 if not district:
     dfrep3 = dfrep2.copy()
+    dfline3 = dfline2.copy()
+    dfsum3  = dfsum2.copy()
     dftx3 = dftx2.copy()
     water3 = water2.copy()
 else:
@@ -111,35 +147,58 @@ else:
     water2['DISTRICT'] = water2['DISTRICT'].astype(str)
     water3 = water2[water2['DISTRICT'].isin(district)].copy()
 
+    dfline2['DISTRICT'] = dfline2['DISTRICT'].astype(str)
+    dfline3 = dfline2[dfline2['DISTRICT'].isin(district)].copy()
+
+    dfsum2['DISTRICT'] = dfsum2['DISTRICT'].astype(str)
+    dfsum3 = dfsum2[dfsum2['DISTRICT'].isin(district)].copy()
+
 facility = st.sidebar.multiselect('**CHOOSE A FACILITY**', dfrep3['FACILITY'].unique(), key='c')
 if not facility:
     dfrep4 = dfrep3.copy()
     dftx4 = dftx3.copy()
     water4 = water3.copy()
+    dfline4 = dfline3.copy()
+    dfsum4 = dfsum3.copy()
 else:
     dfrep4 = dfrep3[dfrep3['FACILITY'].isin(facility)].copy()
     dftx4 = dftx3[dftx3['FACILITY'].isin(facility)].copy()
     water4 = water3[water3['FACILITY'].isin(facility)].copy()
+    dfline4 = dfline3[dfline3['FACILITY'].isin(facility)].copy()
+    dfsum4 = dfsum3[dfsum3['FACILITY'].isin(facility)].copy()
 
 
 # Base DataFrame to filter
 dfrep = dfrep4.copy()
 dftx = dftx4.copy()
 water = water4.copy()
+dfline = dfline4.copy()
+dfsum = dfsum4.copy()
 
 # Apply filters based on selected criteria
 if CLUSTER:
     dfrep = dfrep[dfrep['CLUSTER'].isin(CLUSTER)].copy()
     dftx = dftx[dftx['CLUSTER'].isin(CLUSTER)].copy()
+    dfline = dfline[dfline['CLUSTER'].isin(CLUSTER)].copy()
+    dfsum = dfsum[dfsum['CLUSTER'].isin(CLUSTER)].copy()
 
 if district:
     dfrep = dfrep[dfrep['DISTRICT'].isin(district)].copy()
     dftx = dftx[dftx['DISTRICT'].isin(district)].copy()
+    dfsum = dfsum[dfsum['DISTRICT'].isin(district)].copy()
+    dfline = dfline[dfline['DISTRICT'].isin(district)].copy()
+     
 if facility:
     dfrep = dfrep[dfrep['FACILITY'].isin(facility)].copy()
     dftx = dftx[dftx['FACILITY'].isin(facility)].copy()
-# #HIGHEST TXML 
+    dfsum = dfsum[dfsum['FACILITY'].isin(facility)].copy()
+    dfline = dfline[dfline['FACILITY'].isin(facility)].copy()
 
+
+st.divider()
+##TPT SECTION
+tpt = dfline['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD','Ryear', 'Rmonth', 'Rday', 'TPT' 'TPT STATUS']].copy()
+st.write(tpt)
 st.divider()
 #VL COVERAGE
 
