@@ -312,7 +312,7 @@ for fac in facilities:
      tods = tod.shape[0]
      wik = cx[(cx['RWEEK'] == wiki)].copy()
      wikis = wik.shape[0]
-     cxsumx = dfsumx[dfsumx['USE']==fac].copy()
+     cxsumx = dfsum[dfsum['USE']==fac].copy()
      try:
        jansumx = cxsumx['JANCX'].sumx()
      except:
