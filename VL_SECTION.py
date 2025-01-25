@@ -226,7 +226,7 @@ tptsum = tptsum[tptsum['WEEK']==wiki].copy()
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
 
 
-cola, colb, colc, cold, cole, colf = st.columns([3,1,1,1,1,1])
+cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
 cola.write(f'**{word}**')
 colb.write('**TODAY**')
 colc.write('**THIS WEEK**')
