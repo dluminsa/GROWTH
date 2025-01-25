@@ -314,15 +314,15 @@ for fac in facilities:
      wikis = wik.shape[0]
      cxsumx = dfsum[dfsum['USE']==fac].copy()
      try:
-       jansumx = cxsumx['JANCX'].sumx()
+       jansumx = cxsumx['JANCX'].sum()
      except:
           jansumx = 0
      try:
-          febsumx = cxsumx['FEBCX'].sumx()
+          febsumx = cxsumx['FEBCX'].sum()
      except:
           febsumx = 0
      try:
-          marsumx = cxsumx['MARCX'].sumx()
+          marsumx = cxsumx['MARCX'].sum()
      except:
           marsumx = 0
           
