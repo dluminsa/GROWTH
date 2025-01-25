@@ -226,7 +226,7 @@ tptsum = tptsum[tptsum['WEEK']==wiki].copy()
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
 
 
-cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
+cola, colb, colc, cold, cole, colf = st.columns([3,1,1,1,1,1])
 cola.write(f'**{word}**')
 colb.write('**TODAY**')
 colc.write('**THIS WEEK**')
@@ -235,7 +235,6 @@ cole.write('**FEB**')
 colf.write('**MAR**')
 
 facilities = dfline['USE'].unique()
-st.write(facilities)
 #SUMMARIES
 for fac in facilities:
      tpt = tpt[tpt['USE'] == fac]
@@ -265,7 +264,6 @@ for fac in facilities:
      cole.write(f'**{febsum:,.0f}**')
      colf.write(f'**{marsum:,.0f}**')
      
-st.write(tpt.shape[0])
 st.divider()
 #VL COVERAGE
 
