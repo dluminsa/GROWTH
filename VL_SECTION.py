@@ -257,7 +257,7 @@ for fac in facilities:
      cola.write(f'**{fac}**')
      colb.write(f'**{tods:,.0f}**')
      colc.write(f'**{wikis:,.0f}**')
-     cold.write(f'**{jansum:,.0}f**')
+     cold.write(f'**{int(jansum)}f**')
      cole.write(f'**{febsum:,.0f}**')
      colf.write(f'**{marsum:,.0f}**')
      
