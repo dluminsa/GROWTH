@@ -195,7 +195,7 @@ if facility:
     dfsum = dfsum[dfsum['FACILITY'].isin(facility)].copy()
     dfline = dfline[dfline['FACILITY'].isin(facility)].copy()
 
-dati = dt.datetime.date.today()
+dati = dt.date.today()
 wiki = dati.strftime('%v')
 today = dati.strftime('%d')
 mon = dati.strftime('%m')
