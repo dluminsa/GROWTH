@@ -194,13 +194,36 @@ if facility:
     dfsum = dfsum[dfsum['FACILITY'].isin(facility)].copy()
     dfline = dfline[dfline['FACILITY'].isin(facility)].copy()
 
+dati = dt.datetime.date.today()
+wiki = dat.strftime('%v')
+today = dat.strftime('%d')
+mon = dat.strftime('%m')
 
 st.divider()
 ##TPT SECTION
-tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD','Ryear', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS']].copy()
+tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD','Ryear', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK']].copy()
 tpt= tpt[tpt['TPT STATUS'].notna()].copy()
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
-st.write(tpt)
+
+loop = df['DISTRICT'].unique()
+if len(loop) ==1:
+     tpt['USE'] = tpt['FACILITY']
+     word = 'FACILITY'
+else:
+     tpt['USE'] = tpt['DISTRICT']
+     word = 'DISTRICT'
+today, this, jan. feb, mar, faci
+cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
+cola.write(f'**{word}**')
+colb.write('**TODAY**')
+colc.write('**THIS WEEK**')
+cold.write('**JAN**')
+cole.write('**FEB**')
+colf.wite('**MAR**')
+
+for fac 
+
+st.write(tpt.shape[0])
 st.divider()
 #VL COVERAGE
 
