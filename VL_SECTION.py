@@ -199,10 +199,20 @@ wiki = dat.strftime('%v')
 today = dat.strftime('%d')
 mon = dat.strftime('%m')
 
+#keep one entry for summaries
+dfsum['FACILITY'] = dfsum['FACILITY'].astype.(str)
+dfsum['WEEK'] = pd.to_numeric(dfsum['WEEK'], errors = 'coerce')
+dfsum = dsum.sort_values(by = ['WEEK'])
+dsfum = dsum.drop_duplicates(subset = 'FACILITY', keep='last')
+
+
 st.divider()
 ##TPT SECTION
-tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD','Ryear', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK']].copy()
+tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK']].copy()
 tpt= tpt[tpt['TPT STATUS'].notna()].copy()
+tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
+tptsum = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANTPT', 'FEBTPT','MARTPT', 'WEEK']].copy()
+tptsum = tptsum[tptsum['WEEK']==wiki
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
 
 loop = df['DISTRICT'].unique()
@@ -221,8 +231,37 @@ cold.write('**JAN**')
 cole.write('**FEB**')
 colf.wite('**MAR**')
 
-for fac 
+facilities = tpt['USE'].unique()
 
+#SUMMARIES
+
+
+for fac in facilities:
+     tpt = tpt[tpt['USE'] == fac]
+     tpt[['Rmonth', 'Rday', 'RWEEK']] = tpt[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+     tod = tpt[((tpt['Rmonth'] == mon) & (tpt['Rday'] == today))].copy()
+     tods = tod.shape[0]
+     wik = tpt[(tpt['RWEEK'] == wiki)].copy()
+     wikis = wik.shape[0]
+     tpsum = dfsum[dfsum['FACILITY']==fac].copy()
+     try:
+       jansum = tptsum['JANTPT'].sum()
+     except:
+          jansum = 0
+     try:
+          febsum = tptsum['FETPT'].sum()
+     except:
+          febsum = 0
+     try:
+          marsum = tptsum['MARTPT'].sum()
+     except:
+          marsum = 0
+     colb.write(f'**{tods}**')
+     colc.write('**{wikis}**')
+     cold.write('**{jansum}**')
+     cole.write('**febsum**')
+     colf.wite('**marsum**')
+     
 st.write(tpt.shape[0])
 st.divider()
 #VL COVERAGE
