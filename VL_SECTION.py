@@ -240,7 +240,7 @@ for fac in facilities:
      tods = tod.shape[0]
      wik = tpt[(tpt['RWEEK'] == wiki)].copy()
      wikis = wik.shape[0]
-     tpsum = dfsum[dfsum['FACILITY']==fac].copy()
+     tptsum = dfsum[dfsum['FACILITY']==fac].copy()
      jansum = tptsum['JANTPT'].sum()
      st.write(jansum)
      st.stop()
