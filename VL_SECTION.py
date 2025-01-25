@@ -265,7 +265,7 @@ for fac in facilities:
      
 st.divider()
 ##TPT SECTION
-st.write('**TPT LINELISTS (UNLIKELY)**')
+st.markdown('<p><b><u><i style="color:green">TPT LINELISTS (ULIKELY)</i></u></b></p>' , unsafe_allow_html = True)
 tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK', 'USE']].copy()
 tpt= tpt[tpt['TPT STATUS'].notna()].copy()
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
@@ -292,7 +292,7 @@ for fac in facilities:
 st.divider()
 ##CX SECTION
 st.markdown('<p><b><u><i style="color:purple">CERVICAL CANCER LINELISTS</i></u></b></p>' , unsafe_allow_html = True)
-st.write('**TPT LINELISTS (LIKELY)**')
+st.markdown('<p><b><u><i style="color:red">TPT LINELISTS (LIKELY)</i></u></b></p>' , unsafe_allow_html = True)
 tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK', 'USE']].copy()
 tpt= tpt[tpt['TPT STATUS'].notna()].copy()
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
