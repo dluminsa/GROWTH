@@ -1525,8 +1525,7 @@ def extract():
                     row4 = part + list4
                     col1,col2,col3 = st.columns([1,2,1])
                     with col3:
-                        submit = st.button('Submit') 
-                    
+                        
                     secrets = st.secrets["connections"]["gsheets"]
                     
                         # Prepare the credentials dictionary
@@ -1772,6 +1771,7 @@ def extract():
                     linebmis = pd.merge(lineamis, cxmis, on = 'A', how='outer')
  
                     missed = missed[['A', 'LD']].copy() 
+                    st.write(missed.colums)
                     missed['A'] = pd.to_numeric(missed['A'], errors ='coerce')
                     linebmis['A'] = pd.to_numeric(linebmis['A'], errors ='coerce')
                     missed = pd.merge(linebmis, missed, on = 'A', how = 'left')
@@ -1784,6 +1784,7 @@ def extract():
                         return dat
 
                     #SUMMARY LINELIST
+                    submit = st.button('Submit') 
 
                     linelists = [cluster, district, facility, jancx, janvl,jantpt, febcx, febvl, febtpt, marcx, marvl, martpt, notbled, notpt, notscreened, wk]
         
