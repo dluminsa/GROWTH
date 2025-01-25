@@ -258,8 +258,8 @@ for fac in facilities:
      colb.write(f'**{tods}**')
      colc.write(f'**{wikis}**')
      cold.write(f'**{jansum}**')
-     cole.write(f'**febsum**')
-     colf.wite(f'**{marsum}**')
+     cole.write(f'**{febsum}**')
+     colf.write(f'**{marsum}**')
      
 st.write(tpt.shape[0])
 st.divider()
