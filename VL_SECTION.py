@@ -232,10 +232,8 @@ cole.write('**FEB**')
 colf.wite('**MAR**')
 
 facilities = tpt['USE'].unique()
-
+st.write(facilities)
 #SUMMARIES
-
-
 for fac in facilities:
      tpt = tpt[tpt['USE'] == fac]
      tpt[['Rmonth', 'Rday', 'RWEEK']] = tpt[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
