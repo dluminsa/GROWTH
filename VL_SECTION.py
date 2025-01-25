@@ -255,11 +255,11 @@ for fac in facilities:
           marsum = 0
           
      cola.write(f'**{fac}**')
-     colb.write(f'**{tods}**')
-     colc.write(f'**{wikis}**')
-     cold.write(f'**{jansum}**')
-     cole.write(f'**{febsum}**')
-     colf.write(f'**{marsum:, 0f}**')
+     colb.write(f'**{tods:,.0f}**')
+     colc.write(f'**{wikis:,.0f}**')
+     cold.write(f'**{jansum}:,.0f**')
+     cole.write(f'**{febsum:,.0f}**')
+     colf.write(f'**{marsum:,.0f}**')
      
 st.write(tpt.shape[0])
 st.divider()
