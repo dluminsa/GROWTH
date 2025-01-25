@@ -205,6 +205,9 @@ dfsum['FACILITY'] = dfsum['FACILITY'].astype(str)
 dfsum['WEEK'] = pd.to_numeric(dfsum['WEEK'], errors = 'coerce')
 dfsum = dfsum.sort_values(by = ['WEEK'])
 dsfum = dfsum.drop_duplicates(subset = 'FACILITY', keep='last')
+st.write(dfsum)
+jansum = dfsum['JANTPT'].sum()
+st.write(jansum)
 
 
 st.divider()
@@ -230,10 +233,6 @@ colc.write('**THIS WEEK**')
 cold.write('**JAN**')
 cole.write('**FEB**')
 colf.write('**MAR**')
-
-st.write(dfsum)
-jansum = dfsum['JANTPT'].sum()
-st.write(jansum)
 
 facilities = tpt['USE'].unique()
 #SUMMARIES
