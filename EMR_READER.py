@@ -1770,8 +1770,7 @@ def extract():
                     cxmis['A'] = pd.to_numeric(cxmis['A'], errors ='coerce')
                     linebmis = pd.merge(lineamis, cxmis, on = 'A', how='outer')
  
-                    missed = missed[['A', 'LD']].copy() 
-                    st.write(linebmis.columns)
+                    missed = missed[['A', 'AG', 'GD', 'RD','LD']].copy() 
                     missed['A'] = pd.to_numeric(missed['A'], errors ='coerce')
                     linebmis['A'] = pd.to_numeric(linebmis['A'], errors ='coerce')
                     missed = pd.merge(linebmis, missed, on = 'A', how = 'left')
@@ -1780,7 +1779,7 @@ def extract():
                     @st.cache_data
                     def missedlists():
                         dat = mmm.copy()
-                        dat = dat.rename(columns={'LD': 'LAST ENCOUNTER'})
+                        dat = dat.rename(columns={'LD': 'LAST ENCOUNTER', 'GD':'GENDER','AG':'AGE', 'RD':'RETURN DATE'})
                         return dat
 
                     #SUMMARY LINELIST
