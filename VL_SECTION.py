@@ -232,7 +232,6 @@ cole.write('**FEB**')
 colf.write('**MAR**')
 
 facilities = tpt['USE'].unique()
-st.write(facilities)
 #SUMMARIES
 for fac in facilities:
      tpt = tpt[tpt['USE'] == fac]
@@ -241,6 +240,7 @@ for fac in facilities:
      tods = tod.shape[0]
      wik = tpt[(tpt['RWEEK'] == wiki)].copy()
      wikis = wik.shape[0]
+     st.write(f'this is {wikis}')
      tpsum = dfsum[dfsum['FACILITY']==fac].copy()
      try:
        jansum = tptsum['JANTPT'].sum()
@@ -254,6 +254,8 @@ for fac in facilities:
           marsum = tptsum['MARTPT'].sum()
      except:
           marsum = 0
+          
+     cola.write(f'**{fac}**')
      colb.write(f'**{tods}**')
      colc.write('**{wikis}**')
      cold.write('**{jansum}**')
