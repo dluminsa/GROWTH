@@ -218,7 +218,7 @@ dfsum['FACILITY'] = dfsum['FACILITY'].astype(str)
 dfsum = dfsum.drop_duplicates(subset = ['FACILITY'], keep='last')
 
 ##TPT SECTION
-tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK']].copy()
+tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK', 'USE']].copy()
 tpt= tpt[tpt['TPT STATUS'].notna()].copy()
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
 tptsum = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANTPT', 'FEBTPT','MARTPT', 'WEEK']].copy()
@@ -238,15 +238,12 @@ facilities = dfline['USE'].unique()
 #SUMMARIES
 for fac in facilities:
      tpt = tpt[tpt['USE'] == fac]
-     st.write(fac)
-     st.write(tpt)
      tpt[['Rmonth', 'Rday', 'RWEEK']] = tpt[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
      tod = tpt[((tpt['Rmonth'] == mon) & (tpt['Rday'] == today))].copy()
      tods = tod.shape[0]
      wik = tpt[(tpt['RWEEK'] == wiki)].copy()
      wikis = wik.shape[0]
      tptsum = dfsum[dfsum['USE']==fac].copy()
-     st.write(tptsum)
      try:
        jansum = tptsum['JANTPT'].sum()
      except:
