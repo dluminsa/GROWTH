@@ -1775,11 +1775,11 @@ def extract():
                     missed['A'] = pd.to_numeric(missed['A'], errors ='coerce')
                     linebmis['A'] = pd.to_numeric(linebmis['A'], errors ='coerce')
                     missed = pd.merge(linebmis, missed, on = 'A', how = 'left')
-                    st.write(missed)
+                    mmm = missed.copy()
                     
                     @st.cache_data
                     def missedlists():
-                        dat = missed.copy()
+                        dat = mmm.copy()
                         missed = missed.rename(columns={'LD': 'LAST ENCOUNTER'})
                         return dat
 
