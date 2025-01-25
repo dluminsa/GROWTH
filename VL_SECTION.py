@@ -18,8 +18,8 @@ import datetime as dt
 
 #st.header('CODE UNDER MAINTENANCE, TRY AGAIN TOMORROW')
 #st.stop()
-cola,colb,colc = st.columns([1,3,1])
-colb.subheader('DAILY, WEEKLY AND MONTHLY LINELISTS')
+
+st.subheader('DAILY, WEEKLY AND MONTHLY LINELISTS')
 
 today = datetime.now()
 todayd = today.strftime("%Y-%m-%d")# %H:%M")
