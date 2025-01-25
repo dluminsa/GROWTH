@@ -197,7 +197,7 @@ if facility:
 
 st.divider()
 ##TPT SECTION
-tpt = dfline['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD','Ryear', 'Rmonth', 'Rday', 'TPT' 'TPT STATUS']].copy()
+tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD','Ryear', 'Rmonth', 'Rday', 'TPT' 'TPT STATUS']].copy()
 st.write(tpt)
 st.divider()
 #VL COVERAGE
