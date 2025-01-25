@@ -200,7 +200,7 @@ wiki = dati.strftime('%v')
 today = dati.strftime('%d')
 mon = dati.strftime('%m')
 
-loop = df['DISTRICT'].unique()
+loop = dfline['DISTRICT'].unique()
 if len(loop) ==1:
      dfline['USE'] = dfline['FACILITY']
      dfline['USE'] = dfsum['FACILITY']
