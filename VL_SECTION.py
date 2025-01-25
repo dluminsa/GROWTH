@@ -233,7 +233,7 @@ colf.write('**MAR**')
 
 st.write(dfsum)
 jansum = dfsum['JANTPT'].sum()
-
+st.write(jansum)
 
 facilities = tpt['USE'].unique()
 #SUMMARIES
