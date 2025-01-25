@@ -229,7 +229,7 @@ colb.write('**TODAY**')
 colc.write('**THIS WEEK**')
 cold.write('**JAN**')
 cole.write('**FEB**')
-colf.wite('**MAR**')
+colf.write('**MAR**')
 
 facilities = tpt['USE'].unique()
 st.write(facilities)
