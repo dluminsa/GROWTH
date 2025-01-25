@@ -24,7 +24,7 @@ colb.subheader('PROGRAM GROWTH')
 today = datetime.now()
 todayd = today.strftime("%Y-%m-%d")# %H:%M")
 wk = today.strftime("%V")
-week = int(wk)-39
+week = int(wk) + 13
 cola,colb = st.columns(2)
 cola.write(f"**DATE TODAY:    {todayd}**")
 colb.write(f"**CURRENT WEEK:    {week}**")
