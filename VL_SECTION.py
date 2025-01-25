@@ -234,12 +234,15 @@ facilities = tpt['USE'].unique()
 #SUMMARIES
 for fac in facilities:
      tpt = tpt[tpt['USE'] == fac]
+     st.write(fac)
+     st.write(tpt)
      tpt[['Rmonth', 'Rday', 'RWEEK']] = tpt[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
      tod = tpt[((tpt['Rmonth'] == mon) & (tpt['Rday'] == today))].copy()
      tods = tod.shape[0]
      wik = tpt[(tpt['RWEEK'] == wiki)].copy()
      wikis = wik.shape[0]
      tptsum = dfsum[dfsum['FACILITY']==fac].copy()
+     st.write(tptsum)
      try:
        jansum = tptsum['JANTPT'].sum()
      except:
