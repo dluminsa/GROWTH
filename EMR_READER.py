@@ -1716,6 +1716,7 @@ def extract():
                     tptamis['CHECK'] = pd.to_numeric(tptamis['CHECK'], errors = 'coerce')
                     tptamis = tptamis[tptamis['CHECK']<10].copy()
                     tptmis = pd.concat([tptamis, tptbmis])
+                    tptmis = tptmis[['A','TPT', 'TPT STATUS']]
                     notpt = tptmis.shape[0]
       
                      #CERVICAL CANCER
