@@ -217,7 +217,7 @@ dfsum['FACILITY'] = dfsum['FACILITY'].astype(str)
 dfsum = dfsum.drop_duplicates(subset = ['FACILITY'], keep='last')
 
 ##TPT SECTION
-st.write('**TPT LINELISTS (LIKELY)**')
+st.markdown('<p><b><u><i style="color:red">TPT LINELISTS (LIKELY)</i></u></b></p>' , unsafe_allow_html = True)
 tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK', 'USE']].copy()
 tpt= tpt[tpt['TPT STATUS'].notna()].copy()
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
@@ -292,9 +292,9 @@ for fac in facilities:
 st.divider()
 ##CX SECTION
 st.markdown('<p><b><u><i style="color:purple">CERVICAL CANCER LINELISTS</i></u></b></p>' , unsafe_allow_html = True)
-st.markdown('<p><b><u><i style="color:red">TPT LINELISTS (LIKELY)</i></u></b></p>' , unsafe_allow_html = True)
+
 cx = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'RD', 'Rmonth', 'Rday', 'CX','CX STATUS', 'RWEEK', 'USE']].copy()
-cx= cx[cx['cx STATUS'].notna()].copy()
+cx= cx[cx['CX STATUS'].notna()].copy()
 cxsum = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANCX', 'FEBCX','MARCX', 'WEEK']].copy()
 cxsum = cxsum[cxsum['WEEK']==wiki].copy()
 
