@@ -206,12 +206,7 @@ dfsum['WEEK'] = pd.to_numeric(dfsum['WEEK'], errors = 'coerce')
 dfsum = dfsum.sort_values(by = ['WEEK'])
 dfsum['FACILITY'] = dfsum['FACILITY'].astype(str)
 dfsum = dfsum.drop_duplicates(subset = ['FACILITY'], keep='last')
-st.write(dfsum)
-jansum = dfsum['JANTPT'].sum()
-st.write(jansum)
 
-
-st.divider()
 ##TPT SECTION
 tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK']].copy()
 tpt= tpt[tpt['TPT STATUS'].notna()].copy()
@@ -245,9 +240,6 @@ for fac in facilities:
      wik = tpt[(tpt['RWEEK'] == wiki)].copy()
      wikis = wik.shape[0]
      tptsum = dfsum[dfsum['FACILITY']==fac].copy()
-     jansum = tptsum['JANTPT'].sum()
-     st.write(jansum)
-     st.stop()
      try:
        jansum = tptsum['JANTPT'].sum()
      except:
