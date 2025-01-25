@@ -235,6 +235,7 @@ cole.write('**FEB**')
 colf.write('**MAR**')
 
 facilities = dfline['USE'].unique()
+st.write(facilities)
 #SUMMARIES
 for fac in facilities:
      tpt = tpt[tpt['USE'] == fac]
