@@ -231,6 +231,10 @@ cold.write('**JAN**')
 cole.write('**FEB**')
 colf.write('**MAR**')
 
+st.write(dfsum)
+jansum = dfsum['JANTPT'].sum()
+
+
 facilities = tpt['USE'].unique()
 #SUMMARIES
 for fac in facilities:
