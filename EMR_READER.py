@@ -1769,7 +1769,7 @@ def extract():
                     linebmis = pd.merge(lineamis, cxmis, on = 'A', how='outer')
  
                     missed = missed[['A', 'LD']].copy() 
-                    st.write(missed.columns)
+                    st.write(linebmis.columns)
                     missed['A'] = pd.to_numeric(missed['A'], errors ='coerce')
                     linebmis['A'] = pd.to_numeric(linebmis['A'], errors ='coerce')
                     missed = pd.merge(linebmis, missed, on = 'A', how = 'left')
