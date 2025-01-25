@@ -203,7 +203,7 @@ mon = dati.strftime('%m')
 loop = dfline['DISTRICT'].unique()
 if len(loop) ==1:
      dfline['USE'] = dfline['FACILITY']
-     dfline['USE'] = dfsum['FACILITY']
+     dfsum['USE'] = dfsum['FACILITY']
      word = 'FACILITY'
 else:
      dfline['USE'] = dfline['DISTRICT']
