@@ -1523,8 +1523,6 @@ def extract():
                     row3 = part + list3
                 
                     row4 = part + list4
-                    col1,col2,col3 = st.columns([1,2,1])
-                    with col3:
                         
                     secrets = st.secrets["connections"]["gsheets"]
                     
@@ -1784,7 +1782,9 @@ def extract():
                         return dat
 
                     #SUMMARY LINELIST
-                    submit = st.button('Submit') 
+                    col1,col2,col3 = st.columns([1,2,1])
+                    with col3:
+                         submit = st.button('Submit') 
 
                     linelists = [cluster, district, facility, jancx, janvl,jantpt, febcx, febvl, febtpt, marcx, marvl, martpt, notbled, notpt, notscreened, wk]
         
