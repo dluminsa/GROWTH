@@ -461,7 +461,7 @@ for fac in facilities:
      marvl = vl[((vl['Ryear'] == 2025) & (vl['Rmonth'] == 3))].copy()
      jansumvl = janvl.shape[0]
      febsumvl = febvl.shape[0]
-     febsumvl = marvl.shape[0]
+     marsumvl = marvl.shape[0]
      
      cola.write(f'**{fac}**')
      colb.write(f'**{tods:,.0f}**')
@@ -471,12 +471,12 @@ for fac in facilities:
      colf.write(f'**{marsumvl:,.0f}**')
 
 st.divider()
-st.markdown('<p><b><u><i style="color:magenta">VIRAL LOAD (CLIENTS DUE FOR BLEEDING)</i></u></b></p>' , unsafe_allow_html = True)
+st.markdown('<p><b><u><i style="color:magenta">PMTCT THREE MONTHLY VL (MOTHERS DUE FOR BLEEDING)</i></u></b></p>' , unsafe_allow_html = True)
 
-vl = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'RD', 'Rmonth', 'Rday', 'VL STATUS', 'RWEEK', 'USE']].copy()
-vl= vl[vl['VL STATUS'].notna()].copy()
-vlsumvl = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANVL', 'FEBVL','MARVL', 'WEEK']].copy()
-vlsumvl = vlsumvl[vlsumvl['WEEK']==wiki].copy()
+pt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'RD', 'Rmonth', 'Rday', 'PT', 'PVL','RWEEK', 'USE']].copy()
+pt = pt[pt['PVL'].notna()].copy()
+#vlsumvl = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANVL', 'FEBVL','MARVL', 'WEEK']].copy()
+#vlsumvl = vlsumvl[vlsumvl['WEEK']==wiki].copy()
 
 cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
 cola.write(f'**{word}**')
@@ -486,32 +486,28 @@ cold.write('**JAN**')
 cole.write('**FEB**')
 colf.write('**MAR**')
 for fac in facilities:
-     vl = vl[vl['USE'] == fac]
-     vl[['Rmonth', 'Rday', 'RWEEK']] = vl[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
-     tod = vl[((vl['Rmonth'] == mon) & (vl['Rday'] == today))].copy()
+     pt = pt[pt['USE'] == fac]
+     pt[['Rmonth', 'Rday', 'RWEEK']] = vl[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+     tod = pt[((pt['Rmonth'] == mon) & (pt['Rday'] == today))].copy()
      tods = tod.shape[0]
-     wik = vl[(vl['RWEEK'] == wiki)].copy()
+     wik = pt[(pt['RWEEK'] == wiki)].copy()
      wikis = wik.shape[0]
-     vlsumvl = dfsum[dfsum['USE']==fac].copy()
-     try:
-       jansumvl = vlsumvl['JANVL'].sum()
-     except:
-          jansumvl= 0
-     try:
-          febsumvl = vlsumvl['FEBVL'].sum()
-     except:
-          febsumx = 0
-     try:
-          marsumvl = vlsumvl['MARVL'].sum()
-     except:
-          marsumvl = 0
+     pt[['Rmonth', 'Ryear']] = pt[['Rmonth', 'Ryear']].apply(pd.to_numeric, errors='coerce')
+     janpt = pt[((pt['Ryear'] == 2025) & (pt['Rmonth'] == 1))].copy() #ALTER THESE
+     febpt = pt[((pt['Ryear'] == 2025) & (pt['Rmonth'] == 2))].copy()
+     marpt = pt[((pt['Ryear'] == 2025) & (pt['Rmonth'] == 3))].copy()
+     janpt = janpt.shape[0]
+     febpt = febpt.shape[0]
+     marpt = marpt.shape[0]
+     
+
           
      cola.write(f'**{fac}**')
      colb.write(f'**{tods:,.0f}**')
      colc.write(f'**{wikis:,.0f}**')
-     cold.write(f'**{int(jansumvl)}**')
-     cole.write(f'**{febsumvl:,.0f}**')
-     colf.write(f'**{marsumvl:,.0f}**')
+     cold.write(f'**{int(janpt)}**')
+     cole.write(f'**{febpt:,.0f}**')
+     colf.write(f'**{marpt:,.0f}**')
 st.divider()
 st.divider()
 HAVE = water['HAVE'].sum()
