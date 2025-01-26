@@ -423,7 +423,7 @@ for fac in facilities:
      st.write(tod)
      tods = tod.shape[0]
      st.write(vl['RWEEK'])
-     st.writ(f'THIS {wiki}')
+     st.write(f'THIS {wiki}')
      
      wik = vl[(vl['RWEEK'] == wiki)].copy()
      st.write(wik)
