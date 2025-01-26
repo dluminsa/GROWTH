@@ -11,10 +11,10 @@ from streamlit_gsheets import GSheetsConnection
 from datetime import datetime
 import datetime as dt
 
-# st.set_page_config(
-#     page_title = 'VL SECTION',
-#     page_icon =":bar_chart"
-#     )
+st.set_page_config(
+    page_title = 'LINELISTS',
+    page_icon =":bar_chart"
+    )
 
 #st.header('CODE UNDER MAINTENANCE, TRY AGAIN TOMORROW')
 #st.stop()
@@ -247,6 +247,8 @@ st.divider()
 st.markdown('<p><b><u><i style="color:red">TPT LINELISTS (LIKELY)</i></u></b></p>' , unsafe_allow_html = True)
 tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK', 'USE']].copy()
 tpt= tpt[tpt['TPT STATUS'].notna()].copy()
+st.write(tpt)
+st.stop()
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
 tpt = tpt[tpt['TPT STATUS'] == 'LIKELY'].copy()
 tptsum = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANTPT', 'FEBTPT','MARTPT', 'WEEK']].copy()
