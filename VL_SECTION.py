@@ -371,6 +371,7 @@ colc.write('**THIS WEEK**')
 cold.write('**JAN**')
 cole.write('**FEB**')
 colf.write('**MAR**')
+due = dfns.copy()
 
 for fac in facilities:
      due = due[due['USE'] == fac]
