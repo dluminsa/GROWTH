@@ -404,6 +404,7 @@ st.markdown('<p><b><u><i style="color:magenta">VIRAL LOAD (CLIENTS DUE FOR BLEED
 
 vl = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'RD', 'Rmonth', 'Rday', 'VL STATUS', 'RWEEK', 'USE']].copy()
 vl= vl[vl['VL STATUS'].notna()].copy()
+st.write(vl)
 vlsumvl = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANVL', 'FEBVL','MARVL', 'WEEK']].copy()
 vlsumvl = vlsumvl[vlsumvl['WEEK']==wiki].copy()
 
@@ -416,6 +417,7 @@ cole.write('**FEB**')
 colf.write('**MAR**')
 for fac in facilities:
      vl = vl[vl['USE'] == fac]
+     st.write(fac)
      vl[['Rmonth', 'Rday', 'RWEEK']] = vl[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
      st.write(vl)
      tod = vl[((vl['Rmonth'] == mon) & (vl['Rday'] == today))].copy()
