@@ -553,7 +553,7 @@ if len(facility)==1:
                  dfnsa['A'] = pd.to_numeric(dfnsa['A'], errors='coerce')
                  dfweek['A'] = pd.to_numeric(dfweek['A'], errors='coerce')
                  dfmerged = pd.merge(dfweek, dfnsa, on ='A', how='left')
-                 dfnsb = dfnsweek[-dfnsweek['A'].isin(dflns['A'])].copy()
+                 dfnsb = dfnsweek[~dfnsweek['A'].isin(dflns['A'])].copy()
                  dfnsb = dfnsb[['CLUSTER', 'DISTRICT', 'FACILITY', 'A','result_numeric', 'date_collected', 'AG', 'RD', 'NS REBLEED?']].copy()
                  dfall = pd.concat([dfmerged,dfnsb])
                  today = pd.to_numeric(df['Rday'], errors='coerce')
