@@ -1801,21 +1801,21 @@ def extract():
                             try:
                                 conn = st.connection('gsheets', type=GSheetsConnection)
                                 exist = conn.read(worksheet= 'LINELISTS', usecols=list(range(22)),ttl=5)
-                                dfex = exist.dropna(how='all')
-                                #dfex['RWEEK'] = pd.to_numeric(dfex['RWEEK'], errors= 'coerce')
-                                wkapp = wk +1
-                                # check = dfex[dfex['RWEEK'] == wkapp].copy()
-                                # faccheck = check['FACILITY'].unique()
-                                # if facility in faccheck:
-                                #     st.stop()
-                                # else:
-                                #dfex = dfex[dfex['RWEEK']>wk].copy()
-                                #wkapp = wk+6
-                                
-                                line['RWEEK'] = pd.to_numeric(line['RWEEK'], errors = 'coerce')
-                                line = line[((line['RWEEK'] == wk) | (line['RWEEK'] <wkapp))].copy()
-                                dfline = pd.concat([dfex, line])
-                                conn.update(worksheet = 'LINELISTS', data = dfline)
+                                exist2 = conn.read(worksheet= 'SUMM', usecols=list(range(16)),ttl=5)
+                                dfcheck = exist2.dropna(how='all')
+                                dfcheck['WEEK'] = pd.to_numeric(dfcheck['WEEK'], errors='coerce')
+                                dfcheck = dfcheck[dfcheck['WEEK']==wk].copy()
+                                facitiz = dfcheck['FACILITY'].unique()
+                                if facility in facitiz:
+                                    pass
+                                else:
+                                    dfex = exist.dropna(how='all')
+                                    dfex = dfex[dfex['FACILITY']!=facility].copy()
+                                    line['RWEEK'] = pd.to_numeric(line['RWEEK'], errors= 'coerce')
+                                    wkapp = wk +1
+                                    line = line[((line['RWEEK']>wk) | (line['RWEEK']== wkapp))].copy()
+                                    dfline = pd.concat([dfex, line])
+                                    conn.update(worksheet = 'LINELISTS', data = dfline)
                                 
                                 sheet1 = spreadsheet.worksheet("TX")
                                 #st.write(row1)
