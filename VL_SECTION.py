@@ -438,7 +438,7 @@ for fac in facilities:
 st.divider()
 st.markdown('<p><b><u><i style="color:magenta">TWO MONTHS BLEEDING WINDOW (CLIENTS DUE IN TWO MONTHS)</i></u></b></p>' , unsafe_allow_html = True)
 
-vl = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'RD', 'Rmonth', 'Rday', 'TWOm', 'RWEEK', 'USE']].copy()
+vl = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'RD','Ryear', 'Rmonth', 'Rday', 'TWOm', 'RWEEK', 'USE']].copy()
 vl= vl[vl['TWOm'].notna()].copy()
 
 cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
