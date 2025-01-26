@@ -223,7 +223,7 @@ dati = dt.date.today()
 wiki = dati.strftime('%v')
 today = dati.strftime('%d')
 mon = dati.strftime('%m')
-
+st.write(f'THIS IS TODAY {today}')
 loop = dfline['DISTRICT'].unique()
 if len(loop) ==1:
      dfline['USE'] = dfline['FACILITY']
@@ -261,12 +261,6 @@ cold.write('**JAN**')
 cole.write('**FEB**')
 colf.write('**MAR**')
 
-tpt[['Rmonth', 'Rday', 'RWEEK']] = tpt[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
-tod = tpt[((tpt['Rmonth'] == mon) & (tpt['Rday'] == today))].copy()
-st.write('THIS')
-st.write(tod)
-tods = tod.shape[0]
-st.stop()
 
 facilities = dfline['USE'].unique()
 #SUMMARIES
