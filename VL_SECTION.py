@@ -578,7 +578,7 @@ if len(facility)==1:
                      if dfall.shape[0] ==0:
                           st.write('**NO LINELISTS THIS WEEK**')
                      else:
-                         csv_data = today.to_csv(index=False)
+                         csv_data = dfall.to_csv(index=False)
                          tot = dfall.shape[0]
                          st.write(f'**{tot} CLIENTS TO ATTEND TO THIS WEEK**')
                          st.download_button(
