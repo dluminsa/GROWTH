@@ -220,7 +220,8 @@ if facility:
     dfns = dfns[dfns['facility'].isin(facility)].copy()
 
 dati = dt.date.today()
-wiki = dati.strftime('%v')
+wiki = dati.strftime("%V")
+wiki = int(wiki) + 13
 today = dati.strftime('%d')
 mon = dati.strftime('%m')
 
@@ -260,13 +261,6 @@ colc.write('**THIS WEEK**')
 cold.write('**JAN**')
 cole.write('**FEB**')
 colf.write('**MAR**')
-tpt[['Rmonth', 'Rday', 'RWEEK']] = tpt[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
-st.write(tpt)
-tod = tpt[((tpt['Rmonth'] == mon) & (tpt['Rday'] == today))].copy()
-wik = tpt[(tpt['RWEEK'] == wiki)].copy()
-st.write(f'{wiki} THIS')
-st.write(wik)
-tods = tod.shape[0]
 
 facilities = dfline['USE'].unique()
 #SUMMARIES
