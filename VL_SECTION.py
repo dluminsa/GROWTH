@@ -473,7 +473,7 @@ for fac in facilities:
 st.divider()
 st.markdown('<p><b><u><i style="color:magenta">PMTCT THREE MONTHLY VL (MOTHERS DUE FOR BLEEDING)</i></u></b></p>' , unsafe_allow_html = True)
 
-pt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'RD', 'Rmonth', 'Rday', 'PT', 'PVL','RWEEK', 'USE']].copy()
+pt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'RD', 'Rmonth', 'Rday','Ryear', 'PT', 'PVL','RWEEK', 'USE']].copy()
 pt = pt[pt['PVL'].notna()].copy()
 #vlsumvl = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANVL', 'FEBVL','MARVL', 'WEEK']].copy()
 #vlsumvl = vlsumvl[vlsumvl['WEEK']==wiki].copy()
