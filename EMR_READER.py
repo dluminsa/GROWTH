@@ -1571,7 +1571,7 @@ def extract():
                     allns['CLUSTER'] = np.nan
                     allns['CLUSTER'] = allns['CLUSTER'].fillna(cluster)
                     allns = allns[['CLUSTER','DISTRICT', 'facility','ARTN','ART','result_numeric', 'date_collected', 'AG','RD','LD', 'VD', 'TO','DD','RWEEK1','Ryear', 'Rmonth', 'Rday', 'Vyear', 'Vmonth', 'Vday', 'Lyear','Lmonth', 'Lday']]
-                    allns = allns.rename(column = {'RWEEK1': 'RWEEK'})
+                    allns = allns.rename(columns = {'RWEEK1': 'RWEEK'})
                     #LINE LISTS         
                     line[['Ryear', 'Rmonth', 'Rday']] = line[['Ryear', 'Rmonth', 'Rday']].apply(pd.to_numeric, errors='coerce')
                     line = line[((line['Ryear'] == 2025) & (line['Rmonth'].isin([1,2,3])))].copy()
