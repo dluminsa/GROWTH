@@ -549,7 +549,7 @@ if len(facility)==1:
                  #merging the two
                  dfnsweek['NS REBLEED?'] = 'NS REBLEED'
                  dfnsweek = dfnsweek.rename(columns={'ARTN': 'A', 'facility':'FACILITY'})
-                 dfnsa = dfnsweek['A', 'result_numeric', 'date_collected','NS REBLEED?']
+                 dfnsa = dfnsweek[['A', 'result_numeric', 'date_collected','NS REBLEED?']].copy()
                  dfnsa['A'] = pd.to_numeric(dfnsa['A'], errors='coerce')
                  dfweek['A'] = pd.to_numeric(dfweek['A'], errors='coerce')
                  dfmerged = pd.merge(dfweek, dfnsa, on ='A', how='left')
