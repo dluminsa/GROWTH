@@ -46,7 +46,7 @@ if 'ns' not in st.session_state:
      try:
         #cola,colb= st.columns(2)
         conn = st.connection('gsheets', type=GSheetsConnection)
-        exist = conn.read(worksheet= 'ALLNS', usecols=list(range(23)),ttl=5)
+        exist = conn.read(worksheet= 'ALLNS', usecols=list(range(o23)),ttl=5)
         txa = exist.dropna(how='all')
         st.session_state.ns = txa
      except:
