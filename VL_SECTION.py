@@ -298,7 +298,14 @@ st.markdown('<p><b><u><i style="color:green">TPT LINELISTS (UNLIKELY)</i></u></b
 tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK', 'USE']].copy()
 tpt= tpt[tpt['TPT STATUS'].notna()].copy()
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
-tpt = tpt[tpt['TPT STATUS'] == 'UNLIKELY'].copy()
+#tpt = tpt[tpt['TPT STATUS'] == 'UNLIKELY'].copy()
+
+tpt[['Rmonth', 'Rday', 'RWEEK']] = tpt[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+st.write(mon)
+st.write(today)
+tod = tpt[((tpt['Rmonth'] == mon) & (tpt['Rday'] == today))].copy()
+st.write(tod)
+st.stop()
 
 cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
 cola.write(f'**{word}**')
