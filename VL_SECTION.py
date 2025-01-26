@@ -240,10 +240,9 @@ dfsum['WEEK'] = pd.to_numeric(dfsum['WEEK'], errors = 'coerce')
 dfsum = dfsum.sort_values(by = ['WEEK'])
 dfsum['FACILITY'] = dfsum['FACILITY'].astype(str)
 dfsum = dfsum.drop_duplicates(subset = ['FACILITY'], keep='last')
-
+st.divider()
 ##TPT SECTION
 st.markdown('<p><b><u><i style="color:red">TPT LINELISTS (LIKELY)</i></u></b></p>' , unsafe_allow_html = True)
-st.divider()
 tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK', 'USE']].copy()
 tpt= tpt[tpt['TPT STATUS'].notna()].copy()
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
