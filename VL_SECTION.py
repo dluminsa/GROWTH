@@ -266,10 +266,14 @@ facilities = dfline['USE'].unique()
 #SUMMARIES
 for fac in facilities:
      tpt = tpt[tpt['USE'] == fac]
+     st.write(fac)
      tpt[['Rmonth', 'Rday', 'RWEEK']] = tpt[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+     st.write(tpt)
      tod = tpt[((tpt['Rmonth'] == mon) & (tpt['Rday'] == today))].copy()
+     st.write(tod)
      tods = tod.shape[0]
      wik = tpt[(tpt['RWEEK'] == wiki)].copy()
+     st.write(wik)
      wikis = wik.shape[0]
      tptsum = dfsum[dfsum['USE']==fac].copy()
      try:
