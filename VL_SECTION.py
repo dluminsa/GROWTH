@@ -536,12 +536,13 @@ for fac in facilities:
      colc.write(f'**{bled:,.0f}**')
      cold.write(f'**{tptnot:,.0f}**')
 st.divider()
+st.markdown('<p><b><u><i style="color:blue">DOWNLOAD LINELISTS</i></u></b></p>' , unsafe_allow_html = True)
 if len(facility)==1:
-     st.markdown('<p><b><u><i style="color:blue">DOWNLOAD LINELISTS</i></u></b></p>' , unsafe_allow_html = True)
      with st.expander("**DOWNLOAD LINELISTS**"): 
                  cola, colb = st.columns(2)
                  dflind = dfline.copy()
                  dflns = dfns.copy()
+          
                  dflind[['Rmonth', 'RWEEK', 'Rday']] = dflind[['Rmonth', 'RWEEK', 'Rday']].apply(pd.to_numeric, errors='coerce')
                  dflns['RWEEK'] = pd.to_numeric(dfns['RWEEK'], errors='coerce')
                  dfweek = dflind[dflind['RWEEK']== wiki].copy()
@@ -553,7 +554,7 @@ if len(facility)==1:
                  dfnsa['A'] = pd.to_numeric(dfnsa['A'], errors='coerce')
                  dfweek['A'] = pd.to_numeric(dfweek['A'], errors='coerce')
                  dfmerged = pd.merge(dfweek, dfnsa, on ='A', how='left')
-                 dfnsb = dfnsweek[~dfnsweek['A'].isin(dflns['A'])].copy()
+                 dfnsb = dfnsweek[~dfnsweek['A'].isin(dfweek['A'])].copy()
                  dfnsb = dfnsb[['CLUSTER', 'DISTRICT', 'FACILITY', 'A','result_numeric', 'date_collected', 'AG', 'RD', 'NS REBLEED?']].copy()
                  dfall = pd.concat([dfmerged,dfnsb])
                  today = pd.to_numeric(df['Rday'], errors='coerce')
@@ -582,8 +583,9 @@ if len(facility)==1:
                                      data=csv_data,
                                      file_name=f"{facility}_LINELIST_THIS_WEEK.csv",
                                      mime="text/csv")
-
-     st.divider()
+else:
+     st.info("**CHOOSE ONE FACILITY TO SEE IT'S LINELISTS**")
+st.divider()
 HAVE = water['HAVE'].sum()
 NOT = water['NOVL'].sum()
 TOTAL = int(HAVE) + int(NOT)
