@@ -509,7 +509,7 @@ for fac in facilities:
 st.divider()
 st.markdown('<p><b><u><i style="color:blue">MISSED OPPORTUNITIES (CLIENTS WHO RETURNED AND NOT:😭)</i></u></b></p>' , unsafe_allow_html = True)
 
-cola,colb,colc,cold = st.columns([3,1,1,1])
+cola,colb,colc,cold = st.columns([2,2,1,1])
 cola.write(f'**{word}**')
 colb.write('**NOT SCREENED**')
 colc.write('**NOT BLED**')
