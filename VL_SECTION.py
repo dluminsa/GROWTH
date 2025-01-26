@@ -415,22 +415,16 @@ colc.write('**THIS WEEK**')
 cold.write('**JAN**')
 cole.write('**FEB**')
 colf.write('**MAR**')
-st.write(facilities)
-st.write('**HERE**')
+
+
 for fac in facilities:
      vl['USE'] = vl['USE'].astype(str)
-     st.write(vl['USE'])
-     vl = vl[vl['USE'] == str(fac)]
-     st.write(vl['USE'])
+     vl = vl[vl['USE'] == str(fac)].copy()
      vl[['Rmonth', 'Rday', 'RWEEK']] = vl[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
      tod = vl[((vl['Rmonth'] == mon) & (vl['Rday'] == today))].copy()
-     st.write(tod)
      tods = tod.shape[0]
-     st.write(vl['RWEEK'])
-     st.write(f'THIS {wiki}')
-     
+    
      wik = vl[(vl['RWEEK'] == wiki)].copy()
-     st.write(wik)
      wikis = wik.shape[0]
      vlsumvl = dfsum[dfsum['USE']==fac].copy()
      try:
