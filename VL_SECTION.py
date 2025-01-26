@@ -267,12 +267,11 @@ colf.write('**MAR**')
 facilities = dfline['USE'].unique()
 #SUMMARIES
 for fac in facilities:
-     tpt = tpt[tpt['USE'] == fac].copy()
-     st.write(tpt['USE'])
-     tpt[['Rmonth', 'Rday', 'RWEEK']] = tpt[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
-     tod = tpt[((tpt['Rmonth'] == mon) & (tpt['Rday'] == today))].copy()
+     tpta = tpt[tpt['USE'] == fac].copy()
+     tpta[['Rmonth', 'Rday', 'RWEEK']] = tpta[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+     tod = tpta[((tpta['Rmonth'] == mon) & (tpta['Rday'] == today))].copy()
      tods = tod.shape[0]
-     wik = tpt[(tpt['RWEEK'] == wiki)].copy()
+     wik = tpta[(tpta['RWEEK'] == wiki)].copy()
      wikis = wik.shape[0]
      tptsum = dfsum[dfsum['USE']==fac].copy()
      try:
