@@ -419,10 +419,12 @@ for fac in facilities:
      vl = vl[vl['USE'] == fac]
      st.write(fac)
      vl[['Rmonth', 'Rday', 'RWEEK']] = vl[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
-     st.write(vl)
      tod = vl[((vl['Rmonth'] == mon) & (vl['Rday'] == today))].copy()
      st.write(tod)
      tods = tod.shape[0]
+     st.write(vl['RWEEK'])
+     st.writ(f'THIS {wiki}')
+     
      wik = vl[(vl['RWEEK'] == wiki)].copy()
      st.write(wik)
      wikis = wik.shape[0]
