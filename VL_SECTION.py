@@ -264,6 +264,7 @@ tpt[['Rmonth', 'Rday', 'RWEEK']] = tpt[['Rmonth', 'Rday','RWEEK']].apply(pd.to_n
 st.write(tpt)
 tod = tpt[((tpt['Rmonth'] == mon) & (tpt['Rday'] == today))].copy()
 wik = tpt[(tpt['RWEEK'] == wiki)].copy()
+st.write(f'{wiki} THIS')
 st.write(wik)
 tods = tod.shape[0]
 
