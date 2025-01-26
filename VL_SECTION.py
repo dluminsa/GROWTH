@@ -310,11 +310,11 @@ colc.write('**THIS WEEK**')
 facilities = dfline['USE'].unique()
 #SUMMARIES
 for fac in facilities:
-     tpt = tpt[tpt['USE'] == fac]
-     tpt[['Rmonth', 'Rday', 'RWEEK']] = tpt[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
-     tod = tpt[((tpt['Rmonth'] == mon) & (tpt['Rday'] == today))].copy()
+     tpta = tpt[tpt['USE'] == fac]
+     tpta[['Rmonth', 'Rday', 'RWEEK']] = tpta[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+     tod = tpta[((tpta['Rmonth'] == mon) & (tpta['Rday'] == today))].copy()
      tods = tod.shape[0]
-     wik = tpt[(tpt['RWEEK'] == wiki)].copy()
+     wik = tpta[(tpta['RWEEK'] == wiki)].copy()
      wikis = wik.shape[0]
           
      cola.write(f'**{fac}**')
@@ -337,11 +337,11 @@ cold.write('**JAN**')
 cole.write('**FEB**')
 colf.write('**MAR**')
 for fac in facilities:
-     cx = cx[cx['USE'] == fac]
-     cx[['Rmonth', 'Rday', 'RWEEK']] = cx[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
-     tod = cx[((cx['Rmonth'] == mon) & (cx['Rday'] == today))].copy()
+     cxa = cx[cx['USE'] == fac]
+     cxa[['Rmonth', 'Rday', 'RWEEK']] = cxa[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+     tod = cxa[((cxa['Rmonth'] == mon) & (cxa['Rday'] == today))].copy()
      tods = tod.shape[0]
-     wik = cx[(cx['RWEEK'] == wiki)].copy()
+     wik = cxa[(cxa['RWEEK'] == wiki)].copy()
      wikis = wik.shape[0]
      cxsumx = dfsum[dfsum['USE']==fac].copy()
      try:
@@ -379,17 +379,17 @@ colf.write('**MAR**')
 due = dfns.copy()
 
 for fac in facilities:
-     due = due[due['USE'] == fac]
-     due[['Ryear', 'Rmonth', 'Rday', 'RWEEK']] = due[['Ryear', 'Rmonth', 'Rday', 'RWEEK']].apply(pd.to_numeric, errors='coerce')
-     tude = due[((due['Ryear']==2025) & (due['Rmonth']==mon) & (due['Rday']== today))].copy()
+     duea = due[due['USE'] == fac]
+     duea[['Ryear', 'Rmonth', 'Rday', 'RWEEK']] = duea[['Ryear', 'Rmonth', 'Rday', 'RWEEK']].apply(pd.to_numeric, errors='coerce')
+     tude = duea[((duea['Ryear']==2025) & (duea['Rmonth']==mon) & (duea['Rday']== today))].copy()
      tods = tude.shape[0]
-     wiksy = due[((due['Ryear']==2025) & (due['RWEEK']==wiki))].copy()
+     wiksy = duea[((duea['Ryear']==2025) & (duea['RWEEK']==wiki))].copy()
      wik = wiksy.shape[0]
-     jan = due[((due['Ryear']==2025) & (due['Rmonth']==1))].copy()
+     jan = duea[((duea['Ryear']==2025) & (duea['Rmonth']==1))].copy()
      ja = jan.shape[0]
-     feb = due[((due['Ryear']==2025) & (due['Rmonth']==2))].copy()
+     feb = duea[((duea['Ryear']==2025) & (duea['Rmonth']==2))].copy()
      fe = feb.shape[0]
-     marc = due[((due['Ryear']==2025) & (due['Rmonth']==3))].copy()
+     marc = duea[((duea['Ryear']==2025) & (duea['Rmonth']==3))].copy()
      mar = marc.shape[0]
           
      cola.write(f'**{fac}**')
@@ -419,12 +419,12 @@ colf.write('**MAR**')
 
 for fac in facilities:
      vl['USE'] = vl['USE'].astype(str)
-     vl = vl[vl['USE'] == str(fac)].copy()
-     vl[['Rmonth', 'Rday', 'RWEEK']] = vl[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
-     tod = vl[((vl['Rmonth'] == mon) & (vl['Rday'] == today))].copy()
+     vla = vl[vl['USE'] == str(fac)].copy()
+     vla[['Rmonth', 'Rday', 'RWEEK']] = vla[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+     tod = vla[((vla['Rmonth'] == mon) & (vla['Rday'] == today))].copy()
      tods = tod.shape[0]
     
-     wik = vl[(vl['RWEEK'] == wiki)].copy()
+     wik = vla[(vla['RWEEK'] == wiki)].copy()
      wikis = wik.shape[0]
      vlsumvl = dfsum[dfsum['USE']==fac].copy()
      try:
@@ -460,11 +460,11 @@ cold.write('**JAN**')
 cole.write('**FEB**')
 colf.write('**MAR**')
 for fac in facilities:
-     vl = vl[vl['USE'] == fac]
-     vl[['Rmonth', 'Rday', 'RWEEK']] = vl[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
-     tod = vl[((vl['Rmonth'] == mon) & (vl['Rday'] == today))].copy()
+     vla = vla[vla['USE'] == fac]
+     vla[['Rmonth', 'Rday', 'RWEEK']] = vla[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+     tod = vla[((vla['Rmonth'] == mon) & (vla['Rday'] == today))].copy()
      tods = tod.shape[0]
-     wik = vl[(vl['RWEEK'] == wiki)].copy()
+     wik = vla[(vla['RWEEK'] == wiki)].copy()
      wikis = wik.shape[0]
      vl[['Rmonth', 'Rday', 'RWEEK']] = vl[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
      janvl = vl[((vl['Ryear'] == 2025) & (vl['Rmonth'] == 1))].copy() #ALTER THESE
@@ -497,11 +497,11 @@ cold.write('**JAN**')
 cole.write('**FEB**')
 colf.write('**MAR**')
 for fac in facilities:
-     pt = pt[pt['USE'] == fac]
-     pt[['Rmonth', 'Rday', 'RWEEK']] = vl[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
-     tod = pt[((pt['Rmonth'] == mon) & (pt['Rday'] == today))].copy()
+     pta = pt[pt['USE'] == fac]
+     pta[['Rmonth', 'Rday', 'RWEEK']] = pta[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+     tod = pta[((pta['Rmonth'] == mon) & (pta['Rday'] == today))].copy()
      tods = tod.shape[0]
-     wik = pt[(pt['RWEEK'] == wiki)].copy()
+     wik = pta[(pta['RWEEK'] == wiki)].copy()
      wikis = wik.shape[0]
      pt[['Rmonth', 'Ryear']] = pt[['Rmonth', 'Ryear']].apply(pd.to_numeric, errors='coerce')
      janpt = pt[((pt['Ryear'] == 2025) & (pt['Rmonth'] == 1))].copy() #ALTER THESE
