@@ -42,16 +42,16 @@ if 'vl' not in st.session_state:
          st.write("POOR NETWORK, COULDN'T CONNECT TO DATABASE")
          st.stop()
 dftx = st.session_state.vl.copy()
-# if 'ns' not in st.session_state:     
-#      try:
-#         #cola,colb= st.columns(2)
-#         conn = st.connection('gsheets', type=GSheetsConnection)
-#         exist = conn,read(worksheet= 'ALLNS', usecols=list(range()),ttl=5)
-#         txa = exist.dropna(how='all')
-#         st.session_state.ns = txa
-#      except:
-#          st.write("POOR NETWORK, COULDN'T CONNECT TO DATABASE")
-#          st.stop()
+if 'ns' not in st.session_state:     
+     try:
+        #cola,colb= st.columns(2)
+        conn = st.connection('gsheets', type=GSheetsConnection)
+        exist = conn,read(worksheet= 'ALLNS', usecols=list(range(23)),ttl=5)
+        txa = exist.dropna(how='all')
+        st.session_state.ns = txa
+     except:
+         st.write("POOR NETWORK, COULDN'T CONNECT TO DATABASE")
+         st.stop()
 dfns = st.session_state.ns.copy()
 st.write(dfns)
 if 'line' not in st.session_state:     
