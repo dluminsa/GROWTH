@@ -263,7 +263,8 @@ colf.write('**MAR**')
 tpt[['Rmonth', 'Rday', 'RWEEK']] = tpt[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
 st.write(tpt)
 tod = tpt[((tpt['Rmonth'] == mon) & (tpt['Rday'] == today))].copy()
-st.write(tod)
+wik = tpt[(tpt['RWEEK'] == wiki)].copy()
+st.write(wik)
 tods = tod.shape[0]
 
 facilities = dfline['USE'].unique()
