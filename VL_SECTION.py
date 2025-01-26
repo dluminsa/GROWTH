@@ -436,7 +436,7 @@ for fac in facilities:
      cole.write(f'**{febsumvl:,.0f}**')
      colf.write(f'**{marsumvl:,.0f}**')
 st.divider()
-st.markdown('<p><b><u><i style="color:magenta">TWO MONTHS BLEEDING WINDOW (CLIENTS DUE IN TWO MONTHS)</i></u></b></p>' , unsafe_allow_html = True)
+st.markdown('<p><b><u><i style="color:green">TWO MONTHS BLEEDING WINDOW (CLIENTS DUE IN TWO MONTHS)</i></u></b></p>' , unsafe_allow_html = True)
 
 vl = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'RD','Ryear', 'Rmonth', 'Rday', 'TWOm', 'RWEEK', 'USE']].copy()
 vl= vl[vl['TWOm'].notna()].copy()
@@ -470,8 +470,49 @@ for fac in facilities:
      cole.write(f'**{febsumvl:,.0f}**')
      colf.write(f'**{marsumvl:,.0f}**')
 
+st.divider()
+st.markdown('<p><b><u><i style="color:magenta">VIRAL LOAD (CLIENTS DUE FOR BLEEDING)</i></u></b></p>' , unsafe_allow_html = True)
 
+vl = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'RD', 'Rmonth', 'Rday', 'VL STATUS', 'RWEEK', 'USE']].copy()
+vl= vl[vl['VL STATUS'].notna()].copy()
+vlsumvl = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANVL', 'FEBVL','MARVL', 'WEEK']].copy()
+vlsumvl = vlsumvl[vlsumvl['WEEK']==wiki].copy()
 
+cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
+cola.write(f'**{word}**')
+colb.write('**TODAY**')
+colc.write('**THIS WEEK**')
+cold.write('**JAN**')
+cole.write('**FEB**')
+colf.write('**MAR**')
+for fac in facilities:
+     vl = vl[vl['USE'] == fac]
+     vl[['Rmonth', 'Rday', 'RWEEK']] = vl[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+     tod = vl[((vl['Rmonth'] == mon) & (vl['Rday'] == today))].copy()
+     tods = tod.shape[0]
+     wik = vl[(vl['RWEEK'] == wiki)].copy()
+     wikis = wik.shape[0]
+     vlsumvl = dfsum[dfsum['USE']==fac].copy()
+     try:
+       jansumvl = vlsumvl['JANVL'].sum()
+     except:
+          jansumvl= 0
+     try:
+          febsumvl = vlsumvl['FEBVL'].sum()
+     except:
+          febsumx = 0
+     try:
+          marsumvl = vlsumvl['MARVL'].sum()
+     except:
+          marsumvl = 0
+          
+     cola.write(f'**{fac}**')
+     colb.write(f'**{tods:,.0f}**')
+     colc.write(f'**{wikis:,.0f}**')
+     cold.write(f'**{int(jansumvl)}**')
+     cole.write(f'**{febsumvl:,.0f}**')
+     colf.write(f'**{marsumvl:,.0f}**')
+st.divider()
 st.divider()
 HAVE = water['HAVE'].sum()
 NOT = water['NOVL'].sum()
