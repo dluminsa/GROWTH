@@ -415,7 +415,7 @@ for fac in facilities:
      tods = tod.shape[0]
      wik = vl[(vl['RWEEK'] == wiki)].copy()
      wikis = wik.shape[0]
-     vlsumx = dfsum[dfsum['USE']==fac].copy()
+     vlsumvl = dfsum[dfsum['USE']==fac].copy()
      try:
        jansumvl = vlsumvl['JANVL'].sum()
      except:
