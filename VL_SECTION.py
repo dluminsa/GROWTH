@@ -557,21 +557,22 @@ if len(facility)==1:
                  dfnsb = dfnsweek[~dfnsweek['A'].isin(dfweek['A'])].copy()
                  dfnsb = dfnsb[['CLUSTER', 'DISTRICT', 'FACILITY', 'A','result_numeric', 'date_collected', 'AG', 'RD', 'NS REBLEED?']].copy()
                  dfall = pd.concat([dfmerged,dfnsb])
-                 today = pd.to_numeric(df['Rday'], errors='coerce')
+                 dfall['Rday'] = pd.to_numeric(dfall['Rday'], errors='coerce')
+                 tode = dfall[dfall['Rday']== today].copy()
 
                  with cola:
-                     if today.shape[0] ==0:
+                     if tode.shape[0] ==0:
                           st.write('**NO LINELISTS TODAY**')
                      else:
-                         csv_data = today.to_csv(index=False)
-                         tot = today.shape[0]
+                         csv_data = tode.to_csv(index=False)
+                         tot = tode.shape[0]
                          st.write(f'**{tot} CLIENTS TO ATTEND TO TODAY**')
                          st.download_button(
                                      label="TODAY'S LINELISTS",
                                      data=csv_data,
                                      file_name=f"{facility}_LINELIST_TODAY.csv",
                                      mime="text/csv")
-                 with cola:
+                 with colb:
                      if dfall.shape[0] ==0:
                           st.write('**NO LINELISTS THIS WEEK**')
                      else:
