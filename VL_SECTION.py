@@ -53,7 +53,7 @@ if 'ns' not in st.session_state:
          st.write("POOR NETWORK, COULDN'T CONNECT TO DATABASE")
          st.stop()
 dfns = st.session_state.ns.copy()
-st.write(dfns)
+
 if 'line' not in st.session_state:     
      try:
         #cola,colb= st.columns(2)
