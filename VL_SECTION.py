@@ -223,8 +223,10 @@ dati = dt.date.today()
 wiki = dati.strftime("%V")
 wiki = int(wiki) + 13
 today = dati.strftime('%d')
+today = int(today)
 mon = dati.strftime('%m')
-st.write(f'this {wiki}')
+mon = int(mon)
+
 loop = dfline['DISTRICT'].unique()
 if len(loop) ==1:
      dfline['USE'] = dfline['FACILITY']
