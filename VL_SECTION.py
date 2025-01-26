@@ -404,7 +404,6 @@ st.markdown('<p><b><u><i style="color:magenta">VIRAL LOAD (CLIENTS DUE FOR BLEED
 
 vl = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'RD', 'Rmonth', 'Rday', 'VL STATUS', 'RWEEK', 'USE']].copy()
 vl= vl[vl['VL STATUS'].notna()].copy()
-st.write(vl)
 vlsumvl = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANVL', 'FEBVL','MARVL', 'WEEK']].copy()
 vlsumvl = vlsumvl[vlsumvl['WEEK']==wiki].copy()
 
