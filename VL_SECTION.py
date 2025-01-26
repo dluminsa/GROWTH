@@ -512,8 +512,8 @@ st.markdown('<p><b><u><i style="color:blue">MISSED OPPORTUNITIES (CLIENTS WHO RE
 cola,colb,colc,cold = st.columns([3,1,1,1])
 cola.write(f'**{word}**')
 colb.write('**NOT SCREENED**')
-colc.write('***NOT BLED**')
-cold.write('***NO TPT**')
+colc.write('**NOT BLED**')
+cold.write('**NO TPT**')
 for fac in facilities:
      noserv = dfsum[dfsum['USE']==fac].copy()
      try:
@@ -530,9 +530,9 @@ for fac in facilities:
      except:
         tptnot = 0
      cola.write(f'**{fac}**')
-     colb.write(f'**{cerv}**')
-     colc.write(f'***{bled}**')
-     cold.write(f'***{tptnot}**')
+     colb.write(f'**{cerv:,.0f}**')
+     colc.write(f'**{bled:,.0f}**')
+     cold.write(f'**{tptnot:,.0f}**')
 st.divider()
 HAVE = water['HAVE'].sum()
 NOT = water['NOVL'].sum()
