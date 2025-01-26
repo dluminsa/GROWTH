@@ -587,6 +587,7 @@ if len(facility)==1:
 else:
      st.info("**CHOOSE ONE FACILITY TO SEE IT'S LINELISTS**")
 st.divider()
+st.markdown("**GENERAL VL COVERAGE**")
 HAVE = water['HAVE'].sum()
 NOT = water['NOVL'].sum()
 TOTAL = int(HAVE) + int(NOT)
