@@ -417,8 +417,9 @@ cole.write('**FEB**')
 colf.write('**MAR**')
 for fac in facilities:
      vl['USE'] = vl['USE'].astype(str)
+     st.write(vl['USE'])
      vl = vl[vl['USE'] == str(fac)]
-     st.write(fac)
+     st.write(vl['USE'])
      vl[['Rmonth', 'Rday', 'RWEEK']] = vl[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
      tod = vl[((vl['Rmonth'] == mon) & (vl['Rday'] == today))].copy()
      st.write(tod)
