@@ -499,8 +499,6 @@ for fac in facilities:
      janpt = janpt.shape[0]
      febpt = febpt.shape[0]
      marpt = marpt.shape[0]
-     
-
           
      cola.write(f'**{fac}**')
      colb.write(f'**{tods:,.0f}**')
@@ -509,6 +507,32 @@ for fac in facilities:
      cole.write(f'**{febpt:,.0f}**')
      colf.write(f'**{marpt:,.0f}**')
 st.divider()
+st.markdown('<p><b><u><i style="color:yellow">MISSED OPPORTUNITIES (CLIENTS WHO RETURNED AND NOT:)</i></u></b></p>' , unsafe_allow_html = True)
+
+cola,colb,colc,cold = st.colums([3,1,1,1])
+cola.write(f'**{word}**')
+colb.write('**NOT SCREENED**')
+colc.write('***NOT BLED**')
+cold.write('***NO TPT**')
+for fac in facilities:
+     noserv = dfsum[dfsum['USE']==fac].copy()
+     try:
+         cerv = dfsum['NOTSCREENED'].sum()
+     except:
+         cerv = 0
+     try:
+         bled = dfsum['NOTBLED'].sum()
+     except:
+         bled = 0
+
+     try:
+        tptnot = dfsum['NOTPT'].sum()
+     except:
+        tptnot = 0
+     cola.write(f'**{fac}**')
+     colb.write(f'**{cerv}**')
+     colc.write(f'***{bled}**')
+     cold.write(f'***{tptnot}**')
 st.divider()
 HAVE = water['HAVE'].sum()
 NOT = water['NOVL'].sum()
