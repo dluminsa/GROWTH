@@ -300,7 +300,7 @@ tpt= tpt[tpt['TPT STATUS'].notna()].copy()
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
 #tpt = tpt[tpt['TPT STATUS'] == 'UNLIKELY'].copy()
 
-t  pt[['Rmonth', 'Rday', 'RWEEK']] = tpt[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+tpt[['Rmonth', 'Rday', 'RWEEK']] = tpt[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
 st.write(mon)
 st.write(today)
 tod = tpt[((tpt['Rmonth'] == mon) & (tpt['Rday'] == today))].copy()
