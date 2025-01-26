@@ -680,8 +680,6 @@ def extract():
                         #CREATING WEEEK FOR RETURN VISIT DATE
                         df['RWEEK'] = df['RETURN DATE'].dt.strftime('%V')
                         df['RWEEK'] = pd.to_numeric(df['RWEEK'], errors='coerce')
-                        #SURGE WEEK
-                        df['RWEEK'] = pd.to_numeric(df['RWEEK'], errors='coerce')
                         df['RWEEK1'] = df['RWEEK'] + 13
                         #       #PARAMETERS FOR CIRA
                            
@@ -1686,8 +1684,8 @@ def extract():
                     line['CLUSTER'] = cluster
                     line['DISTRICT'] = district
                     line['FACILITY']= facility
-                    line = line[['CLUSTER', 'DISTRICT', 'FACILITY', 'A','AG','GD', 'AS', 'RD', 'VD', 'Ryear', 'Rmonth', 'Rday', 'RWEEK','VL STATUS', 'TWOm', 'TPT', 'TPT STATUS', 'CX', 'CX STATUS', 'PT' , 'PVL']].copy()
-
+                    line = line[['CLUSTER', 'DISTRICT', 'FACILITY', 'A','AG','GD', 'AS', 'RD', 'VD', 'Ryear', 'Rmonth', 'Rday', 'RWEEK1','VL STATUS', 'TWOm', 'TPT', 'TPT STATUS', 'CX', 'CX STATUS', 'PT' , 'PVL']].copy()
+                    line = line.rename(columns={'RWEEK1': 'RWEEK'})
                     missed[['Lyear', 'Lmonth']] = missed[['Lyear', 'Lmonth']].apply(pd.to_numeric, errors='coerce')
                     ma = dt.date.today()
                     me  = ma.strftime('%m')
