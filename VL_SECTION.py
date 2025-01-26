@@ -397,7 +397,7 @@ st.divider()
 st.markdown('<p><b><u><i style="color:magenta">VIRAL LOAD (CLIENTS DUE FOR BLEEDING)</i></u></b></p>' , unsafe_allow_html = True)
 
 vl = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'RD', 'Rmonth', 'Rday', 'VL STATUS', 'RWEEK', 'USE']].copy()
-vl= vl[vl['vl STATUS'].notna()].copy()
+vl= vl[vl['VL STATUS'].notna()].copy()
 vlsumvl = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANVL', 'FEBVL','MARVL', 'WEEK']].copy()
 vlsumvl = vlsumvl[vlsumvl['WEEK']==wiki].copy()
 
