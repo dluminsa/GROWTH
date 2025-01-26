@@ -267,7 +267,8 @@ colf.write('**MAR**')
 facilities = dfline['USE'].unique()
 #SUMMARIES
 for fac in facilities:
-     tpt = tpt[tpt['USE'] == fac]
+     tpt = tpt[tpt['USE'] == fac].copy()
+     st.write(fac)
      tpt[['Rmonth', 'Rday', 'RWEEK']] = tpt[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
      tod = tpt[((tpt['Rmonth'] == mon) & (tpt['Rday'] == today))].copy()
      tods = tod.shape[0]
