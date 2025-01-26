@@ -507,9 +507,9 @@ for fac in facilities:
      cole.write(f'**{febpt:,.0f}**')
      colf.write(f'**{marpt:,.0f}**')
 st.divider()
-st.markdown('<p><b><u><i style="color:yellow">MISSED OPPORTUNITIES (CLIENTS WHO RETURNED AND NOT:)</i></u></b></p>' , unsafe_allow_html = True)
+st.markdown('<p><b><u><i style="color:blue">MISSED OPPORTUNITIES (CLIENTS WHO RETURNED AND NOT:😭)</i></u></b></p>' , unsafe_allow_html = True)
 
-cola,colb,colc,cold = st.colums([3,1,1,1])
+cola,colb,colc,cold = st.columns([3,1,1,1])
 cola.write(f'**{word}**')
 colb.write('**NOT SCREENED**')
 colc.write('***NOT BLED**')
