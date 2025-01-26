@@ -228,7 +228,7 @@ loop = dfline['DISTRICT'].unique()
 if len(loop) ==1:
      dfline['USE'] = dfline['FACILITY']
      dfsum['USE'] = dfsum['FACILITY']
-     dfns['USE'] = df['facility']
+     dfns['USE'] = dfns['facility']
      word = 'FACILITY'
 else:
      dfline['USE'] = dfline['DISTRICT']
