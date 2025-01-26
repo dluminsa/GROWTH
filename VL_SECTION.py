@@ -42,6 +42,17 @@ if 'vl' not in st.session_state:
          st.write("POOR NETWORK, COULDN'T CONNECT TO DATABASE")
          st.stop()
 dftx = st.session_state.vl.copy()
+if 'ns' not in st.session_state:     
+     try:
+        #cola,colb= st.columns(2)
+        conn = st.connection('gsheets', type=GSheetsConnection)
+        exist = conn.read(worksheet= 'ALLNS', usecols=list(range(12)),ttl=5)
+        txa = exist.dropna(how='all')
+        st.session_state.ns = txa
+     except:
+         st.write("POOR NETWORK, COULDN'T CONNECT TO DATABASE")
+         st.stop()
+dfns = st.session_state.ns.copy()
 
 if 'line' not in st.session_state:     
      try:
@@ -113,6 +124,7 @@ if not CLUSTER:
     water2 = water.copy()
     dfline2 = dfline.copy()
     dfsum2 = dfsum.copy()
+    dfns2 = dfns.copy()
 
 else:
     dfrep['CLUSTER'] = dfrep['CLUSTER'].astype(str)
@@ -130,6 +142,8 @@ else:
     dfsum['CLUSTER'] = dfsum['CLUSTER'].astype(str)
     dfsum2 = dfsum[dfsum['CLUSTER'].isin(CLUSTER)].copy()
 
+    dfns['CLUSTER'] = dfns['CLUSTER'].astype(str)
+    dfns2 = dfns[dfns['CLUSTER'].isin(CLUSTER)].copy()
 district = st.sidebar.multiselect('**CHOOSE A DISTRICT**', dfrep2['DISTRICT'].unique(), key='b')
 if not district:
     dfrep3 = dfrep2.copy()
@@ -137,6 +151,7 @@ if not district:
     dfsum3  = dfsum2.copy()
     dftx3 = dftx2.copy()
     water3 = water2.copy()
+    dfns3 = dfns2.cop()
 else:
     dfrep2['DISTRICT'] = dfrep2['DISTRICT'].astype(str)
     dfrep3 = dfrep2[dfrep2['DISTRICT'].isin(district)].copy()
@@ -153,6 +168,9 @@ else:
     dfsum2['DISTRICT'] = dfsum2['DISTRICT'].astype(str)
     dfsum3 = dfsum2[dfsum2['DISTRICT'].isin(district)].copy()
 
+    dfns2['DISTRICT'] = dfns2['DISTRICT'].astype(str)
+    dfns3 = dfns2[dfns2['DISTRICT'].isin(district)].copy()
+
 facility = st.sidebar.multiselect('**CHOOSE A FACILITY**', dfrep3['FACILITY'].unique(), key='c')
 if not facility:
     dfrep4 = dfrep3.copy()
@@ -160,12 +178,14 @@ if not facility:
     water4 = water3.copy()
     dfline4 = dfline3.copy()
     dfsum4 = dfsum3.copy()
+    dfns4 = dfns3.copy()
 else:
     dfrep4 = dfrep3[dfrep3['FACILITY'].isin(facility)].copy()
     dftx4 = dftx3[dftx3['FACILITY'].isin(facility)].copy()
     water4 = water3[water3['FACILITY'].isin(facility)].copy()
     dfline4 = dfline3[dfline3['FACILITY'].isin(facility)].copy()
     dfsum4 = dfsum3[dfsum3['FACILITY'].isin(facility)].copy()
+    dfns4 = dfns3[dfns3['facility'].isin(facility)].copy()
 
 
 # Base DataFrame to filter
@@ -174,25 +194,28 @@ dftx = dftx4.copy()
 water = water4.copy()
 dfline = dfline4.copy()
 dfsum = dfsum4.copy()
-
+dfns = dfns4.copy()
 # Apply filters based on selected criteria
 if CLUSTER:
     dfrep = dfrep[dfrep['CLUSTER'].isin(CLUSTER)].copy()
     dftx = dftx[dftx['CLUSTER'].isin(CLUSTER)].copy()
     dfline = dfline[dfline['CLUSTER'].isin(CLUSTER)].copy()
     dfsum = dfsum[dfsum['CLUSTER'].isin(CLUSTER)].copy()
+    dfns = dfns[dfns['CLUSTER'].isin(CLUSTER)].copy()
 
 if district:
     dfrep = dfrep[dfrep['DISTRICT'].isin(district)].copy()
     dftx = dftx[dftx['DISTRICT'].isin(district)].copy()
     dfsum = dfsum[dfsum['DISTRICT'].isin(district)].copy()
     dfline = dfline[dfline['DISTRICT'].isin(district)].copy()
+    dfns = dfns[dfns['DISTRICT'].isin(district)].copy()
      
 if facility:
     dfrep = dfrep[dfrep['FACILITY'].isin(facility)].copy()
     dftx = dftx[dftx['FACILITY'].isin(facility)].copy()
     dfsum = dfsum[dfsum['FACILITY'].isin(facility)].copy()
     dfline = dfline[dfline['FACILITY'].isin(facility)].copy()
+    dfns = dfns[dfns['facility'].isin(facility)].copy()
 
 dati = dt.date.today()
 wiki = dati.strftime('%v')
@@ -203,10 +226,12 @@ loop = dfline['DISTRICT'].unique()
 if len(loop) ==1:
      dfline['USE'] = dfline['FACILITY']
      dfsum['USE'] = dfsum['FACILITY']
+     dfns['USE'] = df['facility']
      word = 'FACILITY'
 else:
      dfline['USE'] = dfline['DISTRICT']
      dfsum['USE'] = dfsum['DISTRICT']
+     dfns['USE'] = dfns['DISTRICT']
      word = 'DISTRICT'
 
 #keep one entry for summaries
@@ -218,6 +243,7 @@ dfsum = dfsum.drop_duplicates(subset = ['FACILITY'], keep='last')
 
 ##TPT SECTION
 st.markdown('<p><b><u><i style="color:red">TPT LINELISTS (LIKELY)</i></u></b></p>' , unsafe_allow_html = True)
+st.divider()
 tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK', 'USE']].copy()
 tpt= tpt[tpt['TPT STATUS'].notna()].copy()
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
@@ -265,7 +291,7 @@ for fac in facilities:
      
 st.divider()
 ##TPT SECTION
-st.markdown('<p><b><u><i style="color:green">TPT LINELISTS (ULIKELY)</i></u></b></p>' , unsafe_allow_html = True)
+st.markdown('<p><b><u><i style="color:green">TPT LINELISTS (UNLIKELY)</i></u></b></p>' , unsafe_allow_html = True)
 tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK', 'USE']].copy()
 tpt= tpt[tpt['TPT STATUS'].notna()].copy()
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
@@ -334,7 +360,38 @@ for fac in facilities:
      colf.write(f'**{marsumx:,.0f}**')
 
 st.divider()
-#VL COVERAGE
+#NS ON APPT
+
+st.markdown('<p><b><u><i style="color:purple">NON SUPPRESSORS DUE FOR REBLEEDING</i></u></b></p>' , unsafe_allow_html = True)
+
+cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
+cola.write(f'**{word}**')
+colb.write('**TODAY**')
+colc.write('**THIS WEEK**')
+cold.write('**JAN**')
+cole.write('**FEB**')
+colf.write('**MAR**')
+
+for fac in facilities:
+     due = due[due['USE'] == fac]
+     due[['Ryear', 'Rmonth', 'Rday', 'RWEEK']] = due[['Ryear', 'Rmonth', 'Rday', 'RWEEK']].apply(pd.to_numeric, errors='coerce')
+     tude = due[((due['Ryear']==2025) & (due['Rmonth']==mon) & (due['Rday']== day))].copy()
+     tods = tude.shape[0]
+     wiki = due[((due['Ryear']==2025) & (due['RWEEK']==week))].copy()
+     wik = wiki.shape[0]
+     jan = due[((due['Ryear']==2025) & (due['Rmonth']==1))].copy()
+     ja = jan.shape[0]
+     feb = due[((due['Ryear']==2025) & (due['Rmonth']==2))].copy()
+     fe = feb.shape[0]
+     marc = due[((due['Ryear']==2025) & (due['Rmonth']==3))].copy()
+     mar = marc.shape[0]
+          
+     cola.write(f'**{fac}**')
+     colb.write(f'**{tods:,.0f}**')
+     colc.write(f'**{wik:,.0f}**')
+     cold.write(f'**{int(ja)}**')
+     cole.write(f'**{fe:,.0f}**')
+     colf.write(f'**{mar:,.0f}**')
 
 HAVE = water['HAVE'].sum()
 NOT = water['NOVL'].sum()
