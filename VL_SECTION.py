@@ -151,7 +151,7 @@ if not district:
     dfsum3  = dfsum2.copy()
     dftx3 = dftx2.copy()
     water3 = water2.copy()
-    dfns3 = dfns2.cop()
+    dfns3 = dfns2.copy()
 else:
     dfrep2['DISTRICT'] = dfrep2['DISTRICT'].astype(str)
     dfrep3 = dfrep2[dfrep2['DISTRICT'].isin(district)].copy()
