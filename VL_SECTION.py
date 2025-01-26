@@ -415,6 +415,8 @@ colc.write('**THIS WEEK**')
 cold.write('**JAN**')
 cole.write('**FEB**')
 colf.write('**MAR**')
+st.write(facilities)
+st.write('**HERE**')
 for fac in facilities:
      vl['USE'] = vl['USE'].astype(str)
      st.write(vl['USE'])
