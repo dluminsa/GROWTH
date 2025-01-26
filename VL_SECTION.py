@@ -536,7 +536,7 @@ for fac in facilities:
      colc.write(f'**{bled:,.0f}**')
      cold.write(f'**{tptnot:,.0f}**')
 st.divider()
-st.markdown('<p><b><u><i style="color:blue">DOWNLOAD LINELISTS</i></u></b></p>' , unsafe_allow_html = True)
+st.markdown('<p><b><u><i style="color:purple">DOWNLOAD LINELISTS HERE</i></u></b></p>' , unsafe_allow_html = True)
 if len(facility)==1:
      with st.expander("**DOWNLOAD LINELISTS**"): 
                  cola, colb = st.columns(2)
