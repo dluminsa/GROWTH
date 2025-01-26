@@ -425,7 +425,7 @@ for fac in facilities:
      except:
           febsumx = 0
      try:
-          marsumvl = vlsum['MARVL'].sum()
+          marsumvl = vlsumvl['MARVL'].sum()
      except:
           marsumvl = 0
           
