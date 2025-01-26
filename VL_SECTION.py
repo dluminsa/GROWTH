@@ -517,16 +517,16 @@ cold.write('**NO TPT**')
 for fac in facilities:
      noserv = dfsum[dfsum['USE']==fac].copy()
      try:
-         cerv = dfsum['NOTSCREENED'].sum()
+         cerv = noserv['NOTSCREENED'].sum()
      except:
          cerv = 0
      try:
-         bled = dfsum['NOTBLED'].sum()
+         bled = noserv['NOTBLED'].sum()
      except:
          bled = 0
 
      try:
-        tptnot = dfsum['NOTPT'].sum()
+        tptnot = noserv['NOTPT'].sum()
      except:
         tptnot = 0
      cola.write(f'**{fac}**')
