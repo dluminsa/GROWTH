@@ -378,8 +378,8 @@ for fac in facilities:
      due[['Ryear', 'Rmonth', 'Rday', 'RWEEK']] = due[['Ryear', 'Rmonth', 'Rday', 'RWEEK']].apply(pd.to_numeric, errors='coerce')
      tude = due[((due['Ryear']==2025) & (due['Rmonth']==mon) & (due['Rday']== today))].copy()
      tods = tude.shape[0]
-     wiki = due[((due['Ryear']==2025) & (due['RWEEK']==wiki))].copy()
-     wik = wiki.shape[0]
+     wiksy = due[((due['Ryear']==2025) & (due['RWEEK']==wiki))].copy()
+     wik = wiksy.shape[0]
      jan = due[((due['Ryear']==2025) & (due['Rmonth']==1))].copy()
      ja = jan.shape[0]
      feb = due[((due['Ryear']==2025) & (due['Rmonth']==2))].copy()
