@@ -247,8 +247,7 @@ st.divider()
 st.markdown('<p><b><u><i style="color:red">TPT LINELISTS (LIKELY)</i></u></b></p>' , unsafe_allow_html = True)
 tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK', 'USE']].copy()
 tpt= tpt[tpt['TPT STATUS'].notna()].copy()
-st.write(tpt)
-st.stop()
+
 tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
 tpt = tpt[tpt['TPT STATUS'] == 'LIKELY'].copy()
 tptsum = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANTPT', 'FEBTPT','MARTPT', 'WEEK']].copy()
@@ -261,6 +260,13 @@ colc.write('**THIS WEEK**')
 cold.write('**JAN**')
 cole.write('**FEB**')
 colf.write('**MAR**')
+
+tpt[['Rmonth', 'Rday', 'RWEEK']] = tpt[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+tod = tpt[((tpt['Rmonth'] == mon) & (tpt['Rday'] == today))].copy()
+st.write('THIS')
+st.write(tod)
+tods = tod.shape[0]
+st.stop()
 
 facilities = dfline['USE'].unique()
 #SUMMARIES
