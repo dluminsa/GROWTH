@@ -583,20 +583,6 @@ if len(facility)==1:
                                      file_name=f"{facility}_LINELIST_THIS_WEEK.csv",
                                      mime="text/csv")
 
-
-
-                 dftoday = dflind[((dflind['Rmonth']==mon) & (df['Rday']== today))].copy()
-                 #dflind = dflind[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AG','AS', 'RD', 'AS', 'VD', 'VL STATUS', 'TWOm', 'TPT', 'TPT STATUS', 'CX', 'CX STATUS', 'PT', 'PVL']].copy() 
-                 dat = lost()
-                                        #dat = yyy.copy()
-                                        csv_data = dat.to_csv(index=False)
-                                        tot = dat.shape[0]
-                                        st.write(f'**{tot} CLIENTS HAVE MISSED**')
-                                        st.download_button(
-                                                    label="MISSED APPOINTMENTS",
-                                                    data=csv_data,
-                                                    file_name=f"{facility} MISSED.csv",
-                                                    mime="text/csv")
 st.divider()
 HAVE = water['HAVE'].sum()
 NOT = water['NOVL'].sum()
