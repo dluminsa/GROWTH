@@ -1813,9 +1813,10 @@ def extract():
                                     dfex = dfex[dfex['FACILITY']!=facility].copy()
                                     line['RWEEK'] = pd.to_numeric(line['RWEEK'], errors= 'coerce')
                                     wkapp = wk +1
-                                    line = line[((line['RWEEK']>wk) | (line['RWEEK']== wkapp))].copy()
+                                    line = line[((line['RWEEK']==wk) | (line['RWEEK']== wkapp))].copy()
                                     dfline = pd.concat([dfex, line])
                                     conn.update(worksheet = 'LINELISTS', data = dfline)
+                                    sheet6 = spreadsheet.worksheet("SUMM")
                                 
                                 sheet1 = spreadsheet.worksheet("TX")
                                 #st.write(row1)
@@ -1827,7 +1828,6 @@ def extract():
                                 sheet3 = spreadsheet.worksheet("YEARS")
                                 sheet4 = spreadsheet.worksheet("THREEO")
                                 sheet5 = spreadsheet.worksheet("CIRA")
-                                sheet6 = spreadsheet.worksheet("SUMM")
                                 
                                 sheet3.append_row(row3, value_input_option='RAW')
                                 sheet4.append_row(row4, value_input_option='RAW')
