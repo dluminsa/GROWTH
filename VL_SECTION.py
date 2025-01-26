@@ -53,6 +53,8 @@ if 'ns' not in st.session_state:
          st.write("POOR NETWORK, COULDN'T CONNECT TO DATABASE")
          st.stop()
 dfns = st.session_state.ns.copy()
+dfns = dfns[dfns['TO'].isnull()].copy()
+dfns = dfns[dfns['DD'].isnull()].copy()
 
 if 'line' not in st.session_state:     
      try:
@@ -533,6 +535,68 @@ for fac in facilities:
      colb.write(f'**{cerv:,.0f}**')
      colc.write(f'**{bled:,.0f}**')
      cold.write(f'**{tptnot:,.0f}**')
+st.divider()
+st.markdown('<p><b><u><i style="color:blue">DOWNLOAD LINELIST</i></u></b></p>' , unsafe_allow_html = True)
+if len(facility)==1:
+     with st.expander('**DOWNLOAD LINELISTS**"): 
+                 cola, colb = st.columns(2)
+                 dflind = dfline.copy()
+                 dflns = dfns.copy()
+                 dflind[['Rmonth', 'RWEEK', 'Rday']] = dflind[['Rmonth', 'RWEEK', 'Rday']].apply(pd.to_numeric, errors='coerce')
+                 dflns['RWEEK'] = pd.to_numeric(dfns['RWEEK'], errors='coerce')
+                 dfweek = dflind[dflind['RWEEK']== wiki].copy()
+                 dfnsweek = dflns[dflns['RWEEK']== wiki].copy()
+                 #merging the two
+                 dfnsweek['NS REBLEED?'] = 'NS REBLEED'
+                 dfnsweek = dfnsweek.rename(columns={'ARTN': 'A', 'facility':'FACILITY'})
+                 dfnsa = dfnsweek['A', 'result_numeric', 'date_collected','NS REBLEED?']
+                 dfnsa['A'] = pd.to_numeric(dfnsa['A'], errors='coerce')
+                 dfweek['A'] = pd.to_numeric(dfweek['A'], errors='coerce')
+                 dfmerged = pd.merge(dfweek, dfnsa, on ='A', how='left')
+                 dfnsb = dfnsweek[-dfnsweek['A'].isin(dflns['A'])].copy()
+                 dfnsb = dfnsb[['CLUSTER', 'DISTRICT', 'FACILITY', 'A','result_numeric', 'date_collected', 'AG', 'RD', 'NS REBLEED?']].copy()
+                 dfall = pd.concat([dfmerged,dfnsb])
+                 today = pd.to_numeric(df['Rday'], errors='coerce')
+
+                 with cola:
+                     if today.shape[0] ==0:
+                          st.write('**NO LINELISTS TODAY**')
+                     else:
+                         csv_data = today.to_csv(index=False)
+                         tot = today.shape[0]
+                         st.write(f'**{tot} CLIENTS TO ATTEND TO TODAY**')
+                         st.download_button(
+                                     label="TODAY'S LINELISTS",
+                                     data=csv_data,
+                                     file_name=f"{facility}_LINELIST_TODAY.csv",
+                                     mime="text/csv")
+                 with cola:
+                     if dfall.shape[0] ==0:
+                          st.write('**NO LINELISTS THIS WEEK**')
+                     else:
+                         csv_data = today.to_csv(index=False)
+                         tot = dfall.shape[0]
+                         st.write(f'**{tot} CLIENTS TO ATTEND TO THIS WEEK**')
+                         st.download_button(
+                                     label="THIS WEEK'S LINELISTS",
+                                     data=csv_data,
+                                     file_name=f"{facility}_LINELIST_THIS_WEEK.csv",
+                                     mime="text/csv")
+
+
+
+                 dftoday = dflind[((dflind['Rmonth']==mon) & (df['Rday']== today))].copy()
+                 #dflind = dflind[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AG','AS', 'RD', 'AS', 'VD', 'VL STATUS', 'TWOm', 'TPT', 'TPT STATUS', 'CX', 'CX STATUS', 'PT', 'PVL']].copy() 
+                 dat = lost()
+                                        #dat = yyy.copy()
+                                        csv_data = dat.to_csv(index=False)
+                                        tot = dat.shape[0]
+                                        st.write(f'**{tot} CLIENTS HAVE MISSED**')
+                                        st.download_button(
+                                                    label="MISSED APPOINTMENTS",
+                                                    data=csv_data,
+                                                    file_name=f"{facility} MISSED.csv",
+                                                    mime="text/csv")
 st.divider()
 HAVE = water['HAVE'].sum()
 NOT = water['NOVL'].sum()
