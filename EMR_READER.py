@@ -13,7 +13,7 @@ from streamlit_gsheets import GSheetsConnection
 from datetime import datetime 
 import datetime as dt
 #st.stop()
-# Clear cache at the very start of the app
+#Clear cache at the very start of the app
 st.cache_data.clear()
 st.cache_resource.clear()
 
