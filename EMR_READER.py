@@ -747,6 +747,7 @@ def extract():
                         #COPY FOR ONE YEAR BEFORE GETTING POT CURR
                         oneyear = df.copy()
                         nsps = df.copy()
+                        yyyu = df.copy()
                         line = df.copy()
                         missed = df.copy()
                        
@@ -2032,10 +2033,11 @@ def extract():
                                                         file_name=f"{facility} IIT_3.csv",
                                                         mime="text/csv")
                                 with colb:
-                                        if outnew3==0:
-                                            st.markdown('**NO 3 MTHS TOs**')
-                                        else:
+                                        # if outnew3==0:
+                                        #     st.markdown('**NO 3 MTHS TOs**')
+                                        # else:
                                             dat = yearto3()
+                                            dat = yyyu.copy()
                                             csv_data = dat.to_csv(index=False)
                                             st.download_button(key='h',
                                                         label="3 MTHS T.OUTS",
