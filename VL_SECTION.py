@@ -550,6 +550,7 @@ if len(facility)==1:
                  cola, colb = st.columns(2)
                  dflind = dfline.copy()
                  dflns = dfns.copy()
+                 
           
                  dflind[['Rmonth', 'RWEEK', 'Rday']] = dflind[['Rmonth', 'RWEEK', 'Rday']].apply(pd.to_numeric, errors='coerce')
                  dflns['RWEEK'] = pd.to_numeric(dfns['RWEEK'], errors='coerce')
@@ -567,7 +568,8 @@ if len(facility)==1:
                  dfall = pd.concat([dfmerged,dfnsb])
                  dfall['Rday'] = pd.to_numeric(dfall['Rday'], errors='coerce')
                  tode = dfall[dfall['Rday']== today].copy()
-
+                 tode = tode.rename(columns = {'A':'ART NO', 'AG': 'Age', 'GD':'GENDER', 'RD':'RETURN DATE', 'PT':'PMTCT STATUS'})
+                 tode = tode.drop(columns = ['CLUSTER', 'DISTRICT', 'Rday', 'Rmonth', 'Ryear', 'RWEEK'])
                  with cola:
                      if tode.shape[0] ==0:
                           st.write('**NO LINELISTS TODAY**')
