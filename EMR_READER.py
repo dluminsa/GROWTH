@@ -799,14 +799,6 @@ def extract():
                         dfto[['Ryear', 'Rmonth']] = dfto[['Ryear', 'Rmonth']].apply(pd.to_numeric, errors='coerce')
                         dfto = dfto[((dfto['Ryear']!=2024) |((dfto['Ryear']==2024) & (dfto['Rmonth']!=12)))].copy() #OTHERS WOULD BE FALSE TOs, even those made last Q since they were brought as false if their RRDs were this year
                         df = pd.concat([dfto,dfnot])
-                        # dfs = [dfi for dfi in [dfto, dfnot] if not dfi.empty]
-                        # #df = pd.concat(dfs)
-                        #             # Concatenate only non-empty DataFrames
-                        # if dfs:  # Check if there's any DataFrame left
-                        #     df = pd.concat(dfs)
-                        # else:
-                        #     df = pd.DataFrame() 
-
         
                         #REMOVE the dead of the reporting month
                         df[ 'Dyear'] = pd.to_numeric(df['Dyear'], errors='coerce')
@@ -931,33 +923,33 @@ def extract():
                         df[['Ryear','Rmonth']] = df[['Ryear','Rmonth']].apply(pd.to_numeric,errors='coerce')
                         #df24 = df[((df['Ryear'] ==2024) & (df['Rmonth']<12))].copy()
                         df24a = df[df['Ryear'] ==2024].copy() #ALL 2024 ARE LOST SO ADD THEM TO ANY WEEK
-                        df24b = df[df['Ryear'] ==2025].copy()
+                        df25 = df[df['Ryear'] ==2025].copy()
         
-                        df25 = df[((df['Ryear']>2024)| ((df['Ryear'] ==2024) & (df['Rmonth']==12)))].copy()
-                        df24b['RWEEK1'] = pd.to_numeric(df24b['RWEEK1'], errors='coerce')
+                        #df25 = df[((df['Ryear']>2024)| ((df['Ryear'] ==2024) & (df['Rmonth']==12)))].copy()
+                        df25['RWEEK1'] = pd.to_numeric(df25['RWEEK1'], errors='coerce')
         
-                        dfactive24 =df24b[df24b['RWEEK1']>=wk2] #still active within 2 weeks, only those of 2025 are considered, to avoid weeks of 2024
-
-                     
+                        dfactive25 =df25[df25['RWEEK1']>=wk2] #still active within 2 weeks, only those of 2025 are considered, to avoid weeks of 2024
+                  
                         #LOST IN TWO WEEKS... REAL MISSED APPOINTMENT FOR THIS (ADD ON THOSE OF 2024)
-                        df2wksa =df24b[df24b['RWEEK1']<wk2].copy()
+                        df2wksa =df25[df25['RWEEK1']<wk2].copy()
                         df2wks = pd.concat([df2wksa, df24a])  #WON'T BE NEEDED NEXT Qtr
-                        #yyy2 = df2wks.copy()
+            
                         
                         cira2 = df2wks.copy()
                         two = df2wks.shape[0]
 
-                        df3wksa =df24b[df24b['RWEEK1']<wk3].copy()
+                        df3wksa =df25[df25['RWEEK1']<wk3].copy()
                         df3wks = pd.concat([df3wksa, df24a])  #WON'T BE NEEDED NEXT Qtr
                         three = df3wks.shape[0]
                         #yyy3 = df3wks.copy()
             
-                        df4wksa =df24b[df24b['RWEEK1']<wk4].copy()
+                        df4wksa =df25[df25['RWEEK1']<wk4].copy()
                         df4wks = pd.concat([df4wksa, df24a])  #WON'T BE NEEDED NEXT Qtr
                         four = df4wks.shape[0]
                         #yyy4 = df4wks.copy()
             
-                        dfactive = pd.concat([dfactive24, df25]) #COMBINE THOSE ACTIVE IN TWO WEEKS AND THOSE OF 2025
+                        #dfactive = pd.concat([dfactive24, df25]) #COMBINE THOSE ACTIVE IN TWO WEEKS AND THOSE OF 2025
+                        dfactive = dfactive25.copy()
                         yyyuu  = dfactive.copy()
                         curr = dfactive.shape[0]
                         dfRTT['A'] = pd.to_numeric(dfRTT['A'], errors='coerce')
