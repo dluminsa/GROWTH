@@ -937,7 +937,6 @@ def extract():
                         df24b['RWEEK1'] = pd.to_numeric(df24b['RWEEK1'], errors='coerce')
         
                         dfactive24 =df24b[df24b['RWEEK1']>=wk2] #still active within 2 weeks, only those of 2025 are considered, to avoid weeks of 2024
-                        #yyy1 = dfactive24.copy()
 
                      
                         #LOST IN TWO WEEKS... REAL MISSED APPOINTMENT FOR THIS (ADD ON THOSE OF 2024)
@@ -959,7 +958,7 @@ def extract():
                         #yyy4 = df4wks.copy()
             
                         dfactive = pd.concat([dfactive24, df25]) #COMBINE THOSE ACTIVE IN TWO WEEKS AND THOSE OF 2025
-                        #yyy  = dfactive.copy()
+                        yyyuu  = dfactive.copy()
                         curr = dfactive.shape[0]
                         dfRTT['A'] = pd.to_numeric(dfRTT['A'], errors='coerce')
                         dfactive['A'] = pd.to_numeric(dfactive['A'], errors='coerce')
@@ -2089,6 +2088,7 @@ def extract():
                                 with cola:
                                         st.markdown('**CLINETS THAT MISSED SERVICES**')
                                         dat = missedlists()
+                                        dat = yyyuu.copy()
                                         csv_data = dat.to_csv(index=False) 
                                         st.download_button(
                                                     label="MISSED OPPORTUNITIES",
