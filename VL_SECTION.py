@@ -569,7 +569,7 @@ if len(facility)==1:
                  dfall['Rday'] = pd.to_numeric(dfall['Rday'], errors='coerce')
                  tode = dfall[dfall['Rday']== today].copy()
                  tode = tode.rename(columns = {'A':'ART NO', 'AG': 'Age', 'GD':'GENDER', 'RD':'RETURN DATE', 'PT':'PMTCT STATUS'})
-                 tode = tode.drop(columns = ['CLUSTER', 'DISTRICT', 'Rday', 'Rmonth', 'Ryear', 'RWEEK'])
+                 tode = tode.drop(columns = ['CLUSTER', 'DISTRICT', 'Rday', 'Rmonth', 'Ryear', 'RWEEK', 'USE'])
                  with cola:
                      if tode.shape[0] ==0:
                           st.write('**NO LINELISTS TODAY**')
