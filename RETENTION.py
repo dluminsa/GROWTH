@@ -520,7 +520,7 @@ uk = int(pote) - int(pot)
 
 labels = ["Q4 Curr",   "TI",     "TX NEW",     'RTT' ,  "Potential",  "MISSED",'TXML',  "DEAD",     "TO",   "Unknown",  "ACTIVE"]
 values = [Q4,           ti,        new,         rt,       pot,        -iit,       -txml,       -dd,        -to,     uk,          Q1]
-measure = ["absolute", "relative","relative", "relative","total",    "relative", "relative","realative","realative","total"]
+measure = ["absolute", "relative","relative", "relative","total",    "relative",#relative", "relative","realative","realative","total"]
 # Create the waterfall chart
 
 fig = go.Figure(go.Waterfall(
