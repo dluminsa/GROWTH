@@ -517,9 +517,12 @@ dd = water['DEAD'].sum()
 Q1 = water['ACTIVE'].sum()
 #uk = int(pot) - int(ti)- int(Q4) - int(new)
 uk = int(pote) - int(pot) 
+txml = int(txml)
+dd = int(dd)
+to = int(to)
 
 labels = ["Q4 Curr",   "TI",     "TX NEW",     'RTT' ,  "Potential",  "MISSED",'TXML',  "DEAD",     "TO",   "Unknown",  "ACTIVE"]
-values = [Q4,           ti,        new,         rt,       pot,        -iit,       -txml,       -dd,        -to,     uk,          Q1]
+values = [int(Q4),     int(ti),    int(new),    int(rt),  int(pot),        -iit,       -txml,       -dd,        -to,  int(uk),  int(Q1)]
 measure = ["absolute", "relative","relative", "relative","total",    "relative", "relative", "relative","realative","realative","total"]
 # Create the waterfall chart
 
