@@ -821,10 +821,11 @@ newlos = wateryr['LOST'].sum()
 newto  = wateryr['TO'].sum()
 newdd = wateryr['DEAD'].sum()
 active = wateryr['ACTIVE'].sum()
+net = total-newto
 
-labels = ["NEWLY DX", "TIs", "TOTAL", 'LTFU',"TOs","DEAD", "ACTIVE"]
-values = [newlydx, newti, total, -newlos, -newto,-newdd, active]
-measure = ["absolute", "relative", "total", "relative", "relative", "relative","total"]
+labels = ["NEWLY DX",     "TIs",  "TOs",      "NET",   'LTFU',  "DEAD", "ACTIVE"]
+values = [newlydx,        newti,  -newto,     -net , -newlos,  -newdd, active]
+measure = ["absolute", "relative","relative", "total", "relative", "relative","total"]
 # Create the waterfall chart
 figy = go.Figure(go.Waterfall(
     name="Waterfall",
