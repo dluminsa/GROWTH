@@ -460,7 +460,7 @@ colb.metric(label='b', value =f'{onat}', label_visibility='hidden')
 colc.metric(label='c', value =f'{onmi}', label_visibility='hidden')
 cold.metric(label='d', value = f'{perc}', label_visibility='hidden')
 wik = week -2 
-st.write(f'**APPOINTMENTS SINCE 3rd SEPT TO WEEK {wik}**')
+st.write(f'**APPOINTMENTS SINCE 4th DEC 2024 TO WEEK {wik}**')
 
 mostd = water.groupby('DISTRICT')['TWO'].sum()
 mostf = water.groupby('FACILITY')['TWO'].sum()
@@ -510,14 +510,16 @@ new = water['TXNEW'].sum()
 rt = water['RTT'].sum()  
 pot = int(Q4)+int(ti)+int(new) + int(rt)
 los = water['TWO'].sum()
+txml = water['FOUR'].sum()
+iit = los-txml
 to  = water['TO'].sum()
 dd = water['DEAD'].sum()
 Q1 = water['ACTIVE'].sum()
 #uk = int(pot) - int(ti)- int(Q4) - int(new)
 uk = int(pote) - int(pot) 
 
-labels = ["Q4 Curr",   "TI",     "TX NEW",     'RTT' ,  "Potential",  "MISSED",  "DEAD",     "TO",   "Unknown",  "ACTIVE"]
-values = [Q4,           ti,        new,         rt,       pot,        -los,       -dd,        -to,     uk,          Q1]
+labels = ["Q4 Curr",   "TI",     "TX NEW",     'RTT' ,  "Potential",  "MISSED",'TXML',  "DEAD",     "TO",   "Unknown",  "ACTIVE"]
+values = [Q4,           ti,        new,         rt,       pot,        -iit,       -txml,       -dd,        -to,     uk,          Q1]
 measure = ["absolute", "relative","relative", "relative","total",    "relative", "relative","realative","realative","total"]
 # Create the waterfall chart
 
