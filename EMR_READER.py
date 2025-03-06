@@ -2093,85 +2093,85 @@ def extract():
                         #                             file_name=f"{facility} VL6.csv",
                         #                             mime="text/csv")
                                                             
-                            ###THREE MTHS LINE LISTS
-                                st.divider()
-                                st.write(f"<h6><b>THREE MONTHS COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
-                                cola, colb = st.columns(2)
-                                with cola:
-                                        if newlost3==0:
-                                            st.write('**NO 3 MTHS IIT**')
-                                        else:
-                                            dat = yearlost3()
-                                            csv_data = dat.to_csv(index=False)
-                                            st.download_button(key='g',
-                                                        label="3 MTHS IIT",
-                                                        data=csv_data,
-                                                        file_name=f"{facility} IIT_3.csv",
-                                                        mime="text/csv")
-                                with colb:
-                                        # if outnew3==0:
-                                        #     st.markdown('**NO 3 MTHS TOs**')
-                                        # else:
-                                            dat = yearto3()
-                                            dat = yyyu.copy()
-                                            csv_data = dat.to_csv(index=False)
-                                            st.download_button(key='h',
-                                                        label="3 MTHS T.OUTS",
-                                                        data=csv_data,
-                                                        file_name=f" {facility} TOs_3.csv",
-                                                        mime="text/csv")                    
+                            # ###THREE MTHS LINE LISTS
+                            #     st.divider()
+                            #     st.write(f"<h6><b>THREE MONTHS COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
+                            #     cola, colb = st.columns(2)
+                            #     with cola:
+                            #             if newlost3==0:
+                            #                 st.write('**NO 3 MTHS IIT**')
+                            #             else:
+                            #                 dat = yearlost3()
+                            #                 csv_data = dat.to_csv(index=False)
+                            #                 st.download_button(key='g',
+                            #                             label="3 MTHS IIT",
+                            #                             data=csv_data,
+                            #                             file_name=f"{facility} IIT_3.csv",
+                            #                             mime="text/csv")
+                            #     with colb:
+                            #             # if outnew3==0:
+                            #             #     st.markdown('**NO 3 MTHS TOs**')
+                            #             # else:
+                            #                 dat = yearto3()
+                            #                 dat = yyyu.copy()
+                            #                 csv_data = dat.to_csv(index=False)
+                            #                 st.download_button(key='h',
+                            #                             label="3 MTHS T.OUTS",
+                            #                             data=csv_data,
+                            #                             file_name=f" {facility} TOs_3.csv",
+                            #                             mime="text/csv")                    
                             
-                            ###THREE MTHS LINE LISTS   
-                                st.divider()
-                                st.write(f"<h6><b>TX NEW LINELISTS </b></h6>", unsafe_allow_html=True)
-                                cola, colb = st.columns(2)
-                                with cola:
-                                        if newlost1==0:
-                                            st.write('**NO TX NEW IIT**')
-                                        else:
-                                            dat = yearlost1()
-                                            csv_data = dat.to_csv(index=False)
-                                            st.download_button(key='j',
-                                                        label="TX NEW IIT",
-                                                        data=csv_data,
-                                                        file_name=f"{facility} IIT_NEW.csv",
-                                                        mime="text/csv")
-                                with colb:
-                                    if outnew1==0:
-                                            st.markdown('**NO TxNEW TOs**')
-                                    else:
-                                        dat = yearto1()
-                                        csv_data = dat.to_csv(index=False)
-                                        st.download_button(key='k',
-                                                    label="TXNEW T.OUTS",
-                                                    data=csv_data,
-                                                    file_name=f" {facility} TxNEW_TOs.csv",
-                                                    mime="text/csv") 
-                                st.divider()
-                                forth = forth.rename(columns = {'A': 'ART NO.','VD': 'VL DATE', 'RD': 'RETURN DATE', 'DD': 'DEATH DATE', 'TO': 'TRANSFER OUT DATE', 'AS': 'ART START DATE'})
-                                cola,colb = st.columns([4,1])
-                                with cola:
-                                        st.markdown('**MASTER LIST WITH ALL LINELISTS COMBINED**')
-                                        dat = forth.copy()
-                                        #dat = pppp.copy()
-                                        csv_data = dat.to_csv(index=False) 
-                                        st.download_button(
-                                                    label="MASTER_LIST",
-                                                    data=csv_data,
-                                                    file_name=f" {facility} MASTER_LIST.csv",
-                                                    mime="text/csv")
+                            # ###THREE MTHS LINE LISTS   
+                            #     st.divider()
+                            #     st.write(f"<h6><b>TX NEW LINELISTS </b></h6>", unsafe_allow_html=True)
+                            #     cola, colb = st.columns(2)
+                            #     with cola:
+                            #             if newlost1==0:
+                            #                 st.write('**NO TX NEW IIT**')
+                            #             else:
+                            #                 dat = yearlost1()
+                            #                 csv_data = dat.to_csv(index=False)
+                            #                 st.download_button(key='j',
+                            #                             label="TX NEW IIT",
+                            #                             data=csv_data,
+                            #                             file_name=f"{facility} IIT_NEW.csv",
+                            #                             mime="text/csv")
+                            #     with colb:
+                            #         if outnew1==0:
+                            #                 st.markdown('**NO TxNEW TOs**')
+                            #         else:
+                            #             dat = yearto1()
+                            #             csv_data = dat.to_csv(index=False)
+                            #             st.download_button(key='k',
+                            #                         label="TXNEW T.OUTS",
+                            #                         data=csv_data,
+                            #                         file_name=f" {facility} TxNEW_TOs.csv",
+                            #                         mime="text/csv") 
+                            #     st.divider()
+                            #     forth = forth.rename(columns = {'A': 'ART NO.','VD': 'VL DATE', 'RD': 'RETURN DATE', 'DD': 'DEATH DATE', 'TO': 'TRANSFER OUT DATE', 'AS': 'ART START DATE'})
+                            #     cola,colb = st.columns([4,1])
+                            #     with cola:
+                            #             st.markdown('**MASTER LIST WITH ALL LINELISTS COMBINED**')
+                            #             dat = forth.copy()
+                            #             #dat = pppp.copy()
+                            #             csv_data = dat.to_csv(index=False) 
+                            #             st.download_button(
+                            #                         label="MASTER_LIST",
+                            #                         data=csv_data,
+                            #                         file_name=f" {facility} MASTER_LIST.csv",
+                            #                         mime="text/csv")
                                     
-                                cola,colb = st.columns([4,1])
-                                with cola:
-                                        st.markdown('**CLINETS THAT MISSED SERVICES**')
-                                        dat = missedlists()
-                                        dat = yyyuu.copy()
-                                        csv_data = dat.to_csv(index=False) 
-                                        st.download_button(
-                                                    label="MISSED OPPORTUNITIES",
-                                                    data=csv_data,
-                                                    file_name=f" {facility} MASTER_LIST.csv",
-                                                    mime="text/csv")
+                            #     cola,colb = st.columns([4,1])
+                            #     with cola:
+                            #             st.markdown('**CLINETS THAT MISSED SERVICES**')
+                            #             dat = missedlists()
+                            #             dat = yyyuu.copy()
+                            #             csv_data = dat.to_csv(index=False) 
+                            #             st.download_button(
+                            #                         label="MISSED OPPORTUNITIES",
+                            #                         data=csv_data,
+                            #                         file_name=f" {facility} MASTER_LIST.csv",
+                            #                         mime="text/csv")
                 
                                 st.divider()
                                 # st.write(FYA)
