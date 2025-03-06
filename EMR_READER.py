@@ -813,7 +813,49 @@ def extract():
                         #df = pd.concat(dfs)
                         pot = df.shape[0] #THIS IS THE POTENTIAL TXCURR
                         #yyy = df.copy()
-            
+
+                        QUARTERLY TX ML
+                        dfcurr = df.copy()
+                        #DEAD
+                        dfcurr['Dyear'] = pd.to_numeric(dfcurr['Dyear'], errors='coerce')
+                        deadq = dfcurr[dfcurr['Dyear']==994].copy()  #THE DEAD
+                        dfcurr = dfcurr[dfcurr['Dyear']!=994].copy() #REMOVED THE DEAD
+                        ####TO
+                        dfcurr['Tyear'] = pd.to_numeric(dfcurr['Tyear'], errors='coerce')
+                        dfcurra = dfcurr[dfcurr['Tyear']!=994].copy()  #NO TO 
+                        dfcto = dfcurr[dfcurr['Tyear']==994].copy() #HAS TOs and no TOs
+        
+                        dfcto['Ryear'] = pd.to_numeric(dfcto['Ryear'], errors = 'coerce')
+                        dfcto[['Ryear', 'Rmonth']] =  dfcto[['Ryear', 'Rmonth']].apply(pd.to_numeric)
+                        dfctoF = dfcto[ ((dfcto['Ryear']> 2025) | ((dfcto['Ryear'] ==2025) & (dfcto['Rmonth']>3))) ].copy()
+                        dfctoT = dfcto[ ((dfcto['Ryear']< 2025) | ((dfcto['Ryear'] ==2025) & (dfcto['Rmonth']<4))) ].copy()
+
+                        dfcur = pd.concat([dfcurra, dfctoF])
+                        lacks = dfcur[((dfcur['Vyear']< 2024) | ((dfcur['Vyear'] ==2024) & (dfcur['Vmonth']<4)))]
+                        dfcur[['Ryear', 'Rmonth', 'Rday']] = dfcur[['Ryear', 'Rmonth', 'Rday']].apply(pd.to_numeric, errors ='coerce')
+                        curlosta = dfcur[dfcur['Ryear']< 2025].copy() #LOST IN DEC, MAY NOT APPLY NEXT Q
+                        curlostb = dfcur[dfcur['Ryear'] == 2025].copy() #LOST THIS YEAR
+        
+                        curlostb[['Ryear', 'Rmonth', 'Rday']] = curlostb[['Ryear', 'Rmonth', 'Rday']].apply(pd.to_numeric, errors ='coerce')
+                        curlostb = curlostb[ ((curlostb['Rmonth']<3) |(( curlostb['Rmonth']==3) & (curlost['Rday']<4)))].copy()
+                        currlost = pd.concat([curlosta, curlostb])
+        
+                        cur26 = dfcur[dfcur['Ryear'] >2025].copy() #ACTIVE NEXT OTHER YEARS
+                        cur25 = dfcur[dfcur['Ryear'] == 2025].copy() # ACTIVE THIS YEAR
+        
+                        cur25[['Ryear', 'Rmonth', 'Rday']] = curlostb[['Ryear', 'Rmonth', 'Rday']].apply(pd.to_numeric, errors ='coerce')
+                        cur25 = cur25[ ((cur25['Rmonth']>3) |(( cur25['Rmonth']==3) & (curlost['Rday']>3)))].copy()
+                        dfcur = pd.concat([cur25, cur26])
+
+                        #VL SECTION 
+                        dfcur[['Vyear', 'Vmonth']] = dfcur[['Vyear', 'Vmonth']].apply(pd.to_numeric, errors='coerce')
+                        has = dfcur[((dfcur['Vyear'] ==2025) | ((dfcur['Vyear'] ==2024) & (dfcur['Vmonth']>3)))]
+                        #MEASURES 
+                        curr = dfcur.shape[0]
+                        curto = dfctoT.shape[0]
+                        hasvl = has.shape[0]
+                        deadcur = deadq.shape[0]                       
+                        lostq = curlost.shape[0]
                         #TRANSFER OUTS
                         
                         #TRANSFER INS
@@ -848,11 +890,7 @@ def extract():
                         dfRTTa['Fmonth'] = pd.to_numeric(dfRTTa['Fmonth'], errors='coerce') 
                         dfRTTa = dfRTTa[~dfRTTa['Fmonth'].isin([1,2,3])].copy() # ALTER
                         dfRTT = pd.concat([dfRTTa, dfRTTb])
-                        # dfs = [dfi for dfi in [dfRTTa, dfRTTb]]
-                        # if dfs:
-                        #        dfRTT = pd.concat(dfs)
-                        # else:
-                        #     dfRTT = pd.concat()   
+      
               
                         #BY RD OBS DATE,  remove those that fall in the previous reporting Quarter
                         dfRTT['ROyear'] = pd.to_numeric(dfRTT['ROyear'], errors='coerce')
@@ -883,12 +921,11 @@ def extract():
                         dfRTT = dfRTT[dfRTT['Aryear']==2024].copy() 
                         dfRTT['Armonth'] = pd.to_numeric(dfRTT['Armonth'], errors='coerce') 
                         dfRTT = dfRTT[dfRTT['Armonth'].isin([1,2,3])].copy()
-                        #rtt = dfRTT.shape[0]
-                        #check
-                        #pppp = dfRTT.copy()
-            
+ 
+                        
             #######LOSSES. START FROM POTENTIAL CURR
                     #TRANSFER OUTS
+                        
                         df['Tyear'] = pd.to_numeric(df['Tyear'], errors='coerce')
                         dfnot = df[df['Tyear']==994].copy()
                         dfto = df[df['Tyear']!=994].copy()
