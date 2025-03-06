@@ -331,7 +331,7 @@ colc.metric(label='c', value =f'{bal}', label_visibility='hidden')
 
 st.write('**WEEKLY TREND LINE SHOWING INCREASE IN TXCURRs, VL COVERAGE AND REDUCTION IN TXML**')
 
-grouped = dftearly.groupby('SURGE').sum(numeric_only=True).reset_index()
+grouped = dfearly.groupby('SURGE').sum(numeric_only=True).reset_index()
 
 melted = grouped.melt(id_vars=['SURGE'], value_vars=['Q1', 'Q2', 'LOST'],
                             var_name='INTERVAL', value_name='Total')
