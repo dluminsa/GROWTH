@@ -822,8 +822,8 @@ def extract():
                         dfcurr = dfcurr[dfcurr['Dyear']==994].copy() #REMOVED THE DEAD
                         ####TO
                         dfcurr['Tyear'] = pd.to_numeric(dfcurr['Tyear'], errors='coerce')
-                        dfcurra = dfcurr[dfcurr['Tyear']!=994].copy()  #NO TO 
-                        dfcto = dfcurr[dfcurr['Tyear']==994].copy() #HAS TOs and no TOs
+                        dfcurra = dfcurr[dfcurr['Tyear']==994].copy()  #NO TO 
+                        dfcto = dfcurr[dfcurr['Tyear']!=994].copy() #HAS TOs and no TOs
         
                         dfcto['Ryear'] = pd.to_numeric(dfcto['Ryear'], errors = 'coerce')
                         dfcto[['Ryear', 'Rmonth']] =  dfcto[['Ryear', 'Rmonth']].apply(pd.to_numeric)
