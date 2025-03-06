@@ -3,23 +3,23 @@ import streamlit as st
 import os
 import gspread
 from pathlib import Path
-import random
 import plotly.express as px
 import plotly.graph_objects as go
 import traceback
 import time
 from streamlit_gsheets import GSheetsConnection
 from datetime import datetime
+import datetime as dt
 
-# st.set_page_config(
-#     page_title = 'PROGRAM GROWTH',
-#     page_icon =":bar_chart"
-#     )
+st.set_page_config(
+    page_title = 'LINELISTS',
+    page_icon =":bar_chart"
+    )
 
 #st.header('CODE UNDER MAINTENANCE, TRY AGAIN TOMORROW')
 #st.stop()
-cola,colb,colc = st.columns([1,3,1])
-colb.subheader('PROGRAM GROWTH')
+
+st.subheader('DAILY, WEEKLY AND MONTHLY LINELISTS')
 
 today = datetime.now()
 todayd = today.strftime("%Y-%m-%d")# %H:%M")
@@ -28,58 +28,59 @@ week = int(wk) + 13
 cola,colb = st.columns(2)
 cola.write(f"**DATE TODAY:    {todayd}**")
 colb.write(f"**CURRENT WEEK:    {week}**")
-dd = int(week)
 k = int(wk)
-#st.warning('***CURRENT DATA IS FOR DEMONSTRATION ONLY, WILL BE REMOVED AFTER ROLLING OUT THE DASHBOARD**')
 
-if 'tx' not in st.session_state:     
+if 'vl' not in st.session_state:     
      try:
         #cola,colb= st.columns(2)
         conn = st.connection('gsheets', type=GSheetsConnection)
-        exist = conn.read(worksheet= 'TX', usecols=list(range(22)),ttl=5)
-        tx = exist.dropna(how='all')
-        st.session_state.tx = tx
-     except:
-         st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
+        exist = conn.read(worksheet= 'VL', usecols=list(range(24)),ttl=5)
+        df = exist.dropna(how='all')
+        st.session_state.vl = df
+     except exception as e:
+         st.write(f'{e}')
+         st.write("POOR NETWORK, COULDN'T CONNECT TO DATABASE")
          st.stop()
-dftx = st.session_state.tx.copy()
-#st.write(dftx)
-
-if 'yr' not in st.session_state:     
+dftx = st.session_state.vl.copy()
+if 'ns' not in st.session_state:     
      try:
         #cola,colb= st.columns(2)
         conn = st.connection('gsheets', type=GSheetsConnection)
-        exist = conn.read(worksheet= 'YEARS', usecols=list(range(33)),ttl=5)
-        tx = exist.dropna(how='all')
-        st.session_state.yr = tx 
+        exist = conn.read(worksheet= 'ALLNS', usecols=list(range(23)),ttl=5)
+        txa = exist.dropna(how='all')
+        st.session_state.ns = txa
      except:
-         st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
+         st.write("POOR NETWORK, COULDN'T CONNECT TO DATABASE")
          st.stop()
-dfyr = st.session_state.yr.copy()
+dfns = st.session_state.ns.copy()
+dfns = dfns[dfns['TO'].isnull()].copy()
+dfns = dfns[dfns['DD'].isnull()].copy()
 
-if 'erl' not in st.session_state:     
+if 'line' not in st.session_state:     
      try:
         #cola,colb= st.columns(2)
         conn = st.connection('gsheets', type=GSheetsConnection)
-        exist = conn.read(worksheet= 'THREEO', usecols=list(range(24)),ttl=5)
-        tx = exist.dropna(how='all')
-        st.session_state.erl = tx 
-     except:
-         st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
+        exist = conn.read(worksheet= 'LINELISTS', usecols=list(range(21)),ttl=5)
+        df = exist.dropna(how='all')
+        st.session_state.line = df
+     except exception as e:
+         st.write(f'{e}')
+         st.write("POOR NETWORK, COULDN'T CONNECT TO DATABASE")
          st.stop()
-dfearly = st.session_state.erl.copy()
+dfline = st.session_state.line.copy()
 
-if 'cira' not in st.session_state:     
+if 'summ' not in st.session_state:     
      try:
         #cola,colb= st.columns(2)
         conn = st.connection('gsheets', type=GSheetsConnection)
-        exist = conn.read(worksheet= 'CIRA', usecols=list(range(48)),ttl=5)
-        tx = exist.dropna(how='all')
-        st.session_state.cira = tx 
-     except:
-         st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
+        exist = conn.read(worksheet= 'SUMM', usecols=list(range(16)),ttl=5)
+        df = exist.dropna(how='all')
+        st.session_state.sum = df
+     except exception as e:
+         st.write(f'{e}')
+         st.write("POOR NETWORK, COULDN'T CONNECT TO DATABASE")
          st.stop()
-dfcira = st.session_state.cira.copy()
+dfsum = st.session_state.sum.copy()
 
 
 #REPORTING RATES
@@ -91,149 +92,12 @@ def report():
     return df  
 
 dfrep = report()
-dfa = dfrep[['DISTRICT', 'FACILITY']].copy() ## EXPECTED DISTRICTS
-dftx['SURGE'] = pd.to_numeric(dftx['SURGE'], errors='coerce')
-dfb = dftx[dftx['SURGE'] == dd].copy()  #FACILITIES FROM TX SHEET
-dfb = dfb[['DISTRICT' , 'FACILITY']]
-dfb = dfb.drop_duplicates(subset='FACILITY', keep='last')
-dfa['FACILITY'] = dfa['FACILITY'].astype(str)
-dfb['FACILITY'] = dfb['FACILITY'].astype(str)
-none = dfa[~dfa['FACILITY'].isin(dfb['FACILITY'])].copy()
-# merged = dfa.merge(dfb, on=['DISTRICT', 'FACILITY'], how='left', indicator=True)
-# none = merged[merged['_merge'] == 'left_only'].drop(columns=['_merge'])
-# none = none.reset_index()
-# none = none.drop(columns='index')
-all = none.shape[0]
-buk = none[none['DISTRICT']=='BUKOMANSIMBI'].copy()
-semb = none[none['DISTRICT']=='SEMBABULE'].copy()
-dist = none[none['DISTRICT']=='MASAKA DISTRICT'].copy()
-kal = none[none['DISTRICT']=='KALUNGU'].copy()
-city = none[none['DISTRICT']=='MASAKA CITY'].copy()
-lwe = none[none['DISTRICT']=='LWENGO'].copy()
-lya = none[none['DISTRICT']=='LYANTONDE'].copy()
-kala = none[none['DISTRICT']=='KALANGALA'].copy()
-mpi = none[none['DISTRICT']=='MPIGI'].copy()
-goa = none[none['DISTRICT']=='GOMBA'].copy()
-but = none[none['DISTRICT']=='BUTAMBALA'].copy()
-wak = none[none['DISTRICT']=='WAKISO'].copy()
-rak = none[none['DISTRICT']=='RAKAI'].copy()
-kyo = none[none['DISTRICT']=='KYOTERA'].copy()
 
-
-bu = buk.shape[0]
-se = semb.shape[0]
-di = dist.shape[0]
-ka = kal.shape[0]
-ci = city.shape[0]
-ky = kyo.shape[0]
-rk = rak.shape[0]
-waki = wak.shape[0]
-bt = but.shape[0]
-g =  goa.shape[0]
-mp = mpi.shape[0]
-kal = kala.shape[0]
-ly = lya.shape[0]
-lw = lwe.shape[0]
-
-
-if kal ==0: ####KALAGALA
-   kg = 'all facilities have reported'
-else:
-   kg = f'{kal}'
-
-if waki ==0: ####WAKISO
-   wak = 'all facilities have reported'
-else:
-   wak = f'{waki}'
-
-if mp ==0: ####MPIGI
-   mpi = 'all facilities have reported'
-else:
-   mpi = f'{mp}'
-
-if g ==0: ####GOMBA
-   gom = 'all facilities have reported'
-else:
-   gom = f'{g}'
-
-if bt ==0: ####BUTAMBALA
-   but = 'all facilities have reported'
-else:
-   but = f'{bt}'
-
-
-if lw ==0: ####LWENGO
-   lwe = 'all facilities have reported'
-else:
-   lwe = f'{lw}'
-
-if ly ==0: ####LYANTONDE
-    lya= 'all facilities have reported'
-else:
-   lya = f'{ly}'
-
-
-if rk ==0: ####RAKAI
-   r = 'all facilities have reported'
-else:
-   r = f'{rk}'
-
-if ky ==0: ####KYOTERA
-   y = 'all facilities have reported'
-else:
-   y = f'{ky}'
- 
-if bu ==0:
-   b = 'all facilities have reported'
-else:
-   b = f'{bu}'
-    
-if se ==0:
-   s = 'all facilities reported'
-else:
-   s = f'{se}'
-    
-if di ==0:
-   d = 'all facilities reported'
-else:
-   d = f'{di}'
-    
-if ka ==0:
-   k = 'all facilities reported'
-else:
-   k = f'{ka}'
-    
-if ci ==0:
-   c = 'all facilities reported'
-else:
-   c = f'{ci}'
-if all ==0:
-    st.write('** ALL FACILITIES HAVE REPORTED**')
-else:
-    st.divider()
-    st.markdown(f"**{all} FACILITIES HAVEN'T REPORTED THIS WEEK**")
-    st.markdown(f'**KALANGALA {kg}, WAKISO {wak}, BUKOMANSIMBI {b}, SEMBABULE {s}, KALUNGU {k}, MKA CITY {c}, MKA DISTRICT {d}, MPIGI {mpi}, BUTAMBALA {but}, GOMBA {gom},LYANTONDE {lya}, LWENGO {lwe}, KYOTERA {y}, RAKAI {r}**')
-    with st.expander('ClICK TO SEE PENDING FACILITIES'):
-        cola, colb = st.columns(2)
-        none = none.reset_index()
-        none = none.drop(columns='index')
-        disty = none['DISTRICT'].unique()
-        dyu = colb.selectbox('FILTER BY DISTRICT', disty, index=None)
-        none['DISTRICT'] = none['DISTRICT'].astype(str)
-        if not dyu:
-             nonedis = none.copy()
-        else:
-             nonedis = none[none['DISTRICT'] == dyu].copy()
-             nonedis = nonedis.reset_index()
-             nonedis = nonedis.drop(columns='index')
-       
-        st.dataframe(nonedis)
 #######################FILTERS
 clusters = dfrep['CLUSTER'].unique()
 weeks = dftx['SURGE'].unique()
 
-fac = dfyr['FACILITY'].unique()
-
+fac = dftx['FACILITY'].unique()
 #TO USE WHERE WEEKS ARE NOT NEEDED FOR TX
 dfy = []
 for every in fac:
@@ -242,30 +106,7 @@ for every in fac:
     dfy.append(dff)
 water = pd.concat(dfy)
 
-#TO USE WHERE WEEKS ARE NOT NEEDED FOR 1 YR
-dfy = []
-for every in fac:
-    dff = dfyr[dfyr['FACILITY']== every]
-    dff = dff.drop_duplicates(subset=['FACILITY'], keep = 'last')
-    dfy.append(dff)
-wateryr = pd.concat(dfy)
-
-#TO USE WHERE WEEKS ARE NOT NEEDED FOR CIRA
-dfy = []
-for every in fac:
-    dff = dfcira[dfcira['FACILITY']== every]
-    dff = dff.drop_duplicates(subset=['FACILITY'], keep = 'last')
-    dfy.append(dff)
-watercira= pd.concat(dfy)
-
-dfy = []
-for every in fac:
-    dff = dfearly[dfearly['FACILITY']== every]
-    dff = dff.drop_duplicates(subset=['FACILITY'], keep = 'last')
-    dfy.append(dff)
-waterly = pd.concat(dfy)
-
-#REMOVE DUPLICATES FROM TX SHEET # HOLD THIS IN SESSION LATER
+#REMOVE DUPLICATES FROM VL SHEET # HOLD THIS IN SESSION LATER
 dfs=[]   
 for each in weeks:
     dftx['SURGE'] = pd.to_numeric(dftx['SURGE'], errors='coerce')
@@ -274,93 +115,46 @@ for each in weeks:
     dfs.append(dfa)
 dftx = pd.concat(dfs)
 
-#REMOVE DUPLICATES FROM YEAR SHEET # HOLD THIS IN SESSION LATER
-dfs=[]   
-for each in weeks:
-    dfyr['SURGE'] = pd.to_numeric(dfyr['SURGE'], errors='coerce')
-    dfa = dfyr[dfyr['SURGE']==each]
-    dfa = dfa.drop_duplicates(subset=['FACILITY'], keep = 'last')
-    dfs.append(dfa)    
-dfyr= pd.concat(dfs)
-
-
-#REMOVE DUPLICATES FROM EARLY SHEET # HOLD THIS IN SESSION LATER
-dfs=[]   
-for each in weeks:
-    dfearly['SURGE'] = pd.to_numeric(dfearly['SURGE'], errors='coerce')
-    dfa = dfearly[dfearly['SURGE']==each]
-    dfa = dfa.drop_duplicates(subset=['FACILITY'], keep = 'last')
-    dfs.append(dfa)
-dfearly = pd.concat(dfs)
-
-#REMOVE DUPLICATES FROM CIRA SHEET # HOLD THIS IN SESSION LATER
-dfs=[]   
-for each in weeks:
-    dfcira['SURGE'] = pd.to_numeric(dfcira['SURGE'], errors='coerce')
-    dfa = dfcira[dfcira['SURGE']==each]
-    dfa = dfa.drop_duplicates(subset=['FACILITY'], keep = 'last')
-    dfs.append(dfa)
-dfcira = pd.concat(dfs)
-
 #FILTERS
 st.sidebar.subheader('**Filter from here**')
 CLUSTER = st.sidebar.multiselect('CHOOSE A CLUSTER', clusters, key='a')
 
 #create for the state
 if not CLUSTER:
-    dfyr2 = dfyr.copy()
-    dfcira2 = dfcira.copy()
-    dfearly2 = dfearly.copy()
     dfrep2 = dfrep.copy()
     dftx2 = dftx.copy()
     water2 = water.copy()
-    wateryr2 = wateryr.copy()
-    waterly2 = waterly.copy()
-    watercira2 = watercira.copy()
+    dfline2 = dfline.copy()
+    dfsum2 = dfsum.copy()
+    dfns2 = dfns.copy()
 
 else:
-    dfyr['CLUSTER'] = dfyr['CLUSTER'].astype(str)
-    dfyr2 = dfyr[dfyr['CLUSTER'].isin(CLUSTER)]
-
-    dfcira['CLUSTER'] = dfcira['CLUSTER'].astype(str)
-    dfcira2 = dfcira[dfcira['CLUSTER'].isin(CLUSTER)]
-
-    dfearly['CLUSTER'] = dfearly['CLUSTER'].astype(str)
-    dfearly2 = dfearly[dfearly['CLUSTER'].isin(CLUSTER)]
-
     dfrep['CLUSTER'] = dfrep['CLUSTER'].astype(str)
-    dfrep2 = dfrep[dfrep['CLUSTER'].isin(CLUSTER)]
+    dfrep2 = dfrep[dfrep['CLUSTER'].isin(CLUSTER)].copy()
 
     dftx['CLUSTER'] = dftx['CLUSTER'].astype(str)
-    dftx2 = dftx[dftx['CLUSTER'].isin(CLUSTER)]
+    dftx2 = dftx[dftx['CLUSTER'].isin(CLUSTER)].copy()
     
     water['CLUSTER'] = water['CLUSTER'].astype(str)
-    water2 = water[water['CLUSTER'].isin(CLUSTER)]
-    wateryr2 = wateryr[wateryr['CLUSTER'].isin(CLUSTER)]
-    waterly2 = waterly[waterly['CLUSTER'].isin(CLUSTER)]
-    watercira2 = watercira[watercira['CLUSTER'].isin(CLUSTER)]
+    water2 = water[water['CLUSTER'].isin(CLUSTER)].copy()
+     
+    dfline['CLUSTER'] = dfline['CLUSTER'].astype(str)
+    dfline2 = dfline[dfline['CLUSTER'].isin(CLUSTER)].copy()
 
+    dfsum['CLUSTER'] = dfsum['CLUSTER'].astype(str)
+    dfsum2 = dfsum[dfsum['CLUSTER'].isin(CLUSTER)].copy()
+
+    dfns['CLUSTER'] = dfns['CLUSTER'].astype(str)
+    dfns2 = dfns[dfns['CLUSTER'].isin(CLUSTER)].copy()
 district = st.sidebar.multiselect('**CHOOSE A DISTRICT**', dfrep2['DISTRICT'].unique(), key='b')
 if not district:
-    dfyr3 = dfyr2.copy()
-    dfcira3 = dfcira2.copy()
-    dfearly3 = dfearly2.copy()
     dfrep3 = dfrep2.copy()
+    dfline3 = dfline2.copy()
+    dfsum3  = dfsum2.copy()
     dftx3 = dftx2.copy()
     water3 = water2.copy()
-    wateryr3 = wateryr2.copy()
-    waterly3 = waterly2.copy()
-    watercira3 = watercira2.copy()
+    dfns3 = dfns2.copy()
 else:
-    dfyr2['DISTRICT'] = dfyr2['DISTRICT'].astype(str)
-    dfyr3 = dfyr2[dfyr2['DISTRICT'].isin(district)].copy()
-
-    dfcira2['DISTRICT'] = dfcira2['DISTRICT'].astype(str)
-    dfcira3 = dfcira2[dfcira2['DISTRICT'].isin(district)].copy()
-
-    dfearly2['DISTRICT'] = dfearly2['DISTRICT'].astype(str)
-    dfearly3 = dfearly2[dfearly2['DISTRICT'].isin(district)].copy()
-
     dfrep2['DISTRICT'] = dfrep2['DISTRICT'].astype(str)
     dfrep3 = dfrep2[dfrep2['DISTRICT'].isin(district)].copy()
 
@@ -369,421 +163,450 @@ else:
     
     water2['DISTRICT'] = water2['DISTRICT'].astype(str)
     water3 = water2[water2['DISTRICT'].isin(district)].copy()
-    wateryr3 = wateryr2[wateryr2['DISTRICT'].isin(district)].copy()
-    waterly3 = waterly2[waterly2['DISTRICT'].isin(district)].copy()
-    watercira3 = watercira2[watercira2['DISTRICT'].isin(district)].copy()
+
+    dfline2['DISTRICT'] = dfline2['DISTRICT'].astype(str)
+    dfline3 = dfline2[dfline2['DISTRICT'].isin(district)].copy()
+
+    dfsum2['DISTRICT'] = dfsum2['DISTRICT'].astype(str)
+    dfsum3 = dfsum2[dfsum2['DISTRICT'].isin(district)].copy()
+
+    dfns2['DISTRICT'] = dfns2['DISTRICT'].astype(str)
+    dfns3 = dfns2[dfns2['DISTRICT'].isin(district)].copy()
 
 facility = st.sidebar.multiselect('**CHOOSE A FACILITY**', dfrep3['FACILITY'].unique(), key='c')
 if not facility:
-    dfyr4 = dfyr3.copy()
-    dfcira4 = dfcira3.copy()
-    dfearly4 = dfearly3.copy()
     dfrep4 = dfrep3.copy()
     dftx4 = dftx3.copy()
     water4 = water3.copy()
-    wateryr4 = wateryr3.copy()
-    waterly4 = waterly3.copy()
-    watercira4 = watercira3.copy()
+    dfline4 = dfline3.copy()
+    dfsum4 = dfsum3.copy()
+    dfns4 = dfns3.copy()
 else:
-    dfyr4 = dfyr3[dfyr3['FACILITY'].isin(facility)].copy()
-    dfcira4 = dfcira3[dfcira3['FACILITY'].isin(facility)].copy()
-    dfearly4 = dfearly3[dfearly3['FACILITY'].isin(facility)].copy()
     dfrep4 = dfrep3[dfrep3['FACILITY'].isin(facility)].copy()
     dftx4 = dftx3[dftx3['FACILITY'].isin(facility)].copy()
     water4 = water3[water3['FACILITY'].isin(facility)].copy()
-    wateryr4 = wateryr3[wateryr3['FACILITY'].isin(facility)].copy()
-    waterly4 = waterly3[waterly3['FACILITY'].isin(facility)].copy()
-    watercira4 = watercira3[watercira3['FACILITY'].isin(facility)].copy()
+    dfline4 = dfline3[dfline3['FACILITY'].isin(facility)].copy()
+    dfsum4 = dfsum3[dfsum3['FACILITY'].isin(facility)].copy()
+    dfns4 = dfns3[dfns3['facility'].isin(facility)].copy()
+
 
 # Base DataFrame to filter
-dfyr = dfyr4.copy()
-dfcira = dfcira4.copy()
-dfdearly = dfearly4.copy()
 dfrep = dfrep4.copy()
 dftx = dftx4.copy()
 water = water4.copy()
-wateryr = wateryr4.copy()
-waterly = waterly4.copy()
-watercira = watercira4.copy()
-
+dfline = dfline4.copy()
+dfsum = dfsum4.copy()
+dfns = dfns4.copy()
 # Apply filters based on selected criteria
 if CLUSTER:
-    dfyr = dfyr[dfyr['CLUSTER'].isin(CLUSTER)].copy()
-    water = water[water['CLUSTER'].isin(CLUSTER)].copy()
-    dfearly = dfearly[dfearly['CLUSTER'].isin(CLUSTER)].copy()
     dfrep = dfrep[dfrep['CLUSTER'].isin(CLUSTER)].copy()
     dftx = dftx[dftx['CLUSTER'].isin(CLUSTER)].copy()
-    wateryr = wateryr[wateryr['CLUSTER'].isin(CLUSTER)].copy()
-    waterly = waterly[waterly['CLUSTER'].isin(CLUSTER)].copy()
+    dfline = dfline[dfline['CLUSTER'].isin(CLUSTER)].copy()
+    dfsum = dfsum[dfsum['CLUSTER'].isin(CLUSTER)].copy()
+    dfns = dfns[dfns['CLUSTER'].isin(CLUSTER)].copy()
 
 if district:
-    dfyr = dfyr[dfyr['DISTRICT'].isin(district)].copy()
-    water = water[water['DISTRICT'].isin(district)].copy()
-    dfearly = dfearly[dfearly['DISTRICT'].isin(district)].copy()
     dfrep = dfrep[dfrep['DISTRICT'].isin(district)].copy()
     dftx = dftx[dftx['DISTRICT'].isin(district)].copy()
-    wateryr = wateryr[wateryr['DISTRICT'].isin(district)].copy()
-    waterly = waterly[waterly['DISTRICT'].isin(district)].copy()
-
+    dfsum = dfsum[dfsum['DISTRICT'].isin(district)].copy()
+    dfline = dfline[dfline['DISTRICT'].isin(district)].copy()
+    dfns = dfns[dfns['DISTRICT'].isin(district)].copy()
+     
 if facility:
-    dfyr = dfyr[dfyr['FACILITY'].isin(facility)].copy()
-    water = water[water['FACILITY'].isin(facility)].copy()
-    dfearly = dfearly[dfearly['FACILITY'].isin(facility)].copy()
     dfrep = dfrep[dfrep['FACILITY'].isin(facility)].copy()
     dftx = dftx[dftx['FACILITY'].isin(facility)].copy()
-    wateryr = wateryr[wateryr['FACILITY'].isin(facility)].copy()
-    waterly = waterly[waterly['FACILITY'].isin(facility)].copy()
-    
-check = water.shape[0]
-if check == 0:
-    st.warning('***NO DATA FOR THE SELECTION MADE**')
-    st.stop()
+    dfsum = dfsum[dfsum['FACILITY'].isin(facility)].copy()
+    dfline = dfline[dfline['FACILITY'].isin(facility)].copy()
+    dfns = dfns[dfns['facility'].isin(facility)].copy()
+
+dati = dt.date.today()
+wiki = dati.strftime("%V")
+wiki = int(wiki) + 13
+today = dati.strftime('%d')
+today = int(today)
+mon = dati.strftime('%m')
+mon = int(mon)
+
+loop = dfline['DISTRICT'].unique()
+if len(loop) ==1:
+     dfline['USE'] = dfline['FACILITY']
+     dfsum['USE'] = dfsum['FACILITY']
+     dfns['USE'] = dfns['facility']
+     word = 'FACILITY'
 else:
-    pass
-#st.write(water.columns)
+     dfline['USE'] = dfline['DISTRICT']
+     dfsum['USE'] = dfsum['DISTRICT']
+     dfns['USE'] = dfns['DISTRICT']
+     word = 'DISTRICT'
+
+#keep one entry for summaries
+dfsum['FACILITY'] = dfsum['FACILITY'].astype(str)
+dfsum['WEEK'] = pd.to_numeric(dfsum['WEEK'], errors = 'coerce')
+dfsum = dfsum.sort_values(by = ['WEEK'])
+dfsum['FACILITY'] = dfsum['FACILITY'].astype(str)
+dfsum = dfsum.drop_duplicates(subset = ['FACILITY'], keep='last')
 st.divider()
-cola, colb, colc = st.columns(3)
-colb.success('**QUICK SUMMARY**')
-cola, colb, colc,cold = st.columns(4)
-cola.info('**ON APPT**')
-colb.info('**ATTENDED**')
-colc.info('**MISSED**')
-cold.info("**% ATT'DCE**")
-apot = water[['APPT', 'TWO']].copy()
-apot[['APPT', 'TWO']] = apot[['APPT', 'TWO']].apply(pd.to_numeric,errors='coerce')
-onat = int(apot['APPT'].sum())
-onmi = int(apot['TWO'].sum())
-ont = int(onat + onmi)
-perc =round((onat/ont)*100)
-cola.metric(label='a', value =f'{ont}', label_visibility='hidden')
-colb.metric(label='b', value =f'{onat}', label_visibility='hidden')
-colc.metric(label='c', value =f'{onmi}', label_visibility='hidden')
-cold.metric(label='d', value = f'{perc}', label_visibility='hidden')
-wik = week -2 
-st.write(f'**APPOINTMENTS SINCE 4th DEC 2024 TO WEEK {wik}**')
+##TPT SECTION
+st.markdown('<p><b><u><i style="color:red">TPT LINELISTS (LIKELY)</i></u></b></p>' , unsafe_allow_html = True)
+tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK', 'USE']].copy()
+tpt= tpt[tpt['TPT STATUS'].notna()].copy()
 
-mostd = water.groupby('DISTRICT')['TWO'].sum()
-mostf = water.groupby('FACILITY')['TWO'].sum()
+tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
+tpt = tpt[tpt['TPT STATUS'] == 'LIKELY'].copy()
+tptsum = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANTPT', 'FEBTPT','MARTPT', 'WEEK']].copy()
+tptsum = tptsum[tptsum['WEEK']==wiki].copy()
 
-####TOP3
-topdis3 = mostd.nlargest(3)
-topdis3 = topdis3.reset_index()
-mostdis3 = ','.join(topdis3['DISTRICT'].unique())
+cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
+cola.write(f'**{word}**')
+colb.write('**TODAY**')
+colc.write('**THIS WEEK**')
+cold.write('**JAN**')
+cole.write('**FEB**')
+colf.write('**MAR**')
 
-topfas3 = mostf.nlargest(3)
-topfas3 = topfas3.reset_index()
-mostfas3 = ','.join(topfas3['FACILITY'].unique())
-
-##TOP 2
-topdis2 = mostd.nlargest(2)
-topdis2 = topdis2.reset_index()
-mostdis2 = ','.join(topdis2['DISTRICT'].unique())
-
-##TOP 1
-# topfas3 = mostf.nlargest(3)
-# topfas3 = topfas3.reset_index()
-# mostfas3 = ','.join(topfas3['FACILITY'].unique())
-
-
-
-checkf = water['FACILITY'].nunique()
-checkd = water['DISTRICT'].nunique()
-if facility and not CLUSTER and not district:
-    pass
-elif checkf <3:
-    pass
-elif checkd >3:
-    st.success(f'**MOST AFFECTED DISTRICS ARE {mostdis3}, MOST AFFECTED FACILITIES ARE {mostfas3}**')
-elif checkd ==2:
-    st.success(f'**MOST AFFECTED DISTRICS ARE {mostdis2}, MOST AFFECTED FACILITIES ARE {mostfas3}**')
-elif checkd ==1:
-    st.success(f'**MOST AFFECTED FACILITIES ARE {mostfas3}**')
-
-        
+facilities = dfline['USE'].unique()
+#SUMMARIES
+for fac in facilities:
+     tpta = tpt[tpt['USE'] == fac].copy()
+     tpta[['Rmonth', 'Rday', 'RWEEK']] = tpta[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+     tod = tpta[((tpta['Rmonth'] == mon) & (tpta['Rday'] == today))].copy()
+     tods = tod.shape[0]
+     wik = tpta[(tpta['RWEEK'] == wiki)].copy()
+     wikis = wik.shape[0]
+     tptsum = dfsum[dfsum['USE']==fac].copy()
+     try:
+       jansum = tptsum['JANTPT'].sum()
+     except:
+          jansum = 0
+     try:
+          febsum = tptsum['FEBTPT'].sum()
+     except:
+          febsum = 0
+     try:
+          marsum = tptsum['MARTPT'].sum()
+     except:
+          marsum = 0
+          
+     cola.write(f'**{fac}**')
+     colb.write(f'**{tods:,.0f}**')
+     colc.write(f'**{wikis:,.0f}**')
+     cold.write(f'**{int(jansum)}**')
+     cole.write(f'**{febsum:,.0f}**')
+     colf.write(f'**{marsum:,.0f}**')
+     
 st.divider()
-#############################################################################################
-#filtered_df = filtered_df[filtered_df['WEEK']==k].copy()
-pote = water['POTENTIAL'].sum()
-Q4 = water['Q4'].sum()
-ti = water['TI'].sum()
-new = water['TXNEW'].sum()
-rt = water['RTT'].sum()  
-pot = int(Q4)+int(ti)+int(new) + int(rt)
-los = water['TWO'].sum()
-txml = water['FOUR'].sum()
-iit = los-txml
-to  = water['TO'].sum()
-dd = water['DEAD'].sum()
-Q1 = water['ACTIVE'].sum()
-#uk = int(pot) - int(ti)- int(Q4) - int(new)
-uk = int(pote) - int(pot) 
-txml = int(txml)
-dd = int(dd)
-to = int(to)
+##TPT SECTION
+st.markdown('<p><b><u><i style="color:green">TPT LINELISTS (UNLIKELY)</i></u></b></p>' , unsafe_allow_html = True)
+tpt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'AS', 'RD', 'Rmonth', 'Rday', 'TPT' ,'TPT STATUS', 'RWEEK', 'USE']].copy()
+tpt= tpt[tpt['TPT STATUS'].notna()].copy()
+tpt['TPT STATUS'] = tpt['TPT STATUS'].astype(str)
+tpt = tpt[tpt['TPT STATUS'] == 'UNLIKELY'].copy()
 
-labels = ["Q4 Curr",   "TI",     "TX NEW",     'RTT' ,  "Potential",  "MISSED",'TXML',  "DEAD",     "TO",   "Unknown",  "ACTIVE"]
-values = [int(Q4),     int(ti),    int(new),    int(rt),  int(pot),        -iit,       -txml,       -dd,        -to,  int(uk),  int(Q1)]
-measure = ["absolute", "relative","relative", "relative","total",    "relative", "relative", "relative","realative","realative","total"]
-# Create the waterfall chart
+cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
+cola.write(f'**{word}**')
+colb.write('**TODAY**')
+colc.write('**THIS WEEK**')
 
-fig = go.Figure(go.Waterfall(
-    name="Waterfall",
-    orientation="v",
-    measure=measure,
-    x=labels,
-    textposition="outside",
-    text=[f"{v}" for v in values],
-    y=values
-))
+facilities = dfline['USE'].unique()
+#SUMMARIES
+for fac in facilities:
+     tpta = tpt[tpt['USE'] == fac]
+     tpta[['Rmonth', 'Rday', 'RWEEK']] = tpta[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+     tod = tpta[((tpta['Rmonth'] == mon) & (tpta['Rday'] == today))].copy()
+     tods = tod.shape[0]
+     wik = tpta[(tpta['RWEEK'] == wiki)].copy()
+     wikis = wik.shape[0]
+          
+     cola.write(f'**{fac}**')
+     colb.write(f'**{tods:,.0f}**')
+     colc.write(f'**{wikis:,.0f}**')
+st.divider()
+##CX SECTION
+st.markdown('<p><b><u><i style="color:purple">CERVICAL CANCER LINELISTS</i></u></b></p>' , unsafe_allow_html = True)
 
-# Add titles and labels and adjust layout properties
-fig.update_layout(
-    title="Waterfall Analysis",
-    xaxis_title="Categories",
-    yaxis_title="Values",
-    showlegend=True,
-    height=425,  # Adjust height to ensure the chart fits well
-    margin=dict(l=20, r=20, t=60, b=20),  # Adjust margins to prevent clipping
-    yaxis=dict(automargin=True)
-)
+cx = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'RD', 'Rmonth', 'Rday', 'CX','CX STATUS', 'RWEEK', 'USE']].copy()
+cx= cx[cx['CX STATUS'].notna()].copy()
+cxsum = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANCX', 'FEBCX','MARCX', 'WEEK']].copy()
+cxsum = cxsum[cxsum['WEEK']==wiki].copy()
 
-# Show the plot
-st.plotly_chart(fig)
-#####################ONLY SHOWS WHEN THERE ARE MANY FACILITIES OR DISTRTICTS
-dist = water['DISTRICT'].nunique()
-fact = water['FACILITY'].nunique()
+cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
+cola.write(f'**{word}**')
+colb.write('**TODAY**')
+colc.write('**THIS WEEK**')
+cold.write('**JAN**')
+cole.write('**FEB**')
+colf.write('**MAR**')
+for fac in facilities:
+     cxa = cx[cx['USE'] == fac]
+     cxa[['Rmonth', 'Rday', 'RWEEK']] = cxa[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+     tod = cxa[((cxa['Rmonth'] == mon) & (cxa['Rday'] == today))].copy()
+     tods = tod.shape[0]
+     wik = cxa[(cxa['RWEEK'] == wiki)].copy()
+     wikis = wik.shape[0]
+     cxsumx = dfsum[dfsum['USE']==fac].copy()
+     try:
+       jansumx = cxsumx['JANCX'].sum()
+     except:
+          jansumx = 0
+     try:
+          febsumx = cxsumx['FEBCX'].sum()
+     except:
+          febsumx = 0
+     try:
+          marsumx = cxsumx['MARCX'].sum()
+     except:
+          marsumx = 0
+          
+     cola.write(f'**{fac}**')
+     colb.write(f'**{tods:,.0f}**')
+     colc.write(f'**{wikis:,.0f}**')
+     cold.write(f'**{int(jansumx)}**')
+     cole.write(f'**{febsumx:,.0f}**')
+     colf.write(f'**{marsumx:,.0f}**')
+
+st.divider()
+#NS ON APPT
+
+st.markdown('<p><b><u><i style="color:purple">NON SUPPRESSORS DUE FOR REBLEEDING</i></u></b></p>' , unsafe_allow_html = True)
+
+cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
+cola.write(f'**{word}**')
+colb.write('**TODAY**')
+colc.write('**THIS WEEK**')
+cold.write('**JAN**')
+cole.write('**FEB**')
+colf.write('**MAR**')
+due = dfns.copy()
+
+for fac in facilities:
+     duea = due[due['USE'] == fac]
+     duea[['Ryear', 'Rmonth', 'Rday', 'RWEEK']] = duea[['Ryear', 'Rmonth', 'Rday', 'RWEEK']].apply(pd.to_numeric, errors='coerce')
+     tude = duea[((duea['Ryear']==2025) & (duea['Rmonth']==mon) & (duea['Rday']== today))].copy()
+     tods = tude.shape[0]
+     wiksy = duea[((duea['Ryear']==2025) & (duea['RWEEK']==wiki))].copy()
+     wik = wiksy.shape[0]
+     jan = duea[((duea['Ryear']==2025) & (duea['Rmonth']==1))].copy()
+     ja = jan.shape[0]
+     feb = duea[((duea['Ryear']==2025) & (duea['Rmonth']==2))].copy()
+     fe = feb.shape[0]
+     marc = duea[((duea['Ryear']==2025) & (duea['Rmonth']==3))].copy()
+     mar = marc.shape[0]
+          
+     cola.write(f'**{fac}**')
+     colb.write(f'**{tods:,.0f}**')
+     colc.write(f'**{wik:,.0f}**')
+     cold.write(f'**{int(ja)}**')
+     cole.write(f'**{fe:,.0f}**')
+     colf.write(f'**{mar:,.0f}**')
+st.divider()
+
+st.markdown('<p><b><u><i style="color:magenta">VIRAL LOAD (CLIENTS DUE FOR BLEEDING)</i></u></b></p>' , unsafe_allow_html = True)
+
+vl = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'RD', 'Rmonth', 'Rday', 'VL STATUS', 'RWEEK', 'USE']].copy()
+vl= vl[vl['VL STATUS'].notna()].copy()
+vlsumvl = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANVL', 'FEBVL','MARVL', 'WEEK']].copy()
+vlsumvl = vlsumvl[vlsumvl['WEEK']==wiki].copy()
+
+cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
+cola.write(f'**{word}**')
+colb.write('**TODAY**')
+colc.write('**THIS WEEK**')
+cold.write('**JAN**')
+cole.write('**FEB**')
+colf.write('**MAR**')
 
 
-if int(dist) > 1:
-    st.divider()
-    x = []
-    y = []
-    water['TWO'] = pd.to_numeric(water['TWO'], errors='coerce')
-    districts = water['DISTRICT'].unique()
-    water = water.sort_values(by = ['TWO'], ascending = False)
-    for each in districts:
-        x.append(each)
-        dist = water[water['DISTRICT']==each]['TWO'].sum()
-        y.append(dist)   
- 
-    sorted_indices = sorted(range(len(y)), key=lambda i: y[i], reverse=True)
-    x = [x[i] for i in sorted_indices]
-    y = [y[i] for i in sorted_indices]
-    num_bars = len(x)
-    colors = [f'rgba({random.randint(0, 255)}, {random.randint(0, 255)}, {random.randint(0, 255)}, 0.7)' for _ in range(num_bars)]
+for fac in facilities:
+     vl['USE'] = vl['USE'].astype(str)
+     vla = vl[vl['USE'] == str(fac)].copy()
+     vla[['Rmonth', 'Rday', 'RWEEK']] = vla[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+     tod = vla[((vla['Rmonth'] == mon) & (vla['Rday'] == today))].copy()
+     tods = tod.shape[0]
     
-    figd = go.Figure(data=[
-        go.Bar(x=x, y=y, marker_color=colors)
-    ])
-    
-    # Update layout
-    figd.update_layout(
-        title='TOTAL MISSED APPOINTMENTS SINCE THE QUARTER BEGAN PER DISTRICT',
-        xaxis_title='District',
-        yaxis_title='TOTAL MISSED APPOINTMENTS',
-        xaxis_tickangle=-45  # Optional: angle x-axis labels for better visibility
-    )
-    st.plotly_chart(figd)#, use_container_width=True)
-elif int(fact) > 1:
-    st.divider()
-    x = []
-    y = []
-    water['TWO'] = pd.to_numeric(water['TWO'], errors='coerce')
-    districts = water['FACILITY'].unique()
-    water = water.sort_values(by = ['TWO'], ascending = False)
-    for each in districts:
-        x.append(each)
-        dist = water[water['FACILITY']==each]['TWO'].sum()
-        y.append(dist)   
- 
-    sorted_indices = sorted(range(len(y)), key=lambda i: y[i], reverse=True)
-    x = [x[i] for i in sorted_indices]
-    y = [y[i] for i in sorted_indices]
-    num_bars = len(x)
-    colors = [f'rgba({random.randint(0, 255)}, {random.randint(0, 255)}, {random.randint(0, 255)}, 0.7)' for _ in range(num_bars)]
-    
-    figd = go.Figure(data=[
-        go.Bar(x=x, y=y, marker_color=colors)
-    ])
-    
-    # Update layout
-    distict = '.'.join(water['DISTRICT'].unique())
-    figd.update_layout(
-        title=f'TOTAL MISSED APPOINTMENTS SINCE THE QUARTER BEGAN PER FACILITY IN {distict} DISTRICT',
-        xaxis_title='FACILITIES',
-        yaxis_title='TOTAL MISSED APPOINTMENTS',
-        xaxis_tickangle=-45  # Optional: angle x-axis labels for better visibility
-    )
-    st.plotly_chart(figd)#, use_container_width=True)
-    
+     wik = vla[(vla['RWEEK'] == wiki)].copy()
+     wikis = wik.shape[0]
+     vlsumvl = dfsum[dfsum['USE']==fac].copy()
+     try:
+       jansumvl = vlsumvl['JANVL'].sum()
+     except:
+          jansumvl= 0
+     try:
+          febsumvl = vlsumvl['FEBVL'].sum()
+     except:
+          febsumx = 0
+     try:
+          marsumvl = vlsumvl['MARVL'].sum()
+     except:
+          marsumvl = 0
+          
+     cola.write(f'**{fac}**')
+     colb.write(f'**{tods:,.0f}**')
+     colc.write(f'**{wikis:,.0f}**')
+     cold.write(f'**{int(jansumvl)}**')
+     cole.write(f'**{febsumvl:,.0f}**')
+     colf.write(f'**{marsumvl:,.0f}**')
+st.divider()
+st.markdown('<p><b><u><i style="color:green">TWO MONTHS BLEEDING WINDOW (CLIENTS DUE IN TWO MONTHS)</i></u></b></p>' , unsafe_allow_html = True)
+
+vl = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'RD','Ryear', 'Rmonth', 'Rday', 'TWOm', 'RWEEK', 'USE']].copy()
+vl= vl[vl['TWOm'].notna()].copy()
+
+cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
+cola.write(f'**{word}**')
+colb.write('**TODAY**')
+colc.write('**THIS WEEK**')
+cold.write('**JAN**')
+cole.write('**FEB**')
+colf.write('**MAR**')
+for fac in facilities:
+     vla = vla[vla['USE'] == fac]
+     vla[['Rmonth', 'Rday', 'RWEEK']] = vla[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+     tod = vla[((vla['Rmonth'] == mon) & (vla['Rday'] == today))].copy()
+     tods = tod.shape[0]
+     wik = vla[(vla['RWEEK'] == wiki)].copy()
+     wikis = wik.shape[0]
+     vl[['Rmonth', 'Rday', 'RWEEK']] = vl[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+     janvl = vl[((vl['Ryear'] == 2025) & (vl['Rmonth'] == 1))].copy() #ALTER THESE
+     febvl = vl[((vl['Ryear'] == 2025) & (vl['Rmonth'] == 2))].copy()
+     marvl = vl[((vl['Ryear'] == 2025) & (vl['Rmonth'] == 3))].copy()
+     jansumvl = janvl.shape[0]
+     febsumvl = febvl.shape[0]
+     marsumvl = marvl.shape[0]
+     
+     cola.write(f'**{fac}**')
+     colb.write(f'**{tods:,.0f}**')
+     colc.write(f'**{wikis:,.0f}**')
+     cold.write(f'**{int(jansumvl)}**')
+     cole.write(f'**{febsumvl:,.0f}**')
+     colf.write(f'**{marsumvl:,.0f}**')
+
+st.divider()
+st.markdown('<p><b><u><i style="color:magenta">PMTCT THREE MONTHLY VL (MOTHERS DUE FOR BLEEDING)</i></u></b></p>' , unsafe_allow_html = True)
+
+pt = dfline[['CLUSTER', 'DISTRICT', 'FACILITY', 'A', 'RD', 'Rmonth', 'Rday','Ryear', 'PT', 'PVL','RWEEK', 'USE']].copy()
+pt = pt[pt['PVL'].notna()].copy()
+#vlsumvl = dfsum[['CLUSTER', 'DISTRICT', 'FACILITY','JANVL', 'FEBVL','MARVL', 'WEEK']].copy()
+#vlsumvl = vlsumvl[vlsumvl['WEEK']==wiki].copy()
+
+cola, colb, colc, cold, cole, colf = st.columns([2,1,1,1,1,1])
+cola.write(f'**{word}**')
+colb.write('**TODAY**')
+colc.write('**THIS WEEK**')
+cold.write('**JAN**')
+cole.write('**FEB**')
+colf.write('**MAR**')
+for fac in facilities:
+     pta = pt[pt['USE'] == fac]
+     pta[['Rmonth', 'Rday', 'RWEEK']] = pta[['Rmonth', 'Rday','RWEEK']].apply(pd.to_numeric, errors='coerce')
+     tod = pta[((pta['Rmonth'] == mon) & (pta['Rday'] == today))].copy()
+     tods = tod.shape[0]
+     wik = pta[(pta['RWEEK'] == wiki)].copy()
+     wikis = wik.shape[0]
+     pt[['Rmonth', 'Ryear']] = pt[['Rmonth', 'Ryear']].apply(pd.to_numeric, errors='coerce')
+     janpt = pt[((pt['Ryear'] == 2025) & (pt['Rmonth'] == 1))].copy() #ALTER THESE
+     febpt = pt[((pt['Ryear'] == 2025) & (pt['Rmonth'] == 2))].copy()
+     marpt = pt[((pt['Ryear'] == 2025) & (pt['Rmonth'] == 3))].copy()
+     janpt = janpt.shape[0]
+     febpt = febpt.shape[0]
+     marpt = marpt.shape[0]
+          
+     cola.write(f'**{fac}**')
+     colb.write(f'**{tods:,.0f}**')
+     colc.write(f'**{wikis:,.0f}**')
+     cold.write(f'**{int(janpt)}**')
+     cole.write(f'**{febpt:,.0f}**')
+     colf.write(f'**{marpt:,.0f}**')
+st.divider()
+st.markdown('<p><b><u><i style="color:blue">MISSED OPPORTUNITIES (CLIENTS WHO RETURNED AND NOT:😭)</i></u></b></p>' , unsafe_allow_html = True)
+
+cola,colb,colc,cold = st.columns([2,2,1,1])
+cola.write(f'**{word}**')
+colb.write('**NOT SCREENED**')
+colc.write('**NOT BLED**')
+cold.write('**NO TPT**')
+for fac in facilities:
+     noserv = dfsum[dfsum['USE']==fac].copy()
+     try:
+         cerv = noserv['NOTSCREENED'].sum()
+     except:
+         cerv = 0
+     try:
+         bled = noserv['NOTBLED'].sum()
+     except:
+         bled = 0
+
+     try:
+        tptnot = noserv['NOTPT'].sum()
+     except:
+        tptnot = 0
+     cola.write(f'**{fac}**')
+     colb.write(f'**{cerv:,.0f}**')
+     colc.write(f'**{bled:,.0f}**')
+     cold.write(f'**{tptnot:,.0f}**')
+st.divider()
+st.markdown('<p><b><u><i style="color:purple">DOWNLOAD LINELISTS HERE</i></u></b></p>' , unsafe_allow_html = True)
+if len(facility)==1:
+     with st.expander("**DOWNLOAD LINELISTS**"): 
+                 cola, colb = st.columns(2)
+                 dflind = dfline.copy()
+                 dflns = dfns.copy()
+                 
+          
+                 dflind[['Rmonth', 'RWEEK', 'Rday']] = dflind[['Rmonth', 'RWEEK', 'Rday']].apply(pd.to_numeric, errors='coerce')
+                 dflns['RWEEK'] = pd.to_numeric(dfns['RWEEK'], errors='coerce')
+                 dfweek = dflind[dflind['RWEEK']== wiki].copy()
+                 dfnsweek = dflns[dflns['RWEEK']== wiki].copy()
+                 #merging the two
+                 dfnsweek['NS REBLEED?'] = 'NS REBLEED'
+                 dfnsweek = dfnsweek.rename(columns={'ARTN': 'A', 'facility':'FACILITY'})
+                 dfnsa = dfnsweek[['A', 'result_numeric', 'date_collected','NS REBLEED?']].copy()
+                 dfnsa['A'] = pd.to_numeric(dfnsa['A'], errors='coerce')
+                 dfweek['A'] = pd.to_numeric(dfweek['A'], errors='coerce')
+                 dfmerged = pd.merge(dfweek, dfnsa, on ='A', how='left')
+                 dfnsb = dfnsweek[~dfnsweek['A'].isin(dfweek['A'])].copy()
+                 dfnsb = dfnsb[['CLUSTER', 'DISTRICT', 'FACILITY', 'A','result_numeric', 'date_collected', 'AG', 'RD', 'NS REBLEED?']].copy()
+                 dfall = pd.concat([dfmerged,dfnsb])
+                 dfall['Rday'] = pd.to_numeric(dfall['Rday'], errors='coerce')
+                 tode = dfall[dfall['Rday']== today].copy()
+                 tode = tode.rename(columns = {'A':'ART NO', 'AG': 'Age', 'GD':'GENDER', 'RD':'RETURN DATE', 'PT':'PMTCT STATUS'})
+                 tode = tode.drop(columns = ['CLUSTER', 'DISTRICT', 'Rday', 'Rmonth', 'Ryear', 'RWEEK', 'USE'])
+                 with cola:
+                     if tode.shape[0] ==0:
+                          st.write('**NO LINELISTS TODAY**')
+                     else:
+                         csv_data = tode.to_csv(index=False)
+                         tot = tode.shape[0]
+                         st.write(f'**{tot} CLIENTS TO ATTEND TO TODAY**')
+                         st.download_button(
+                                     label="TODAY'S LINELISTS",
+                                     data=csv_data,
+                                     file_name=f"{facility}_LINELIST_TODAY.csv",
+                                     mime="text/csv")
+                 with colb:
+                     if dfall.shape[0] ==0:
+                          st.write('**NO LINELISTS THIS WEEK**')
+                     else:
+                         csv_data = dfall.to_csv(index=False)
+                         tot = dfall.shape[0]
+                         st.write(f'**{tot} CLIENTS TO ATTEND TO THIS WEEK**')
+                         st.download_button(
+                                     label="THIS WEEK'S LINELISTS",
+                                     data=csv_data,
+                                     file_name=f"{facility}_LINELIST_THIS_WEEK.csv",
+                                     mime="text/csv")
 else:
-    pass    
-
-#############################################################################################
-#LINE GRAPHS
+     st.info("**CHOOSE ONE FACILITY TO SEE IT'S LINELISTS**")
 st.divider()
-#TREND OF MISSED APOINTMENTS
-st.success('**TRENDS IN CLIENTS WHO HAVE MISSED APPOINTMENTS FOR MORE THAN 2, 3 AND 4 WEEKS**')
-
-grouped = dftx.groupby('SURGE').sum(numeric_only=True).reset_index()
-
-melted = grouped.melt(id_vars=['SURGE'], value_vars=['TWO', 'THREE', 'FOUR'],
-                            var_name='INTERVAL', value_name='Total')
-
-# melted = grouped.melt(id_vars=['SURGE'], value_vars=['TWO', 'THREE', 'FOUR'],
-#                             var_name='INTERVAL', value_name='Total')
-
-melted2 = grouped.melt(id_vars=['SURGE'], value_vars=['RTT', 'TO','DEAD'],
-                            var_name='INTERVAL', value_name='Total')
-melted['SURGE'] = melted['SURGE'].astype(int)
-melted['SURGE'] = melted['SURGE'].astype(str)
-melted2['SURGE'] = melted2['SURGE'].astype(int)
-melted2['SURGE'] = melted2['SURGE'].astype(str)
-
-fig2 = px.line(melted, x='SURGE', y='Total', color='INTERVAL', markers=True,
-              title='MISSED APPOINTMENTS FOR MORE THAN 2, 3 OR 4 WEEKS', labels={'SURGE':'WEEK', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'})
-
-fig3 = px.line(melted2, x='SURGE', y='Total', color='INTERVAL', markers=True, color_discrete_sequence=['black','red', 'yellow'],
-              title='RTT VS TO VS DEAD', labels={'SURGE':'WEEK', 'Total': 'No. of clients', 'INTERVALS': 'VARIABLES'})
-
-fig2.update_layout(
-    width=800,  # Set the width of the plot
-    height=400,  # Set the height of the plot
-    xaxis=dict(showline=True, linewidth=1, linecolor='black'),  # Show x-axis line
-    yaxis=dict(showline=True, linewidth=1, linecolor='black')   # Show y-axis line
-)
-fig2.update_xaxes(type='category')
-fig3.update_layout(
-    width=800,  # Set the width of the plot
-    height = 400,  # Set the height of the plot
-    xaxis=dict(showline=True, linewidth=1, linecolor='black'),  # Show x-axis line
-    yaxis=dict(showline=True, linewidth=1, linecolor='black')   # Show y-axis line
-)
-fig3.update_xaxes(type='category')
-colx,coly = st.columns([2,1])
-with colx:
-    st.plotly_chart(fig2, use_container_width= True)
-
-with coly:
-    st.plotly_chart(fig3, use_container_width= True)
-    #st.plotly_chart(fig3, use_container_width=True)
-#############################################################################################
-# #HIGHEST TXML 
-st.divider()
-highest = water[water['TWO']>299]
-
-highest = highest.sort_values(by=['TWO'])#, ascending=False)
-highesta = highest.shape[0]
-
-highesty = water[water['TWO']<300]
-highesty = highesty[highesty['TWO']>199]
-highestb = highesty.sort_values(by=['TWO'], ascending=False)
-highestb = highestb.shape[0]
-# highestb = highest[highest['WEEK']==m]
-
-coly, colu = st.columns(2)
-with coly:
-    if highesta ==0:
-        st.warning('**FACILITY SELECTED IS NOT AMONG**')
-        pass
-    else:
-        figa = px.bar(
-        highest,
-        x='TWO',
-        y='FACILITY',
-        orientation='h',
-        title='FACILITIES WITH >300 MISSED APPTS',
-        labels={'TWO': 'CLIENTS MISSED', 'FACILITY': 'Facility'}
-            )
-        figa.update_traces(marker_color='#be7869')
-        st.plotly_chart(figa, use_container_width=True)
-with colu:
-    if highestb ==0:
-        st.write('**FACILITY SELECTED IS NOT AMONG**')
-        pass
-    else:
-        figa = px.bar(
-        highesty,
-        x='TWO',
-        y='FACILITY',
-        orientation='h',
-        title='FACILITIES WITH 200-300 MISSED APPTS',
-        labels={'TWO': 'CLIENTS MISSED', 'FACILITY': 'Facility'}
-        )
-        figa.update_traces(marker_color='green')
-        st.plotly_chart(figa, use_container_width=True)
-st.divider()
-st.divider()
-highest = water[water['TWO']>99].copy()
-highest = highest[highest['TWO']<200]
-
-highest = highest.sort_values(by=['TWO'])#, ascending=False)
-highesta = highest.shape[0]
-
-highesty = water[water['TWO']<100]
-highesty = highesty[highesty['TWO']>49]
-highestb = highesty.sort_values(by=['TWO'], ascending=False)
-highestb = highestb.shape[0]
-# highestb = highest[highest['WEEK']==m]
-
-coly, colu = st.columns(2)
-with coly:
-    if highesta ==0:
-        st.warning('**FACILITY SELECTED IS NOT AMONG**')
-        pass
-    else:
-        figa = px.bar(
-        highest,
-        x='TWO',
-        y='FACILITY',
-        orientation='h',
-        title='FACILITIES WITH 100-200 MISSED APPTS',
-        labels={'TWO': 'CLIENTS MISSED', 'FACILITY': 'Facility'}
-            )
-        figa.update_traces(marker_color='#be7869')
-        st.plotly_chart(figa, use_container_width=True)
-with colu:
-    if highestb ==0:
-        st.write('**FACILITY SELECTED IS NOT AMONG**')
-        pass
-    else:
-        figa = px.bar(
-        highesty,
-        x='TWO',
-        y='FACILITY',
-        orientation='h',
-        title='FACILITIES WITH 50-100 MISSED APPTS',
-        labels={'TWO': 'CLIENTS MISSED', 'FACILITY': 'Facility'}
-        )
-        figa.update_traces(marker_color='green')
-        st.plotly_chart(figa, use_container_width=True)
-st.divider()
-#MMD PERFORMANCE
-#OF THOSE THAT ARE DUE, HOW MANY ARE OURS, HOW MANY ARE VISITOR
-
-dftx[['M2','M3', 'M6']] = dftx[['M2','M3', 'M6']].apply(pd.to_numeric, errors='coerce')
-M2 = water['M2'].sum()
-M3 = water['M3'].sum()
-M6 = water['M6'].sum()
-
-
-# Creating the grouped bar chart
-fig4 = go.Figure(data=[
-    go.Bar(name='<3 MTHS', x=['<3 MTHS'], y=[M2], marker=dict(color='red')),
-    go.Bar(name='3-5 MTHS', x=['3-5 MTHS'], y=[M3], marker=dict(color='green')),
-    go.Bar(name='6+ MTHS', x=['6+ MTHS'], y=[M6], marker=dict(color='blue'))
-])
-
-# Setting the layout to have no gap between bars
-fig4.update_layout(barmode='group', bargap=0, bargroupgap=0)
-
-NO_MMD = M2
-MMD = int(M3) + int(M6)
-
-labels = ['NO MMD', 'MMD']
-values = [NO_MMD, MMD]
+st.markdown("**GENERAL VL COVERAGE**")
+HAVE = water['HAVE'].sum()
+NOT = water['NOVL'].sum()
+TOTAL = int(HAVE) + int(NOT)
+HAVE = int(HAVE)
+NOT = int(NOT)
+labels = ['HAVE VL', 'DUE']
+values = [HAVE, NOT]
 # Specify custom colors
-colors = ['DarkRed', 'purple']  # Colors for NO_MMD and MMD
+colors = ['darkblue', 'red']  # Colors for NO_MMD and MMD
 # Create the 3D pie chart
 figp = go.Figure(data=[go.Pie(
     labels=labels,
@@ -796,366 +619,80 @@ figp = go.Figure(data=[go.Pie(
 
 # Update layout for 3D effect
 figp.update_traces(textposition='inside', textinfo='percent+label')
+st.markdown(f'**{TOTAL} ACTIVE CLIENTS, {HAVE} ARE BLED, {NOT} ARE NOT BLED**')
+if facility and not district and not CLUSTER:
+    st.write(f'**SHOWING DATA FOR {facility} facility**')
+st.plotly_chart(figp, use_container_width=True)
 
-M2 = int(M2)
-M3 = int(M3)
-M6 = int(M6)
-# Display the chart
-st.success(f'**{M2} Clients were given < 3 Months, {M3} received between 4 to 5 five months, {M6} received 6+ MTHS**')
-cola,colb = st.columns(2)
-with cola:
-    st.plotly_chart(fig4, use_container_width=True)
-
-with colb:
-    st.markdown('')
-    st.markdown('')
-    st.plotly_chart(figp, use_container_width=True)
-
+#############################################################################################
+#LINE GRAPHS
 st.divider()
-##########################################################################
-#######ONE YEAR COHORT
-#filtered_df = filtered_df[filtered_df['WEEK']==k].copy()
+#TREND OF VL COVERAGE
+st.write('**TRENDS IN VL COVERAGE**')
 
-total = wateryr['TOTAL'].sum()
-newti = wateryr['TI'].sum()
-newlydx = wateryr['ORIG'].sum()
+grouped = dftx.groupby('SURGE').sum(numeric_only=True).reset_index()
 
-newlos = wateryr['LOST'].sum()
-newto  = wateryr['TO'].sum()
-newdd = wateryr['DEAD'].sum()
-active = wateryr['ACTIVE'].sum()
-net = total-newto
+melted = grouped.melt(id_vars=['SURGE'], value_vars=['HAVE', 'NOVL'],
+                            var_name='INTERVAL', value_name='Total')
 
-labels = ["NEWLY DX",     "TIs",  "TOs",      "NET",   'LTFU',  "DEAD", "ACTIVE"]
-values = [newlydx,        newti,  -newto,     -net , -newlos,  -newdd, active]
-measure = ["absolute", "relative","relative", "total", "relative", "relative","total"]
-# Create the waterfall chart
-figy = go.Figure(go.Waterfall(
-    name="Waterfall",
-    orientation="v",
-    measure=measure,
-    x=labels,
-    textposition="outside",
-    text=[f"{v}" for v in values],
-    y=values
-))
-
-# Add titles and labels and adjust layout properties
-figy.update_layout(
-    title="ONE YEAR COHORT ANALYSIS",
-    xaxis_title="Categories",
-    yaxis_title="Values",
-    showlegend=True,
-    height=425,  # Adjust height to ensure the chart fits well
-    margin=dict(l=20, r=20, t=60, b=20),  # Adjust margins to prevent clipping
-    yaxis=dict(automargin=True)
-)
-
-st.plotly_chart(figy)
-st.divider()
-########################################################################################
-#ONE YEAR PIE CHART
-col1, col2 = st.columns(2)
-pied = wateryr.copy()#[filtered_df['WEEK']==k]
-#pied['LOST NEW'] = pied['ORIGINAL COHORT']- pied['ONE YEAR ACTIVE'] 
-pied = pied[['LOST', 'ACTIVE']]
-melted = pied.melt(var_name='Category', value_name='values')
-fig = px.pie(melted, values= 'values', title='ONE YEAR RETENTION RATE', names='Category', hole=0.3,color='Category',  
-             color_discrete_map={'LOST': 'red', 'ACTIVE': 'blue'} )
-    #fig.update_traces(text = 'RETENTION', text_position='Outside')
-grouped = dfyr.groupby('SURGE').sum(numeric_only=True).reset_index()
-
-melted = grouped.melt(id_vars=['SURGE'], value_vars=['ACTIVE', 'LOST'],
-                            var_name='OUTCOME', value_name='Total')
+melted2 = grouped.melt(id_vars=['SURGE'], value_vars=['HAVE', 'NOVL'],
+                            var_name='CATEGORY', value_name='Total')
 melted['SURGE'] = melted['SURGE'].astype(int)
 melted['SURGE'] = melted['SURGE'].astype(str)
-colors = ['DarkRed', 'purple']
+melted2['SURGE'] = melted2['SURGE'].astype(int)
+melted2['SURGE'] = melted2['SURGE'].astype(str)
 
-
-fig2 = px.line(melted, x='SURGE', y='Total', color='OUTCOME', markers=True,
-              title='MISSED APPOINTMENTS FOR 1 YR', labels={'SURGE':'WEEK', 'Total': 'No. of clients', 'OUTCOME': 'OUTCOME'})
-
+fig2 = px.line(melted, x='SURGE', y='Total', color='INTERVAL', markers=True,
+              title='', labels={'SURGE':'WEEK', 'Total': 'No. of clients', 'INTERVAL': 'INTERVALS'})
 fig2.update_layout(
     width=800,  # Set the width of the plot
     height=400,  # Set the height of the plot
     xaxis=dict(showline=True, linewidth=1, linecolor='black'),  # Show x-axis line
     yaxis=dict(showline=True, linewidth=1, linecolor='black')   # Show y-axis line
-    #marker=dict(colors=colors)
 )
-
-
 fig2.update_xaxes(type='category')
-if pied.shape[0]==0:
-    pass
-else:
-    with col1:
-        st.plotly_chart(fig, use_container_width=True)
-    with col2:
-        st.plotly_chart(fig2, use_container_width=True)
 
-###############################
+st.plotly_chart(fig2, use_container_width= True)
+
+
+#############################################################################################
+
+
 st.divider()
-st.info('**EARLY RETENTION**')
-st.write('**NOTE: The 9 months cohort will be the focus for 1 year cohort next quarter, the TX NEWs are the clients diagnosed this quarter**') 
-pied = wateryr.copy()#[filtered_df['WEEK']==k]
+st.write('**VL COVERAGE IN MISSED APPTS, 1 YR COHORT AND 6 MTHS COHORT**')
+pied = water.copy()#[filtered_df['WEEK']==k]
 #pied['LOST NEW'] = pied['ORIGINAL COHORT']- pied['ONE YEAR ACTIVE'] 
-pied = pied[['LOSTS', 'ACTIVES']]
-pied = pied.rename(columns={'LOSTS':'LOST', 'ACTIVES':'ACTIVE'})
+pied = pied[['WVLY', 'NVLY']]
+pied = pied.rename(columns={'WVLY':'BLED', 'NVLY':'DUE'})
+melted = pied.melt(var_name='Category', value_name='values')
+figY = px.pie(melted, values= 'values', title='ONE YEAR', names='Category', hole=0.3,color='Category',  
+             color_discrete_map={'DUE': 'red', 'BLED': 'blue'} )
+
+#pied['LOST NEW'] = pied['ORIGINAL COHORT']- pied['ONE YEAR ACTIVE'] 
+pied = water.copy()
+pied = pied[['WVLS', 'NVLS']]
+pied = pied.rename(columns={'WVLS':'BLED', 'NVLS':'DUE'})
 melted = pied.melt(var_name='Category', value_name='values')
 fig6 = px.pie(melted, values= 'values', title='6 MTHS', names='Category', hole=0.3,color='Category',  
-             color_discrete_map={'LOST': 'red', 'ACTIVE': 'blue'} )
-
-pied = waterly.copy()#[filtered_df['WEEK']==k]
-#pied['LOST NEW'] = pied['ORIGINAL COHORT']- pied['ONE YEAR ACTIVE'] 
-pied = pied[['LOSTT', 'ACTIVET']]
-pied = pied.rename(columns={'LOSTT':'LOST', 'ACTIVET':'ACTIVE'})
-melted = pied.melt(var_name='Category', value_name='values')
-fig3 = px.pie(melted, values= 'values', title='3 MTHS', names='Category', hole=0.3,color='Category',  
-             color_discrete_map={'LOST': 'red', 'ACTIVE': 'yellow'} )
+             color_discrete_map={'DUE': 'red', 'BLED': 'yellow'} )
 #pied['LOST NEW'] = pied['ORIGINAL COHORT']- pied['ONE YEAR ACTIVE']
-pied = waterly.copy() 
-pied = pied[['LOSTO', 'ACTIVEO']]
-pied = pied.rename(columns={'LOSTO':'LOST', 'ACTIVEO':'ACTIVE'})
+pied = water.copy() 
+pied = pied[['LNVL', 'LWVL']]
+pied = pied.rename(columns={'LNVL':'DUE', 'LWVL':'BLED'})
 melted = pied.melt(var_name='Category', value_name='values')
-fig1 = px.pie(melted, values= 'values', title='TX NEWS', names='Category', hole=0.3,color='Category',  
-             color_discrete_map={'LOST': 'red', 'ACTIVE': 'green'} )
-pied = wateryr.copy() 
-pied = pied[['LOSTN', 'ACTIVEN']]
-pied = pied.rename(columns={'LOSTN':'LOST', 'ACTIVEN':'ACTIVE'})
-melted = pied.melt(var_name='Category', value_name='values')
-fig9 = px.pie(melted, values= 'values', title='9 MTHS', names='Category', hole=0.3,color='Category',  
-             color_discrete_map={'LOST': 'red', 'ACTIVE': 'purple'} )
+figL = px.pie(melted, values= 'values', title='MISSED', names='Category', hole=0.3,color='Category',  
+             color_discrete_map={'DUE': 'red', 'BLED': 'green'} )
 
-cola, colb, colc,cold = st.columns(4)
+cola, colb, colc = st.columns(3)
 with cola:
-    st.plotly_chart(fig9, use_container_width=True)
+    st.plotly_chart(figL, use_container_width=True)
 with colb:
-    st.plotly_chart(fig6, use_container_width=True)
+    st.plotly_chart(figY, use_container_width=True)
 with colc:
-    st.plotly_chart(fig3, use_container_width=True)
-with cold:
-    st.plotly_chart(fig1, use_container_width=True)
-####TRACKING TXML
-st.info('**TRENDS IN TXML (FOR CLIENTS THAT WERE REPORTED AS TXML IN Q4 AND Q3 )**')
-grouped = dftx.groupby('SURGE').sum(numeric_only=True).reset_index()
-Y = ['Q4 TXML', 'Q3 TXML']
-
-grouped_long = grouped.melt(id_vars='SURGE', value_vars=Y, 
-                            var_name='Type', value_name='No. of clients')
-
-# Create the line chart
-figM = px.line(grouped_long, 
-               x='SURGE', 
-               y='No. of clients', 
-               color='Type', 
-               title='CLIENTS NOT RETURNED FROM Q4 AND Q3', 
-               labels={'SURGE': 'WEEK', 'No. of clients': 'No. of clients'},
-               markers=True)
-figM.for_each_trace(
-    lambda trace: trace.update(line=dict(color='green')) if trace.name == 'Q4 TXML' else trace.update(line=dict(color='purple'))
-)
-
-# # Update layout for better appearance
-figM.update_layout(
-    width=800,  # Set the width of the plot
-    height=400,  # Set the height of the plot
-    xaxis=dict(showline=True, linewidth=1, linecolor='black'),  # Show x-axis line
-    yaxis=dict(showline=True, linewidth=1, linecolor='black')   # Show y-axis line
-)
-
-# Set x-axis to categorical
-figM.update_xaxes(type='category')
+    st.plotly_chart(fig6, use_container_width=True)
 
 # Display the plot
-st.plotly_chart(figM, use_container_width=True)
-st.divider()
-
-html_table = """
-<h4><b><u style="color: green;">CYCLE OF INTERUPTION AND RETURN TO ART (CIRA)</u></b></h4>
-"""
-st.markdown(html_table, unsafe_allow_html=True)
-
-#LOST IN LESS THAN 3 MONTHS
-lesl = watercira['L1'].sum() +  watercira['L10'].sum() + watercira['L20'].sum() + watercira['L30'].sum() + watercira['L40'].sum() +  watercira['L50'].sum() + watercira['LG50'].sum()
-#LOST IN 3 to 5 MTHS
-thrl = watercira['L13'].sum() +  watercira['L103'].sum() + watercira['L203'].sum() + watercira['L303'].sum() + watercira['L403'].sum() +  watercira['L503'].sum() + watercira['LG503'].sum()
-#LOST IN 6 MTHS
-sixl = watercira['L16'].sum() +  watercira['L106'].sum() + watercira['L206'].sum() + watercira['L306'].sum() + watercira['L406'].sum() +  watercira['L506'].sum() + watercira['LG506'].sum()
-
-#ACTIVE THAN 3 MONTHS
-lesA = watercira['A1'].sum() +  watercira['A10'].sum() + watercira['A20'].sum() + watercira['A30'].sum() + watercira['A40'].sum() +  watercira['A50'].sum() + watercira['AG50'].sum()
-#ACTIVE IN 3 to 5 MTHS
-thrA = watercira['A13'].sum() +  watercira['A103'].sum() + watercira['A203'].sum() + watercira['A303'].sum() + watercira['A403'].sum() +  watercira['A503'].sum() + watercira['AG503'].sum()
-#ACTIVE IN 6 MTHS
-sixA = watercira['A16'].sum() +  watercira['A106'].sum() + watercira['A206'].sum() + watercira['A306'].sum() + watercira['A406'].sum() +  watercira['A506'].sum() + watercira['AG506'].sum()
-
-totallos = lesl + thrl + sixl
-totalact = lesA + thrA + sixA
-totalcira = totallos + totalact
-
-# Creating the grouped bar chart
-figC = go.Figure(data=[
-    go.Bar(name='IIT(TOTAL)', x=['IIT(TOTAL)'], y=[totalcira], marker=dict(color='rgb(0, 71, 171)')),  # Cobalt Blue,
-    go.Bar(name='RETURNED', x=['RETURNED'], y=[totalact], marker=dict(color='green'))
-])
-
-# Setting the layout to have no gap between bars
-figC.update_layout(title = 'Returning clients to ART', barmode='group', bargap=0, bargroupgap=0)
-
-
-###STACKED BAR CHART
-totalact = lesA + thrA + sixA
-
-# Define the values for the variables
-a = lesA
-b = thrA
-c = sixA
-
-#LESS THAN 1 YR
-a1 = watercira['A1'].sum() + watercira['A13'].sum() + watercira['A16'].sum()
-a2 = a1 + watercira['L1'].sum() + watercira['L13'].sum() + watercira['L16'].sum() 
-if a2 ==0:
-   a3 = 0
-else:
-   a3 = round(int((a1/a2)*100))
-     
-#LESS THAN 10 YRs
-a21 = watercira['A10'].sum() + watercira['A103'].sum() + watercira['A106'].sum()
-a22 = a21 + watercira['L10'].sum() + watercira['L103'].sum() + watercira['L106'].sum() 
-if a22 ==0:
-   a23 = 0
-else:
-   a23 = round(int((a21/a22)*100))
-
-#LESS THAN 20 YRs
-a31 = watercira['A20'].sum() + watercira['A203'].sum() + watercira['A206'].sum()
-a32 = a31 + watercira['L20'].sum() + watercira['L203'].sum() + watercira['L206'].sum() 
-if a32 ==0:
-   a33 = 0
-else:
-   a33 = round(int((a31/a32)*100))
-
-#LESS THAN 30 YRs
-a41 = watercira['A30'].sum() + watercira['A303'].sum() + watercira['A306'].sum()
-a42 = a41 + watercira['L30'].sum() + watercira['L303'].sum() + watercira['L306'].sum() 
-if a42 ==0:
-   a43 = 0
-else:
-   a43 = round(int((a41/a42)*100))
-
-#LESS THAN 40 YRs
-a51 = watercira['A40'].sum() + watercira['A403'].sum() + watercira['A406'].sum()
-a52 = a51 + watercira['L40'].sum() + watercira['L403'].sum() + watercira['L406'].sum() 
-if a52 ==0:
-   a53 = 0
-else:
-   a53 = round(int((a51/a52)*100))
-     
-#LESS THAN 50 YRs
-a61 = watercira['A50'].sum() + watercira['A503'].sum() + watercira['A506'].sum()
-a62 = a61 + watercira['L50'].sum() + watercira['L503'].sum() + watercira['L506'].sum() 
-if a62 ==0:
-   a63 = 0
-else:
-   a63 = round(int((a61/a62)*100))
-
-#GREATER THAN 50 YRs
-a71 = watercira['AG50'].sum() + watercira['AG503'].sum() + watercira['AG506'].sum()
-a72 = a71 + watercira['LG50'].sum() + watercira['LG503'].sum() + watercira['LG506'].sum() 
-if a72 ==0:
-   a73 = 0
-else:
-   a73 = round(int((a71/a72)*100))
-
-# Create the stacked bar chart
-figD = go.Figure()
-
-# Add the bottom layer (a) in cobalt blue
-figD.add_trace(go.Bar(
-    name='<3 MONTHS',
-    y=[a],
-    x=['Variables'],
-    marker_color='rgb(0, 71, 171)'  # Cobalt blue color
-))
-
-# Add the middle layer (b) in green
-figD.add_trace(go.Bar(
-    name='3-5 MONTHS',
-    y=[b],
-    x=['Variables'],
-    marker_color='green'
-))
-
-# Add the top layer (c) in purple
-figD.add_trace(go.Bar(
-    name='6 + MONTHS',
-    y=[c],
-    x=['Variables'],
-    marker_color='purple'
-))
-
-# Update the layout to make it a stacked bar chart
-figD.update_layout(
-    barmode='stack',
-    title='Length of interruption before return',
-    yaxis_title='Values'
-)
-cola, colb,colc, cold = st.columns([1,1,1,3])
-cola.write('**AGE**')
-colb.write('**Returned**')
-colc.write('**IIT(Total)**')
-cold.write('**Proportion CIRA Returned**')
-cola.write('**<01**')
-colb.write(f'**{int(a1)}**')
-colc.write(f'**{int(a2)}**')
-cold.write(f'**{int(a3)} %**')
-
-cola.write('**1-9**')
-colb.write(f'**{int(a21)}**')
-colc.write(f'**{int(a22)}**')
-cold.write(f'**{int(a23)} %**')
-
-cola.write('**10-19**')
-colb.write(f'**{int(a31)}**')
-colc.write(f'**{int(a32)}**')
-cold.write(f'**{int(a33)} %**')
-
-cola.write('**20-29**')
-colb.write(f'**{int(a41)}**')
-colc.write(f'**{int(a42)}**')
-cold.write(f'**{int(a43)} %**')
-
-cola.write('**30-39**')
-colb.write(f'**{int(a51)}**')
-colc.write(f'**{int(a52)}**')
-cold.write(f'**{int(a53)} %**')
-
-cola.write('**40-49**')
-colb.write(f'**{int(a61)}**')
-colc.write(f'**{int(a62)}**')
-cold.write(f'**{int(a63)} %**')
-
-cola.write('**50+**')
-colb.write(f'**{int(a71)}**')
-colc.write(f'**{int(a72)}**')
-cold.write(f'**{int(a73)} %**')
-st.divider()
-
-cola,colb = st.columns(2)
-with cola:
-    #st.markdown('**Returning clients to ART**')
-    st.plotly_chart(figC, use_container_width=True)
-
-with colb:
-    #st.markdown('**Length of interruption before return**')
-    st.plotly_chart(figD, use_container_width=True)
-
-st.divider()
-
 st.write('')
 st.write('')
 st.write('')
 st.success('**CREATED BY Dr. LUMINSA DESIRE**')
-
-
-
