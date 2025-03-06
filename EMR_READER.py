@@ -1506,6 +1506,7 @@ def extract():
                             err = 'GD'
                     prev = int(prev)
                     part = [cluster,district,facility,week,wk,prev] #FIXED PART
+                    list6 = [pot, curr, curto, deadcur, lostq, hasvl]
                     bands =['<01','01 to 09','10 to 19','20-29','30-39', '40-49','50+']
                 
                     #cactive
@@ -1542,6 +1543,7 @@ def extract():
                     #pppp = cactive.copy()
                     row5 = part + ciralost + ciraactive
                     ell = list(err)
+                  
                     row1 = part + list1 + ell
                 
                     row2 = part + list2
@@ -1549,6 +1551,7 @@ def extract():
                     row3 = part + list3
                 
                     row4 = part + list4
+                    row6 = part +list6
                         
                     secrets = st.secrets["connections"]["gsheets"]
                     
@@ -1881,169 +1884,196 @@ def extract():
                             st.write(f"<h6><b>DOWNLOAD LINELISTS FROM HERE</b></h6>", unsafe_allow_html=True)
                             cola, colb, colc = st.columns(3)
                             with cola:
-                                    if two==0:
-                                        st.write('**NO MISSED APPOINTMENTS**')
+                                    if lostq ==0:
+                                        st.write('**NO TXML**')
                                     else:
-                                        dat = lost()
-                                        #dat = yyy.copy()
-                                        csv_data = dat.to_csv(index=False)
-                                        tot = dat.shape[0]
-                                        st.write(f'**{tot} CLIENTS HAVE MISSED**')
-                                        st.download_button(
-                                                    label="MISSED APPOINTMENTS",
+                                       dat = curlost.copy() 
+                                       csv_data = dat.to_csv(index=False)
+                                       tot = dat.shape[0]
+                                       st.write(f'**{tot} CLIENTS ARE LOST**')
+                                       st.download_button(
+                                                    label="Q2 TXML",
                                                     data=csv_data,
-                                                    file_name=f"{facility} MISSED.csv",
+                                                    file_name=f"{facility} TXML.csv",
                                                     mime="text/csv")
-                            with colb:
-                                    if dead ==0:
-                                        st.write('**NO DEAD CLIENTS**')
+                           with colb:
+                                    if lacks.shape[0] ==0:
+                                        st.write('**NO VL LINELIST**')
                                     else:
-                                        dat = deceased()
-                                        csv_data = dat.to_csv(index=False)
-                                        tot = dat.shape[0]
-                                        st.write(f'**{tot} DEAD THIS Qtr**')
-                                        st.download_button(
-                                                        label=" DEAD",
-                                                        data=csv_data,
-                                                        file_name=f" {facility} DEAD.csv",
-                                                        mime="text/csv")
-                            with colc:
-                                    if true == 0:
-                                        st.markdown('**NO TRANSFER OUTs**')
-                                    else:
-                                        dat = transfer()
-                                        csv_data = dat.to_csv(index=False)
-                                        tot = dat.shape[0]
-                                        st.write(f'**{tot} TOs THIS Qtr**')
-                                        st.download_button(
-                                                    label=" TRANSFER OUTS",
+                                       dat = lacks.copy() 
+                                       csv_data = dat.to_csv(index=False)
+                                       tot = dat.shape[0]
+                                       st.write(f'**{tot} CLIENTS ARE DUE**')
+                                       st.download_button(
+                                                    label="VL LINELISTS",
                                                     data=csv_data,
-                                                    file_name=f" {facility} TOS.csv",
+                                                    file_name=f"{facility} VL_LINELIST.csv",
                                                     mime="text/csv")
-                        ######################################VL SECTION
-                            st.divider()
-                            st.markdown("**LAST QUARTER'S TXML AND VIRAL LOAD LINE LIST**")
-                            cola, colb,colc = st.columns(3)
-                            with cola:
-                                dat = lastqtr()
-                                csv_data = dat.to_csv(index=False)
-                                tot = dat.shape[0]
-                                st.write(f'**{tot} NOT RETURNED FROM Q4**')
-                                st.download_button(
-                                            label="TXML FOR Q4",
-                                            data=csv_data,
-                                            file_name=f"{facility} Q4_TXML.csv",
-                                            mime="text/csv")
-                            with colb:
-                                dat = lastqt3()
-                                csv_data = dat.to_csv(index=False)
-                                tot = dat.shape[0]
-                                st.write(f'**{tot} NOT RETURNED FROM Q3**')
-                                st.download_button(
-                                            label="TXML FOR Q3",
-                                            data=csv_data,
-                                            file_name=f"{facility} Q3_TXML.csv",
-                                            mime="text/csv")
-                            with colc:
-                                dat = viral()
-                                csv_data = dat.to_csv(index=False)
-                                tot = dat.shape[0]
-                                st.write(f'**{tot} DUE FOR VL**')
-                                st.download_button(
-                                            label="CURRENT VL LINELIST",
-                                            data=csv_data,
-                                            file_name=f"{facility} VL.csv",
-                                            mime="text/csv")              
+
+                        
+                        #             if two==0:
+                        #                 st.write('**NO MISSED APPOINTMENTS**')
+                        #             else:
+                        #                 dat = lost()
+                        #                 #dat = yyy.copy()
+                        #                 csv_data = dat.to_csv(index=False)
+                        #                 tot = dat.shape[0]
+                        #                 st.write(f'**{tot} CLIENTS HAVE MISSED**')
+                        #                 st.download_button(
+                        #                             label="MISSED APPOINTMENTS",
+                        #                             data=csv_data,
+                        #                             file_name=f"{facility} MISSED.csv",
+                        #                             mime="text/csv")
+                        #     with colb:
+                        #             if dead ==0:
+                        #                 st.write('**NO DEAD CLIENTS**')
+                        #             else:
+                        #                 dat = deceased()
+                        #                 csv_data = dat.to_csv(index=False)
+                        #                 tot = dat.shape[0]
+                        #                 st.write(f'**{tot} DEAD THIS Qtr**')
+                        #                 st.download_button(
+                        #                                 label=" DEAD",
+                        #                                 data=csv_data,
+                        #                                 file_name=f" {facility} DEAD.csv",
+                        #                                 mime="text/csv")
+                        #     with colc:
+                        #             if true == 0:
+                        #                 st.markdown('**NO TRANSFER OUTs**')
+                        #             else:
+                        #                 dat = transfer()
+                        #                 csv_data = dat.to_csv(index=False)
+                        #                 tot = dat.shape[0]
+                        #                 st.write(f'**{tot} TOs THIS Qtr**')
+                        #                 st.download_button(
+                        #                             label=" TRANSFER OUTS",
+                        #                             data=csv_data,
+                        #                             file_name=f" {facility} TOS.csv",
+                        #                             mime="text/csv")
+                        # ######################################VL SECTION
+                        #     st.divider()
+                        #     st.markdown("**LAST QUARTER'S TXML AND VIRAL LOAD LINE LIST**")
+                        #     cola, colb,colc = st.columns(3)
+                        #     with cola:
+                        #         dat = lastqtr()
+                        #         csv_data = dat.to_csv(index=False)
+                        #         tot = dat.shape[0]
+                        #         st.write(f'**{tot} NOT RETURNED FROM Q4**')
+                        #         st.download_button(
+                        #                     label="TXML FOR Q4",
+                        #                     data=csv_data,
+                        #                     file_name=f"{facility} Q4_TXML.csv",
+                        #                     mime="text/csv")
+                        #     with colb:
+                        #         dat = lastqt3()
+                        #         csv_data = dat.to_csv(index=False)
+                        #         tot = dat.shape[0]
+                        #         st.write(f'**{tot} NOT RETURNED FROM Q3**')
+                        #         st.download_button(
+                        #                     label="TXML FOR Q3",
+                        #                     data=csv_data,
+                        #                     file_name=f"{facility} Q3_TXML.csv",
+                        #                     mime="text/csv")
+                        #     with colc:
+                        #         dat = viral()
+                        #         csv_data = dat.to_csv(index=False)
+                        #         tot = dat.shape[0]
+                        #         st.write(f'**{tot} DUE FOR VL**')
+                        #         st.download_button(
+                        #                     label="CURRENT VL LINELIST",
+                        #                     data=csv_data,
+                        #                     file_name=f"{facility} VL.csv",
+                        #                     mime="text/csv")              
                             
-                        #     #########################################################################################################################################################
-                        ###ONE YEAR LINE LISTS
-                            if st.session_state.submited: 
-                                st.divider()
-                                st.write(f"<h6><b>ONE YEAR COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
-                                cola, colb, colc = st.columns(3)
-                                with cola:
-                                        if newlost==0:
-                                            st.write('**NO 1 YR IIT**')
-                                        else:
-                                            dat = yearlost()
-                                            csv_data = dat.to_csv(index=False)
-                                            tot = dat.shape[0]
-                                            st.write(f'**{tot} LTFU IN THE 1 YR COHORT**')
-                                            st.download_button(key='a',
-                                                        label="ONE YR IIT",
-                                                        data=csv_data,
-                                                        file_name=f"{facility} 1YR_IIT.csv",
-                                                        mime="text/csv")
-                                with colb:
-                                        if outnew==0:
-                                            st.markdown('**NO 1 YR TOs**')
-                                        else:
-                                            dat = yearto()
-                                            csv_data = dat.to_csv(index=False)
-                                            tot = dat.shape[0]
-                                            st.write(f'**{tot} TOs**')
-                                            st.download_button(key='b',
-                                                        label=" 1 YR T.OUTS",
-                                                        data=csv_data,
-                                                        file_name=f" {facility} TO_1YR.csv",
-                                                        mime="text/csv")
-                                with colc:
-                                    if nvla ==0:
-                                        st.write('**NO ONE YEAR VL LIST**')
-                                    else:
-                                        dat = yearvl()
-                                        csv_data = dat.to_csv(index=False)
-                                        tot = dat.shape[0]
-                                        st.write(f'**{tot} HAVE NOT BEEN BLED**')
-                                        st.download_button(key='c',
-                                                    label="1 YR VL LINELIST",
-                                                    data=csv_data,
-                                                    file_name=f"{facility} VL_1YR.csv",
-                                                    mime="text/csv")
+                        # #     #########################################################################################################################################################
+                        # ###ONE YEAR LINE LISTS
+                        #     if st.session_state.submited: 
+                        #         st.divider()
+                        #         st.write(f"<h6><b>ONE YEAR COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
+                        #         cola, colb, colc = st.columns(3)
+                        #         with cola:
+                        #                 if newlost==0:
+                        #                     st.write('**NO 1 YR IIT**')
+                        #                 else:
+                        #                     dat = yearlost()
+                        #                     csv_data = dat.to_csv(index=False)
+                        #                     tot = dat.shape[0]
+                        #                     st.write(f'**{tot} LTFU IN THE 1 YR COHORT**')
+                        #                     st.download_button(key='a',
+                        #                                 label="ONE YR IIT",
+                        #                                 data=csv_data,
+                        #                                 file_name=f"{facility} 1YR_IIT.csv",
+                        #                                 mime="text/csv")
+                        #         with colb:
+                        #                 if outnew==0:
+                        #                     st.markdown('**NO 1 YR TOs**')
+                        #                 else:
+                        #                     dat = yearto()
+                        #                     csv_data = dat.to_csv(index=False)
+                        #                     tot = dat.shape[0]
+                        #                     st.write(f'**{tot} TOs**')
+                        #                     st.download_button(key='b',
+                        #                                 label=" 1 YR T.OUTS",
+                        #                                 data=csv_data,
+                        #                                 file_name=f" {facility} TO_1YR.csv",
+                        #                                 mime="text/csv")
+                        #         with colc:
+                        #             if nvla ==0:
+                        #                 st.write('**NO ONE YEAR VL LIST**')
+                        #             else:
+                        #                 dat = yearvl()
+                        #                 csv_data = dat.to_csv(index=False)
+                        #                 tot = dat.shape[0]
+                        #                 st.write(f'**{tot} HAVE NOT BEEN BLED**')
+                        #                 st.download_button(key='c',
+                        #                             label="1 YR VL LINELIST",
+                        #                             data=csv_data,
+                        #                             file_name=f"{facility} VL_1YR.csv",
+                        #                             mime="text/csv")
                                 
-                            ###SIX YEAR LINE LISTS
-                                st.divider() 
-                                st.write(f"<h6><b>SIX MONTHS COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
-                                cola, colb, colc = st.columns(3)
-                                with cola:
-                                        if newlost6==0:
-                                            st.write('**NO 6 MTHS IIT**')
-                                        else:
-                                            dat = yearlost6()
-                                            csv_data = dat.to_csv(index=False)
-                                            tot = dat.shape[0]
-                                            st.write(f'**{tot} LTFUS**')
-                                            st.download_button(key='d',
-                                                        label="SIX MTHS IIT",
-                                                        data=csv_data,
-                                                        file_name=f"{facility} IIT_6.csv",
-                                                        mime="text/csv")
-                                with colb:
-                                        if outnew6==0:
-                                            st.markdown('**NO 6 MTHS TOs**')
-                                        else:
-                                            dat = yearto6()
-                                            csv_data = dat.to_csv(index=False)
-                                            tot = dat.shape[0]
-                                            st.write(f'**{tot} TOs**')
-                                            st.download_button(key='e',
-                                                        label=" 6 MTHS T.OUTS",
-                                                        data=csv_data,
-                                                        file_name=f" {facility} TO_1YR.csv",
-                                                        mime="text/csv")
-                                with colc:
-                                    if nvla6 ==0:
-                                        st.markdown('**NO 6 MTHS VL LIST**')
-                                    else:
-                                        dat = yearvl6()
-                                        csv_data = dat.to_csv(index=False)
-                                        tot = dat.shape[0]
-                                        st.write(f'**{tot} DUE FOR FIRST VL**')
-                                        st.download_button(key='f',
-                                                    label="6 MTHS VL",
-                                                    data=csv_data,
-                                                    file_name=f"{facility} VL6.csv",
-                                                    mime="text/csv")
+                        #     ###SIX YEAR LINE LISTS
+                        #         st.divider() 
+                        #         st.write(f"<h6><b>SIX MONTHS COHORT LINELISTS </b></h6>", unsafe_allow_html=True)
+                        #         cola, colb, colc = st.columns(3)
+                        #         with cola:
+                        #                 if newlost6==0:
+                        #                     st.write('**NO 6 MTHS IIT**')
+                        #                 else:
+                        #                     dat = yearlost6()
+                        #                     csv_data = dat.to_csv(index=False)
+                        #                     tot = dat.shape[0]
+                        #                     st.write(f'**{tot} LTFUS**')
+                        #                     st.download_button(key='d',
+                        #                                 label="SIX MTHS IIT",
+                        #                                 data=csv_data,
+                        #                                 file_name=f"{facility} IIT_6.csv",
+                        #                                 mime="text/csv")
+                        #         with colb:
+                        #                 if outnew6==0:
+                        #                     st.markdown('**NO 6 MTHS TOs**')
+                        #                 else:
+                        #                     dat = yearto6()
+                        #                     csv_data = dat.to_csv(index=False)
+                        #                     tot = dat.shape[0]
+                        #                     st.write(f'**{tot} TOs**')
+                        #                     st.download_button(key='e',
+                        #                                 label=" 6 MTHS T.OUTS",
+                        #                                 data=csv_data,
+                        #                                 file_name=f" {facility} TO_1YR.csv",
+                        #                                 mime="text/csv")
+                        #         with colc:
+                        #             if nvla6 ==0:
+                        #                 st.markdown('**NO 6 MTHS VL LIST**')
+                        #             else:
+                        #                 dat = yearvl6()
+                        #                 csv_data = dat.to_csv(index=False)
+                        #                 tot = dat.shape[0]
+                        #                 st.write(f'**{tot} DUE FOR FIRST VL**')
+                        #                 st.download_button(key='f',
+                        #                             label="6 MTHS VL",
+                        #                             data=csv_data,
+                        #                             file_name=f"{facility} VL6.csv",
+                        #                             mime="text/csv")
                                                             
                             ###THREE MTHS LINE LISTS
                                 st.divider()
