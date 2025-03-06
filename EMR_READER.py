@@ -1906,7 +1906,7 @@ def extract():
                                     if lostq ==0:
                                         st.write('**NO TXML**')
                                     else:
-                                       dat = curlost.copy() 
+                                       dat = currlost.copy() 
                                        csv_data = dat.to_csv(index=False)
                                        tot = dat.shape[0]
                                        st.write(f'**{tot} CLIENTS ARE LOST**')
