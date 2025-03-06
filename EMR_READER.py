@@ -1506,7 +1506,7 @@ def extract():
                             err = 'GD'
                     prev = int(prev)
                     part = [cluster,district,facility,week,wk,prev] #FIXED PART
-                    list6 = [pot, curr, curto, deadcur, lostq, hasvl]
+                    list7 = [pot, curr, curto, deadcur, lostq, hasvl]
                     bands =['<01','01 to 09','10 to 19','20-29','30-39', '40-49','50+']
                 
                     #cactive
@@ -1551,7 +1551,7 @@ def extract():
                     row3 = part + list3
                 
                     row4 = part + list4
-                    row6 = part +list6
+                    row7 = part +list7
                         
                     secrets = st.secrets["connections"]["gsheets"]
                     
@@ -1848,6 +1848,7 @@ def extract():
                                     dfline = pd.concat([dfex, line])
                                     conn.update(worksheet = 'LINELISTS', data = dfline)
                                     sheet6 = spreadsheet.worksheet("SUMM")
+                                    sheet7 = spreadsheet.worksheet("Q4")
                                     sheet6.append_row(linelists, value_input_option='RAW')
                                 
                                 sheet1 = spreadsheet.worksheet("TX")
@@ -1864,6 +1865,7 @@ def extract():
                                 sheet3.append_row(row3, value_input_option='RAW')
                                 sheet4.append_row(row4, value_input_option='RAW')
                                 sheet5.append_row(row5, value_input_option='RAW')
+                                sheet7.append_row(row7, value_input_option='RAW')
                                 st.session_state.submited = True
                             except Exception as e:
                                 # Print the error message
@@ -1881,6 +1883,22 @@ def extract():
                     if st.session_state.submited:
                             st.success('**SUBMITTED, To upload another excel, first refresh this page, or open the link afresh**')
                             st.divider()
+                            if pot < prev:
+                                st.info('**SOMETHING IS WRONG WITH THIS EXTRACT, SEND TO YOUR M AND E TO CHECK**)
+                                st.stop()
+                            else:
+                                pass 
+                            if curr < prev:
+                                st.write(f'**Banange, 😢 you have dropped this TX CURR BY {prev-curr}** 😢😢😢' )
+                            elif curr == prev:
+                                st.info('**THANK YOU, YOU HAVE ACHIEVED YOUR Q1 TX CURR 👏👏👏👏**')
+                                st.balloons()
+                                st.balloons()
+                            elif curr > prev:
+                                st.info(f'**CONGRATULATIONS, YOU HAVE EXCEEDED YOUR Q1 CURR BY {curr-prev} 👏👏👏👏**')
+                                st.balloons()
+                                st.balloons()
+                                st.balloons()
                             st.write(f"<h6><b>DOWNLOAD LINELISTS FROM HERE</b></h6>", unsafe_allow_html=True)
                             cola, colb, colc = st.columns(3)
                             with cola:
