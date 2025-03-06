@@ -1884,7 +1884,7 @@ def extract():
                             st.success('**SUBMITTED, To upload another excel, first refresh this page, or open the link afresh**')
                             st.divider()
                             if pot < prev:
-                                st.info('**SOMETHING IS WRONG WITH THIS EXTRACT, SEND TO YOUR M AND E TO CHECK**)
+                                st.info('**SOMETHING IS WRONG WITH THIS EXTRACT, SEND TO YOUR M AND E TO CHECK**')
                                 st.stop()
                             else:
                                 pass 
