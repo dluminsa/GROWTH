@@ -56,6 +56,7 @@ if 'q4' not in st.session_state:
          st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
          st.stop()
 dfearly = st.session_state.erl.copy()
+st.write(dfearly)
 
 
 #REPORTING RATES
