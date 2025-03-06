@@ -1909,7 +1909,7 @@ def extract():
                                        dat = currlost.copy() 
                                        csv_data = dat.to_csv(index=False)
                                        tot = dat.shape[0]
-                                       st.write(f'**YOUR TXML {tot}**')
+                                       st.write(f'**YOUR TXML IS {tot}**')
                                        st.download_button(
                                                     label="Q2 TXML",
                                                     data=csv_data,
