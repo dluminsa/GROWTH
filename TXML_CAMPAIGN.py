@@ -11,10 +11,10 @@ import time
 from streamlit_gsheets import GSheetsConnection
 from datetime import datetime
 
-# st.set_page_config(
-#     page_title = 'PROGRAM GROWTH',
-#     page_icon =":bar_chart"
-#     )
+st.set_page_config(
+    page_title = 'TXML CAMPAIGN',
+    page_icon =":bar_chart"
+    )
 
 #st.header('CODE UNDER MAINTENANCE, TRY AGAIN TOMORROW')
 #st.stop()
@@ -24,7 +24,7 @@ colb.subheader('PROGRAM GROWTH')
 today = datetime.now()
 todayd = today.strftime("%Y-%m-%d")# %H:%M")
 wk = today.strftime("%V")
-week = int(wk)-39
+week = int(wk)+13
 cola,colb = st.columns(2)
 cola.write(f"**DATE TODAY:    {todayd}**")
 colb.write(f"**CURRENT WEEK:    {week}**")
