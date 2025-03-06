@@ -1914,7 +1914,7 @@ def extract():
                                                     data=csv_data,
                                                     file_name=f"{facility} TXML.csv",
                                                     mime="text/csv")
-                           with colb:
+                            with colb:
                                     if lacks.shape[0] ==0:
                                         st.write('**NO VL LINELIST**')
                                     else:
