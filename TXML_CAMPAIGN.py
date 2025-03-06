@@ -56,7 +56,7 @@ if 'q4' not in st.session_state:
          st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
          st.stop()
 dfearly = st.session_state.erl.copy()
-st.write(dfearly)
+
 
 
 #REPORTING RATES
@@ -225,7 +225,7 @@ for each in weeks:
     dfa = dfa.drop_duplicates(subset=['FACILITY'], keep = 'last')
     dfs.append(dfa)
 dfearly = pd.concat(dfs)
-
+st.write(dfearly)
 #FILTERS
 st.sidebar.subheader('**Filter from here**')
 CLUSTER = st.sidebar.multiselect('CHOOSE A CLUSTER', clusters, key='a')
