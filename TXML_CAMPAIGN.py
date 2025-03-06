@@ -305,11 +305,13 @@ else:
 st.divider()
 cola, colb, colc = st.columns(3)
 colb.success('**QUICK SUMMARY**')
-cola, colb, colc,cold = st.columns(4)
-cola.info('**ON APPT**')
-colb.info('**ATTENDED**')
-colc.info('**MISSED**')
-cold.info("**% ATT'DCE**")
+cola, colb, colc = st.columns(3)
+cola.info('**Q1 CURR**')
+colb.info('**Q2 CURR**')
+colc.info('**BALANCE**')
+
+
+st.stop()
 apot = water[['APPT', 'TWO']].copy()
 apot[['APPT', 'TWO']] = apot[['APPT', 'TWO']].apply(pd.to_numeric,errors='coerce')
 onat = int(apot['APPT'].sum())
