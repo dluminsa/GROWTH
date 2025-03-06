@@ -814,7 +814,7 @@ def extract():
                         pot = df.shape[0] #THIS IS THE POTENTIAL TXCURR
                         #yyy = df.copy()
 
-                        QUARTERLY TX ML
+                        #QUARTERLY TX ML
                         dfcurr = df.copy()
                         #DEAD
                         dfcurr['Dyear'] = pd.to_numeric(dfcurr['Dyear'], errors='coerce')
