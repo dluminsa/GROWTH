@@ -345,8 +345,17 @@ fig2.update_layout(
 )
 fig2.update_xaxes(type='category')
 st.plotly_chart(fig2, use_container_width= True)
-
-
+st.write("**FACILITIES THAT HAVE EXCEEDED Q1 CURRS**")
+st.write("")
+st.write("")
+st.write("")
+st.write("")
+st.write("**FACILITIES THAT HAVE ACHIEVED Q1 CURRS**")
+st.write("")
+st.write("")
+st.write("")
+st.write("**FACILITIES THAT HAVE DROPPED TX CURRS**")
+                 
 st.stop()
 
 
