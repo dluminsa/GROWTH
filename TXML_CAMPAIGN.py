@@ -337,6 +337,14 @@ melted = grouped.melt(id_vars=['SURGE'], value_vars=['Q1', 'Q2', 'LOST'],
                             var_name='INTERVAL', value_name='Total')
 fig2 = px.line(melted, x='SURGE', y='Total', color='INTERVAL', markers=True,
               title='WEEKLY TRENDS IN TXCURR, TXML AND VL', labels={'SURGE':'WEEK', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'})
+fig2.update_layout(
+    width=800,  # Set the width of the plot
+    height=400,  # Set the height of the plot
+    xaxis=dict(showline=True, linewidth=1, linecolor='black'),  # Show x-axis line
+    yaxis=dict(showline=True, linewidth=1, linecolor='black')   # Show y-axis line
+)
+fig2.update_xaxes(type='category')
+st.plotly_chart(fig2, use_container_width= True)
 
 
 st.stop()
@@ -539,6 +547,7 @@ fig2.update_layout(
     yaxis=dict(showline=True, linewidth=1, linecolor='black')   # Show y-axis line
 )
 fig2.update_xaxes(type='category')
+st.plotly_chart(fig2, use_container_width= True)
 fig3.update_layout(
     width=800,  # Set the width of the plot
     height = 400,  # Set the height of the plot
