@@ -1848,7 +1848,7 @@ def extract():
                                     dfline = pd.concat([dfex, line])
                                     conn.update(worksheet = 'LINELISTS', data = dfline)
                                     sheet6 = spreadsheet.worksheet("SUMM")
-                                    sheet7 = spreadsheet.worksheet("Q4")
+                                    
                                     sheet6.append_row(linelists, value_input_option='RAW')
                                 
                                 sheet1 = spreadsheet.worksheet("TX")
@@ -1865,6 +1865,7 @@ def extract():
                                 sheet3.append_row(row3, value_input_option='RAW')
                                 sheet4.append_row(row4, value_input_option='RAW')
                                 sheet5.append_row(row5, value_input_option='RAW')
+                                sheet7 = spreadsheet.worksheet("Q4")
                                 sheet7.append_row(row7, value_input_option='RAW')
                                 st.session_state.submited = True
                             except Exception as e:
