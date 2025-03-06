@@ -2173,19 +2173,19 @@ def extract():
                             #                         file_name=f" {facility} MASTER_LIST.csv",
                             #                         mime="text/csv")
                 
-                                st.divider()
+                            st.divider()
                                 # st.write(FYA)
                                 # st.write(FYB)
                                 # st.write(FYA)
-                                st.success('**WANT TO HELP US IMPROVE?**')
-                                st.write('Are you getting different results when you filter the extract manually?, That is ok')
-                                st.write('**The intention of this program is to get the same results as you would manually, so help us improve by sending any variation you get to the TWG**')
-                                st.warning('Refer to the SOP section to see how this program arrives to the summaries and linelists you are seeing')
-                                st.write('')
-                                st.write('')
-                                st.write('')
-                                st.success('**CREATED BY Dr. LUMINSA DESIRE**')
-                                st.info('**WITH CONTRIBUTION FROM EDISON KATUNGUKA, SIMON SEMAKULA AND CHRIS MUGARA, FOR THE TWG**')
+                            st.success('**WANT TO HELP US IMPROVE?**')
+                            st.write('Are you getting different results when you filter the extract manually?, That is ok')
+                            st.write('**The intention of this program is to get the same results as you would manually, so help us improve by sending any variation you get to the TWG**')
+                            st.warning('Refer to the SOP section to see how this program arrives to the summaries and linelists you are seeing')
+                            st.write('')
+                            st.write('')
+                            st.write('')
+                            st.success('**CREATED BY Dr. LUMINSA DESIRE**')
+                            st.info('**WITH CONTRIBUTION FROM EDISON KATUNGUKA, SIMON SEMAKULA AND CHRIS MUGARA, FOR THE TWG**')
 pages = {
     "READER:": [
         st.Page(extract, title="EMR EXTRACT READER"),
