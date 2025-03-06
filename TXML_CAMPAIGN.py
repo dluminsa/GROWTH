@@ -225,7 +225,7 @@ for each in weeks:
     dfa = dfa.drop_duplicates(subset=['FACILITY'], keep = 'last')
     dfs.append(dfa)
 dfearly = pd.concat(dfs)
-st.write(dfearly)
+
 #FILTERS
 st.sidebar.subheader('**Filter from here**')
 CLUSTER = st.sidebar.multiselect('CHOOSE A CLUSTER', clusters, key='a')
@@ -313,7 +313,7 @@ colc.info('**BALANCE**')
 
 q1 = dfearly['Q1'].sum()
 q2 = dfearly['Q2'].sum()
-bal  = q2-q1
+bal  = q1-q2
 q1 = int(q1)
 q2 = int(q2)
 bal = int(bal)
@@ -329,9 +329,31 @@ cola.metric(label='a', value =f'{q1}', label_visibility='hidden')
 colb.metric(label='b', value =f'{q2}', label_visibility='hidden')
 colc.metric(label='c', value =f'{bal}', label_visibility='hidden')
 
+st.write('**WEEKLY TREND LINE SHOWING INCREASE IN TXCURRs, VL COVERAGE AND REDUCTION IN TXML**')
+
+grouped = dftearly.groupby('SURGE').sum(numeric_only=True).reset_index()
+
+melted = grouped.melt(id_vars=['SURGE'], value_vars=['Q1', 'Q2', 'LOST'],
+                            var_name='INTERVAL', value_name='Total')
+fig2 = px.line(melted, x='SURGE', y='Total', color='INTERVAL', markers=True,
+              title='WEEKLY TRENDS IN TXCURR, TXML AND VL', labels={'SURGE':'WEEK', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'})
 
 
 st.stop()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 wik = week -2 
 st.write(f'**APPOINTMENTS SINCE 3rd SEPT TO WEEK {wik}**')
 
@@ -351,12 +373,6 @@ mostfas3 = ','.join(topfas3['FACILITY'].unique())
 topdis2 = mostd.nlargest(2)
 topdis2 = topdis2.reset_index()
 mostdis2 = ','.join(topdis2['DISTRICT'].unique())
-
-##TOP 1
-# topfas3 = mostf.nlargest(3)
-# topfas3 = topfas3.reset_index()
-# mostfas3 = ','.join(topfas3['FACILITY'].unique())
-
 
 
 checkf = water['FACILITY'].nunique()
@@ -497,6 +513,8 @@ grouped = dftx.groupby('SURGE').sum(numeric_only=True).reset_index()
 
 melted = grouped.melt(id_vars=['SURGE'], value_vars=['TWO', 'THREE', 'FOUR'],
                             var_name='INTERVAL', value_name='Total')
+fig2 = px.line(melted, x='SURGE', y='Total', color='INTERVAL', markers=True,
+              title='MISSED APPOINTMENTS FOR MORE THAN 2, 3 OR 4 WEEKS', labels={'SURGE':'WEEK', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'})
 
 # melted = grouped.melt(id_vars=['SURGE'], value_vars=['TWO', 'THREE', 'FOUR'],
 #                             var_name='INTERVAL', value_name='Total')
