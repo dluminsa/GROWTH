@@ -1894,11 +1894,14 @@ def extract():
                             elif curr == prev:
                                 st.info('**THANK YOU, YOU HAVE ACHIEVED YOUR Q1 TX CURR 👏👏👏👏**')
                                 st.balloons()
+                                time.sleep(2)
                                 st.balloons()
                             elif curr > prev:
                                 st.info(f'**CONGRATULATIONS, YOU HAVE EXCEEDED YOUR Q1 CURR BY {curr-prev} 👏👏👏👏**')
                                 st.balloons()
+                                time.sleep(2)
                                 st.balloons()
+                                time.sleep(2)
                                 st.balloons()
                             st.write(f"<h6><b>DOWNLOAD LINELISTS FROM HERE</b></h6>", unsafe_allow_html=True)
                             cola, colb, colc = st.columns(3)
@@ -1922,7 +1925,7 @@ def extract():
                                        dat = lacks.copy() 
                                        csv_data = dat.to_csv(index=False)
                                        tot = dat.shape[0]
-                                       st.write(f'**{tot} CLIENTS ARE DUE**')
+                                       st.write(f'**{tot} CLIENTS ARE DUE FOR VL**')
                                        st.download_button(
                                                     label="VL LINELISTS",
                                                     data=csv_data,
