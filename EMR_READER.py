@@ -818,8 +818,8 @@ def extract():
                         dfcurr = df.copy()
                         #DEAD
                         dfcurr['Dyear'] = pd.to_numeric(dfcurr['Dyear'], errors='coerce')
-                        deadq = dfcurr[dfcurr['Dyear']==994].copy()  #THE DEAD
-                        dfcurr = dfcurr[dfcurr['Dyear']!=994].copy() #REMOVED THE DEAD
+                        deadq = dfcurr[dfcurr['Dyear']!=994].copy()  #THE DEAD
+                        dfcurr = dfcurr[dfcurr['Dyear']==994].copy() #REMOVED THE DEAD
                         ####TO
                         dfcurr['Tyear'] = pd.to_numeric(dfcurr['Tyear'], errors='coerce')
                         dfcurra = dfcurr[dfcurr['Tyear']!=994].copy()  #NO TO 
