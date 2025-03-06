@@ -2195,7 +2195,7 @@ pages = {
         st.Page(extract, title="EMR EXTRACT READER"),
     ],
     "VISUALISATION:":[
-        st.Page("RETENTION.py", title="RETENTION"),
+        st.Page("TXML_CAMPAIGN.py", title="TXML CAMPAIGN"),
         st.Page("VL_SECTION.py", title="LINELISTS")],
     "RESOURCES:": [
         st.Page("SOPs.py", title="SOPs"),
