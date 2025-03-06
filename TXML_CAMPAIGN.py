@@ -45,41 +45,17 @@ if 'tx' not in st.session_state:
 dftx = st.session_state.tx.copy()
 #st.write(dftx)
 
-if 'yr' not in st.session_state:     
+if 'q4' not in st.session_state:     
      try:
         #cola,colb= st.columns(2)
         conn = st.connection('gsheets', type=GSheetsConnection)
-        exist = conn.read(worksheet= 'YEARS', usecols=list(range(33)),ttl=5)
-        tx = exist.dropna(how='all')
-        st.session_state.yr = tx 
-     except:
-         st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
-         st.stop()
-dfyr = st.session_state.yr.copy()
-
-if 'erl' not in st.session_state:     
-     try:
-        #cola,colb= st.columns(2)
-        conn = st.connection('gsheets', type=GSheetsConnection)
-        exist = conn.read(worksheet= 'THREEO', usecols=list(range(24)),ttl=5)
+        exist = conn.read(worksheet= 'Q4', usecols=list(range(24)),ttl=5)
         tx = exist.dropna(how='all')
         st.session_state.erl = tx 
      except:
          st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
          st.stop()
 dfearly = st.session_state.erl.copy()
-
-if 'cira' not in st.session_state:     
-     try:
-        #cola,colb= st.columns(2)
-        conn = st.connection('gsheets', type=GSheetsConnection)
-        exist = conn.read(worksheet= 'CIRA', usecols=list(range(48)),ttl=5)
-        tx = exist.dropna(how='all')
-        st.session_state.cira = tx 
-     except:
-         st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
-         st.stop()
-dfcira = st.session_state.cira.copy()
 
 
 #REPORTING RATES
@@ -99,10 +75,7 @@ dfb = dfb.drop_duplicates(subset='FACILITY', keep='last')
 dfa['FACILITY'] = dfa['FACILITY'].astype(str)
 dfb['FACILITY'] = dfb['FACILITY'].astype(str)
 none = dfa[~dfa['FACILITY'].isin(dfb['FACILITY'])].copy()
-# merged = dfa.merge(dfb, on=['DISTRICT', 'FACILITY'], how='left', indicator=True)
-# none = merged[merged['_merge'] == 'left_only'].drop(columns=['_merge'])
-# none = none.reset_index()
-# none = none.drop(columns='index')
+
 all = none.shape[0]
 buk = none[none['DISTRICT']=='BUKOMANSIMBI'].copy()
 semb = none[none['DISTRICT']=='SEMBABULE'].copy()
@@ -234,10 +207,10 @@ weeks = dftx['SURGE'].unique()
 
 fac = dfyr['FACILITY'].unique()
 
-#TO USE WHERE WEEKS ARE NOT NEEDED FOR TX
+#TO USE WHERE WEEKS WE DON'T NEED TRENDS
 dfy = []
 for every in fac:
-    dff = dftx[dftx['FACILITY']== every]
+    dff = dfearly[dfearly['FACILITY']== every]
     dff = dff.drop_duplicates(subset=['FACILITY'], keep = 'last')
     dfy.append(dff)
 water = pd.concat(dfy)
@@ -250,29 +223,8 @@ for every in fac:
     dfy.append(dff)
 wateryr = pd.concat(dfy)
 
-#TO USE WHERE WEEKS ARE NOT NEEDED FOR CIRA
-dfy = []
-for every in fac:
-    dff = dfcira[dfcira['FACILITY']== every]
-    dff = dff.drop_duplicates(subset=['FACILITY'], keep = 'last')
-    dfy.append(dff)
-watercira= pd.concat(dfy)
 
-dfy = []
-for every in fac:
-    dff = dfearly[dfearly['FACILITY']== every]
-    dff = dff.drop_duplicates(subset=['FACILITY'], keep = 'last')
-    dfy.append(dff)
-waterly = pd.concat(dfy)
 
-#REMOVE DUPLICATES FROM TX SHEET # HOLD THIS IN SESSION LATER
-dfs=[]   
-for each in weeks:
-    dftx['SURGE'] = pd.to_numeric(dftx['SURGE'], errors='coerce')
-    dfa = dftx[dftx['SURGE']==each]
-    dfa = dfa.drop_duplicates(subset=['FACILITY'], keep = 'last')
-    dfs.append(dfa)
-dftx = pd.concat(dfs)
 
 #REMOVE DUPLICATES FROM YEAR SHEET # HOLD THIS IN SESSION LATER
 dfs=[]   
