@@ -855,7 +855,7 @@ def extract():
                         curto = dfctoT.shape[0]
                         hasvl = has.shape[0]
                         deadcur = deadq.shape[0]                       
-                        lostq = curlost.shape[0]
+                        lostq = currlost.shape[0]
                         #TRANSFER OUTS
                         
                         #TRANSFER INS
