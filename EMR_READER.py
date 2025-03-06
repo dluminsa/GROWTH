@@ -837,7 +837,7 @@ def extract():
                         curlostb = dfcur[dfcur['Ryear'] == 2025].copy() #LOST THIS YEAR
         
                         curlostb[['Ryear', 'Rmonth', 'Rday']] = curlostb[['Ryear', 'Rmonth', 'Rday']].apply(pd.to_numeric, errors ='coerce')
-                        curlostb = curlostb[ ((curlostb['Rmonth']<3) |(( curlostb['Rmonth']==3) & (curlost['Rday']<4)))].copy()
+                        curlostb = curlostb[ ((curlostb['Rmonth']<3) |(( curlostb['Rmonth']==3) & (curlostb['Rday']<4)))].copy()
                         currlost = pd.concat([curlosta, curlostb])
         
                         cur26 = dfcur[dfcur['Ryear'] >2025].copy() #ACTIVE NEXT OTHER YEARS
