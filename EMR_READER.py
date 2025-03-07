@@ -840,14 +840,14 @@ def extract():
                         curlosta = dfcur[dfcur['Ryear']< 2025].copy() #LOST IN DEC, MAY NOT APPLY NEXT Q
                         
                         curlostb = dfcur[dfcur['Ryear'] == 2025].copy() #LOST THIS YEAR
-                        st.write(curlostb.shape[0])
+                        
                         curlostb[['Ryear', 'Rmonth', 'Rday']] = curlostb[['Ryear', 'Rmonth', 'Rday']].apply(pd.to_numeric, errors ='coerce')
-                        curlostb = curlostb[ ((curlostb['Rmonth']<3) |(( curlostb['Rmonth']==3) & (curlostb['Rday']<4)))].copy()
-                        currlost = pd.concat([curlosta, curlostb])
+                        curlostc = curlostb[ ((curlostb['Rmonth']<3) |(( curlostb['Rmonth']==3) & (curlostb['Rday']<4)))].copy()
+                        currlost = pd.concat([curlosta, curlostc])
         
                         cur26 = dfcur[dfcur['Ryear'] >2025].copy() #ACTIVE NEXT OTHER YEARS
                         cur25 = dfcur[dfcur['Ryear'] == 2025].copy() # ACTIVE THIS YEAR
-        
+                        st.write(cur25.shape[0])
                         cur25[['Ryear', 'Rmonth', 'Rday']] = curlostb[['Ryear', 'Rmonth', 'Rday']].apply(pd.to_numeric, errors ='coerce')
                         cur25 = cur25[ ((cur25['Rmonth']>3) |(( cur25['Rmonth']==3) & (curlostb['Rday']>3)))].copy()
                         dfcur = pd.concat([cur25, cur26])
