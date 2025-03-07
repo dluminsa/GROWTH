@@ -846,14 +846,13 @@ def extract():
                         cur25[['Ryear', 'Rmonth', 'Rday']] = curlostb[['Ryear', 'Rmonth', 'Rday']].apply(pd.to_numeric, errors ='coerce')
                         cur25 = cur25[ ((cur25['Rmonth']>3) |(( cur25['Rmonth']==3) & (curlostb['Rday']>3)))].copy()
                         dfcur = pd.concat([cur25, cur26])
-                        st.write(dfcur)
+                        
                         #VL SECTION 
                         dfcur[['Vyear', 'Vmonth']] = dfcur[['Vyear', 'Vmonth']].apply(pd.to_numeric, errors='coerce')
                         
                         has = dfcur[((dfcur['Vyear'] ==2025) | ((dfcur['Vyear'] ==2024) & (dfcur['Vmonth']>3)))]
                         #MEASURES 
-                        curr = dfcur.shape[0]
-                        st.write(dfcur.shape[0])
+                        txcurr = dfcur.shape[0]
                         curto = dfctoT.shape[0]
                         hasvl = has.shape[0]
                         deadcur = deadq.shape[0]                       
@@ -1508,7 +1507,7 @@ def extract():
                             err = 'GD'
                     prev = int(prev)
                     part = [cluster,district,facility,week,wk,prev] #FIXED PART
-                    list7 = [pot, curr, curto, deadcur, lostq, hasvl]
+                    list7 = [pot, txcurr, curto, deadcur, lostq, hasvl]
                     bands =['<01','01 to 09','10 to 19','20-29','30-39', '40-49','50+']
                 
                     #cactive
@@ -1891,7 +1890,7 @@ def extract():
                                 st.stop()
                             else:
                                 pass 
-                            st.write(f'**Q1 CURR: {prev}, CURRENT CURR {curr}**')
+                            st.write(f'**Q1 CURR: {prev}, CURRENT CURR {txcurr}**')
                             if curr < prev:
                                 st.write(f'**Banange, 😢 you have dropped this TX CURR BY {prev-curr}** 😢😢😢' )
                             elif curr == prev:
