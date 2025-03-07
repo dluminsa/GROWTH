@@ -838,9 +838,9 @@ def extract():
         
                         dfcur[['Ryear', 'Rmonth', 'Rday']] = dfcur[['Ryear', 'Rmonth', 'Rday']].apply(pd.to_numeric, errors ='coerce')
                         curlosta = dfcur[dfcur['Ryear']< 2025].copy() #LOST IN DEC, MAY NOT APPLY NEXT Q
-                        st.write(curlosta.shape[0])
+                        
                         curlostb = dfcur[dfcur['Ryear'] == 2025].copy() #LOST THIS YEAR
-        
+                        st.write(curlostb.shape[0])
                         curlostb[['Ryear', 'Rmonth', 'Rday']] = curlostb[['Ryear', 'Rmonth', 'Rday']].apply(pd.to_numeric, errors ='coerce')
                         curlostb = curlostb[ ((curlostb['Rmonth']<3) |(( curlostb['Rmonth']==3) & (curlostb['Rday']<4)))].copy()
                         currlost = pd.concat([curlosta, curlostb])
