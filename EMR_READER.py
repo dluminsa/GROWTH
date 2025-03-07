@@ -826,13 +826,14 @@ def extract():
                         dfcurra = dfcurr[dfcurr['Tyear']==994].copy()  #NO TO 
                         
                         dfcto = dfcurr[dfcurr['Tyear']!=994].copy() #HAS TOs and no TOs
-                        st.write(dfcto.shape[0])
+                        
                         dfcto['Ryear'] = pd.to_numeric(dfcto['Ryear'], errors = 'coerce')
                         dfcto[['Ryear', 'Rmonth']] =  dfcto[['Ryear', 'Rmonth']].apply(pd.to_numeric)
                         dfctoF = dfcto[ ((dfcto['Ryear']> 2025) | ((dfcto['Ryear'] ==2025) & (dfcto['Rmonth']>3))) ].copy()
                         dfctoT = dfcto[ ((dfcto['Ryear']< 2025) | ((dfcto['Ryear'] ==2025) & (dfcto['Rmonth']<4))) ].copy()
 
                         dfcur = pd.concat([dfcurra, dfctoF])
+                        st.write(dfcur)
                         lacks = dfcur[((dfcur['Vyear']< 2024) | ((dfcur['Vyear'] ==2024) & (dfcur['Vmonth']<4)))]
                         dfcur[['Ryear', 'Rmonth', 'Rday']] = dfcur[['Ryear', 'Rmonth', 'Rday']].apply(pd.to_numeric, errors ='coerce')
                         curlosta = dfcur[dfcur['Ryear']< 2025].copy() #LOST IN DEC, MAY NOT APPLY NEXT Q
