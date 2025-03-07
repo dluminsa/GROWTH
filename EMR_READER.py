@@ -846,14 +846,14 @@ def extract():
                         cur25[['Ryear', 'Rmonth', 'Rday']] = curlostb[['Ryear', 'Rmonth', 'Rday']].apply(pd.to_numeric, errors ='coerce')
                         cur25 = cur25[ ((cur25['Rmonth']>3) |(( cur25['Rmonth']==3) & (curlostb['Rday']>3)))].copy()
                         dfcur = pd.concat([cur25, cur26])
-
+                        st.write(dfcur)
                         #VL SECTION 
                         dfcur[['Vyear', 'Vmonth']] = dfcur[['Vyear', 'Vmonth']].apply(pd.to_numeric, errors='coerce')
-                        st.write(dfcur)
+                        
                         has = dfcur[((dfcur['Vyear'] ==2025) | ((dfcur['Vyear'] ==2024) & (dfcur['Vmonth']>3)))]
                         #MEASURES 
                         curr = dfcur.shape[0]
-                        st.write(dfcur)
+                        st.write(dfcur.shape[0])
                         curto = dfctoT.shape[0]
                         hasvl = has.shape[0]
                         deadcur = deadq.shape[0]                       
