@@ -849,6 +849,7 @@ def extract():
 
                         #VL SECTION 
                         dfcur[['Vyear', 'Vmonth']] = dfcur[['Vyear', 'Vmonth']].apply(pd.to_numeric, errors='coerce')
+                        st.write(dfcur)
                         has = dfcur[((dfcur['Vyear'] ==2025) | ((dfcur['Vyear'] ==2024) & (dfcur['Vmonth']>3)))]
                         #MEASURES 
                         curr = dfcur.shape[0]
