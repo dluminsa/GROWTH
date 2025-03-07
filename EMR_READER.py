@@ -816,6 +816,7 @@ def extract():
 
                         #QUARTERLY TX ML
                         dfcurr = df.copy()
+                        st.write(dfcurr)
                         #DEAD
                         dfcurr['Dyear'] = pd.to_numeric(dfcurr['Dyear'], errors='coerce')
                         deadq = dfcurr[dfcurr['Dyear']!=994].copy()  #THE DEAD
