@@ -853,6 +853,7 @@ def extract():
                         has = dfcur[((dfcur['Vyear'] ==2025) | ((dfcur['Vyear'] ==2024) & (dfcur['Vmonth']>3)))]
                         #MEASURES 
                         curr = dfcur.shape[0]
+                        st.write(dfcur)
                         curto = dfctoT.shape[0]
                         hasvl = has.shape[0]
                         deadcur = deadq.shape[0]                       
