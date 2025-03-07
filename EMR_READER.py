@@ -862,6 +862,7 @@ def extract():
                         hasvl = has.shape[0]
                         deadcur = deadq.shape[0]                       
                         lostq = currlost.shape[0]
+                        vlcov = round(hasvl/txcurr)*100)
                         #TRANSFER OUTS
                         
                         #TRANSFER INS
@@ -1895,9 +1896,9 @@ def extract():
                                 st.stop()
                             else:
                                 pass 
-                            st.write(f'**Q1 CURR: {prev}, CURRENT CURR {txcurr}**')
+                            st.write(f'**Q1 CURR: {prev}, CURRENT CURR {txcurr}, VL COVERAGE {vlcov} %**')
                             if curr < prev:
-                                st.write(f'**Banange, 😢 you have dropped this TX CURR BY {prev-curr}** 😢😢😢' )
+                                st.write(f'**Banange, 😢 you have dropped this TX CURR BY {prev-txcurr}** 😢😢😢' )
                             elif curr == prev:
                                 st.info('**THANK YOU, YOU HAVE ACHIEVED YOUR Q1 TX CURR 👏👏👏👏**')
                                 st.balloons()
