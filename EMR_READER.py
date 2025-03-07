@@ -862,8 +862,7 @@ def extract():
                         hasvl = has.shape[0]
                         deadcur = deadq.shape[0]                       
                         lostq = currlost.shape[0]
-                        vlcov = hasvl/txcurr
-                        # vlcov = round(hasvl/txcurr)*100)
+                        vlcov = round((hasvl/txcurr)*100)
                         #TRANSFER OUTS
                         
                         #TRANSFER INS
