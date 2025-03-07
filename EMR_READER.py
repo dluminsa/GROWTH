@@ -1889,6 +1889,7 @@ def extract():
                                 st.stop()
                             else:
                                 pass 
+                            st.write(f'**Q1 CURR: {prev}, CURRENT CURR {curr}**')
                             if curr < prev:
                                 st.write(f'**Banange, 😢 you have dropped this TX CURR BY {prev-curr}** 😢😢😢' )
                             elif curr == prev:
