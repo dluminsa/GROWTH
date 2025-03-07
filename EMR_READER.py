@@ -1494,7 +1494,7 @@ def extract():
                         dat = dat.rename(columns ={'ART':'ART NO.','AS':'ART START DATE', 'RD':'RETURN DATE', 'VD':'VIRAL LOAD DATE'})
                         return dat                  
                     preva = dfx[dfx['FACILITY']==facility] 
-                    prev = preva['Q4 CUR'].sum()
+                    prev = preva['Q1'].sum()
                     fact = pot-prev
                     if fact < 2:
                             st.warning('THE POTENTIAL TX CURR IS LESS THAN THE Q4 CURR, WHICH MEANS AN ERROR WITH THIS EXTRACT')
