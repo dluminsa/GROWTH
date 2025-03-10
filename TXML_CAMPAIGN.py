@@ -63,8 +63,8 @@ dfearly = st.session_state.erl.copy()
 @st.cache_data
 def report():
     df = pd.read_csv('CLUSTERS.csv')
-    df['Q4 CUR'] = pd.to_numeric(df['Q4 CUR'], errors='coerce')
-    df = df[df['Q4 CUR']>0].copy()
+    df['Q1'] = pd.to_numeric(df['Q1'], errors='coerce')
+    df = df[df['Q1']>0].copy()
     return df  
 
 dfrep = report()
