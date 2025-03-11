@@ -367,7 +367,7 @@ st.write("**FACILITIES THAT HAVE EXCEEDED Q1 CURRS**")
 dfearly[['Q1', 'Q2']] = dfearly[['Q1', 'Q2']].apply(pd.to_numeric,errors='coerce')
 dfearlyx = dfearly[['DISTRICT', 'FACILITY', 'Q1', 'Q2', 'LOST','VL COV']].copy()
 dfearlyx = dfearlyx.rename(columns={'Q1':'Q1 CURR', 'Q2':'Q2 CURR', 'LOST': 'TXML'})
-exceeded = dfearlyx[dfearlyx['Q2']> dfearlyx['Q1']].copy()
+exceeded = dfearlyx[dfearlyx['Q2 CURR']> dfearlyx['Q1 CURR']].copy()
 if exceeded.shape[0] == 0:
     st.write('**NO FACILITY SO FAR**')
 else:
@@ -379,7 +379,7 @@ st.write("")
 st.write("")
 st.write("")
 st.write("**FACILITIES WHOSE Q2 CURRS ARE EQUAL TO Q1 CURRS**")
-achieved = dfearlyx[dfearlyx['Q2']== dfearlyx['Q1']].copy()
+achieved = dfearlyx[dfearlyx['Q2 CURR']== dfearlyx['Q1 CURR']].copy()
 if achieved.shape[0] == 0:
     st.write('**NO FACILITY SO FAR**')
 else:
@@ -392,7 +392,7 @@ st.write("")
 st.write("")
 st.write("")
 st.write("**FACILITIES THAT HAVE DROPPED TX CURRS**")
-dropped = dfearlyx[dfearlyx['Q2']< dfearlyx['Q1']].copy()  
+dropped = dfearlyx[dfearlyx['Q2 CURR']< dfearlyx['Q1 CURR']].copy()  
 if dropped.shape[0] == 0:
     st.write('**NO FACILITY SO FAR**')
 else:
