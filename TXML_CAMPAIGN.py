@@ -56,7 +56,9 @@ if 'q4' not in st.session_state:
          st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
          st.stop()
 dfearly = st.session_state.erl.copy()
-
+dfearly[['POTENTIAL', 'Q1']] = dfearly[['POTENTIAL', 'Q1']].apply(pd.to_numeric, errors='coerce')
+dfearly = dfearly[dfearly['POTENTIAL']> dfearly['Q1']].copy()
+rejected = dfearly[dfearly['POTENTIAL']< dfearly['Q1']].copy()
 
 
 #REPORTING RATES
