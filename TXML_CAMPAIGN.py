@@ -217,14 +217,6 @@ for every in fac:
     dff = dff.drop_duplicates(subset=['FACILITY'], keep = 'last')
     dfy.append(dff)
 water = pd.concat(dfy)
-waterx = water.copy()
-waterx[['Q2', 'VL']] = waterx[['Q2', 'VL']].apply(pd.to_numeric, errors='coerce')
-waterx['VL COV'] = waterx['VL']/waterx['Q2']*100
-# waterx['VL COV'] = int(waterx['VL COV'])
-waterx = waterx[['CLUSTER', 'DISTRICT', 'FACILITY', 'Q1', 'Q2', 'LOST', 'VL COV']].copy()
-waterx = waterx.rename(columns={'Q1':'Q1 CURR', 'Q2':'Q2 CURR', 'LOST': 'TXML'})
-waterx = waterx.reset_index()
-
 
 #REMOVE DUPLICATES FROM EARLY SHEET # HOLD THIS IN SESSION LATER
 dfearly['DATEX'] = pd.to_datetime(dfearly['DATE'], errors='coerce')
@@ -308,7 +300,16 @@ if facility:
     water = water[water['FACILITY'].isin(facility)].copy()
     dfearly = dfearly[dfearly['FACILITY'].isin(facility)].copy()
     dfrep = dfrep[dfrep['FACILITY'].isin(facility)].copy()
+    
+waterx = water.copy()
+waterx[['Q2', 'VL']] = waterx[['Q2', 'VL']].apply(pd.to_numeric, errors='coerce')
+waterx['VL COV'] = round(waterx['VL']/waterx['Q2']*100)
+# waterx['VL COV'] = int(waterx['VL COV'])
+waterx = waterx[['CLUSTER', 'DISTRICT', 'FACILITY', 'Q1', 'Q2', 'LOST', 'VL COV']].copy()
+waterx = waterx.rename(columns={'Q1':'Q1 CURR', 'Q2':'Q2 CURR', 'LOST': 'TXML'})
+waterx.index = range(1, len(waterx) + 1)
 st.write(waterx)    
+
 check = water.shape[0]
 if check == 0:
     st.warning('***NO DATA FOR THE SELECTION MADE**')
@@ -359,18 +360,40 @@ fig2.update_layout(
 fig2.update_xaxes(type='category')
 st.plotly_chart(fig2, use_container_width= True)
 st.write("**FACILITIES THAT HAVE EXCEEDED Q1 CURRS**")
-dfearly['CHECK'] = dfearly['Q2']- dfearly['Q1']
-exceeded = dfearly[dfearly['CHECK']>0]
+dfearly[['Q1', 'Q2']] = dfearly[['Q1', 'Q2']].apply(pd.to_numeric,errors='coerce')
+exceeded = dfearly[dfearly['Q2']> dfearly['Q1']].copy()
+if exceeded.shape[0] == 0:
+    st.write('**NO FACILITY SO FAR**')
+else:
+    c = exceeded.shape[0]
+    st.write(f"**{int(c) FACILITIES HAVE LESS Q2 TX CURRS THAN Q1 CURRS**")
+    exceeded.index = range(1, len(exceeded) + 1)
+    st.write(exceeded)
 st.write("")
 st.write("")
 st.write("")
-st.write("**FACILITIES THAT HAVE ACHIEVED Q1 CURRS**")
-achieved = dfearly[dfearly['CHECK']==0]
+st.write("**FACILITIES WHOSE Q2 CURRS ARE EQUAL TO Q1 CURRS**")
+achieved = dfearly[dfearly['Q2']== dfearly['Q1']].copy()
+if achieved.shape[0] == 0:
+    st.write('**NO FACILITY SO FAR**')
+else:
+    b = achieved.shape[0]
+    st.write(f"**{int(b) FACILITIES HAVE LESS Q2 TX CURRS THAN Q1 CURRS**")
+    achieved.index = range(1, len(achieved) + 1)
+    st.write(achieved)
+
 st.write("")
 st.write("")
 st.write("")
 st.write("**FACILITIES THAT HAVE DROPPED TX CURRS**")
-exceeded = dfearly[dfearly['CHECK']>0]               
+dropped = dfearly[dfearly['Q2']< dfearly['Q1']].copy()  
+if dropped.shape[0] == 0:
+    st.write('**NO FACILITY SO FAR**')
+else:
+    a = dropped.shape[0]
+    st.write(f"**{int(a) FACILITIES HAVE LESS Q2 TX CURRS THAN Q1 CURRS**")
+    dropped.index = range(1, len(dropped) + 1)
+    st.write(dropped)
 st.stop()
 
 
