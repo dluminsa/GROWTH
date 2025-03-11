@@ -32,18 +32,18 @@ dd = int(week)
 k = int(wk)
 #st.warning('***CURRENT DATA IS FOR DEMONSTRATION ONLY, WILL BE REMOVED AFTER ROLLING OUT THE DASHBOARD**')
 
-if 'tx' not in st.session_state:     
-     try:
-        #cola,colb= st.columns(2)
-        conn = st.connection('gsheets', type=GSheetsConnection)
-        exist = conn.read(worksheet= 'TX', usecols=list(range(22)),ttl=5)
-        tx = exist.dropna(how='all')
-        st.session_state.tx = tx
-     except:
-         st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
-         st.stop()
-dftx = st.session_state.tx.copy()
-#st.write(dftx)
+# if 'tx' not in st.session_state:     
+#      try:
+#         #cola,colb= st.columns(2)
+#         conn = st.connection('gsheets', type=GSheetsConnection)
+#         exist = conn.read(worksheet= 'TX', usecols=list(range(22)),ttl=5)
+#         tx = exist.dropna(how='all')
+#         st.session_state.tx = tx
+#      except:
+#          st.write("POOR NETWORK, COULDN'T CONNECT TO DELIVERY DATABASE")
+#          st.stop()
+# dftx = st.session_state.tx.copy()
+# #st.write(dftx)
 
 if 'q4' not in st.session_state:     
      try:
@@ -215,6 +215,7 @@ for every in fac:
     dff = dff.drop_duplicates(subset=['FACILITY'], keep = 'last')
     dfy.append(dff)
 water = pd.concat(dfy)
+st.write(water)
 
 
 #REMOVE DUPLICATES FROM EARLY SHEET # HOLD THIS IN SESSION LATER
