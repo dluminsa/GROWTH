@@ -1515,7 +1515,7 @@ def extract():
                     part = [cluster,district,facility,week,wk,prev] #FIXED PART
                     td = dt.date.today()
                     td = str(td)
-                    list7 = [pot, txcurr, curto, deadcur, lostq, hasvl. td]
+                    list7 = [pot, txcurr, curto, deadcur, lostq, hasvl, td]
                     bands =['<01','01 to 09','10 to 19','20-29','30-39', '40-49','50+']
                 
                     #cactive
