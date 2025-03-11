@@ -226,7 +226,7 @@ days = dfearly['DAY'].unique()
 dfs=[]   
 for each in days:
     dfearly['DAY'] = pd.to_numeric(dfearly['DAY'], errors='coerce')
-    dfa = dfearly[dfearly['SURGE']==each]
+    dfa = dfearly[dfearly['DAYS']==each]
     dfa = dfa.drop_duplicates(subset=['FACILITY'], keep = 'last')
     dfs.append(dfa)
 dfearly = pd.concat(dfs)
@@ -307,7 +307,7 @@ if check == 0:
     st.stop()
 else:
     pass
-#st.write(water.columns)
+
 st.divider()
 cola, colb, colc = st.columns(3)
 colb.success('**QUICK SUMMARY**')
@@ -315,7 +315,7 @@ cola, colb, colc = st.columns(3)
 cola.info('**Q1 CURR**')
 colb.info('**Q2 CURR**')
 colc.info('**BALANCE**')
-st.write(dfearly)
+
 q1 = dfearly['Q1'].sum()
 q2 = dfearly['Q2'].sum()
 bal  = q1-q2
