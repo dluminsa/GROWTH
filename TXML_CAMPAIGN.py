@@ -212,11 +212,11 @@ fac = dfearly['FACILITY'].unique()
 
 #TO USE WHERE WEEKS WE DON'T NEED TRENDS
 dfy = []
-for every in fac:
-    dff = dfearly[dfearly['FACILITY']== every]
-    dff = dff.drop_duplicates(subset=['FACILITY'], keep = 'last')
-    dfy.append(dff)
-water = pd.concat(dfy)
+# for every in fac:
+#     dff = dfearly[dfearly['FACILITY']== every]
+#     dff = dff.drop_duplicates(subset=['FACILITY'], keep = 'last')
+#     dfy.append(dff)
+# water = pd.concat(dfy)
 
 #REMOVE DUPLICATES FROM EARLY SHEET # HOLD THIS IN SESSION LATER
 dfearly['DATEX'] = pd.to_datetime(dfearly['DATE'], errors='coerce')
