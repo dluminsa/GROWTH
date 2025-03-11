@@ -215,7 +215,7 @@ for every in fac:
     dff = dff.drop_duplicates(subset=['FACILITY'], keep = 'last')
     dfy.append(dff)
 water = pd.concat(dfy)
-st.write(water)
+
 
 
 #REMOVE DUPLICATES FROM EARLY SHEET # HOLD THIS IN SESSION LATER
@@ -300,7 +300,7 @@ if facility:
     water = water[water['FACILITY'].isin(facility)].copy()
     dfearly = dfearly[dfearly['FACILITY'].isin(facility)].copy()
     dfrep = dfrep[dfrep['FACILITY'].isin(facility)].copy()
-    
+st.write(water)    
 check = water.shape[0]
 if check == 0:
     st.warning('***NO DATA FOR THE SELECTION MADE**')
