@@ -5,6 +5,7 @@ import numpy as np
 import gspread
 from openpyxl import load_workbook
 from pathlib import Path
+ssss
 import traceback
 import time
 from google.oauth2.service_account import Credentials
@@ -1513,7 +1514,9 @@ def extract():
                             err = 'GD'
                     prev = int(prev)
                     part = [cluster,district,facility,week,wk,prev] #FIXED PART
-                    list7 = [pot, txcurr, curto, deadcur, lostq, hasvl]
+                    td = dt.date.today()
+                    td = str(td)
+                    list7 = [pot, txcurr, curto, deadcur, lostq, hasvl. td]
                     bands =['<01','01 to 09','10 to 19','20-29','30-39', '40-49','50+']
                 
                     #cactive
