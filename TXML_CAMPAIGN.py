@@ -339,8 +339,8 @@ grouped = dfearly.groupby('DAY').sum(numeric_only=True).reset_index()
 
 melted = grouped.melt(id_vars=['DAY'], value_vars=['Q1', 'Q2', 'LOST'],
                             var_name='INTERVAL', value_name='Total')
-fig2 = px.line(melted, x='SURGE', y='Total', color='INTERVAL', markers=True,
-              title='WEEKLY TRENDS IN TXCURR, TXML AND VL', labels={'DAY':'DAYS', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'})
+fig2 = px.line(melted, x='DAY', y='Total', color='INTERVAL', markers=True,
+              title='DAILY TRENDS IN TXCURR, TXML AND VL', labels={'DAY':'DAYS', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'})
 fig2.update_layout(
     width=800,  # Set the width of the plot
     height=400,  # Set the height of the plot
