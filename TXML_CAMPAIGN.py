@@ -226,7 +226,7 @@ days = dfearly['DAY'].unique()
 dfs=[]   
 for each in days:
     dfearly['DAY'] = pd.to_numeric(dfearly['DAY'], errors='coerce')
-    dfa = dfearly[dfearly['DAYS']==each]
+    dfa = dfearly[dfearly['DAY']==each]
     dfa = dfa.drop_duplicates(subset=['FACILITY'], keep = 'last')
     dfs.append(dfa)
 dfearly = pd.concat(dfs)
