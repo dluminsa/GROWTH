@@ -215,7 +215,12 @@ for every in fac:
     dff = dff.drop_duplicates(subset=['FACILITY'], keep = 'last')
     dfy.append(dff)
 water = pd.concat(dfy)
-
+waterx = water.copy()
+waterx[['Q2', 'VL']] = waterx[['Q2', 'VL']].apply(pd.to_numeric, errors='coerce')
+waterx['VL COV'] = waterx['VL']/waterx['Q2']*100
+waterx['VL COV'] = int(waterx['VL COV'])
+waterx = waterx[['CLUSTER', 'DISTRICT', 'FACILITY', 'Q1', 'Q2', 'LOST', 'VL COV']].copy()
+waterx = waterx.rename(columns={'Q1':'Q1 CURR', 'Q2':'Q2 CURR', 'LOST': 'TXML'})
 
 
 #REMOVE DUPLICATES FROM EARLY SHEET # HOLD THIS IN SESSION LATER
@@ -300,7 +305,7 @@ if facility:
     water = water[water['FACILITY'].isin(facility)].copy()
     dfearly = dfearly[dfearly['FACILITY'].isin(facility)].copy()
     dfrep = dfrep[dfrep['FACILITY'].isin(facility)].copy()
-st.write(water)    
+st.write(waterx)    
 check = water.shape[0]
 if check == 0:
     st.warning('***NO DATA FOR THE SELECTION MADE**')
