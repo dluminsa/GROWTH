@@ -204,7 +204,7 @@ else:
         st.dataframe(nonedis)
 #######################FILTERS
 clusters = dfrep['CLUSTER'].unique()
-weeks = dftx['SURGE'].unique()
+days = dftx['DAY'].unique()
 
 fac = dfearly['FACILITY'].unique()
 
@@ -218,9 +218,12 @@ water = pd.concat(dfy)
 
 
 #REMOVE DUPLICATES FROM EARLY SHEET # HOLD THIS IN SESSION LATER
+dfearly['DATEX'] = pd.to_datetime(dfearly['DATE'], errors='coerce')
+dfearly['DAY'] = dfearly['DATEX'].dt.day
+dfearly['DAY'] = pd.to_numeric(dfearly['DAY'], errors='coerce')
 dfs=[]   
 for each in weeks:
-    dfearly['SURGE'] = pd.to_numeric(dfearly['SURGE'], errors='coerce')
+    dfearly['DAY'] = pd.to_numeric(dfearly['DAY'], errors='coerce')
     dfa = dfearly[dfearly['SURGE']==each]
     dfa = dfa.drop_duplicates(subset=['FACILITY'], keep = 'last')
     dfs.append(dfa)
@@ -331,12 +334,12 @@ colc.metric(label='c', value =f'{bal}', label_visibility='hidden')
 
 st.write('**WEEKLY TREND LINE SHOWING INCREASE IN TXCURRs, VL COVERAGE AND REDUCTION IN TXML**')
 
-grouped = dfearly.groupby('SURGE').sum(numeric_only=True).reset_index()
+grouped = dfearly.groupby('DAY').sum(numeric_only=True).reset_index()
 
-melted = grouped.melt(id_vars=['SURGE'], value_vars=['Q1', 'Q2', 'LOST'],
+melted = grouped.melt(id_vars=['DAY'], value_vars=['Q1', 'Q2', 'LOST'],
                             var_name='INTERVAL', value_name='Total')
 fig2 = px.line(melted, x='SURGE', y='Total', color='INTERVAL', markers=True,
-              title='WEEKLY TRENDS IN TXCURR, TXML AND VL', labels={'SURGE':'WEEK', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'})
+              title='WEEKLY TRENDS IN TXCURR, TXML AND VL', labels={'DAY':'DAYS', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'})
 fig2.update_layout(
     width=800,  # Set the width of the plot
     height=400,  # Set the height of the plot
