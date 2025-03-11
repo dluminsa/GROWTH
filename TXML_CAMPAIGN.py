@@ -204,7 +204,7 @@ else:
         st.dataframe(nonedis)
 #######################FILTERS
 clusters = dfrep['CLUSTER'].unique()
-days = dftx['DAY'].unique()
+
 
 fac = dfearly['FACILITY'].unique()
 
@@ -221,6 +221,7 @@ water = pd.concat(dfy)
 dfearly['DATEX'] = pd.to_datetime(dfearly['DATE'], errors='coerce')
 dfearly['DAY'] = dfearly['DATEX'].dt.day
 dfearly['DAY'] = pd.to_numeric(dfearly['DAY'], errors='coerce')
+days = dfearly['DAY'].unique()
 dfs=[]   
 for each in weeks:
     dfearly['DAY'] = pd.to_numeric(dfearly['DAY'], errors='coerce')
