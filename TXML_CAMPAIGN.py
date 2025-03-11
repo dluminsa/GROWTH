@@ -367,6 +367,12 @@ st.write("**FACILITIES THAT HAVE EXCEEDED Q1 CURRS**")
 dfearly[['Q1', 'Q2']] = dfearly[['Q1', 'Q2']].apply(pd.to_numeric,errors='coerce')
 dfearlyx = dfearly[['DISTRICT', 'FACILITY', 'Q1', 'Q2', 'LOST','VL COV']].copy()
 dfearlyx = dfearlyx.rename(columns={'Q1':'Q1 CURR', 'Q2':'Q2 CURR', 'LOST': 'TXML'})
+
+for every in fac:
+    dff = dfearlyx[dfearlyx['FACILITY']== every]
+    dff = dff.drop_duplicates(subset=['FACILITYx'], keep = 'last')
+    dfy.append(dff)
+dfearlyx = pd.concat(dfy)
 exceeded = dfearlyx[dfearlyx['Q2 CURR']> dfearlyx['Q1 CURR']].copy()
 if exceeded.shape[0] == 0:
     st.write('**NO FACILITY SO FAR**')
