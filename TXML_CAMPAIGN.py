@@ -366,7 +366,7 @@ if exceeded.shape[0] == 0:
     st.write('**NO FACILITY SO FAR**')
 else:
     c = exceeded.shape[0]
-    st.write(f"**{int(c) FACILITIES HAVE LESS Q2 TX CURRS THAN Q1 CURRS**")
+    st.write(f"**{int(c)} FACILITIES HAVE LESS Q2 TX CURRS THAN Q1 CURRS**")
     exceeded.index = range(1, len(exceeded) + 1)
     st.write(exceeded)
 st.write("")
@@ -378,7 +378,7 @@ if achieved.shape[0] == 0:
     st.write('**NO FACILITY SO FAR**')
 else:
     b = achieved.shape[0]
-    st.write(f"**{int(b) FACILITIES HAVE LESS Q2 TX CURRS THAN Q1 CURRS**")
+    st.write(f"**{int(b)} FACILITIES HAVE LESS Q2 TX CURRS THAN Q1 CURRS**")
     achieved.index = range(1, len(achieved) + 1)
     st.write(achieved)
 
@@ -391,7 +391,7 @@ if dropped.shape[0] == 0:
     st.write('**NO FACILITY SO FAR**')
 else:
     a = dropped.shape[0]
-    st.write(f"**{int(a) FACILITIES HAVE LESS Q2 TX CURRS THAN Q1 CURRS**")
+    st.write(f"**{int(a)} FACILITIES HAVE LESS Q2 TX CURRS THAN Q1 CURRS**")
     dropped.index = range(1, len(dropped) + 1)
     st.write(dropped)
 st.stop()
