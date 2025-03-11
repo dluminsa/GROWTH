@@ -361,7 +361,9 @@ fig2.update_xaxes(type='category')
 st.plotly_chart(fig2, use_container_width= True)
 st.write("**FACILITIES THAT HAVE EXCEEDED Q1 CURRS**")
 dfearly[['Q1', 'Q2']] = dfearly[['Q1', 'Q2']].apply(pd.to_numeric,errors='coerce')
-exceeded = dfearly[dfearly['Q2']> dfearly['Q1']].copy()
+dfearlyx = dfearly[['DISTRICT', 'FACILITY', 'Q1', 'Q2', 'LOST', 'VL COV']].copy()
+dfearlyx = dfearlyx.rename(columns={'Q1':'Q1 CURR', 'Q2':'Q2 CURR', 'LOST': 'TXML'})
+exceeded = dfearlyx[dfearlyx['Q2']> dfearlyx['Q1']].copy()
 if exceeded.shape[0] == 0:
     st.write('**NO FACILITY SO FAR**')
 else:
@@ -373,7 +375,7 @@ st.write("")
 st.write("")
 st.write("")
 st.write("**FACILITIES WHOSE Q2 CURRS ARE EQUAL TO Q1 CURRS**")
-achieved = dfearly[dfearly['Q2']== dfearly['Q1']].copy()
+achieved = dfearlyx[dfearlyx['Q2']== dfearlyx['Q1']].copy()
 if achieved.shape[0] == 0:
     st.write('**NO FACILITY SO FAR**')
 else:
@@ -386,7 +388,7 @@ st.write("")
 st.write("")
 st.write("")
 st.write("**FACILITIES THAT HAVE DROPPED TX CURRS**")
-dropped = dfearly[dfearly['Q2']< dfearly['Q1']].copy()  
+dropped = dfearlyx[dfearlyx['Q2']< dfearlyx['Q1']].copy()  
 if dropped.shape[0] == 0:
     st.write('**NO FACILITY SO FAR**')
 else:
