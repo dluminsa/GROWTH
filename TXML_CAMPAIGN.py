@@ -11,7 +11,6 @@ import time
 from streamlit_gsheets import GSheetsConnection
 from datetime import datetime
 
-
 st.set_page_config(
     page_title = 'TXML CAMPAIGN',
     page_icon =":bar_chart"
@@ -309,6 +308,9 @@ waterx['VL COV'] = round(waterx['VL']/waterx['Q2']*100)
 waterx = waterx[['CLUSTER', 'DISTRICT', 'FACILITY', 'Q1', 'Q2', 'LOST', 'VL COV']].copy()
 waterx = waterx.rename(columns={'Q1':'Q1 CURR', 'Q2':'Q2 CURR', 'LOST': 'TXML'})
 waterx.index = range(1, len(waterx) + 1)
+
+dfearly[['Q2', 'VL']] = dfearly[['Q2', 'VL']].apply(pd.to_numeric, errors='coerce')
+dfearly['VL COV'] = round(dfearly['VL']/dfearly['Q2']*100)
 st.write(waterx)    
 
 check = water.shape[0]
@@ -361,8 +363,9 @@ fig2.update_layout(
 fig2.update_xaxes(type='category')
 st.plotly_chart(fig2, use_container_width= True)
 st.write("**FACILITIES THAT HAVE EXCEEDED Q1 CURRS**")
+
 dfearly[['Q1', 'Q2']] = dfearly[['Q1', 'Q2']].apply(pd.to_numeric,errors='coerce')
-dfearlyx = dfearly[['DISTRICT', 'FACILITY', 'Q1', 'Q2', 'LOST', 'VL COV']].copy()
+dfearlyx = dfearly[['DISTRICT', 'FACILITY', 'Q1', 'Q2', 'LOST','VL COV']].copy()
 dfearlyx = dfearlyx.rename(columns={'Q1':'Q1 CURR', 'Q2':'Q2 CURR', 'LOST': 'TXML'})
 exceeded = dfearlyx[dfearlyx['Q2']> dfearlyx['Q1']].copy()
 if exceeded.shape[0] == 0:
