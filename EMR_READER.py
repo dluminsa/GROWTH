@@ -2206,7 +2206,7 @@ pages = {
     ],
     "VISUALISATION:":[
         st.Page("TXML_CAMPAIGN.py", title="TXML CAMPAIGN"),
-        st.Page("VL_SECTION.py", title="LINELISTS")],
+        # st.Page("VL_SECTION.py", title="LINELISTS")],
     "RESOURCES:": [
         st.Page("SOPs.py", title="SOPs"),
         st.Page("USER_MANUAL.py", title="USER MANUAL"),
