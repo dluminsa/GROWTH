@@ -223,7 +223,7 @@ dfearly['DAY'] = dfearly['DATEX'].dt.day
 dfearly['DAY'] = pd.to_numeric(dfearly['DAY'], errors='coerce')
 days = dfearly['DAY'].unique()
 dfs=[]   
-for each in weeks:
+for each in days:
     dfearly['DAY'] = pd.to_numeric(dfearly['DAY'], errors='coerce')
     dfa = dfearly[dfearly['SURGE']==each]
     dfa = dfa.drop_duplicates(subset=['FACILITY'], keep = 'last')
