@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st 
 import os
 import numpy as np
+fhfhfh
 import gspread
 from openpyxl import load_workbook
 from pathlib import Path
@@ -835,8 +836,8 @@ def extract():
                         dfcur = pd.concat([dfcurra, dfctoF])
                     
                         lacks = dfcur[((dfcur['Vyear']< 2024) | ((dfcur['Vyear'] ==2024) & (dfcur['Vmonth']<4)))]
-                        # lacks[['Ayear', 'Amonth']] = lacks[['Ayear', 'Amonth']].apply(pd.to_numeric, errors ='coerce')
-                        # lacks = lacks[((lacks['Ayear']<2024) | (lacks['Amonth'] <10))].copy()
+                        lacks[['Ayear', 'Amonth']] = lacks[['Ayear', 'Amonth']].apply(pd.to_numeric, errors ='coerce')
+                        lacks = lacks[((lacks['Ayear']<2024) | (lacks['Amonth'] <10))].copy()
         
                         dfcur[['Ryear', 'Rmonth', 'Rday']] = dfcur[['Ryear', 'Rmonth', 'Rday']].apply(pd.to_numeric, errors ='coerce')
                         curlosta = dfcur[dfcur['Ryear']< 2025].copy() #LOST IN DEC, MAY NOT APPLY NEXT Q
