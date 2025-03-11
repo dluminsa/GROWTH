@@ -212,11 +212,11 @@ fac = dfearly['FACILITY'].unique()
 
 #TO USE WHERE WEEKS WE DON'T NEED TRENDS
 dfy = []
-# for every in fac:
-#     dff = dfearly[dfearly['FACILITY']== every]
-#     dff = dff.drop_duplicates(subset=['FACILITY'], keep = 'last')
-#     dfy.append(dff)
-# water = pd.concat(dfy)
+for every in fac:
+    dff = dfearly[dfearly['FACILITY']== every]
+    dff = dff.drop_duplicates(subset=['FACILITY'], keep = 'last')
+    dfy.append(dff)
+water = pd.concat(dfy)
 
 #REMOVE DUPLICATES FROM EARLY SHEET # HOLD THIS IN SESSION LATER
 dfearly['DATEX'] = pd.to_datetime(dfearly['DATE'], errors='coerce')
@@ -240,9 +240,7 @@ if not CLUSTER:
     dfearly2 = dfearly.copy()
     dfrep2 = dfrep.copy()
     water2 = water.copy()
-
 else:
-   
     dfearly['CLUSTER'] = dfearly['CLUSTER'].astype(str)
     dfearly2 = dfearly[dfearly['CLUSTER'].isin(CLUSTER)]
 
@@ -368,11 +366,11 @@ dfearly[['Q1', 'Q2']] = dfearly[['Q1', 'Q2']].apply(pd.to_numeric,errors='coerce
 dfearlyx = dfearly[['DISTRICT', 'FACILITY', 'Q1', 'Q2', 'LOST','VL COV']].copy()
 dfearlyx = dfearlyx.rename(columns={'Q1':'Q1 CURR', 'Q2':'Q2 CURR', 'LOST': 'TXML'})
 
-for every in fac:
-    dff = dfearlyx[dfearlyx['FACILITY']== every]
-    dff = dff.drop_duplicates(subset=['FACILITYx'], keep = 'last')
-    dfy.append(dff)
-dfearlyx = pd.concat(dfy)
+# for every in fac:
+#     dff = dfearlyx[dfearlyx['FACILITY']== every]
+#     dff = dff.drop_duplicates(subset=['FACILITYx'], keep = 'last')
+#     dfy.append(dff)
+# dfearlyx = pd.concat(dfy)
 exceeded = dfearlyx[dfearlyx['Q2 CURR']> dfearlyx['Q1 CURR']].copy()
 if exceeded.shape[0] == 0:
     st.write('**NO FACILITY SO FAR**')
