@@ -366,7 +366,7 @@ dfearly[['Q1', 'Q2']] = dfearly[['Q1', 'Q2']].apply(pd.to_numeric,errors='coerce
 dfearlyx = dfearly[['DISTRICT', 'FACILITY', 'Q1', 'Q2', 'LOST','VL COV']].copy()
 dfearlyx = dfearlyx.rename(columns={'Q1':'Q1 CURR', 'Q2':'Q2 CURR', 'LOST': 'TXML'})
 
-dftt
+dftt = []
 for every in fac:
     dfearlyx['FACILITY'] = dfearlyx['FACILITY'].astype(str)
     dff = dfearlyx[dfearlyx['FACILITY']== every]
