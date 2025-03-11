@@ -221,6 +221,7 @@ waterx['VL COV'] = waterx['VL']/waterx['Q2']*100
 # waterx['VL COV'] = int(waterx['VL COV'])
 waterx = waterx[['CLUSTER', 'DISTRICT', 'FACILITY', 'Q1', 'Q2', 'LOST', 'VL COV']].copy()
 waterx = waterx.rename(columns={'Q1':'Q1 CURR', 'Q2':'Q2 CURR', 'LOST': 'TXML'})
+waterx = waterx.reset_index()
 
 
 #REMOVE DUPLICATES FROM EARLY SHEET # HOLD THIS IN SESSION LATER
