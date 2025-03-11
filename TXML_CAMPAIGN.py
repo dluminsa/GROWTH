@@ -371,7 +371,7 @@ for every in fac:
     dfearlyx['FACILITY'] = dfearlyx['FACILITY'].astype(str)
     dff = dfearlyx[dfearlyx['FACILITY']== every]
     dff = dff.drop_duplicates(subset=['FACILITY'], keep = 'last')
-    dfy.append(dtt)
+    dftt.append(dff)
 dfearlyx = pd.concat(dftt)
 
 exceeded = dfearlyx[dfearlyx['Q2 CURR']> dfearlyx['Q1 CURR']].copy()
