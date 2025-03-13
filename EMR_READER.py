@@ -1832,15 +1832,15 @@ def extract():
                     linelists = [cluster, district, facility, jancx, janvl,jantpt, febcx, febvl, febtpt, marcx, marvl, martpt, notbled, notpt, notscreened, wk]
         
                     if submit:
-                            conn = st.connection('gsheets', type=GSheetsConnection)
-                            exist = conn.read(worksheet= 'ALLNS', usecols=list(range(24)),ttl=5)
-                            existing= exist.dropna(how='all')
-                            checkf = existing['facility'].unique()
-                            if facility in checkf:
-                                pass
-                            else:
-                                updated = pd.concat([existing, allns], ignore_index =True)
-                                conn.update(worksheet = 'ALLNS', data = updated) 
+                            # conn = st.connection('gsheets', type=GSheetsConnection)
+                            # exist = conn.read(worksheet= 'ALLNS', usecols=list(range(24)),ttl=5)
+                            # existing= exist.dropna(how='all')
+                            # checkf = existing['facility'].unique()
+                            # if facility in checkf:
+                            #     pass
+                            # else:
+                            #     updated = pd.concat([existing, allns], ignore_index =True)
+                            #     conn.update(worksheet = 'ALLNS', data = updated) 
                             try:
                                 conn = st.connection('gsheets', type=GSheetsConnection)
                                 exist = conn.read(worksheet= 'LINELISTS', usecols=list(range(22)),ttl=5)
