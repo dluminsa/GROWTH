@@ -326,8 +326,9 @@ cola.info('**Q1 CURR**')
 colb.info('**Q2 CURR**')
 colc.info('**BALANCE**')
 
-q1 = dfearly['Q1'].sum()
-q2 = dfearly['Q2'].sum()
+dfearlyt = dfearly.drop_duplicates(subset=['FACILITY'], keep='last')
+q1 = dfearlyt['Q1'].sum()
+q2 = dfearlyt['Q2'].sum()
 bal  = q1-q2
 q1 = int(q1)
 q2 = int(q2)
