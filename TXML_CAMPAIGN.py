@@ -370,6 +370,13 @@ melted = grouped.melt(id_vars=['DAY'], value_vars=['Q1', 'Q2'],
                             var_name='INTERVAL', value_name='Total')
 fig2 = px.line(melted, x='DAY', y='Total', color='INTERVAL', markers=True,
               title='DAILY TRENDS IN TXCURR AND TXML', labels={'DAY':'DAYS', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'})
+# Update traces to set custom colors
+for trace in fig2.data:
+    if trace.name == "Q1":
+        trace.line.color = "red"
+    elif trace.name == "Q2":
+        trace.line.color = "black"
+
 fig2.update_traces(textposition='top center')
 fig2.update_layout(
     width=800,  # Set the width of the plot
