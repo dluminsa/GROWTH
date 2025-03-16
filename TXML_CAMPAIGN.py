@@ -324,7 +324,7 @@ colb.success('**QUICK SUMMARY**')
 cola, colb, colc = st.columns(3)
 cola.info('**Q1 CURR**')
 colb.info('**Q2 CURR**')
-colc.info('**BALANCE**')
+colc.info('**BALANCE TO REACH Q1 CURR**')
 
 dfearlyt = dfearly.drop_duplicates(subset=['FACILITY'], keep='last')
 q1 = dfearlyt['Q1'].sum()
@@ -345,8 +345,39 @@ cola.metric(label='a', value =f'{q1}', label_visibility='hidden')
 colb.metric(label='b', value =f'{q2}', label_visibility='hidden')
 colc.metric(label='c', value =f'{bal}', label_visibility='hidden')
 
-st.write('**WEEKLY TREND LINE SHOWING INCREASE IN TXCURRs, VL COVERAGE AND REDUCTION IN TXML**')
+st.write('**WEEKLY TREND LINE SHOWING INCREASE IN Q2 TXCURR AND REDUCTION IN TXML**')
+st.divider()
+# Group by 'DAY' and sum numeric values
+dfearly[['Q2', 'LOST']] = dfearly[['Q2', 'LOST']].apply(pd.to_numeric, errors='coerce')
+dfearly['%-TXML'] = round(dfearly['LOST']/ dfearly['Q2'])
+st.write(dfearly['%-TXML'])
+grouped = dfearly.groupby('DAY', as_index=False).sum(numeric_only=True)
+grouped = grouped.rename(columns= {'Q1': 'Q1 CURR', 'Q2': 'Q2 CURR'})
 
+# Reshape data for plotting
+melted = grouped.melt(id_vars=['DAY'], value_vars=['Q1 CURR', 'Q2 CURR'],
+                       var_name='INTERVAL', value_name='Total')
+
+# Create line chart with text labels
+fig2 = px.line(melted, x='DAY', y='Total', color='INTERVAL', markers=True, 
+               text='Total',  # Add text labels on the points
+               title='DAILY TRENDS IN Q1 AND Q2 CURR', 
+               labels={'DAY': 'DAYS', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'},
+                color_discrete_map={'Q1 CURR': 'purple', 'Q2 CURR': 'black'} )
+
+# Update layout and traces for better readability
+fig2.update_traces(textposition='top center')  # Position text labels above the points
+fig2.update_layout(
+    xaxis=dict(showline=True, linewidth=1, linecolor='black'),
+    yaxis=dict(showline=True, linewidth=1, linecolor='black')
+)
+fig2.update_xaxes(type='category')
+
+# Display in Streamlit
+st.plotly_chart(fig2, use_container_width=True)
+
+
+st.divider()
 #########################################################################
 # Group by 'DAY' and sum numeric values
 grouped = dfearly.groupby('DAY', as_index=False).sum(numeric_only=True)
