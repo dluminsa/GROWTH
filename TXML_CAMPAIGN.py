@@ -396,7 +396,8 @@ melted = grouped.melt(id_vars=['DAY'], value_vars=['Q1', 'Q2'],
 fig2 = px.line(melted, x='DAY', y='Total', color='INTERVAL', markers=True, 
                text='Total',  # Add text labels on the points
                title='DAILY TRENDS IN TXCURR AND TXML', 
-               labels={'DAY': 'DAYS', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'})
+               labels={'DAY': 'DAYS', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'}'
+                color_discrete_map={'Q1': 'red', 'Q2': 'black'} )
 
 # Update layout and traces for better readability
 fig2.update_traces(textposition='top center')  # Position text labels above the points
@@ -408,9 +409,6 @@ fig2.update_xaxes(type='category')
 
 # Display in Streamlit
 st.plotly_chart(fig2, use_container_width=True)
-
-
-
 
 
 st.write("**FACILITIES THAT HAVE EXCEEDED Q1 CURRS**")
