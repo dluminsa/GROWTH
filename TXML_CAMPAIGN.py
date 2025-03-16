@@ -374,8 +374,10 @@ fig2 = px.line(melted, x='DAY', y='Total', color='INTERVAL', markers=True,
 for trace in fig2.data:
     if trace.name == "Q1":
         trace.line.color = "red"
+        trace.text = melted[melted["INTERVAL"] == "Q1"]["Total"].tolist()
     elif trace.name == "Q2":
         trace.line.color = "black"
+        trace.text = melted[melted["INTERVAL"] == "Q2"]["Total"].tolist()
 
 fig2.update_traces(textposition='top center')
 fig2.update_layout(
