@@ -392,7 +392,7 @@ fig2 = px.line(melted, x='DAY', y='Total', color='INTERVAL', markers=True,
                text='Total',  # Add text labels on the points
                title='DAILY TRENDS IN Q1 AND Q2 CURR', 
                labels={'DAY': 'DAYS', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'},
-                color_discrete_map={'Q1 CURR': 'yellow', 'Q2 CURR': 'green'} )
+                color_discrete_map={'Q1 CURR': 'black', 'Q2 CURR': 'green'} )
 
 # Update layout and traces for better readability
 fig2.update_traces(textposition='top center')  # Position text labels above the points
