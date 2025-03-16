@@ -350,20 +350,21 @@ st.divider()
 # Group by 'DAY' and sum numeric values
 dfearly[['Q2', 'LOST']] = dfearly[['Q2', 'LOST']].apply(pd.to_numeric, errors='coerce')
 dfearly['%-TXML'] = round(dfearly['LOST']/ dfearly['Q2'] *100)
-st.write(dfearly)#['%-TXML'])
+
+
 grouped = dfearly.groupby('DAY', as_index=False).sum(numeric_only=True)
-grouped = grouped.rename(columns= {'Q1': 'Q1 CURR', 'Q2': 'Q2 CURR'})
+grouped = grouped.rename(columns= {'LOST': 'CURRENT TXML'})
 
 # Reshape data for plotting
-melted = grouped.melt(id_vars=['DAY'], value_vars=['Q1 CURR', 'Q2 CURR'],
+melted = grouped.melt(id_vars=['DAY'], value_vars=['%-TXML', 'CURRENT TXML'],
                        var_name='INTERVAL', value_name='Total')
 
 # Create line chart with text labels
 fig2 = px.line(melted, x='DAY', y='Total', color='INTERVAL', markers=True, 
                text='Total',  # Add text labels on the points
-               title='DAILY TRENDS IN Q1 AND Q2 CURR', 
+               title='DAILY TRENDS IN TXML AND % TXML', 
                labels={'DAY': 'DAYS', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'},
-                color_discrete_map={'Q1 CURR': 'purple', 'Q2 CURR': 'black'} )
+                color_discrete_map={'%-TXML': 'purple', 'CURRENT TXML': 'black'} )
 
 # Update layout and traces for better readability
 fig2.update_traces(textposition='top center')  # Position text labels above the points
