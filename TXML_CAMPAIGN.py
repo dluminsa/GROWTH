@@ -361,6 +361,31 @@ fig2.update_layout(
 )
 fig2.update_xaxes(type='category')
 st.plotly_chart(fig2, use_container_width= True)
+
+st.write('**WEEKLY TREND LINE SHOWING INCREASE IN TXCURRs**')
+
+grouped = dfearly.groupby('DAY').sum(numeric_only=True).reset_index()
+
+melted = grouped.melt(id_vars=['DAY'], value_vars=['Q1', 'Q2'],
+                            var_name='INTERVAL', value_name='Total')
+fig2 = px.line(melted, x='DAY', y='Total', color='INTERVAL', markers=True,
+              title='DAILY TRENDS IN TXCURR AND TXML', labels={'DAY':'DAYS', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'})
+fig2.update_traces(textposition='top center')
+fig2.update_layout(
+    width=800,  # Set the width of the plot
+    height=400,  # Set the height of the plot
+    xaxis=dict(showline=True, linewidth=1, linecolor='black'),  # Show x-axis line
+    yaxis=dict(showline=True, linewidth=1, linecolor='black')   # Show y-axis line
+)
+fig2.update_xaxes(type='category')
+st.plotly_chart(fig2, use_container_width= True)
+
+
+
+
+
+
+
 st.write("**FACILITIES THAT HAVE EXCEEDED Q1 CURRS**")
 
 dfearly[['Q1', 'Q2']] = dfearly[['Q1', 'Q2']].apply(pd.to_numeric,errors='coerce')
