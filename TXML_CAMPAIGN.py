@@ -347,49 +347,13 @@ colc.metric(label='c', value =f'{bal}', label_visibility='hidden')
 
 st.write('**WEEKLY TREND LINE SHOWING INCREASE IN TXCURRs, VL COVERAGE AND REDUCTION IN TXML**')
 
-grouped = dfearly.groupby('DAY').sum(numeric_only=True).reset_index()
-
-melted = grouped.melt(id_vars=['DAY'], value_vars=['Q1', 'Q2', 'LOST'],
-                            var_name='INTERVAL', value_name='Total')
-fig2 = px.line(melted, x='DAY', y='Total', color='INTERVAL', markers=True,
-              title='DAILY TRENDS IN TXCURR, TXML AND VL', labels={'DAY':'DAYS', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'})
-fig2.update_layout(
-    width=800,  # Set the width of the plot
-    height=400,  # Set the height of the plot
-    xaxis=dict(showline=True, linewidth=1, linecolor='black'),  # Show x-axis line
-    yaxis=dict(showline=True, linewidth=1, linecolor='black')   # Show y-axis line
-)
-fig2.update_xaxes(type='category')
-st.plotly_chart(fig2, use_container_width= True)
-
-st.write('**WEEKLY TREND LINE SHOWING INCREASE IN TXCURRs**')
-
-grouped = dfearly.groupby('DAY').sum(numeric_only=True).reset_index()
-
-melted = grouped.melt(id_vars=['DAY'], value_vars=['Q1', 'Q2'],
-                            var_name='INTERVAL', value_name='Total')
-fig2 = px.line(melted, x='DAY', y='Total', color='INTERVAL', markers=True,
-              title='DAILY TRENDS IN TXCURR AND TXML', 
-               labels={'DAY':'DAYS', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'},
-               color_discrete_map={'Q1': 'red', 'Q2': 'black'} 
-              )
-
-fig2.update_traces(textposition='top center')
-fig2.update_layout(
-    width=800,  # Set the width of the plot
-    height=400,  # Set the height of the plot
-    xaxis=dict(showline=True, linewidth=1, linecolor='black'),  # Show x-axis line
-    yaxis=dict(showline=True, linewidth=1, linecolor='black')   # Show y-axis line
-)
-fig2.update_xaxes(type='category')
-st.plotly_chart(fig2, use_container_width= True)
-
 #########################################################################
 # Group by 'DAY' and sum numeric values
 grouped = dfearly.groupby('DAY', as_index=False).sum(numeric_only=True)
+grouped = grouped.rename(columns= {'Q1': 'Q1 CURR', 'Q2': 'Q2 CURR'})
 
 # Reshape data for plotting
-melted = grouped.melt(id_vars=['DAY'], value_vars=['Q1', 'Q2'],
+melted = grouped.melt(id_vars=['DAY'], value_vars=['Q1 CURR', 'Q2 CURR'],
                        var_name='INTERVAL', value_name='Total')
 
 # Create line chart with text labels
@@ -397,7 +361,7 @@ fig2 = px.line(melted, x='DAY', y='Total', color='INTERVAL', markers=True,
                text='Total',  # Add text labels on the points
                title='DAILY TRENDS IN TXCURR AND TXML', 
                labels={'DAY': 'DAYS', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'},
-                color_discrete_map={'Q1': 'red', 'Q2': 'black'} )
+                color_discrete_map={'Q1 CURR': 'red', 'Q2 CURR': 'black'} )
 
 # Update layout and traces for better readability
 fig2.update_traces(textposition='top center')  # Position text labels above the points
