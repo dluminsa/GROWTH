@@ -348,7 +348,7 @@ colc.metric(label='c', value =f'{bal}', label_visibility='hidden')
 st.write('**WEEKLY TREND LINE SHOWING INCREASE IN Q2 TXCURR AND REDUCTION IN TXML**')
 st.divider()
 # Group by 'DAY' and sum numeric values
-dfearly[['Q2', 'LOST']] = dfearly[['Q2', 'LOST']].apply(pd.to_numeric, errors='coerce')
+#dfearly[['Q2', 'LOST']] = dfearly[['Q2', 'LOST']].apply(pd.to_numeric, errors='coerce')
 dfearly['%-TXML'] = round(dfearly['LOST']/ dfearly['Q2'])
 st.write(dfearly)#['%-TXML'])
 grouped = dfearly.groupby('DAY', as_index=False).sum(numeric_only=True)
