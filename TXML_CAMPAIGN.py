@@ -369,15 +369,10 @@ grouped = dfearly.groupby('DAY').sum(numeric_only=True).reset_index()
 melted = grouped.melt(id_vars=['DAY'], value_vars=['Q1', 'Q2'],
                             var_name='INTERVAL', value_name='Total')
 fig2 = px.line(melted, x='DAY', y='Total', color='INTERVAL', markers=True,
-              title='DAILY TRENDS IN TXCURR AND TXML', labels={'DAY':'DAYS', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'})
-# Update traces to set custom colors
-for trace in fig2.data:
-    if trace.name == "Q1":
-        trace.line.color = "red"
-        trace.text = melted[melted["INTERVAL"] == "Q1"]["Total"].tolist()
-    elif trace.name == "Q2":
-        trace.line.color = "black"
-        trace.text = melted[melted["INTERVAL"] == "Q2"]["Total"].tolist()
+              title='DAILY TRENDS IN TXCURR AND TXML', 
+               labels={'DAY':'DAYS', 'Total': 'No. of clients', 'INTERVAL': 'VARIABLES'},
+               color_discrete_map={'Q1': 'red', 'Q2': 'black'} 
+              )
 
 fig2.update_traces(textposition='top center')
 fig2.update_layout(
