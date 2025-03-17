@@ -1507,7 +1507,7 @@ def extract():
                     prev = preva['Q1'].sum()
                     fact = pot-prev
                     if fact < 2:
-                            st.warning('THE POTENTIAL TX CURR IS LESS THAN THE Q4 CURR, WHICH MEANS AN ERROR WITH THIS EXTRACT')
+                            st.warning('THE POTENTIAL TX CURR IS LESS THAN THE Q1 CURR, WHICH MEANS AN ERROR WITH THIS EXTRACT')
                             time.sleep(1)
                             st.info('SHARE THIS WITH YOUR M AND E, TL OR TWG FOR MANUAL FILTERING')
                             err = 'ER'
