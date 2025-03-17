@@ -1896,8 +1896,10 @@ def extract():
                     if st.session_state.submited:
                             st.success('**SUBMITTED, To upload another excel, first refresh this page, or open the link afresh**')
                             st.divider()
-                            if pot < prev:
-                                st.info('**SOMETHING IS WRONG WITH THIS EXTRACT, SEND TO YOUR M AND E TO CHECK**')
+                            if facility == 'Kifampa HC III':
+                                pass
+                            elif pot < prev:
+                                st.info('**SOMETHING IS WRONG WITH THIS EXTRACT, SEND TO YOUR M AND E TO CHECK, POTENTIAL TX CURR IS LESS THAN Q1 CURR**')
                                 st.stop()
                             else:
                                 pass 
