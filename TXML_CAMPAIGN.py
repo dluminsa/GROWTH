@@ -354,6 +354,7 @@ dfearly = dfearly.sort_values(by = ['DAY'])
 grouped = dfearly.groupby('DAY', as_index=False).sum(numeric_only=True)
 grouped['%-TXML'] = round(grouped['LOST']/ grouped['Q2'] *100)
 grouped = grouped.rename(columns= {'LOST': 'CURRENT TXML'})
+st.write(grouped)
 
 # Reshape data for plotting
 melted = grouped.melt(id_vars=['DAY'], value_vars=['%-TXML', 'CURRENT TXML'],
