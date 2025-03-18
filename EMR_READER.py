@@ -841,6 +841,7 @@ def extract():
                         lacks = dfcur[((dfcur['Vyear']< 2024) | ((dfcur['Vyear'] ==2024) & (dfcur['Vmonth']<4)))]
                         lacks[['Ayear', 'Amonth']] = lacks[['Ayear', 'Amonth']].apply(pd.to_numeric, errors ='coerce')
                         lacks = lacks[((lacks['Ayear']<2024) |((lacks['Ayear']==2024)& (lacks['Amonth'] <10)))].copy()
+                        lacks = lacks[lacks['Ayear']!=994].copy()
         
                         dfcur[['Ryear', 'Rmonth', 'Rday']] = dfcur[['Ryear', 'Rmonth', 'Rday']].apply(pd.to_numeric, errors ='coerce')
                         curlosta = dfcur[dfcur['Ryear']< 2025].copy() #LOST IN DEC, MAY NOT APPLY NEXT Q
