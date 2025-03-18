@@ -350,6 +350,7 @@ st.divider()
 # Group by 'DAY' and sum numeric values
 # dfearly[['Q2', 'LOST']] = dfearly[['Q2', 'LOST']].apply(pd.to_numeric, errors='coerce')
 
+dfearly = dfearly.sort_values(by = ['DAY'])
 grouped = dfearly.groupby('DAY', as_index=False).sum(numeric_only=True)
 grouped['%-TXML'] = round(grouped['LOST']/ grouped['Q2'] *100)
 grouped = grouped.rename(columns= {'LOST': 'CURRENT TXML'})
