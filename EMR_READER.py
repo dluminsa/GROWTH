@@ -832,12 +832,16 @@ def extract():
                         dfcto[['Ryear', 'Rmonth']] =  dfcto[['Ryear', 'Rmonth']].apply(pd.to_numeric)
                         dfctoF = dfcto[ ((dfcto['Ryear']> 2025) | ((dfcto['Ryear'] ==2025) & (dfcto['Rmonth']>3))) ].copy()
                         dfctoT = dfcto[ ((dfcto['Ryear']< 2025) | ((dfcto['Ryear'] ==2025) & (dfcto['Rmonth']<4))) ].copy()
+                        #OLD TOs BUT active in reporting month
+                        dfctoc = dfcto[((dfcto['Ryear']==2025) & (dfcto['Rmonth']==3))].copy()
+                        dfctoc['Rday'] = pd.to_numeric(dfctoc['Rday'], errors='coerce')
+                        dfctoc = dfctoc[dfctoc['Rday']>3].copy()
 
-                        dfcur = pd.concat([dfcurra, dfctoF])
+                        dfcur = pd.concat([dfcurra, dfctoF, dfctoc])
                     
                         lacks = dfcur[((dfcur['Vyear']< 2024) | ((dfcur['Vyear'] ==2024) & (dfcur['Vmonth']<4)))]
                         lacks[['Ayear', 'Amonth']] = lacks[['Ayear', 'Amonth']].apply(pd.to_numeric, errors ='coerce')
-                        lacks = lacks[((lacks['Ayear']<2024) | (lacks['Amonth'] <10))].copy()
+                        lacks = lacks[((lacks['Ayear']<2024) |((lacks['Ayear']==2024)& (lacks['Amonth'] <10)))].copy()
         
                         dfcur[['Ryear', 'Rmonth', 'Rday']] = dfcur[['Ryear', 'Rmonth', 'Rday']].apply(pd.to_numeric, errors ='coerce')
                         curlosta = dfcur[dfcur['Ryear']< 2025].copy() #LOST IN DEC, MAY NOT APPLY NEXT Q
