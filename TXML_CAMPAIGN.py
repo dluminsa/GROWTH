@@ -337,8 +337,8 @@ q1 = dfearlyt['Q1'].sum()
 q2 = dfearlyt['Q2'].sum()
 txm = dfearly['LOST'].sum()
 txm = int(txm)
-txmp = round((dfearly['LOST']/dfearly['Q2'])*100,1)
-txmp = f'{txmp} %'
+txmp = round((dfearly['LOST']/dfearly['Q2'])*100)
+
 
 bal  = q1-q2
 q1 = int(q1)
