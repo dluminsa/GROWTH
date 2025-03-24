@@ -293,23 +293,25 @@ if district:
     dfearly = dfearly[dfearly['DISTRICT'].isin(district)].copy()
     dfrep = dfrep[dfrep['DISTRICT'].isin(district)].copy()
   
-
 if facility:
     water = water[water['FACILITY'].isin(facility)].copy()
     dfearly = dfearly[dfearly['FACILITY'].isin(facility)].copy()
     dfrep = dfrep[dfrep['FACILITY'].isin(facility)].copy()
     
 waterx = water.copy()
-waterx[['Q2', 'VL']] = waterx[['Q2', 'VL']].apply(pd.to_numeric, errors='coerce')
+waterx[['Q1','Q2', 'VL']] = waterx[['Q1','Q2', 'VL']].apply(pd.to_numeric, errors='coerce')
 waterx['VL COV'] = round(waterx['VL']/waterx['Q2']*100)
-# waterx['VL COV'] = int(waterx['VL COV'])
-waterx = waterx[['CLUSTER', 'DISTRICT', 'FACILITY', 'Q1', 'Q2', 'LOST', 'VL COV']].copy()
+waterx['NET NEW'] = waterx['Q2']- waterx['Q1']
+
+waterx = waterx[[ 'DISTRICT', 'FACILITY', 'Q1', 'Q2','NET NEW', 'LOST', 'VL COV']].copy()
 waterx = waterx.rename(columns={'Q1':'Q1 CURR', 'Q2':'Q2 CURR', 'LOST': 'TXML'})
 waterx.index = range(1, len(waterx) + 1)
 
 dfearly[['Q2', 'VL']] = dfearly[['Q2', 'VL']].apply(pd.to_numeric, errors='coerce')
 dfearly['VL COV'] = round(dfearly['VL']/dfearly['Q2']*100)
-st.write(waterx)    
+
+st.write(waterx) 
+
 
 check = water.shape[0]
 if check == 0:
