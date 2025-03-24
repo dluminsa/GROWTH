@@ -325,14 +325,18 @@ else:
 st.divider()
 cola, colb, colc = st.columns(3)
 colb.success('**QUICK SUMMARY**')
-cola, colb, colc, cold = st.columns(4)
+cola, colb, colc, cold = st.columns(5)
 cola.info('**Q1 CURR**')
 colb.info('**Q2 CURR**')
 colc.info('**BALANCE TO Q1**')
+colc.info('**TXML**')
+colc.info('**%TXML**')
 
 dfearlyt = dfearly.drop_duplicates(subset=['FACILITY'], keep='last')
 q1 = dfearlyt['Q1'].sum()
 q2 = dfearlyt['Q2'].sum()
+txm = dfearly['LOST'].sum()
+txm% = round((dfearly['LOST']/dfearly['Q2'])*100,2)
 bal  = q1-q2
 q1 = int(q1)
 q2 = int(q2)
@@ -348,6 +352,8 @@ else:
 cola.metric(label='a', value =f'{q1}', label_visibility='hidden')
 colb.metric(label='b', value =f'{q2}', label_visibility='hidden')
 colc.metric(label='c', value =f'{bal}', label_visibility='hidden')
+cold.metric(label='d', value =f'{txm}', label_visibility='hidden')
+cole.metric(label='e', value =f'{txm%}', label_visibility='hidden')
 
 st.write('**WEEKLY TREND LINE SHOWING INCREASE IN Q2 TXCURR AND REDUCTION IN TXML**')
 st.divider()
