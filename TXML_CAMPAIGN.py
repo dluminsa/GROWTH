@@ -304,7 +304,7 @@ waterx['VL COV'] = round(waterx['VL']/waterx['Q2']*100)
 waterx['NET NEW'] = waterx['Q2']- waterx['Q1']
 waterx['%TXML'] = round((waterx['LOST']/waterx['Q2'])*100, 2)
 
-waterx = waterx[[ 'DISTRICT', 'FACILITY', 'Q1', 'Q2','NET NEW', 'LOST', '%TXML','VL-COV']].copy()
+waterx = waterx[[ 'DISTRICT', 'FACILITY', 'Q1', 'Q2','NET NEW', 'LOST', '%TXML','VL COV']].copy()
 waterx = waterx.rename(columns={'Q1':'Q1 CUR', 'Q2':'Q2 CUR', 'LOST': 'TXML'})
 waterx.index = range(1, len(waterx) + 1)
 
