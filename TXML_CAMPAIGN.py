@@ -325,10 +325,10 @@ else:
 st.divider()
 cola, colb, colc = st.columns(3)
 colb.success('**QUICK SUMMARY**')
-cola, colb, colc = st.columns(3)
+cola, colb, colc, cold = st.columns([1,1,2,1])
 cola.info('**Q1 CURR**')
 colb.info('**Q2 CURR**')
-colc.info('**BALANCE TO REACH Q1 CURR**')
+colc.info('**BALANCE TO Q1**')
 
 dfearlyt = dfearly.drop_duplicates(subset=['FACILITY'], keep='last')
 q1 = dfearlyt['Q1'].sum()
