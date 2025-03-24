@@ -328,7 +328,7 @@ colb.success('**QUICK SUMMARY**')
 cola, colb, colc, cold, cole = st.columns(5)
 cola.info('**Q1 CURR**')
 colb.info('**Q2 CURR**')
-colc.info('**BALANCE TO Q1**')
+colc.info('**BALANCE**')
 cold.info('**TXML**')
 cole.info('**%TXML**')
 
