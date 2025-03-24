@@ -302,9 +302,10 @@ waterx = water.copy()
 waterx[['Q1','Q2', 'VL']] = waterx[['Q1','Q2', 'VL']].apply(pd.to_numeric, errors='coerce')
 waterx['VL COV'] = round(waterx['VL']/waterx['Q2']*100)
 waterx['NET NEW'] = waterx['Q2']- waterx['Q1']
+waterx['%TXML'] = round((waterx['LOST']/waterx['Q2'])*100, 2)
 
-waterx = waterx[[ 'DISTRICT', 'FACILITY', 'Q1', 'Q2','NET NEW', 'LOST', 'VL COV']].copy()
-waterx = waterx.rename(columns={'Q1':'Q1 CURR', 'Q2':'Q2 CURR', 'LOST': 'TXML'})
+waterx = waterx[[ 'DISTRICT', 'FACILITY', 'Q1', 'Q2','NET NEW', 'LOST', '%TXML','VL-COV']].copy()
+waterx = waterx.rename(columns={'Q1':'Q1 CUR', 'Q2':'Q2 CUR', 'LOST': 'TXML'})
 waterx.index = range(1, len(waterx) + 1)
 
 dfearly[['Q2', 'VL']] = dfearly[['Q2', 'VL']].apply(pd.to_numeric, errors='coerce')
