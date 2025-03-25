@@ -335,7 +335,7 @@ cole.info('**%TXML**')
 dfearlyt = dfearly.drop_duplicates(subset=['FACILITY'], keep='last')
 q1 = dfearlyt['Q1'].sum()
 q2 = dfearlyt['Q2'].sum()
-txm = dfearly['LOST'].sum()
+txm = dfearlyt['LOST'].sum()
 txm = int(txm)
 txmp = round((txm/q2)*100, 2)
 txmp = f'{txmp}%'
