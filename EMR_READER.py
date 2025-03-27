@@ -1185,207 +1185,207 @@ def extract():
                         #st.write(newlost)
         
                         #VL SECTION AT ONE YEAR
-                        activen[['Vyear', 'Vmonth']] = activen[['Vyear', 'Vmonth']].apply(pd.to_numeric, errors='coerce')
-                        WVLa = activen[ ((activen['Vyear']==2025) & (activen['Vmonth'].isin([1,2,3])))].copy()
-                        NVLa = activen[((activen['Vyear']<2025) | ((activen['Vyear']==2025) & (activen['Vmonth']<1)))].copy()
-                        nvla = NVLa.shape[0]
-                        wvla = WVLa.shape[0]
+                    #     activen[['Vyear', 'Vmonth']] = activen[['Vyear', 'Vmonth']].apply(pd.to_numeric, errors='coerce')
+                    #     WVLa = activen[ ((activen['Vyear']==2025) & (activen['Vmonth'].isin([1,2,3])))].copy()
+                    #     NVLa = activen[((activen['Vyear']<2025) | ((activen['Vyear']==2025) & (activen['Vmonth']<1)))].copy()
+                    #     nvla = NVLa.shape[0]
+                    #     wvla = WVLa.shape[0]
                                 
-                        #ret = newtotal - newlost
-                        if netnew == 0:
-                            rete = 0
-                        elif newactive == 0:
-                            rete = 0
-                        else:
-                            rete = round((newactive/netnew)*100)
-                            #rete = f"{rete} %"
-                        #9 MONTH COHORT
+                    #     #ret = newtotal - newlost
+                    #     if netnew == 0:
+                    #         rete = 0
+                    #     elif newactive == 0:
+                    #         rete = 0
+                    #     else:
+                    #         rete = round((newactive/netnew)*100)
+                    #         #rete = f"{rete} %"
+                    #     #9 MONTH COHORT
             
-                        oneyear[['Ayear', 'Amonth']] = oneyear[['Ayear', 'Amonth']].apply(pd.to_numeric, errors = 'coerce')
-                        new9 = oneyear[((oneyear['Ayear']==2024) & (oneyear['Amonth'].isin([4,5,6])))].copy()
-                        newtotal9 = new9.shape[0]
+                    #     oneyear[['Ayear', 'Amonth']] = oneyear[['Ayear', 'Amonth']].apply(pd.to_numeric, errors = 'coerce')
+                    #     new9 = oneyear[((oneyear['Ayear']==2024) & (oneyear['Amonth'].isin([4,5,6])))].copy()
+                    #     newtotal9 = new9.shape[0]
             
-                        new9[['Tiyear']] = new9[['Tiyear']].apply(pd.to_numeric, errors = 'coerce')
-                        tin9 = new9[new9['Tiyear']!=994].copy()
-                        #one =new.shape[0]
-                        newti9 = tin9.shape[0]
-                        orig9 = int(newtotal9)-int(newti9)
-                        new9['Dyear'] = pd.to_numeric(new9['Dyear'], errors='coerce')
-                        newdead9 = new9[new9['Dyear']!=994].copy()
+                    #     new9[['Tiyear']] = new9[['Tiyear']].apply(pd.to_numeric, errors = 'coerce')
+                    #     tin9 = new9[new9['Tiyear']!=994].copy()
+                    #     #one =new.shape[0]
+                    #     newti9 = tin9.shape[0]
+                    #     orig9 = int(newtotal9)-int(newti9)
+                    #     new9['Dyear'] = pd.to_numeric(new9['Dyear'], errors='coerce')
+                    #     newdead9 = new9[new9['Dyear']!=994].copy()
             
-                        deadnew9 = newdead9.shape[0]
-                        new9 = new9[new9['Dyear']==994].copy() #AFTER REMOVING THE DEAD
+                    #     deadnew9 = newdead9.shape[0]
+                    #     new9 = new9[new9['Dyear']==994].copy() #AFTER REMOVING THE DEAD
             
-                        new9['Tyear'] = pd.to_numeric(new9['Tyear'], errors='coerce')
+                    #     new9['Tyear'] = pd.to_numeric(new9['Tyear'], errors='coerce')
                         
-                        newto9 = new9[new9['Tyear']!=994].copy()
-                        outnew9 = newto9.shape[0]
+                    #     newto9 = new9[new9['Tyear']!=994].copy()
+                    #     outnew9 = newto9.shape[0]
                         
-                        new9 = new9[new9['Tyear']==994].copy() #withou TO
-                        netnew9 = new9.shape[0]
+                    #     new9 = new9[new9['Tyear']==994].copy() #withou TO
+                    #     netnew9 = new9.shape[0]
             
-                        new9['A'] = pd.to_numeric(new9['A'], errors = 'coerce')
-                        dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
+                    #     new9['A'] = pd.to_numeric(new9['A'], errors = 'coerce')
+                    #     dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
                         
-                        active9 = new9[new9['A'].isin(dfactive['A'])].copy()
-                        lostn9 = new9[~new9['A'].isin(dfactive['A'])].copy()
+                    #     active9 = new9[new9['A'].isin(dfactive['A'])].copy()
+                    #     lostn9 = new9[~new9['A'].isin(dfactive['A'])].copy()
                     
-                        newactive9 = active9.shape[0]
-                        newlost9 = lostn9.shape[0]
-                        #ret = newtotal - newlost
-                        if netnew9 == 0:
-                            rete9 = 0
-                        elif newactive9 == 0:
-                            rete9 = 0
-                        else:
-                            rete9 = round((newactive9/netnew9)*100)
+                    #     newactive9 = active9.shape[0]
+                    #     newlost9 = lostn9.shape[0]
+                    #     #ret = newtotal - newlost
+                    #     if netnew9 == 0:
+                    #         rete9 = 0
+                    #     elif newactive9 == 0:
+                    #         rete9 = 0
+                    #     else:
+                    #         rete9 = round((newactive9/netnew9)*100)
                     
                     
             
-                    #6 MONTH COHORT
-                        oneyear[['Ayear', 'Amonth']] = oneyear[['Ayear', 'Amonth']].apply(pd.to_numeric, errors = 'coerce')
-                        new6 = oneyear[((oneyear['Ayear']==2024) & (oneyear['Amonth'].isin([7,8,9])))].copy()
-                        newtotal6 = new6.shape[0]
+                    # #6 MONTH COHORT
+                    #     oneyear[['Ayear', 'Amonth']] = oneyear[['Ayear', 'Amonth']].apply(pd.to_numeric, errors = 'coerce')
+                    #     new6 = oneyear[((oneyear['Ayear']==2024) & (oneyear['Amonth'].isin([7,8,9])))].copy()
+                    #     newtotal6 = new6.shape[0]
             
-                        new6[['Tiyear']] = new6[['Tiyear']].apply(pd.to_numeric, errors = 'coerce')
-                        tin6 = new6[new6['Tiyear']!=994].copy()
-                        #one =new.shape[0]
-                        newti6 = tin6.shape[0]
-                        orig6 = int(newtotal6)-int(newti6)
-                        new6['Dyear'] = pd.to_numeric(new6['Dyear'], errors='coerce')
-                        newdead6 = new6[new6['Dyear']!=994].copy()
+                    #     new6[['Tiyear']] = new6[['Tiyear']].apply(pd.to_numeric, errors = 'coerce')
+                    #     tin6 = new6[new6['Tiyear']!=994].copy()
+                    #     #one =new.shape[0]
+                    #     newti6 = tin6.shape[0]
+                    #     orig6 = int(newtotal6)-int(newti6)
+                    #     new6['Dyear'] = pd.to_numeric(new6['Dyear'], errors='coerce')
+                    #     newdead6 = new6[new6['Dyear']!=994].copy()
         
-                        deadnew6 = newdead6.shape[0]
-                        new6 = new6[new6['Dyear']==994].copy() #AFTER REMOVING THE DEAD
+                    #     deadnew6 = newdead6.shape[0]
+                    #     new6 = new6[new6['Dyear']==994].copy() #AFTER REMOVING THE DEAD
             
-                        new6['Tyear'] = pd.to_numeric(new6['Tyear'], errors='coerce')
+                    #     new6['Tyear'] = pd.to_numeric(new6['Tyear'], errors='coerce')
                         
-                        newto6 = new6[new6['Tyear']!=994].copy()
-                        outnew6 = newto6.shape[0]
+                    #     newto6 = new6[new6['Tyear']!=994].copy()
+                    #     outnew6 = newto6.shape[0]
                         
-                        new6 = new6[new6['Tyear']==994].copy() #withou TO
-                        netnew6 = new6.shape[0]
+                    #     new6 = new6[new6['Tyear']==994].copy() #withou TO
+                    #     netnew6 = new6.shape[0]
             
-                        new6['A'] = pd.to_numeric(new6['A'], errors = 'coerce')
-                        dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
+                    #     new6['A'] = pd.to_numeric(new6['A'], errors = 'coerce')
+                    #     dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
                         
-                        active6 = new6[new6['A'].isin(dfactive['A'])].copy()
-                        lostn6 = new6[~new6['A'].isin(dfactive['A'])].copy()
+                    #     active6 = new6[new6['A'].isin(dfactive['A'])].copy()
+                    #     lostn6 = new6[~new6['A'].isin(dfactive['A'])].copy()
                     
-                        newactive6 = active6.shape[0]
-                        newlost6 = lostn6.shape[0]
-                        #st.write(newlost)
-                        #VL SECTION AT 6 MONTHS
-                        active6[['Vyear', 'Vmonth']] = active6[['Vyear', 'Vmonth']].apply(pd.to_numeric, errors='coerce')
-                        WVLa6 = active6[active6['Vyear']==2024 ].copy()
-                        NVLa6 = active6[active6['Vyear']!=2024].copy()
-                        nvla6 = NVLa6.shape[0]
-                        wvla6 = WVLa6.shape[0]
-                        #ret = newtotal - newlost
-                        if netnew6 == 0:
-                            rete6 = 0
-                        elif newactive6 == 0:
-                            rete6 = 0
-                        else:
-                            rete6 = round((newactive6/netnew6)*100)
-                            #rete6 = f"{rete6} %"
+                    #     newactive6 = active6.shape[0]
+                    #     newlost6 = lostn6.shape[0]
+                    #     #st.write(newlost)
+                    #     #VL SECTION AT 6 MONTHS
+                    #     active6[['Vyear', 'Vmonth']] = active6[['Vyear', 'Vmonth']].apply(pd.to_numeric, errors='coerce')
+                    #     WVLa6 = active6[active6['Vyear']==2024 ].copy()
+                    #     NVLa6 = active6[active6['Vyear']!=2024].copy()
+                    #     nvla6 = NVLa6.shape[0]
+                    #     wvla6 = WVLa6.shape[0]
+                    #     #ret = newtotal - newlost
+                    #     if netnew6 == 0:
+                    #         rete6 = 0
+                    #     elif newactive6 == 0:
+                    #         rete6 = 0
+                    #     else:
+                    #         rete6 = round((newactive6/netnew6)*100)
+                    #         #rete6 = f"{rete6} %"
             
-                    #3 MONTH COHORT
-                        oneyear[['Ayear', 'Amonth']] = oneyear[['Ayear', 'Amonth']].apply(pd.to_numeric, errors = 'coerce')
-                        new3 = oneyear[((oneyear['Ayear']==2024) & (oneyear['Amonth'].isin([10,11,12])))].copy()
-                        newtotal3 = new3.shape[0]
+                    # #3 MONTH COHORT
+                    #     oneyear[['Ayear', 'Amonth']] = oneyear[['Ayear', 'Amonth']].apply(pd.to_numeric, errors = 'coerce')
+                    #     new3 = oneyear[((oneyear['Ayear']==2024) & (oneyear['Amonth'].isin([10,11,12])))].copy()
+                    #     newtotal3 = new3.shape[0]
             
-                        new3[['Tiyear']] = new3[['Tiyear']].apply(pd.to_numeric, errors = 'coerce')
-                        tin3 = new3[new3['Tiyear']!=994].copy()
-                        #one =new.shape[0]
-                        newti3 = tin3.shape[0]
-                        orig3 = int(newtotal3)-int(newti3)
+                    #     new3[['Tiyear']] = new3[['Tiyear']].apply(pd.to_numeric, errors = 'coerce')
+                    #     tin3 = new3[new3['Tiyear']!=994].copy()
+                    #     #one =new.shape[0]
+                    #     newti3 = tin3.shape[0]
+                    #     orig3 = int(newtotal3)-int(newti3)
                         
-                        new3['Dyear'] = pd.to_numeric(new3['Dyear'], errors='coerce')
-                        newdead3 = new3[new3['Dyear']!=994].copy()
+                    #     new3['Dyear'] = pd.to_numeric(new3['Dyear'], errors='coerce')
+                    #     newdead3 = new3[new3['Dyear']!=994].copy()
             
-                        deadnew3 = newdead3.shape[0]
-                        new3 = new3[new3['Dyear']==994].copy() #AFTER REMOVING THE DEAD
+                    #     deadnew3 = newdead3.shape[0]
+                    #     new3 = new3[new3['Dyear']==994].copy() #AFTER REMOVING THE DEAD
             
-                        new3['Tyear'] = pd.to_numeric(new3['Tyear'], errors='coerce')
+                    #     new3['Tyear'] = pd.to_numeric(new3['Tyear'], errors='coerce')
                         
-                        newto3 = new3[new3['Tyear']!=994].copy()
-                        outnew3 = newto3.shape[0]
+                    #     newto3 = new3[new3['Tyear']!=994].copy()
+                    #     outnew3 = newto3.shape[0]
                         
-                        new3 = new3[new3['Tyear']==994].copy() #withou TO
-                        netnew3 = new3.shape[0]
+                    #     new3 = new3[new3['Tyear']==994].copy() #withou TO
+                    #     netnew3 = new3.shape[0]
             
-                        new3['A'] = pd.to_numeric(new3['A'], errors = 'coerce')
-                        dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
+                    #     new3['A'] = pd.to_numeric(new3['A'], errors = 'coerce')
+                    #     dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
                         
-                        active3 = new3[new3['A'].isin(dfactive['A'])].copy()
-                        lostn3 = new3[~new3['A'].isin(dfactive['A'])].copy()
+                    #     active3 = new3[new3['A'].isin(dfactive['A'])].copy()
+                    #     lostn3 = new3[~new3['A'].isin(dfactive['A'])].copy()
                         
             
-                        newactive3 = active3.shape[0]
-                        newlost3 = lostn3.shape[0]
-                        #st.write(newlost)
+                    #     newactive3 = active3.shape[0]
+                    #     newlost3 = lostn3.shape[0]
+                    #     #st.write(newlost)
                                 
-                        #ret = newtotal - newlost
-                        if netnew3 == 0:
-                            rete3 = 0
-                        elif newactive3 == 0:
-                            rete3 = 0
-                        else:
-                            rete3 = round((newactive3/netnew3)*100)
-                            #rete3 = f"{rete3} %"
+                    #     #ret = newtotal - newlost
+                    #     if netnew3 == 0:
+                    #         rete3 = 0
+                    #     elif newactive3 == 0:
+                    #         rete3 = 0
+                    #     else:
+                    #         rete3 = round((newactive3/netnew3)*100)
+                    #         #rete3 = f"{rete3} %"
 
-                        #TX NEWS
-                        oneyear[['Ayear', 'Amonth']] = oneyear[['Ayear', 'Amonth']].apply(pd.to_numeric, errors = 'coerce')
-                        new1 = oneyear[((oneyear['Ayear']==2025) & (oneyear['Amonth'].isin([1,2,3])))].copy()
-                        newtotal1 = new1.shape[0]
+                    #     #TX NEWS
+                    #     oneyear[['Ayear', 'Amonth']] = oneyear[['Ayear', 'Amonth']].apply(pd.to_numeric, errors = 'coerce')
+                    #     new1 = oneyear[((oneyear['Ayear']==2025) & (oneyear['Amonth'].isin([1,2,3])))].copy()
+                    #     newtotal1 = new1.shape[0]
             
-                        new1[['Tiyear']] = new1[['Tiyear']].apply(pd.to_numeric, errors = 'coerce')
-                        tin1 = new1[new1['Tiyear']!=994].copy()
-                        #one =new.shape[0]
-                        newti1 = tin1.shape[0]
-                        orig1 = int(newtotal1)-int(newti1)
+                    #     new1[['Tiyear']] = new1[['Tiyear']].apply(pd.to_numeric, errors = 'coerce')
+                    #     tin1 = new1[new1['Tiyear']!=994].copy()
+                    #     #one =new.shape[0]
+                    #     newti1 = tin1.shape[0]
+                    #     orig1 = int(newtotal1)-int(newti1)
                         
-                        new1['Dyear'] = pd.to_numeric(new1['Dyear'], errors='coerce')
-                        newdead1 = new1[new1['Dyear']!=994].copy()
+                    #     new1['Dyear'] = pd.to_numeric(new1['Dyear'], errors='coerce')
+                    #     newdead1 = new1[new1['Dyear']!=994].copy()
             
-                        deadnew1 = newdead1.shape[0]
-                        new1 = new1[new1['Dyear']==994].copy() #AFTER REMOVING THE DEAD
+                    #     deadnew1 = newdead1.shape[0]
+                    #     new1 = new1[new1['Dyear']==994].copy() #AFTER REMOVING THE DEAD
             
-                        new1['Tyear'] = pd.to_numeric(new1['Tyear'], errors='coerce')
+                    #     new1['Tyear'] = pd.to_numeric(new1['Tyear'], errors='coerce')
                         
-                        newto1 = new1[new1['Tyear']!=994].copy()
+                    #     newto1 = new1[new1['Tyear']!=994].copy()
                         
-                        outnew1 = newto1.shape[0]
+                    #     outnew1 = newto1.shape[0]
                         
-                        new1 = new1[new1['Tyear']==994].copy() #withou TO
-                        netnew1 = new1.shape[0]
+                    #     new1 = new1[new1['Tyear']==994].copy() #withou TO
+                    #     netnew1 = new1.shape[0]
             
-                        new1['A'] = pd.to_numeric(new1['A'], errors = 'coerce')
-                        dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
+                    #     new1['A'] = pd.to_numeric(new1['A'], errors = 'coerce')
+                    #     dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
                         
-                        active1 = new1[new1['A'].isin(dfactive['A'])].copy()
-                        lostn1 = new1[~new1['A'].isin(dfactive['A'])].copy() 
+                    #     active1 = new1[new1['A'].isin(dfactive['A'])].copy()
+                    #     lostn1 = new1[~new1['A'].isin(dfactive['A'])].copy() 
 
-                        #FALSE TO IN TX NEWS YR
-                        newto1['A'] = pd.to_numeric(newto1['A'], errors = 'coerce')
-                        falseto = newto1[newto1['A'].isin(dfactive['A'])].copy()
-                        trueto1 = newto1[~newto1['A'].isin(dfactive['A'])].copy() 
+                    #     #FALSE TO IN TX NEWS YR
+                    #     newto1['A'] = pd.to_numeric(newto1['A'], errors = 'coerce')
+                    #     falseto = newto1[newto1['A'].isin(dfactive['A'])].copy()
+                    #     trueto1 = newto1[~newto1['A'].isin(dfactive['A'])].copy() 
 
-                        newto1 = trueto1.copy()
-                        outnew1 = newto1.shape[0]
-                        active1 = pd.concat([active1,falseto])
+                    #     newto1 = trueto1.copy()
+                    #     outnew1 = newto1.shape[0]
+                    #     active1 = pd.concat([active1,falseto])
             
-                        newactive1 = active1.shape[0]
-                        newlost1 = lostn1.shape[0]
-                        #st.write(newlost)
-                        ret = newtotal - newlost
-                        if netnew1 == 0:
-                            rete1 = 0
-                        elif newactive1 == 0:
-                            rete1 = 0
-                        else:
-                            rete1 = round((newactive1/netnew1)*100)
+                    #     newactive1 = active1.shape[0]
+                    #     newlost1 = lostn1.shape[0]
+                    #     #st.write(newlost)
+                    #     ret = newtotal - newlost
+                    #     if netnew1 == 0:
+                    #         rete1 = 0
+                    #     elif newactive1 == 0:
+                    #         rete1 = 0
+                    #     else:
+                    #         rete1 = round((newactive1/netnew1)*100)
                             #rete1 = f"{rete1} %"
                         # if st.session_state.reader:
                         #     st.write(pot)
