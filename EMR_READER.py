@@ -929,7 +929,7 @@ def extract():
                         sixlostout = sixlosto.shape[0]
                         sixlost = sixlost[sixlost['Tyear']==994].copy()
                         sixltfu = sixlost.shape[0]
-                        list8 = [orig, newti, newtotal, deadnew, newack, newlostout, newltfu, origsix, sixti, sixtotal, deadsix, sixack, sixlostout, sixltfu]
+                        list8 = [orig, newti, newtotal, deadnew, newlostout, newltfu,newack, origsix, sixti, sixtotal, deadsix, sixlostout, sixltfu,sixack,]
 
         
                         #MEASURES 
