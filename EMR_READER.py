@@ -1638,7 +1638,7 @@ def extract():
                     # row3 = part + list3
                 
                     # row4 = part + list4
-                    # row7 = part +list7
+                    row7 = part +list7
                         
                     secrets = st.secrets["connections"]["gsheets"]
                     
