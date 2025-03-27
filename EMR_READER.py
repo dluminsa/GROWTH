@@ -863,6 +863,75 @@ def extract():
                         dfcur[['Vyear', 'Vmonth']] = dfcur[['Vyear', 'Vmonth']].apply(pd.to_numeric, errors='coerce')
                         
                         has = dfcur[((dfcur['Vyear'] ==2025) | ((dfcur['Vyear'] ==2024) & (dfcur['Vmonth']>3)))]
+        
+                        #ONE YEAR COHORT
+                        oneyear[['Ayear', 'Amonth']] = oneyear[['Ayear', 'Amonth']].apply(pd.to_numeric, errors = 'coerce')
+                        new = oneyear[((oneyear['Ayear']==2024) & (oneyear['Amonth'].isin([1,2,3])))].copy()
+                        newtotal = new.shape[0]
+            
+                        new[['Tiyear']] = new[['Tiyear']].apply(pd.to_numeric, errors = 'coerce')
+                        tin = new[new['Tiyear']!=994].copy()
+                        #one =new.shape[0]
+                        newti = tin.shape[0]
+                        orig = int(newtotal)-int(newti)
+
+                        #LOSSES
+                        new['Dyear'] = pd.to_numeric(new['Dyear'], errors='coerce')
+                        newdead = new[new['Dyear']!=994].copy()
+            
+                        deadnew = newdead.shape[0]
+                        new = new[new['Dyear']==994].copy() #AFTER REMOVING THE DEAD
+
+                        #ACTIVE 1 YEAR
+                        new['A'] = pd.to_numeric(new['A'], errors='coerce')
+                        dfcur['A'] = pd.to_numeric(dfcur['A'], errors='coerce')
+                        newcur = new[new['A'].isin(dfcur['A'])].copy()
+                        newack = newcur.shape[0]
+        
+                        newlost = new[~new['A'].isin(dfcur['A'])].copy()
+                        newlost['Tyear'] = pd.to_numeric(newlost['Tyear'], errors='coerce')
+                        newlosto = newlost[newlost['Tyear']!=994].copy()
+                        newlostout = newlosto.shape[0]
+                        
+                        newlost = newlost[newlost['Tyear']==994].copy()
+                        newltfu = newlost.shape[0]
+
+
+                                #SIX YEAR COHORT
+                        oneyear[['Ayear', 'Amonth']] = oneyear[['Ayear', 'Amonth']].apply(pd.to_numeric, errors = 'coerce')
+                        six = oneyear[((oneyear['Ayear']==2024) & (oneyear['Amonth'].isin([7,8,9])))].copy()
+                        sixtotal = six.shape[0]
+            
+                        six[['Tiyear']] = six[['Tiyear']].apply(pd.to_numeric, errors = 'coerce')
+                        sixtin = six[six['Tiyear']!=994].copy()
+                        
+                        sixti = sixtin.shape[0]
+                        origsix = int(sixtotal)-int(sixti)
+
+                        #LOSSES
+                        six['Dyear'] = pd.to_numeric(six['Dyear'], errors='coerce')
+                        sixdead = six[six['Dyear']!=994].copy()
+            
+                        deadsix = sixdead.shape[0]
+                        six = six[six['Dyear']==994].copy() #AFTER REMOVING THE DEAD
+        
+                        six['Tyear'] = pd.to_numeric(six['Tyear'], errors='coerce')
+
+                        #ACTIVE 6
+                        six['A'] = pd.to_numeric(six['A'], errors='coerce')
+                        dfcur['A'] = pd.to_numeric(dfcur['A'], errors='coerce')
+                        sixcur = six[six['A'].isin(dfcur['A'])].copy()
+                        sixack = sixcur.shape[0]
+        
+                        sixlost = six[~six['A'].isin(dfcur['A'])].copy()
+                        sixlost['Tyear'] = pd.to_numeric(sixlost['Tyear'], errors='coerce')
+                        sixlosto = sixlost[sixlost['Tyear']!=994].copy()
+                        sixlostout = sixlosto.shape[0]
+                        sixlost = sixlost[sixlost['Tyear']==994].copy()
+                        sixltfu = sixlost.shape[0]
+                        list8 = [orig, newti, newtotal, deadnew, newack, newlostout, newltfu, origsix, sixti, sixtotal, deadsix, sixack, sixlostout, sixltfu]
+
+        
                         #MEASURES 
                         txcurr = dfcur.shape[0]
                         curto = dfctoT.shape[0]
@@ -1072,47 +1141,47 @@ def extract():
                         totalvl = pd.concat([LNVL,NVL])
     
                         #EARLY RETENTION
-                        #ONE YEAR COHORT
-                        oneyear[['Ayear', 'Amonth']] = oneyear[['Ayear', 'Amonth']].apply(pd.to_numeric, errors = 'coerce')
-                        new = oneyear[((oneyear['Ayear']==2024) & (oneyear['Amonth'].isin([1,2,3])))].copy()
-                        newtotal = new.shape[0]
+                        # #ONE YEAR COHORT
+                        # oneyear[['Ayear', 'Amonth']] = oneyear[['Ayear', 'Amonth']].apply(pd.to_numeric, errors = 'coerce')
+                        # new = oneyear[((oneyear['Ayear']==2024) & (oneyear['Amonth'].isin([1,2,3])))].copy()
+                        # newtotal = new.shape[0]
             
-                        new[['Tiyear']] = new[['Tiyear']].apply(pd.to_numeric, errors = 'coerce')
-                        tin = new[new['Tiyear']!=994].copy()
-                        #one =new.shape[0]
-                        newti = tin.shape[0]
-                        orig = int(newtotal)-int(newti)
+                        # new[['Tiyear']] = new[['Tiyear']].apply(pd.to_numeric, errors = 'coerce')
+                        # tin = new[new['Tiyear']!=994].copy()
+                        # #one =new.shape[0]
+                        # newti = tin.shape[0]
+                        # orig = int(newtotal)-int(newti)
 
-                        #LOSSES
-                        new['Dyear'] = pd.to_numeric(new['Dyear'], errors='coerce')
-                        newdead = new[new['Dyear']!=994].copy()
+                        # #LOSSES
+                        # new['Dyear'] = pd.to_numeric(new['Dyear'], errors='coerce')
+                        # newdead = new[new['Dyear']!=994].copy()
             
-                        deadnew = newdead.shape[0]
-                        new = new[new['Dyear']==994].copy() #AFTER REMOVING THE DEAD
-                        new['Tyear'] = pd.to_numeric(new['Tyear'], errors='coerce')
+                        # deadnew = newdead.shape[0]
+                        # new = new[new['Dyear']==994].copy() #AFTER REMOVING THE DEAD
+                        # new['Tyear'] = pd.to_numeric(new['Tyear'], errors='coerce')
                         
-                        newto = new[new['Tyear']!=994].copy()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-                        newto[['Ryear', 'RWEEK1']] = newto[['Ryear', 'RWEEK1']].apply(pd.to_numeric, errors='coerce')
-                        newto = newto[((newto['Ryear'] ==2024)|((newto['Ryear'] ==2025) & (newto['RWEEK1']>wk)))].copy()
-                        outnew = newto.shape[0]
+                        # newto = new[new['Tyear']!=994].copy()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+                        # newto[['Ryear', 'RWEEK1']] = newto[['Ryear', 'RWEEK1']].apply(pd.to_numeric, errors='coerce')
+                        # newto = newto[((newto['Ryear'] ==2024)|((newto['Ryear'] ==2025) & (newto['RWEEK1']>wk)))].copy()
+                        # outnew = newto.shape[0]
 
-                        new['Tyear'] = pd.to_numeric(new['Tyear'], errors='coerce')
-                        newtfa = new[new['Tyear']!=994].copy()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-                        newtfa[['Ryear', 'RWEEK1']] = newtfa[['Ryear', 'RWEEK1']].apply(pd.to_numeric, errors='coerce')
-                        newtfa = newtfa[((newtfa['Ryear'] ==2025) & (newtfa['RWEEK1']>wk))].copy()
-                        new = new[new['Tyear']==994].copy() #withou TO
-                        new = pd.concat([newtfa, new])
+                        # new['Tyear'] = pd.to_numeric(new['Tyear'], errors='coerce')
+                        # newtfa = new[new['Tyear']!=994].copy()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+                        # newtfa[['Ryear', 'RWEEK1']] = newtfa[['Ryear', 'RWEEK1']].apply(pd.to_numeric, errors='coerce')
+                        # newtfa = newtfa[((newtfa['Ryear'] ==2025) & (newtfa['RWEEK1']>wk))].copy()
+                        # new = new[new['Tyear']==994].copy() #withou TO
+                        # new = pd.concat([newtfa, new])
                         
-                        netnew = new.shape[0]
+                        # netnew = new.shape[0]
             
-                        new['A'] = pd.to_numeric(new['A'], errors = 'coerce')
-                        dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
+                        # new['A'] = pd.to_numeric(new['A'], errors = 'coerce')
+                        # dfactive['A'] = pd.to_numeric(dfactive['A'], errors = 'coerce')
                         
-                        activen = new[new['A'].isin(dfactive['A'])].copy()
-                        lostn = new[~new['A'].isin(dfactive['A'])].copy()           
+                        # activen = new[new['A'].isin(dfactive['A'])].copy()
+                        # lostn = new[~new['A'].isin(dfactive['A'])].copy()           
             
-                        newactive = activen.shape[0]
-                        newlost = lostn.shape[0]
+                        # newactive = activen.shape[0]
+                        # newlost = lostn.shape[0]
                         #st.write(newlost)
         
                         #VL SECTION AT ONE YEAR
@@ -1520,6 +1589,8 @@ def extract():
                             err = 'GD'
                     prev = int(prev)
                     part = [cluster,district,facility,week,wk,prev] #FIXED PART
+                    part2 = [cluster, district, facility, week, wk]
+                    list8 = part2 +list8
                     td = dt.date.today()
                     td = str(td)
                     list7 = [pot, txcurr, curto, deadcur, lostq, hasvl, td]
@@ -1883,6 +1954,8 @@ def extract():
                                 sheet5.append_row(row5, value_input_option='RAW')
                                 sheet7 = spreadsheet.worksheet("Q4")
                                 sheet7.append_row(row7, value_input_option='RAW')
+                                sheet9 = spreadsheet.worksheet("ONEYR")
+                                sheet9.append_row(list8, value_input_option='RAW')
                                 st.session_state.submited = True
                             except Exception as e:
                                 # Print the error message
