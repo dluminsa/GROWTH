@@ -895,7 +895,7 @@ def extract():
                         
                         newlost = newlost[newlost['Tyear']==994].copy()
                         newltfu = newlost.shape[0]
-                        st.write(newlost)
+                        
 
 
                                 #SIX YEAR COHORT
