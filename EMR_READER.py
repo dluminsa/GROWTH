@@ -1631,14 +1631,14 @@ def extract():
                     row5 = part + ciralost + ciraactive
                     ell = list(err)
                   
-                    row1 = part + list1 + ell
+                    # row1 = part + list1 + ell
                 
-                    row2 = part + list2
+                    # row2 = part + list2
                 
-                    row3 = part + list3
+                    # row3 = part + list3
                 
-                    row4 = part + list4
-                    row7 = part +list7
+                    # row4 = part + list4
+                    # row7 = part +list7
                         
                     secrets = st.secrets["connections"]["gsheets"]
                     
@@ -1917,41 +1917,41 @@ def extract():
                             #     updated = pd.concat([existing, allns], ignore_index =True)
                             #     conn.update(worksheet = 'ALLNS', data = updated) 
                             try:
-                                conn = st.connection('gsheets', type=GSheetsConnection)
-                                exist = conn.read(worksheet= 'LINELISTS', usecols=list(range(22)),ttl=5)
-                                exist2 = conn.read(worksheet= 'SUMM', usecols=list(range(16)),ttl=5)
-                                dfcheck = exist2.dropna(how='all')
-                                dfcheck['WEEK'] = pd.to_numeric(dfcheck['WEEK'], errors='coerce')
-                                dfcheck = dfcheck[dfcheck['WEEK']==wk].copy()
-                                facitiz = dfcheck['FACILITY'].unique()
-                                if facility in facitiz:
-                                    pass
-                                else:
-                                    dfex = exist.dropna(how='all')
-                                    dfex = dfex[dfex['FACILITY']!=facility].copy()
-                                    line['RWEEK'] = pd.to_numeric(line['RWEEK'], errors= 'coerce')
-                                    wkapp = wk +1
-                                    line = line[((line['RWEEK']==wk) | (line['RWEEK']== wkapp))].copy()
-                                    dfline = pd.concat([dfex, line])
-                                    conn.update(worksheet = 'LINELISTS', data = dfline)
-                                    sheet6 = spreadsheet.worksheet("SUMM")
+                                # conn = st.connection('gsheets', type=GSheetsConnection)
+                                # exist = conn.read(worksheet= 'LINELISTS', usecols=list(range(22)),ttl=5)
+                                # exist2 = conn.read(worksheet= 'SUMM', usecols=list(range(16)),ttl=5)
+                                # dfcheck = exist2.dropna(how='all')
+                                # dfcheck['WEEK'] = pd.to_numeric(dfcheck['WEEK'], errors='coerce')
+                                # dfcheck = dfcheck[dfcheck['WEEK']==wk].copy()
+                                # facitiz = dfcheck['FACILITY'].unique()
+                                # if facility in facitiz:
+                                #     pass
+                                # else:
+                                #     dfex = exist.dropna(how='all')
+                                #     dfex = dfex[dfex['FACILITY']!=facility].copy()
+                                #     line['RWEEK'] = pd.to_numeric(line['RWEEK'], errors= 'coerce')
+                                #     wkapp = wk +1
+                                #     line = line[((line['RWEEK']==wk) | (line['RWEEK']== wkapp))].copy()
+                                #     dfline = pd.concat([dfex, line])
+                                #     conn.update(worksheet = 'LINELISTS', data = dfline)
+                                #     sheet6 = spreadsheet.worksheet("SUMM")
                                     
-                                    sheet6.append_row(linelists, value_input_option='RAW')
+                                #     sheet6.append_row(linelists, value_input_option='RAW')
                                 
-                                sheet1 = spreadsheet.worksheet("TX")
-                                #st.write(row1)
-                                sheet1.append_row(row1, value_input_option='RAW')
+                                # sheet1 = spreadsheet.worksheet("TX")
+                                # #st.write(row1)
+                                # sheet1.append_row(row1, value_input_option='RAW')
                                     
-                                sheet2 = spreadsheet.worksheet("VL")
-                                sheet2.append_row(row2, value_input_option='RAW')
+                                # sheet2 = spreadsheet.worksheet("VL")
+                                # sheet2.append_row(row2, value_input_option='RAW')
                                     
-                                sheet3 = spreadsheet.worksheet("YEARS")
-                                sheet4 = spreadsheet.worksheet("THREEO")
-                                sheet5 = spreadsheet.worksheet("CIRA")
+                                # sheet3 = spreadsheet.worksheet("YEARS")
+                                # sheet4 = spreadsheet.worksheet("THREEO")
+                                # sheet5 = spreadsheet.worksheet("CIRA")
                                 
-                                sheet3.append_row(row3, value_input_option='RAW')
-                                sheet4.append_row(row4, value_input_option='RAW')
-                                sheet5.append_row(row5, value_input_option='RAW')
+                                # sheet3.append_row(row3, value_input_option='RAW')
+                                # sheet4.append_row(row4, value_input_option='RAW')
+                                # sheet5.append_row(row5, value_input_option='RAW')
                                 sheet7 = spreadsheet.worksheet("Q4")
                                 sheet7.append_row(row7, value_input_option='RAW')
                                 sheet9 = spreadsheet.worksheet("ONEYR")
