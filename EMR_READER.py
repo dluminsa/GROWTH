@@ -1389,15 +1389,15 @@ def extract():
                             #rete1 = f"{rete1} %"
                         # if st.session_state.reader:
                         #     st.write(pot)
-                        list1 = [lastq4,pot,ti,txnew,rtt,true,dead,two,three,four,curr,M2,M3,M6, onappt,lastq3] #TX
+                        # list1 = [lastq4,pot,ti,txnew,rtt,true,dead,two,three,four,curr,M2,M3,M6, onappt,lastq3] #TX
                         
-                        list2 = [curr,el,wvl,nvl,two,Lel, lnvl,lwvl, newactive,wvla,nvla,newactive6,wvla6,nvla6] #VL
+                        # list2 = [curr,el,wvl,nvl,two,Lel, lnvl,lwvl, newactive,wvla,nvla,newactive6,wvla6,nvla6] #VL
                         
-                        list3 = [newtotal, orig,newti,deadnew,outnew, newlost,netnew,newactive,rete,
-                                     newtotal6, orig6,newti6,deadnew6,outnew6,newlost6,netnew6, newactive6,rete6,
-                                  newtotal9, orig9,newti9,deadnew9,outnew9,newlost9,netnew9, newactive9,rete9] #YEAR
-                        list4 = [newtotal3, orig3,newti3,deadnew3,outnew3,newlost3,netnew3, 
-                                     newactive3,rete3,newtotal1, orig1,newti1,deadnew1,outnew1,newlost1,netnew1, newactive1,rete1] #THRRE
+                        # list3 = [newtotal, orig,newti,deadnew,outnew, newlost,netnew,newactive,rete,
+                        #              newtotal6, orig6,newti6,deadnew6,outnew6,newlost6,netnew6, newactive6,rete6,
+                        #           newtotal9, orig9,newti9,deadnew9,outnew9,newlost9,netnew9, newactive9,rete9] #YEAR
+                        # list4 = [newtotal3, orig3,newti3,deadnew3,outnew3,newlost3,netnew3, 
+                        #              newactive3,rete3,newtotal1, orig1,newti1,deadnew1,outnew1,newlost1,netnew1, newactive1,rete1] #THRRE
                         # st.session_state.reader =True
                         lst = df2wks[['A', 'RD']].copy()
                         tout = dft[['A', 'TO']].copy()
