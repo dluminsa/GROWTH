@@ -1423,9 +1423,9 @@ def extract():
                         second['A'] = pd.to_numeric(second['A'], errors='coerce')
                         third = pd.merge(second,vir, on = 'A', how = 'outer')
                     
-                        one['ONE YEAR'] = np.nan
-                        one['ONE YEAR'] = one['ONE YEAR'].fillna('ONE YEAR IIT')
-                        forth = pd.concat([third,one])#, on = 'A', how = 'outer')
+                        # one['ONE YEAR'] = np.nan
+                        # one['ONE YEAR'] = one['ONE YEAR'].fillna('ONE YEAR IIT')
+                        # forth = pd.concat([third,one])#, on = 'A', how = 'outer')
                             
     if st.session_state.reader:                                                    
         file2 = r'CLUSTERS.csv'
