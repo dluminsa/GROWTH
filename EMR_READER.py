@@ -1403,7 +1403,7 @@ def extract():
                         tout = dft[['A', 'TO']].copy()
                         die = died[['A', 'DD']].copy()
                         vir = totalvl[['A', 'VD']].copy()
-                        one = lostn[['A','AS','RD']].copy()
+                        #one = lostn[['A','AS','RD']].copy()
                     
                         lst['MISSED'] = np.nan
                         lst['MISSED'] = lst['MISSED'].fillna('MISSED APPT')
