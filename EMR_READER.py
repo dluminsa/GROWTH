@@ -746,6 +746,7 @@ def extract():
         
                         #COPY FOR ONE YEAR BEFORE GETTING POT CURR
                         oneyear = df.copy()
+                        tttt = df.copy()
                         nsps = df.copy()
                         yyyu = df.copy()
                         line = df.copy()
@@ -2003,6 +2004,7 @@ def extract():
                                         st.write('**NO TXML**')
                                     else:
                                        dat = currlost.copy() 
+                                       dat = tttt.copy()
                                        csv_data = dat.to_csv(index=False)
                                        tot = dat.shape[0]
                                        st.write(f'**YOUR TXML IS {tot}**')
